@@ -111,12 +111,12 @@
       },
       "extractionState": "manual"
     },
-    "%@ highlighted in %lld items": {
+    "%@ highlighted in %lld items across the entire scan": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ resaltados en %lld elementos"
+            "value": "%@ resaltados en %lld elementos de todo el análisis"
           }
         }
       },
@@ -276,6 +276,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ total": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en total"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ used": {
       "localizations": {
         "es": {
@@ -320,23 +331,23 @@
       },
       "extractionState": "manual"
     },
-    "%@ used of %@, %@ free": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ en uso de %@, %@ libres"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%@ was used %@.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ se usó %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ · %@ of this folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@ de esta carpeta"
           }
         }
       },
@@ -584,17 +595,6 @@
       },
       "extractionState": "manual"
     },
-    "%lld of 100": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld de 100"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%lld operations. Stored in ~/Library/Application Support/KeelMac.": {
       "localizations": {
         "es": {
@@ -612,17 +612,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld s"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "%lld selected, %@. Last opened comes from Spotlight, or the last access date when Spotlight doesn’t know.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld seleccionados, %@. La última apertura viene de Spotlight, o de la fecha del último acceso cuando Spotlight no la sabe."
           }
         }
       },
@@ -749,6 +738,17 @@
       },
       "extractionState": "manual"
     },
+    "A clear view of your Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una vista clara de tu Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "A command failed with exit code %d: %@": {
       "localizations": {
         "es": {
@@ -766,6 +766,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un escaneo completo tarda alrededor de un minuto y nunca lee el contenido de los archivos. Después, los nuevos escaneos solo revisan las carpetas que cambiaron."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A record of every change.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un registro de cada cambio."
           }
         }
       },
@@ -810,6 +821,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Acerca de este elemento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Access required": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se requiere acceso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Actions": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acciones"
           }
         }
       },
@@ -1063,6 +1096,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Audio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Available space": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espacio disponible"
           }
         }
       },
@@ -1486,6 +1530,17 @@
       },
       "extractionState": "manual"
     },
+    "Clean up %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpiar %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Clean up %@? Some items are deleted permanently.": {
       "localizations": {
         "es": {
@@ -1552,17 +1607,6 @@
       },
       "extractionState": "manual"
     },
-    "Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haz clic en un bloque para seleccionarlo y doble clic para abrirlo. Las flechas mueven la selección, Retorno abre y Escape sube un nivel."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Collapse": {
       "localizations": {
         "es": {
@@ -1574,12 +1618,45 @@
       },
       "extractionState": "manual"
     },
+    "Collapse folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraer carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Combined size only": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo tamaño combinado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Command": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Comando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Compare copies before removing them.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compara las copias antes de eliminarlas."
           }
         }
       },
@@ -1624,6 +1701,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Contiene un ítem de la lista de exclusiones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Contents": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contenido"
           }
         }
       },
@@ -1679,6 +1767,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se pudo exportar el registro"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t load snapshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar las instantáneas"
           }
         }
       },
@@ -2080,6 +2179,28 @@
       },
       "extractionState": "manual"
     },
+    "Expand folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Explore this folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explora esta carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Export log…": {
       "localizations": {
         "es": {
@@ -2097,17 +2218,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exportar informe…"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Factor": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Factor"
           }
         }
       },
@@ -2141,6 +2251,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Falló o se rechazó"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "File kinds": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipos de archivo"
           }
         }
       },
@@ -2185,6 +2306,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Encontrar archivos duplicados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Find what is worth keeping.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encuentra lo que vale la pena conservar."
           }
         }
       },
@@ -2251,17 +2383,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carpeta"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Folders and other files": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carpetas y otros archivos"
           }
         }
       },
@@ -2421,6 +2542,17 @@
       },
       "extractionState": "manual"
     },
+    "Health breakdown": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detalles del estado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Helper": {
       "localizations": {
         "es": {
@@ -2460,17 +2592,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Resaltar"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Highlight this kind on the map": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resaltar este tipo en el mapa"
           }
         }
       },
@@ -2592,28 +2713,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ítem"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Items": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ítems"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Items are deleted permanently.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los ítems se borran para siempre."
           }
         }
       },
@@ -2839,23 +2938,12 @@
       },
       "extractionState": "manual"
     },
-    "Large and old files": {
+    "Know what starts with your Mac.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Archivos grandes y antiguos"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Large and old files come from the storage scan.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los archivos grandes y antiguos salen del escaneo de almacenamiento."
+            "value": "Conoce lo que se inicia con tu Mac."
           }
         }
       },
@@ -2900,6 +2988,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Más de 500 MB"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Largest first · share of this folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De mayor a menor · proporción de esta carpeta"
           }
         }
       },
@@ -3004,17 +3103,6 @@
       },
       "extractionState": "manual"
     },
-    "Light up big files worth reviewing": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resalta los archivos grandes que conviene revisar"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Like Finder (1 GB = 1,000 MB)": {
       "localizations": {
         "es": {
@@ -3043,6 +3131,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Listando archivos… %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Live activity, at a glance.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La actividad en vivo, de un vistazo."
           }
         }
       },
@@ -3087,6 +3186,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registros y diagnósticos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Mac health": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estado del Mac"
           }
         }
       },
@@ -3323,17 +3433,6 @@
       },
       "extractionState": "manual"
     },
-    "Modified": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modificado"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Modified %@": {
       "localizations": {
         "es": {
@@ -3351,6 +3450,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Monitor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "More room. Every item in your control.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más espacio. Tú controlas cada elemento."
           }
         }
       },
@@ -3384,17 +3494,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mover %lld copias a la Papelera"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Move %lld files (%@) to the Trash?": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Mover %lld archivos (%@) a la Papelera?"
           }
         }
       },
@@ -4247,6 +4346,17 @@
       },
       "extractionState": "manual"
     },
+    "Open folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open storage map": {
       "localizations": {
         "es": {
@@ -4313,12 +4423,12 @@
       },
       "extractionState": "manual"
     },
-    "Other files": {
+    "Other items": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Otros archivos"
+            "value": "Otros elementos"
           }
         }
       },
@@ -4352,6 +4462,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Resumen"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Parent folders": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpetas superiores"
           }
         }
       },
@@ -4451,6 +4572,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ubicación protegida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Purposeful tools. Transparent commands.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herramientas útiles. Comandos transparentes."
           }
         }
       },
@@ -4572,6 +4704,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Leyendo tus apps…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ready to review": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo para revisar"
           }
         }
       },
@@ -4907,6 +5050,17 @@
       },
       "extractionState": "manual"
     },
+    "Reveal containing folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar carpeta contenedora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Reveal in Finder": {
       "localizations": {
         "es": {
@@ -4946,6 +5100,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Revisar archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Review files left behind by removed apps.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisa archivos de apps eliminadas."
           }
         }
       },
@@ -5083,17 +5248,6 @@
       },
       "extractionState": "manual"
     },
-    "Score": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Puntos"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Search": {
       "localizations": {
         "es": {
@@ -5171,12 +5325,45 @@
       },
       "extractionState": "manual"
     },
+    "See how your storage changes over time.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Observa cómo cambia tu almacenamiento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "See what fills Macintosh HD": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Mira qué llena Macintosh HD"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "See where your space goes.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descubre cómo se usa tu espacio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Select an item · double-click a folder to open": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecciona un elemento · doble clic para abrir una carpeta"
           }
         }
       },
@@ -5270,6 +5457,17 @@
       },
       "extractionState": "manual"
     },
+    "Show in list": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar en la lista"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Show in the menu bar": {
       "localizations": {
         "es": {
@@ -5358,6 +5556,17 @@
       },
       "extractionState": "manual"
     },
+    "Small files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos pequeños"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Snapshots": {
       "localizations": {
         "es": {
@@ -5375,6 +5584,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Algunas carpetas de datos de apps no se pueden medir."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Some selected items are deleted permanently.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunos ítems seleccionados se borran para siempre."
           }
         }
       },
@@ -5507,6 +5727,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mapa de almacenamiento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Storage visualization": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visualización del almacenamiento"
           }
         }
       },
@@ -5743,6 +5974,17 @@
       },
       "extractionState": "manual"
     },
+    "The saved snapshots could not be read.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron leer las instantáneas guardadas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "The scan stopped": {
       "localizations": {
         "es": {
@@ -5760,6 +6002,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "La búsqueda se detuvo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "These named items are too small to label on the map. They are highlighted in the contents list; select a row to inspect an individual item.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estos elementos son demasiado pequeños para etiquetarlos en el mapa. Se resaltan en la lista de contenido; selecciona una fila para inspeccionar un elemento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "These small files are measured together. Individual names are not stored in this scan. Reveal the containing folder to inspect them.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estos archivos pequeños se miden juntos. Este análisis no guarda sus nombres individuales. Abre la carpeta contenedora para inspeccionarlos."
           }
         }
       },
@@ -5809,12 +6073,34 @@
       },
       "extractionState": "manual"
     },
-    "This is a preview. Nothing moves until you click the button below, and only the items checked here.": {
+    "This folder has no measured size.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Esto es una vista previa. Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado aquí."
+            "value": "Esta carpeta no tiene un tamaño medido."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This folder is empty.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta está vacía."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This folder needs access to be measured.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se necesita acceso para medir esta carpeta."
           }
         }
       },
@@ -5952,6 +6238,17 @@
       },
       "extractionState": "manual"
     },
+    "Two folder levels": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos niveles de carpetas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Type a path first.": {
       "localizations": {
         "es": {
@@ -5980,6 +6277,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin marcar hasta que los elijas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Understand the space behind System Data.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprende el espacio de Datos del sistema."
           }
         }
       },
@@ -6051,6 +6359,17 @@
       },
       "extractionState": "manual"
     },
+    "Up one folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir una carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Updated %@": {
       "localizations": {
         "es": {
@@ -6090,6 +6409,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tiempo encendida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Use the contents list to browse every item.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa la lista de contenido para explorar cada elemento."
           }
         }
       },
@@ -6293,34 +6623,12 @@
       },
       "extractionState": "manual"
     },
-    "Where": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ubicación"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Whitelisted": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "En la lista de exclusiones"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Why": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Por qué"
           }
         }
       },
@@ -6447,6 +6755,17 @@
       },
       "extractionState": "manual"
     },
+    "Your apps and everything that comes with them.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus apps y todo lo que las acompaña."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Your files": {
       "localizations": {
         "es": {
@@ -6475,17 +6794,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Primero verás cada archivo relacionado."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "can be cleaned": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "se pueden limpiar"
           }
         }
       },
@@ -6563,6 +6871,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "min"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "of 100": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de 100"
           }
         }
       },

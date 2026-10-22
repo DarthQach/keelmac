@@ -9,13 +9,15 @@ struct EmptyStateView: View {
     var action: (() -> Void)?
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             Image(systemName: symbol)
-                .font(.system(size: 30, weight: .light))
+                .font(.largeTitle.weight(.light))
+                .padding(20)
+                .background(.kmSurfaceMuted, in: RoundedRectangle(cornerRadius: Metrics.radius))
                 .foregroundStyle(.kmFgMuted)
                 .accessibilityHidden(true)
             Text(title)
-                .font(.title3.weight(.semibold))
+                .font(.title2.weight(.semibold))
                 .multilineTextAlignment(.center)
             Text(message)
                 .foregroundStyle(.kmFgMuted)
@@ -41,18 +43,22 @@ struct PermissionBanner: View {
     let action: () -> Void
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 12) {
+        HStack(alignment: .top, spacing: 12) {
             Image(systemName: "lock.shield")
                 .foregroundStyle(.kmWarningInk)
                 .accessibilityHidden(true)
-            (Text(title).fontWeight(.semibold) + Text(verbatim: " ") + Text(message).foregroundStyle(.kmWarningInk))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title).fontWeight(.semibold)
+                Text(message).foregroundStyle(.kmWarningInk).fixedSize(horizontal: false, vertical: true)
+            }
                 .frame(maxWidth: .infinity, alignment: .leading)
             Button(actionTitle, action: action)
         }
         .padding(.horizontal, Metrics.pagePadding)
-        .padding(.vertical, 10)
-        .background(.kmWarningSoft)
-        .overlay(alignment: .bottom) { Divider() }
+        .padding(.vertical, 12)
+        .background(.kmWarningSoft, in: RoundedRectangle(cornerRadius: Metrics.radius))
+        .padding(.horizontal, Metrics.pagePadding)
+        .padding(.bottom, 12)
     }
 }
 
@@ -71,6 +77,9 @@ struct StatusBadge: View {
         .labelStyle(.titleAndIcon)
         .font(.callout)
         .foregroundStyle(color)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(.kmSurfaceMuted, in: Capsule())
     }
 
     private var symbol: String {
@@ -126,7 +135,7 @@ struct PathText: View {
     let path: String
     var body: some View {
         Text(verbatim: (path as NSString).abbreviatingWithTildeInPath)
-            .font(.system(.caption, design: .monospaced))
+            .font(.system(.callout, design: .monospaced))
             .foregroundStyle(.kmFgMuted)
             .lineLimit(1)
             .truncationMode(.middle)
@@ -134,15 +143,17 @@ struct PathText: View {
     }
 }
 
-/// The page content area: token background (sailcloth light, black dark), readable max width.
+/// The page content area: token background (near-white light, charcoal dark).
 /// Lists and tables inside drop the system grey so the page colour shows through.
 struct Page<Content: View>: View {
     @ViewBuilder var content: Content
     var body: some View {
         content
             .scrollContentBackground(.hidden)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
             .background(.kmBg)
+            .foregroundStyle(.kmFg)
+            .environment(\.defaultMinListRowHeight, Metrics.rowHeight)
     }
 }
 

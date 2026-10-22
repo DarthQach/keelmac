@@ -13,11 +13,18 @@ final class HealthService {
     private let cached: HealthInputs?
 
     init() {
+        if VisualFixtures.enabled {
+            cached = nil
+            reclaimableBytes = 42_000_000_000
+            startupItems = 8
+            return
+        }
         cached = UserDefaults.standard.data(forKey: Preferences.Key.healthCache).flatMap { try? JSONDecoder().decode(HealthInputs.self, from: $0) }
         refreshCounts()
     }
 
     func refreshCounts() {
+        guard !VisualFixtures.enabled else { return }
         let d = UserDefaults.standard
         reclaimableBytes = d.object(forKey: "lastReclaimableBytes") == nil ? nil : Int64(d.integer(forKey: "lastReclaimableBytes"))
         startupItems = d.integer(forKey: "startupItemCount")
@@ -39,7 +46,7 @@ final class HealthService {
     func inputs(metrics: MetricsMonitor) -> HealthInputs {
         if metrics.latest == nil, let cached { return cached }
         let disk = metrics.latest?.disk
-        let fallback = disk == nil ? StartupVolume.capacity() : (total: 0, available: 0)
+        let fallback = disk == nil && !VisualFixtures.enabled ? StartupVolume.capacity() : (total: 0, available: 0)
         let fractions = metrics.pressureFractions
         let battery = metrics.battery
         return HealthInputs(
@@ -56,6 +63,7 @@ final class HealthService {
     }
 
     func cache(_ inputs: HealthInputs) {
+        guard !VisualFixtures.enabled else { return }
         UserDefaults.standard.set(try? JSONEncoder().encode(inputs), forKey: Preferences.Key.healthCache)
     }
 }

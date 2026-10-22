@@ -8,14 +8,14 @@ import SafetyKit
 @Observable
 final class AppModel {
     var route: Route = .dashboard
-    var hasFullDiskAccess: Bool = FullDiskAccess.isGranted()
+    var hasFullDiskAccess: Bool = VisualFixtures.enabled ? !["permission", "map-permission"].contains(VisualFixtures.state) : FullDiskAccess.isGranted()
     var showWelcome: Bool = false
     /// A short message shown as an alert (for example why an item was refused).
     var notice: String?
     let storage = StorageModel()
 
     /// True when the app runs under UI tests with fixture data and an in-memory store.
-    let isUITesting = CommandLine.arguments.contains("-uitest")
+    let isUITesting = (CommandLine.arguments.contains("-uitest") || VisualFixtures.enabled)
 
     let container: ModelContainer
     let operationLog: OperationLogStore
@@ -28,15 +28,24 @@ final class AppModel {
     let updater: Updater
 
     init() {
-        container = Store.makeContainer(inMemory: CommandLine.arguments.contains("-uitest"))
+        container = Store.makeContainer(inMemory: (CommandLine.arguments.contains("-uitest") || VisualFixtures.enabled))
         operationLog = OperationLogStore(modelContainer: container)
-        updater = Updater(start: !CommandLine.arguments.contains("-uitest"))
+        updater = Updater(start: !(CommandLine.arguments.contains("-uitest") || VisualFixtures.enabled))
         snapshots = SnapshotService(store: SnapshotStore(modelContainer: container))
         let health = self.health
         cleanup = CleanupModel(log: operationLog, onReclaimable: { health.recordReclaimable($0) })
         apps = AppsModel(log: operationLog, helper: helper, onStartupCounts: { health.recordStartupItems(total: $0, orphans: $1) })
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
+        if VisualFixtures.enabled {
+            for (i, file) in VisualFixtures.relatedFiles.enumerated() {
+                container.mainContext.insert(OperationRecord(OperationEntry(batchID: UUID(), kind: .cleanup, title: "Cleanup",
+                    path: file.path, bytes: file.bytes, result: i == 2 ? .skipped : .trashed, reason: i == 2 ? "Protected system location" : nil)))
+            }
+            try? container.mainContext.save()
+            route = VisualFixtures.argument("-fixture-route").flatMap(Route.init(rawValue:)) ?? .dashboard
+            return
+        }
         let defaults = UserDefaults.standard
         if !isUITesting && !CommandLine.arguments.contains("-menuBarOnly") && !defaults.bool(forKey: Preferences.Key.welcomeShown) && !hasFullDiskAccess {
             showWelcome = true
@@ -45,7 +54,7 @@ final class AppModel {
 
     /// Starts background services once the UI is up.
     func start() {
-        guard !started else { return }
+        guard !VisualFixtures.enabled, !started else { return }
         started = true
         metrics.start()
         metrics.onAlert = { events in Task { await AlertNotifications.post(events) } }
@@ -67,6 +76,7 @@ final class AppModel {
     private var started = false
 
     func refreshFullDiskAccess() {
+        guard !VisualFixtures.enabled else { return }
         let granted = FullDiskAccess.isGranted()
         if granted != hasFullDiskAccess { hasFullDiskAccess = granted }
     }

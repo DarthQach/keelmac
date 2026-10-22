@@ -1,11 +1,11 @@
 import SwiftUI
 
-/// KeelMac's one bold element: disk usage drawn as a hull's waterline, with the Plimsoll mark at the safe-load point.
+/// Secondary capacity context, with the Plimsoll mark at the existing 85% load line.
 struct LoadLineGauge: View {
     let total: Int64
     let used: Int64
     var loadLine: Double = 0.85
-    var height: CGFloat = 36
+    var height: CGFloat = 24
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var appeared = false
 
@@ -37,10 +37,10 @@ struct LoadLineGauge: View {
 
             GeometryReader { geo in
                 LoadLineMark(color: .kmHullInk, lineWidth: 2)
-                    .frame(width: 40, height: 22)
-                    .offset(x: geo.size.width * loadLine - 20, y: 4)
+                    .frame(width: 28, height: 16)
+                    .offset(x: geo.size.width * loadLine - 14, y: 4)
             }
-            .frame(height: 28)
+            .frame(height: 22)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityText)

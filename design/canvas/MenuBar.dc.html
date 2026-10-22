@@ -2,77 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>KeelMac menu bar popover</title>
+<title>KeelMac · MenuBar · native reference</title>
 <script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<link rel="stylesheet" href="../tokens.css">
 <style>
-:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185)}
-body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
-a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
-.num{font-variant-numeric:tabular-nums}
-.m{color:var(--fm)}
-.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:2px 8px;font-size:12px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:5px 0}
+html,body{margin:0;height:100%;font:14px -apple-system,system-ui;color:var(--fg);background:var(--bg)}
+x-dc{display:block;height:100%}main{height:100%;display:grid;place-items:center}
+object{width:100%;height:100%;object-fit:contain}p{padding:24px}a{color:var(--accent-text)}
 </style>
-</helmet>
-<div style="width: 420px; height: 840px; box-sizing: border-box; padding: 0 20px">
-  <div class="num" style="display: flex; justify-content: flex-end; gap: 14px; font-size: 12px; padding: 5px 10px; background: oklch(0.94 0.006 80); margin: 0 -20px 8px; border-bottom: 1px solid var(--bd)">
-    <span style="background: oklch(0.88 0.008 80); border-radius: 4px; padding: 0 6px">CPU 7%  Mem 51%  48&nbsp;°C</span><span>Wed 22 Oct 09:41</span>
-  </div>
-  <div style="width: 340px; margin-left: auto; background: var(--bg); border-radius: 10px; box-shadow: 0 12px 32px oklch(0.23 0.014 70 / 0.18), 0 0 0 1px oklch(0.23 0.014 70 / 0.08); padding: 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
-    <div class="num" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px">
-      <div><div class="m" style="font-size: 11px">CPU</div><div style="font-size: 15px; font-weight: 600">7%</div></div>
-      <div><div class="m" style="font-size: 11px">Memory</div><div style="font-size: 15px; font-weight: 600">Normal</div></div>
-      <div><div class="m" style="font-size: 11px">Disk free</div><div style="font-size: 15px; font-weight: 600">112&nbsp;GB</div></div>
-      <div><div class="m" style="font-size: 11px">Network</div><div style="font-size: 13px; font-weight: 600">In 1.2&nbsp;MB/s</div><div class="m" style="font-size: 11px">Out 84&nbsp;KB/s</div></div>
-      <div><div class="m" style="font-size: 11px">Battery</div><div style="font-size: 15px; font-weight: 600">76%</div></div>
-      <div><div class="m" style="font-size: 11px">Temperature</div><div style="font-size: 15px; font-weight: 600">48&nbsp;°C</div></div>
-    </div>
-    <div style="border-top: 1px solid var(--bd); padding-top: 10px">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px">
-        <span style="font-weight: 600">Last 60 minutes</span>
-        <div role="group" aria-label="Chart" style="display: flex; border: 1px solid var(--bs); border-radius: 6px; overflow: hidden; font-size: 12px"><button type="button" aria-pressed="true" style="font: inherit; border: 0; background: var(--as); color: var(--at); font-weight: 600; padding: 2px 10px">CPU</button><button type="button" aria-pressed="false" style="font: inherit; border: 0; border-left: 1px solid var(--bs); background: var(--sf); color: var(--fg); padding: 2px 10px">Memory</button></div>
-      </div>
-      <svg viewBox="0 0 300 60" width="100%" height="60" role="img" aria-label="CPU over the last hour, between 3 and 41 percent"><line x1="0" y1="59" x2="300" y2="59" stroke="oklch(0.905 0.008 80)"></line><polyline fill="none" stroke="oklch(0.49 0.09 185)" stroke-width="1.5" points="0,52 15,50 30,51 45,45 60,47 75,36 90,14 105,26 120,43 135,49 150,48 165,50 180,45 195,48 210,49 225,42 240,46 255,50 270,49 285,51 300,50"></polyline></svg>
-      <div class="m num" style="display: flex; justify-content: space-between; font-size: 11px"><span>60 min ago</span><span>Now</span></div>
-    </div>
-    <div style="border-top: 1px solid var(--bd); padding-top: 10px">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px">
-        <span style="font-weight: 600">Top processes</span>
-        <div role="group" aria-label="Sort processes by" style="display: flex; border: 1px solid var(--bs); border-radius: 6px; overflow: hidden; font-size: 12px"><button type="button" aria-pressed="true" style="font: inherit; border: 0; background: var(--as); color: var(--at); font-weight: 600; padding: 2px 10px">CPU</button><button type="button" aria-pressed="false" style="font: inherit; border: 0; border-left: 1px solid var(--bs); background: var(--sf); color: var(--fg); padding: 2px 10px">Memory</button></div>
-      </div>
-      <div class="num">
-        <div class="row"><span>Xcode</span><span style="display: flex; gap: 10px; align-items: center"><span>38.2%</span><button type="button" class="btn">Quit</button></span></div>
-        <div class="row"><span>com.docker.backend</span><span style="display: flex; gap: 10px; align-items: center"><span>12.6%</span><button type="button" class="btn">Quit…</button></span></div>
-        <div class="row"><span>Arc Helper (Renderer)</span><span style="display: flex; gap: 10px; align-items: center"><span>6.9%</span><button type="button" class="btn">Quit…</button></span></div>
-        <div class="row"><span>WindowServer</span><span style="display: flex; gap: 10px; align-items: center"><span>5.1%</span><span class="m" style="font-size: 12px; width: 38px; text-align: center">System</span></span></div>
-        <div class="row"><span>node</span><span style="display: flex; gap: 10px; align-items: center"><span>3.4%</span><button type="button" class="btn">Quit…</button></span></div>
-      </div>
-    </div>
-    <div class="num m" style="border-top: 1px solid var(--bd); padding-top: 10px; font-size: 12px">Battery 88% capacity, 412 cycles, normal</div>
-    <div style="border-top: 1px solid var(--bd); padding-top: 10px; display: flex; justify-content: space-between; align-items: center">
-      <a href="Dashboard.dc.html" style="font-weight: 600; text-decoration: none">Open KeelMac</a>
-      <span style="display: flex; gap: 14px"><a href="Settings.dc.html" style="text-decoration: none; color: var(--fg)">Settings…</a><a href="#" style="text-decoration: none; color: var(--fg)">Quit</a></span>
-    </div>
-  </div>
-
-  <div style="width: 340px; margin: 28px 0 0 auto">
-    <div class="m" style="font-size: 12px; margin-bottom: 8px">First sample (loading)</div>
-    <div style="background: var(--bg); border-radius: 10px; box-shadow: 0 0 0 1px oklch(0.23 0.014 70 / 0.08); padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
-      <div><div class="m" style="font-size: 11px">CPU</div><div style="font-size: 15px; font-weight: 600" class="m">Measuring…</div></div>
-      <div><div class="m" style="font-size: 11px">Memory</div><div style="font-size: 15px; font-weight: 600">Normal</div></div>
-      <div><div class="m" style="font-size: 11px">Temperature</div><div style="font-size: 13px; font-weight: 600" class="m">Unavailable</div></div>
-    </div>
-  </div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":420,"height":840}}'>
-class Component extends DCLogic {
-  renderVals() { return {}; }
-}
-</script>
-</body>
+</head>
+<body><x-dc><main>
+<object type="image/png" data="../../build/revamp-shots/revamp-menuBar-light-en.png" aria-label="Native MenuBar reference, synthetic data">
+<p>Generate the current native reference with <code>bash scripts/revamp-shots.sh</code>.
+See <a href="../../docs/forge/05-ui-revamp.md">the UI verification record</a>.</p>
+</object>
+</main></x-dc></body>
 </html>

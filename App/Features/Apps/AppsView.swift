@@ -30,10 +30,12 @@ struct AppsView: View {
                         Table(rows, selection: $selection, sortOrder: $sortOrder) {
                             TableColumn("Name", value: \.name) { app in
                                 HStack(spacing: 8) {
-                                    Image(nsImage: NSWorkspace.shared.icon(forFile: app.path)).resizable().frame(width: 20, height: 20)
-                                    Text(verbatim: app.name)
+                                    Image(nsImage: NSWorkspace.shared.icon(forFile: app.path)).resizable().frame(width: 28, height: 28)
+                                    Text(verbatim: app.name).fontWeight(.medium).lineLimit(1)
                                 }
-                            }
+                                .frame(minHeight: Metrics.rowHeight)
+                                .help(app.name)
+                            }.width(min: 160, ideal: 260)
                             TableColumn("Size", value: \.sortBytes) { app in
                                 Text(app.bytes.map(Format.bytes) ?? "…").tabular().frame(maxWidth: .infinity, alignment: .trailing)
                             }.width(90)
@@ -43,6 +45,7 @@ struct AppsView: View {
                             }.width(130)
                             TableColumn("Version") { app in Text(verbatim: app.version ?? "").foregroundStyle(.kmFgMuted) }.width(90)
                         }
+                        .kmTableSurface()
                         .contextMenu(forSelectionType: InstalledApp.ID.self) { ids in
                             if let app = apps.apps.first(where: { ids.contains($0.id) }) {
                                 Button("Uninstall…") { apps.uninstallTarget = app }
@@ -64,17 +67,21 @@ struct AppsView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            Divider()
-            VStack(alignment: .leading, spacing: 16) {
-                dropZone
-                if let app = apps.apps.first(where: { $0.id == selection }) {
-                    AppInspector(app: app) { apps.uninstallTarget = app }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    if let app = apps.apps.first(where: { $0.id == selection }) {
+                        AppInspector(app: app) { apps.uninstallTarget = app }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .kmGroup()
+                    }
+                    dropZone
                 }
-                Spacer()
             }
-            .padding(18)
-            .frame(width: 300)
+            .frame(width: 240)
+            .padding(.leading, 16)
         }
+        .padding(.horizontal, Metrics.pagePadding)
+        .padding(.bottom, Metrics.pagePadding)
         .searchable(text: $search, placement: .toolbar, prompt: Text("Search apps"))
         .task { if apps.apps.isEmpty { await apps.loadApps() } }
         .sheet(item: $apps.uninstallTarget) { app in UninstallSheet(app: app) }
@@ -82,10 +89,11 @@ struct AppsView: View {
 
     private var dropZone: some View {
         VStack(spacing: 6) {
-            Image(systemName: "square.and.arrow.down").font(.system(size: 26, weight: .light)).foregroundStyle(.kmFgMuted)
-            Text("Drop an app here to uninstall it").fontWeight(.semibold).multilineTextAlignment(.center)
-            Text("You’ll see every related file first.").font(.callout).foregroundStyle(.kmFgMuted)
+            Image(systemName: "square.and.arrow.down").font(.title.weight(.light)).foregroundStyle(.kmFgMuted)
+            Text("Drop an app here to uninstall it").fontWeight(.semibold).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+            Text("You’ll see every related file first.").font(.callout).foregroundStyle(.kmFgMuted).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
         }
+        .padding(.horizontal, 12)
         .frame(maxWidth: .infinity)
         .padding(.vertical, 22)
         .background(dropTargeted ? Color.kmAccentSoft : Color.clear, in: RoundedRectangle(cornerRadius: Metrics.radius))
@@ -111,11 +119,11 @@ private struct AppInspector: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 12) {
                 Image(nsImage: NSWorkspace.shared.icon(forFile: app.path)).resizable().frame(width: 40, height: 40)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(verbatim: app.name).font(.title3.weight(.semibold))
-                    if let bid = app.bundleID { Text(verbatim: bid).font(.system(.caption, design: .monospaced)).foregroundStyle(.kmFgMuted) }
+                    if let bid = app.bundleID { Text(verbatim: bid).font(.system(.caption, design: .monospaced)).foregroundStyle(.kmFgMuted).lineLimit(2).truncationMode(.middle) }
                 }
             }
             Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 6) {
@@ -149,7 +157,7 @@ struct UninstallSheet: View {
     private var inTrash: Bool { PathGuard.isWithin(app.path, NSHomeDirectory() + "/.Trash") }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 20) {
             Text(inTrash ? "Clean up after \(app.name)?" : "Uninstall \(app.name)?").font(.title3.weight(.semibold))
             if let outcome {
                 result(outcome)
@@ -173,7 +181,7 @@ struct UninstallSheet: View {
                     List {
                         if !inTrash {
                             Section("App") {
-                                HStack { Toggle(isOn: .constant(true)) { PathText(path: app.path).foregroundStyle(.kmFg) }.toggleStyle(.checkbox).disabled(true); Spacer(); Text(app.bytes.map(Format.bytes) ?? "").tabular() }
+                                HStack { Toggle(isOn: .constant(true)) { PathText(path: app.path).foregroundStyle(.kmFg) }.toggleStyle(.checkbox).disabled(true).frame(minHeight: Metrics.rowHeight); Spacer(); Text(app.bytes.map(Format.bytes) ?? "").tabular() }
                             }
                         }
                         Section("Related files") {
@@ -184,7 +192,7 @@ struct UninstallSheet: View {
                                 HStack {
                                     Toggle(isOn: Binding(get: { !excluded.contains(f.id) }, set: { on in if on { excluded.remove(f.id) } else { excluded.insert(f.id) } })) {
                                         VStack(alignment: .leading, spacing: 1) {
-                                            PathText(path: f.path).foregroundStyle(.kmFg)
+                                            FileIdentity(name: (f.path as NSString).lastPathComponent, path: f.path)
                                             if f.isShared { Text("Shared with other apps from the same developer, unchecked").font(.caption).foregroundStyle(.kmWarning) }
                                             if f.needsHelper && !model.helper.isEnabled { Text("Needs the KeelMac helper").font(.caption).foregroundStyle(.kmFgMuted) }
                                         }
@@ -198,6 +206,7 @@ struct UninstallSheet: View {
                         }
                     }
                     .listStyle(.inset)
+                    .kmTableSurface()
                     .frame(minHeight: 260)
                 } else {
                     ProgressView("Finding related files…").frame(maxWidth: .infinity, minHeight: 200)
@@ -215,8 +224,9 @@ struct UninstallSheet: View {
         }
         .padding(24)
         .frame(width: 680)
+        .background(.kmBg)
         .task {
-            running = !inTrash && RunningApps.isRunning(appAt: app.path)
+            running = !VisualFixtures.enabled && !inTrash && RunningApps.isRunning(appAt: app.path)
             let found = await model.apps.relatedFiles(for: app)
             excluded = Set(found.filter { $0.isShared || ($0.needsHelper && !model.helper.isEnabled) }.map(\.id))
             files = found

@@ -18,7 +18,15 @@ final class StorageModel {
     private var scanTask: Task<Void, Never>?
     private let cacheURL = ScanCache.defaultURL(forRoot: "/")
 
-    init() {}
+    init() {
+        if VisualFixtures.enabled {
+            tree = VisualFixtures.state == "empty" ? nil : VisualFixtures.tree()
+            phase = tree == nil ? .idle : .ready
+            systemData = VisualFixtures.state == "loading" ? nil : SystemDataKind.allCases.map {
+                SystemDataItem(kind: $0, paths: [VisualFixtures.root + "/Library/\($0.rawValue)"], bytes: 12_000_000_000, needsFullDiskAccess: false, cleanupCategory: nil)
+            }
+        }
+    }
 
     /// Computes the map colours for the current tree once (off the main thread).
     func updateKindShares() async {
@@ -30,7 +38,7 @@ final class StorageModel {
 
     /// Loads the last scan from disk so the map appears instantly.
     func loadCache() {
-        guard tree == nil else { return }
+        guard !VisualFixtures.enabled, tree == nil else { return }
         let url = cacheURL
         Task {
             let loaded = await Task.detached(priority: .userInitiated) { try? ScanCache.load(from: url) }.value
@@ -47,7 +55,7 @@ final class StorageModel {
 
     /// Full scan the first time, then incremental rescans (only folders that changed since the last scan).
     func scan(full: Bool = false) {
-        guard phase != .scanning else { return }
+        guard !VisualFixtures.enabled, phase != .scanning else { return }
         phase = .scanning
         progress = nil
         let scanner = DiskScanner()
@@ -76,7 +84,7 @@ final class StorageModel {
     }
 
     func rescan(folder: String) {
-        guard let tree, phase != .scanning else { return }
+        guard !VisualFixtures.enabled, let tree, phase != .scanning else { return }
         phase = .scanning
         let scanner = DiskScanner()
         let exclusions = self.exclusions
@@ -105,6 +113,7 @@ final class StorageModel {
     }
 
     func measureSystemData() async {
+        guard !VisualFixtures.enabled else { return }
         guard !measuringSystemData else { return }
         measuringSystemData = true
         let runner = ScanCommandRunner { exe, args in

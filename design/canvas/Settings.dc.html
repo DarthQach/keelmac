@@ -2,91 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>KeelMac settings</title>
+<title>KeelMac · Settings · native reference</title>
 <script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<link rel="stylesheet" href="../tokens.css">
 <style>
-:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--ok:oklch(0.5 0.12 145);--er:oklch(0.52 0.19 27)}
-body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
-a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
-.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
-.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:3px 10px;min-height:24px}
-.m{color:var(--fm)}
-.tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;color:var(--fg);text-decoration:none;font-size:12px}
-.tab[aria-current]{background:var(--as);color:var(--at);font-weight:600}
-.grp{background:var(--sf);border:1px solid var(--bd);border-radius:10px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 14px;border-top:1px solid var(--bd)}
-.row:first-child{border-top:0}
-.ttl{font-size:12px;font-weight:600;color:var(--fm);margin:18px 0 6px 4px}
-input[type=number]{font:inherit;width:64px;border:1px solid var(--bs);border-radius:6px;background:var(--sf);color:var(--fg);padding:2px 6px;text-align:right}
-.sw{width:30px;height:18px;border-radius:9px;background:var(--ac);position:relative;display:inline-block}.sw::after{content:"";position:absolute;top:2px;left:14px;width:14px;height:14px;border-radius:7px;background:var(--sf)}
-.sw.off{background:var(--bs)}.sw.off::after{left:2px}
+html,body{margin:0;height:100%;font:14px -apple-system,system-ui;color:var(--fg);background:var(--bg)}
+x-dc{display:block;height:100%}main{height:100%;display:grid;place-items:center}
+object{width:100%;height:100%;object-fit:contain}p{padding:24px}a{color:var(--accent-text)}
 </style>
-</helmet>
-<div style="padding: 32px 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; align-items: flex-start">
-<div style="flex: 0 1 640px; min-width: 0; background: var(--bg); border-radius: 12px; box-shadow: 0 20px 50px oklch(0.23 0.014 70 / 0.16), 0 1px 3px oklch(0.23 0.014 70 / 0.10); overflow: hidden">
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 14px 6px; border-bottom: 1px solid var(--bd); background: oklch(0.94 0.006 80)">
-    <div style="display: flex; width: 100%; align-items: center"><div style="display: flex; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 6px; background: #ff5f57"></span><span style="width: 12px; height: 12px; border-radius: 6px; background: #febc2e"></span><span style="width: 12px; height: 12px; border-radius: 6px; background: #28c840"></span></div><span style="flex: 1; text-align: center; font-weight: 600">Cleanup and safety</span><span style="width: 52px"></span></div>
-    <nav aria-label="Settings sections" style="display: flex; gap: 2px; flex-wrap: wrap; justify-content: center">
-      <a href="#" class="tab">General</a><a href="#" class="tab">Menu bar</a><a href="#" class="tab">Alerts</a><a href="#" class="tab" aria-current="page">Cleanup and safety</a><a href="#" class="tab">Helper</a><a href="#" class="tab">Updates</a>
-    </nav>
-  </div>
-  <div class="num" style="padding: 6px 20px 22px">
-    <div class="ttl">When cleaning</div>
-    <div class="grp">
-      <div class="row"><div><div>Move items to the Trash</div><div class="m" style="font-size: 12px">Turn off to delete permanently. Every delete still asks first.</div></div><span class="sw" role="switch" aria-checked="true" aria-label="Move items to the Trash"></span></div>
-      <div class="row"><div>Skip caches of apps that are open</div><span class="sw" role="switch" aria-checked="true" aria-label="Skip caches of apps that are open"></span></div>
-      <div class="row"><div>Only clean logs older than</div><div><label for="logs" style="position: absolute; left: -9999px">Days</label><input id="logs" type="number" value="7"> <span class="m">days</span></div></div>
-    </div>
-    <div class="ttl">Never touch (whitelist)</div>
-    <div class="grp">
-      <div class="row"><span class="mono">~/Library/Caches/com.spotify.client</span><button type="button" class="btn" aria-label="Remove from whitelist">Remove</button></div>
-      <div class="row"><span class="mono">~/Library/Developer/Xcode/Archives</span><button type="button" class="btn" aria-label="Remove from whitelist">Remove</button></div>
-      <div class="row"><span class="mono">~/Developer/**/node_modules/.cache</span><button type="button" class="btn" aria-label="Remove from whitelist">Remove</button></div>
-      <div class="row" style="flex-wrap: wrap"><span class="mono" style="color: var(--er)">~/Library/Caches/com.figma.Desktpo</span><span style="color: var(--er); font-size: 12px">That folder doesn’t exist. Check the spelling.</span></div>
-      <div class="row"><span class="m">Paths and patterns (* and **) are both fine.</span><button type="button" class="btn">Add folder…</button></div>
-    </div>
-    <div class="ttl">Always protected</div>
-    <div class="grp"><div class="row"><span class="m" style="line-height: 1.5">/System, /bin, /sbin, /usr (except Homebrew caches in /usr/local), other users’ homes, iCloud Drive, the Photos library and Mail data. These can’t be changed.</span></div></div>
-    <div class="ttl">Scan exclusions</div>
-    <div class="grp">
-      <div class="row"><span class="mono">/Volumes</span><button type="button" class="btn" aria-label="Remove exclusion">Remove</button></div>
-      <div class="row"><span class="mono">~/Library/Mobile Documents</span><button type="button" class="btn" aria-label="Remove exclusion">Remove</button></div>
-    </div>
-  </div>
-</div>
-
-<div style="flex: 0 1 480px; min-width: 0; background: var(--bg); border-radius: 12px; box-shadow: 0 20px 50px oklch(0.23 0.014 70 / 0.16), 0 1px 3px oklch(0.23 0.014 70 / 0.10); overflow: hidden">
-  <div style="padding: 12px 16px; border-bottom: 1px solid var(--bd); background: oklch(0.94 0.006 80); text-align: center; font-weight: 600">Alerts</div>
-  <div class="num" style="padding: 6px 20px 22px">
-    <div class="ttl">Notify me when</div>
-    <div class="grp">
-      <div class="row"><div>Disk free drops below</div><div><label for="d" style="position: absolute; left: -9999px">GB</label><input id="d" type="number" value="20"> <span class="m">GB</span></div></div>
-      <div class="row"><div>Memory pressure is red for</div><div><label for="mp" style="position: absolute; left: -9999px">Minutes</label><input id="mp" type="number" value="5"> <span class="m">min</span></div></div>
-      <div class="row"><div>Temperature is above</div><div><label for="t" style="position: absolute; left: -9999px">Degrees</label><input id="t" type="number" value="95"> <span class="m">°C</span></div></div>
-      <div class="row"><div>Battery capacity falls below</div><div><label for="b" style="position: absolute; left: -9999px">Percent</label><input id="b" type="number" value="80"> <span class="m">%</span></div></div>
-      <div class="row"><div>Weekly summary on Monday</div><span class="sw" role="switch" aria-checked="true" aria-label="Weekly summary"></span></div>
-    </div>
-    <div class="ttl">Helper</div>
-    <div class="grp">
-      <div class="row"><div><b style="color: var(--ok); font-weight: 600">Installed and allowed</b><div class="m" style="font-size: 12px">Runs only the tasks listed in Maintenance and Login items.</div></div><button type="button" class="btn">Remove helper</button></div>
-    </div>
-    <div class="ttl">Updates</div>
-    <div class="grp">
-      <div class="row"><div>Check for updates automatically</div><span class="sw" role="switch" aria-checked="true" aria-label="Check for updates automatically"></span></div>
-      <div class="row"><span class="m">KeelMac 1.0.0. Last checked today at 08:12.</span><button type="button" class="btn">Check now</button></div>
-    </div>
-  </div>
-</div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
-class Component extends DCLogic {
-  renderVals() { return {}; }
-}
-</script>
-</body>
+</head>
+<body><x-dc><main>
+<object type="image/png" data="../../build/revamp-shots/revamp-settings-light-en.png" aria-label="Native Settings reference, synthetic data">
+<p>Generate the current native reference with <code>bash scripts/revamp-shots.sh</code>.
+See <a href="../../docs/forge/05-ui-revamp.md">the UI verification record</a>.</p>
+</object>
+</main></x-dc></body>
 </html>

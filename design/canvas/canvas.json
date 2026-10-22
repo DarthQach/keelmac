@@ -1,7 +1,7 @@
 {
   "v": 3,
   "createdOnFiles": {"v": 1, "at": "2026-10-22T13:50:00Z"},
-  "title": "KeelMac UI",
+  "title": "KeelMac UI · refined native",
   "launch": {"view": "canvas"},
   "pages": [],
   "boards": {
@@ -13,6 +13,7 @@
     "MenuBar.dc.html": {"x": 4080, "y": 4300, "w": 420, "h": 840, "title": "S4 Menu bar popover"},
     "Welcome.dc.html": {"x": 4580, "y": 4300, "w": 1280, "h": 840, "title": "S1 Welcome and Full Disk Access", "expand": "fill"},
     "Storage-Map.dc.html": {"x": 0, "y": 5440, "w": 1280, "h": 840, "title": "S5 Storage map", "expand": "fill"},
+    "Storage-Sunburst.dc.html": {"x": 8160, "y": 5440, "w": 1280, "h": 840, "title": "S5 Storage map (sunburst)", "expand": "fill"},
     "Storage-Empty.dc.html": {"x": 1360, "y": 5440, "w": 1280, "h": 840, "title": "S5 Storage map (empty)", "expand": "fill"},
     "Large-Old.dc.html": {"x": 2720, "y": 5440, "w": 1280, "h": 840, "title": "S6 Large and old files", "expand": "fill"},
     "System-Data.dc.html": {"x": 4080, "y": 5440, "w": 1280, "h": 840, "title": "S7 System Data", "expand": "fill"},
@@ -33,14 +34,14 @@
   "order": [
     "Main.dc.html", "Landing-Phone.dc.html",
     "Dashboard.dc.html", "Dashboard-Dark.dc.html", "Monitor.dc.html", "MenuBar.dc.html", "Welcome.dc.html",
-    "Storage-Map.dc.html", "Storage-Empty.dc.html", "Large-Old.dc.html", "System-Data.dc.html", "Duplicates.dc.html", "Snapshots.dc.html",
+    "Storage-Map.dc.html", "Storage-Sunburst.dc.html", "Storage-Empty.dc.html", "Large-Old.dc.html", "System-Data.dc.html", "Duplicates.dc.html", "Snapshots.dc.html",
     "Cleanup.dc.html", "Cleanup-Result.dc.html", "Cleanup-Error.dc.html", "Operation-Log.dc.html",
     "Apps.dc.html", "Uninstall.dc.html", "Leftovers.dc.html", "Login-Items.dc.html", "Maintenance.dc.html",
     "Settings.dc.html", "About.dc.html"
   ],
   "notes": {
     "marketing": {"x": 0, "y": -300, "text": "Marketing", "kind": "title1", "maxW": 1750},
-    "core": {"x": 0, "y": 4000, "text": "Core: dashboard, monitor, menu bar, onboarding", "kind": "title1", "maxW": 5860},
+    "core": {"x": 0, "y": 4000, "text": "Core · native fixture references (run scripts/revamp-shots.sh)", "kind": "title1", "maxW": 5860},
     "storage": {"x": 0, "y": 5140, "text": "Storage", "kind": "title1", "maxW": 8080},
     "clean": {"x": 0, "y": 6280, "text": "Cleanup and history", "kind": "title1", "maxW": 5360},
     "apps": {"x": 0, "y": 7420, "text": "Apps and maintenance", "kind": "title1", "maxW": 6720},

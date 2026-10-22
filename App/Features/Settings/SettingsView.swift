@@ -4,7 +4,15 @@ import SwiftUI
 
 /// S18: Settings window. Each tab applies changes immediately.
 struct SettingsView: View {
-    var body: some View {
+    @ViewBuilder var body: some View {
+        if #available(macOS 15, *) {
+            tabs.tabViewStyle(.grouped)
+        } else {
+            tabs
+        }
+    }
+
+    private var tabs: some View {
         TabView {
             GeneralSettings()
                 .tabItem { Label("General", systemImage: "gearshape") }
@@ -19,8 +27,12 @@ struct SettingsView: View {
             UpdateSettings()
                 .tabItem { Label("Updates", systemImage: "arrow.down.circle") }
         }
-        .frame(width: 620)
-        .frame(minHeight: 420)
+        .padding(16)
+        .frame(width: 700)
+        .frame(minHeight: 520)
+        .background(.kmBg)
+        .foregroundStyle(.kmFg)
+        .environment(\.defaultMinListRowHeight, Metrics.rowHeight)
     }
 }
 
@@ -64,6 +76,7 @@ struct GeneralSettings: View {
             }
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
     }
 
     private func setLaunchAtLogin(_ on: Bool) {
@@ -134,6 +147,7 @@ struct MenuBarSettings: View {
             }
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
     }
 
     private func binding(for item: MenuBarItem) -> Binding<Bool> {
@@ -184,6 +198,7 @@ struct AlertSettings: View {
             }
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
     }
 }
 
@@ -253,6 +268,7 @@ struct CleanupSettings: View {
             }
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
         .confirmationDialog("Delete permanently from now on?", isPresented: $confirmPermanent) {
             Button("Delete permanently", role: .destructive) { deleteMode = "permanent" }
             Button("Keep using the Trash", role: .cancel) {}
@@ -342,6 +358,7 @@ struct HelperSettings: View {
             }
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
         .onAppear { model.helper.refresh() }
     }
 }
@@ -371,6 +388,7 @@ struct UpdateSettings: View {
             }
         }
         .formStyle(.grouped)
-        .onAppear { automatic = model.updater.automaticallyChecks }
+        .scrollContentBackground(.hidden)
+        .onAppear { if !VisualFixtures.enabled { automatic = model.updater.automaticallyChecks } }
     }
 }

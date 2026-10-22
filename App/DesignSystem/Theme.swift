@@ -11,6 +11,7 @@ extension ShapeStyle where Self == Color {
     static var kmFg: Color { Color("fg") }
     static var kmFgMuted: Color { Color("fgMuted") }
     static var kmAccent: Color { Color("AccentColor") }
+    static var kmControlAccent: Color { Color("controlAccent") }
     static var kmAccentSoft: Color { Color("accentSoft") }
     static var kmAccentText: Color { Color("accentText") }
     static var kmOnAccent: Color { Color("onAccent") }
@@ -31,9 +32,13 @@ extension ShapeStyle where Self == Color {
 
 enum Metrics {
     static let radiusControl: CGFloat = 6
-    static let radius: CGFloat = 10
+    static let radius: CGFloat = 12
     static let pagePadding: CGFloat = 24
-    static let contentMaxWidth: CGFloat = 1100
+    static let contentMaxWidth: CGFloat = 1200
+    static let panelPadding: CGFloat = 20
+    static let panelGap: CGFloat = 16
+    static let rowHeight: CGFloat = 40
+    static let detailRowHeight: CGFloat = 56
 }
 
 extension View {
@@ -41,7 +46,7 @@ extension View {
     func tabular() -> some View { monospacedDigit() }
 
     /// A grouped surface: 1px border, no shadow (borders for structure).
-    func kmGroup(padding: CGFloat = 14) -> some View {
+    func kmGroup(padding: CGFloat = Metrics.panelPadding) -> some View {
         self.padding(padding)
             .background(.kmSurface, in: RoundedRectangle(cornerRadius: Metrics.radius))
             .overlay(RoundedRectangle(cornerRadius: Metrics.radius).strokeBorder(.kmBorder))
@@ -51,16 +56,17 @@ extension View {
 /// Primary action: verdigris fill, used once per view.
 struct PrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.body.weight(.semibold))
             .foregroundStyle(.kmOnAccent)
             .padding(.horizontal, 14)
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
             .background(.kmAccent.opacity(isEnabled ? 1 : 0.45), in: RoundedRectangle(cornerRadius: Metrics.radiusControl))
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+            .animation(reduceMotion ? nil : .easeOut(duration: 0.12), value: configuration.isPressed)
             .contentShape(Rectangle())
     }
 }

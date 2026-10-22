@@ -47,20 +47,23 @@ struct OperationLogView: View {
                 VStack(spacing: 0) {
                     Table(filtered) {
                         TableColumn("Date") { r in Text(r.date, format: .dateTime.day().month(.abbreviated).hour().minute()).tabular() }
-                            .width(min: 110, ideal: 130)
-                        TableColumn("Operation") { r in Text(verbatim: r.title) }
-                            .width(min: 90, ideal: 120)
+                            .width(min: 110, ideal: 130, max: 150)
+                        TableColumn("Operation") { r in Text(verbatim: r.title).fontWeight(.medium).frame(minHeight: Metrics.detailRowHeight) }
+                            .width(min: 90, ideal: 120, max: 150)
                         TableColumn("Path") { r in
                             Text(verbatim: (r.path as NSString).abbreviatingWithTildeInPath)
                                 .font(.system(.callout, design: .monospaced))
                                 .lineLimit(1).truncationMode(.middle)
                                 .help(r.path)
                         }
+                        .width(min: 180, ideal: 260)
                         TableColumn("Size") { r in Text(r.bytes > 0 ? Format.bytes(r.bytes) : "–").tabular().frame(maxWidth: .infinity, alignment: .trailing) }
-                            .width(min: 70, ideal: 80)
+                            .width(min: 70, ideal: 80, max: 100)
                         TableColumn("Result") { r in ResultText(result: r.resultValue, reason: r.reason) }
-                            .width(min: 140, ideal: 220)
+                            .width(min: 140, ideal: 220, max: 280)
                     }
+                    .kmTableSurface()
+                    .padding(.horizontal, Metrics.pagePadding)
                     .contextMenu(forSelectionType: OperationRecord.ID.self) { ids in
                         Button("Reveal in Finder") {
                             FileActions.reveal(records.filter { ids.contains($0.id) && FileManager.default.fileExists(atPath: $0.path) }.map(\.path))

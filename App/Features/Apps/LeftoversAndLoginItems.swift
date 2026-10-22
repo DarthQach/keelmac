@@ -33,7 +33,7 @@ struct LeftoversView: View {
                             ForEach(g.files) { f in
                                 HStack {
                                     Toggle(isOn: Binding(get: { !excluded.contains(f.id) }, set: { on in if on { excluded.remove(f.id) } else { excluded.insert(f.id) } })) {
-                                        PathText(path: f.path).foregroundStyle(.kmFg)
+                                        FileIdentity(name: (f.path as NSString).lastPathComponent, path: (f.path as NSString).deletingLastPathComponent)
                                     }
                                     .toggleStyle(.checkbox)
                                     Spacer()
@@ -53,6 +53,9 @@ struct LeftoversView: View {
                     }
                 }
                 .listStyle(.inset)
+                .kmTableSurface()
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, 16)
                 ActionBar {
                     Text("\(chosen.count) items selected, \(Format.bytes(chosen.reduce(0) { $0 + $1.bytes }))")
                 } trailing: {
@@ -107,6 +110,9 @@ struct LoginItemsView: View {
                         }
                     }
                     .listStyle(.inset)
+                .kmTableSurface()
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, 16)
                 }
             } else {
                 ProgressView("Reading launchd…").frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -144,8 +150,8 @@ private struct LaunchRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(verbatim: item.label)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(verbatim: item.label).fontWeight(.medium).lineLimit(1).truncationMode(.middle)
                 PathText(path: item.plistPath)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -156,8 +162,8 @@ private struct LaunchRow: View {
                     Text("App not installed").foregroundStyle(.kmWarning)
                 }
             }
-            .frame(width: 160, alignment: .leading)
-            Text(item.schedule.label).foregroundStyle(.kmFgMuted).frame(width: 110, alignment: .leading)
+            .frame(width: 110, alignment: .leading)
+            Text(item.schedule.label).foregroundStyle(.kmFgMuted).frame(width: 90, alignment: .leading)
             if busy {
                 ProgressView().controlSize(.small).frame(width: 40)
             } else {
@@ -175,7 +181,8 @@ private struct LaunchRow: View {
             }
             Button("Remove…", action: remove).disabled(item.needsHelper && !model.helper.isEnabled)
         }
-        .padding(.vertical, 3)
+        .frame(minHeight: Metrics.detailRowHeight)
+        .padding(.vertical, 6)
     }
 }
 

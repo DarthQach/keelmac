@@ -18,13 +18,13 @@ struct MaintenanceView: View {
         VStack(spacing: 0) {
             HelperBanner()
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 0) {
+                LazyVStack(alignment: .leading, spacing: 16) {
                     ForEach(MaintenanceCatalog.all) { task in
                         TaskRow(task: task, isRunning: running == task.id, anyRunning: running != nil, output: output[task.id],
                                 result: results[task.id], startedAt: running == task.id ? startedAt : nil) {
                             if task.id == .rebuildSpotlight { confirmTask = task } else { run(task) }
                         }
-                        Divider()
+                        .kmGroup()
                     }
                 }
                 .padding(.horizontal, Metrics.pagePadding)
@@ -41,7 +41,7 @@ struct MaintenanceView: View {
     }
 
     private func run(_ task: MaintenanceTask) {
-        guard running == nil else { return }
+        guard !VisualFixtures.enabled, running == nil else { return }
         running = task.id
         startedAt = Date()
         output[task.id] = ""
@@ -95,9 +95,9 @@ private struct TaskRow: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 8) {
-                    Text(task.id.title).fontWeight(.semibold)
+                    Text(task.id.title).font(.title3.weight(.semibold))
                     if task.needsAdmin {
                         Text("Admin")
                             .font(.caption)
@@ -148,9 +148,9 @@ private struct TaskRow: View {
                     }
                 }
             }
-            .frame(width: 200, alignment: .trailing)
+            .frame(width: 150, alignment: .trailing)
         }
-        .padding(.vertical, 14)
+        .padding(.vertical, 4)
     }
 }
 

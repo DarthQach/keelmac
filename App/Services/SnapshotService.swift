@@ -25,9 +25,16 @@ final class SnapshotService {
     var batteryProvider: @MainActor () -> Double? = { nil }
     var reclaimableProvider: @MainActor () -> Int64 = { Int64(UserDefaults.standard.integer(forKey: "lastReclaimableBytes")) }
 
-    init(store: SnapshotStore) { self.store = store }
+    init(store: SnapshotStore) {
+        self.store = store
+        if VisualFixtures.enabled {
+            snapshots = VisualFixtures.state == "empty" ? [] : VisualFixtures.snapshots
+            if VisualFixtures.state == "error" { loadError = String(localized: "The saved snapshots could not be read.") }
+        }
+    }
 
     func load() async {
+        guard !VisualFixtures.enabled else { return }
         do {
             snapshots = try await store.all()
             loadError = nil
@@ -38,7 +45,7 @@ final class SnapshotService {
 
     @discardableResult
     func takeSnapshot() async -> SnapshotValue? {
-        guard !isTaking else { return nil }
+        guard !VisualFixtures.enabled, !isTaking else { return nil }
         isTaking = true
         defer { isTaking = false }
         let (total, available) = StartupVolume.capacity()

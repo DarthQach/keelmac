@@ -57,7 +57,7 @@ struct MenuBarPopover: View {
 
     var body: some View {
         let m = model.metrics
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 16) {
             Readouts(metrics: m)
             Divider()
             VStack(alignment: .leading, spacing: 6) {
@@ -68,12 +68,12 @@ struct MenuBarPopover: View {
                         Text("CPU").tag(ChartKind.cpu)
                         Text("Memory").tag(ChartKind.memory)
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.segmented).tint(.kmControlAccent)
                     .labelsHidden()
                     .fixedSize()
                 }
                 HistoryChart(points: m.history.elements, kind: chart)
-                    .frame(height: 64)
+                    .frame(height: 80)
             }
             Divider()
             VStack(alignment: .leading, spacing: 4) {
@@ -84,7 +84,7 @@ struct MenuBarPopover: View {
                         Text("CPU").tag(ProcessSort.cpu)
                         Text("Memory").tag(ProcessSort.memory)
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.segmented).tint(.kmControlAccent)
                     .labelsHidden()
                     .fixedSize()
                 }
@@ -98,7 +98,7 @@ struct MenuBarPopover: View {
                             Text(sort == .cpu ? Format.percent(p.cpuPercent / 100, digits: 1) : Format.memory(p.memoryBytes)).tabular()
                             QuitButton(process: p, compact: true)
                         }
-                        .padding(.vertical, 1)
+                        .frame(minHeight: 32)
                     }
                 }
             }
@@ -120,8 +120,10 @@ struct MenuBarPopover: View {
                 Button("Quit") { NSApp.terminate(nil) }.buttonStyle(.borderless)
             }
         }
-        .padding(14)
-        .frame(width: 340)
+        .padding(20)
+        .frame(width: 400)
+        .background(.kmBg)
+        .foregroundStyle(.kmFg)
         .detailedMetrics(m)
     }
 }
@@ -131,14 +133,14 @@ private struct Readouts: View {
 
     var body: some View {
         let s = metrics.latest
-        Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 10) {
+        Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 16) {
             GridRow {
                 cell("CPU", s?.cpu.map { Text(Format.percent($0.total)) })
                 cell("Memory", s?.memory.map { Text($0.pressure.label) })
                 cell("Disk free", s?.disk.map { Text(Format.bytes($0.availableBytes)) })
             }
             GridRow {
-                VStack(alignment: .leading, spacing: 1) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text("Network").font(.caption).foregroundStyle(.kmFgMuted)
                     if let n = s?.network {
                         Text("In \(Format.rate(n.bytesInPerSecond))").fontWeight(.semibold)
@@ -155,10 +157,10 @@ private struct Readouts: View {
     }
 
     private func cell(_ title: LocalizedStringKey, _ value: Text?) -> some View {
-        VStack(alignment: .leading, spacing: 1) {
+        VStack(alignment: .leading, spacing: 5) {
             Text(title).font(.caption).foregroundStyle(.kmFgMuted)
             (value ?? Text("Measuring…").foregroundStyle(.kmFgMuted))
-                .font(.system(size: 15, weight: .semibold))
+                .font(.title3.weight(.semibold))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

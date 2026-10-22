@@ -57,10 +57,11 @@ struct ReviewRulesTests {
         #expect(h.lit.contains(modelsID) && h.lit.contains(tree.root))
         #expect(!h.lit.contains(docsID))
 
-        let tiles = TreemapView.layout(tree: tree, root: tree.root, in: CGRect(x: 0, y: 0, width: 1000, height: 700), highlight: h)
-        #expect(tiles.first { $0.name.hasSuffix("Qwen") }?.role == .candidate)
-        #expect(tiles.first { $0.name == "Docs" }?.role == .dimmed)
-        #expect(tiles.first { $0.name == "a.safetensors" }?.role == .insideCandidate)
+        let projection = MapPresentation(tree: tree, root: tree.root)
+        #expect(projection.entries.first { $0.item == .node(modelsID) }?.children.contains { $0.item == .node(qwenID) } == true)
+        #expect(!h.lit.contains(docsID))
+        let child = try #require(tree.lookup(path: "/R/Models/Qwen/a.safetensors"))
+        #expect(h.isInsideCandidate(child, tree: tree))
     }
 }
 

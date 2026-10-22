@@ -15,6 +15,7 @@ const MAP = {
   border: "--border", borderStrong: "--border-strong",
   fg: "--fg", fgMuted: "--fg-muted",
   AccentColor: "--accent", accentHover: "--accent-hover", onAccent: "--on-accent", accentSoft: "--accent-soft", accentText: "--accent-text",
+  controlAccent: "--control-accent",
   water: "--water", waterEdge: "--water-edge", hullInk: "--hull-ink",
   success: "--success", warning: "--warning", danger: "--danger", dangerSolid: "--danger-solid", onDanger: "--on-danger",
   warningSoft: "--warning-soft", warningInk: "--warning-ink", sidebar: "--sidebar",

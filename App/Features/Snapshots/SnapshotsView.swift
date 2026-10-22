@@ -16,6 +16,36 @@ struct SnapshotsView: View {
     }
 
     var body: some View {
+        VStack(spacing: 0) {
+            if let error = service.loadError {
+                HStack(alignment: .top, spacing: 12) {
+                    Image(systemName: "exclamationmark.triangle").foregroundStyle(.kmDanger)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Couldn’t load snapshots").fontWeight(.semibold)
+                        Text(verbatim: error).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer()
+                    Button("Try again") { Task { await service.load() } }
+                }
+                .kmGroup()
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, 16)
+            }
+            content
+        }
+        .toolbar {
+            ToolbarItem {
+                Button("Export report…", action: export).disabled(selected == nil)
+            }
+            ToolbarItem {
+                Button("Take snapshot") { Task { await service.takeSnapshot() } }
+                    .disabled(service.isTaking)
+            }
+        }
+        .task { await service.load() }
+    }
+
+    private var content: some View {
         Group {
             if service.snapshots.isEmpty {
                 if service.isTaking {
@@ -33,11 +63,12 @@ struct SnapshotsView: View {
                     List(selection: Binding(get: { selected?.id }, set: { selectedID = $0 })) {
                         Section("Weekly, every Monday at 09:00") {
                             ForEach(service.snapshots) { s in
-                                VStack(alignment: .leading, spacing: 2) {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text(s.date, format: .dateTime.weekday(.abbreviated).day().month(.abbreviated))
                                         .fontWeight(.semibold)
                                     Text("\(Format.bytes(s.volumeUsed)) used").font(.callout).foregroundStyle(.kmFgMuted).tabular()
                                 }
+                                .frame(minHeight: Metrics.detailRowHeight)
                                 .tag(s.id)
                             }
                         }
@@ -45,21 +76,11 @@ struct SnapshotsView: View {
                     .frame(minWidth: 200, idealWidth: 230, maxWidth: 280)
                     if let selected {
                         SnapshotDetail(current: selected, previous: compareTo, all: service.snapshots, compareID: $compareID)
-                            .frame(minWidth: 480)
+                            .frame(minWidth: 400)
                     }
                 }
             }
         }
-        .toolbar {
-            ToolbarItem {
-                Button("Export report…", action: export).disabled(selected == nil)
-            }
-            ToolbarItem {
-                Button("Take snapshot") { Task { await service.takeSnapshot() } }
-                    .disabled(service.isTaking)
-            }
-        }
-        .task { await service.load() }
     }
 
     private func export() {
@@ -93,7 +114,7 @@ private struct SnapshotDetail: View {
                     let changes = SnapshotDiff.compare(old: previous, new: current)
                     summary(previous: previous)
                     Table(changes) {
-                        TableColumn("Folder") { c in PathText(path: c.path).foregroundStyle(.kmFg) }
+                        TableColumn("Folder") { c in FileIdentity(name: (c.path as NSString).lastPathComponent, path: c.path, symbol: "folder") }
                         TableColumn(Text(previous.date, format: .dateTime.day().month(.abbreviated))) { c in
                             Text(c.oldBytes.map(Format.bytes) ?? "–").tabular().frame(maxWidth: .infinity, alignment: .trailing)
                         }.width(90)
@@ -102,15 +123,17 @@ private struct SnapshotDetail: View {
                         }.width(90)
                         TableColumn("Change") { c in ChangeText(change: c).frame(maxWidth: .infinity, alignment: .trailing) }.width(110)
                     }
-                    .frame(minHeight: 320)
+                    .frame(minHeight: 400)
+                    .kmTableSurface()
                 } else {
                     Text("This is the first snapshot. Next week’s will show what grew.")
                         .foregroundStyle(.kmFgMuted)
                     Table(current.entries.sorted { $0.value > $1.value }.map { FolderChange(path: $0.key, oldBytes: nil, newBytes: $0.value) }) {
-                        TableColumn("Folder") { c in PathText(path: c.path).foregroundStyle(.kmFg) }
+                        TableColumn("Folder") { c in FileIdentity(name: (c.path as NSString).lastPathComponent, path: c.path, symbol: "folder") }
                         TableColumn("Size") { c in Text(Format.bytes(c.newBytes ?? 0)).tabular().frame(maxWidth: .infinity, alignment: .trailing) }.width(100)
                     }
-                    .frame(minHeight: 320)
+                    .frame(minHeight: 400)
+                    .kmTableSurface()
                 }
             }
             .padding(Metrics.pagePadding)
@@ -136,7 +159,7 @@ private struct SnapshotDetail: View {
     }
 
     private func stat(title: LocalizedStringKey, value: Text) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: 6) {
             Text(title).font(.callout).foregroundStyle(.kmFgMuted)
             value.font(.title3.weight(.semibold)).tabular()
         }

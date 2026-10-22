@@ -78,5 +78,15 @@
   "--on-kind",
   "--kind-model",
   4.5
+ ],
+ [
+  "--on-control-accent",
+  "--control-accent",
+  4.5
+ ],
+ [
+  "--control-accent",
+  "--bg",
+  3
  ]
 ]

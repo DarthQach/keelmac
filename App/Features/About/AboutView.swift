@@ -17,9 +17,9 @@ struct AboutView: View {
     }
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 16) {
             Image(nsImage: NSApp.applicationIconImage).resizable().frame(width: 96, height: 96).accessibilityHidden(true)
-            Text("KeelMac").font(.title2.weight(.semibold))
+            Text("KeelMac").font(.largeTitle.weight(.semibold))
             Text("Version \(version)").foregroundStyle(.kmFgMuted).tabular()
             Text("Free and open source under the GPL-3.0 licence. No account, no telemetry.")
                 .multilineTextAlignment(.center)
@@ -45,8 +45,9 @@ struct AboutView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 6)
         }
-        .padding(.horizontal, 28)
-        .padding(.vertical, 24)
-        .frame(width: 360)
+        .padding(32)
+        .frame(width: 420)
+        .background(.kmBg)
+        .foregroundStyle(.kmFg)
     }
 }

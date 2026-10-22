@@ -13,11 +13,12 @@ final class HelperService {
 
     init() { refresh() }
 
-    func refresh() { status = client.status }
+    func refresh() { if !VisualFixtures.enabled { status = client.status } }
 
     var isEnabled: Bool { if case .enabled = status { true } else { false } }
 
     func install() {
+        guard !VisualFixtures.enabled else { return }
         do {
             try client.register()
             lastError = nil
@@ -29,6 +30,7 @@ final class HelperService {
     }
 
     func remove() async {
+        guard !VisualFixtures.enabled else { return }
         do {
             try await client.unregister()
             lastError = nil

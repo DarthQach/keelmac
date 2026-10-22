@@ -84,22 +84,31 @@ struct CleanupView: View {
             let empty = present.filter { !withItems.contains($0) }
             let current = selectedCategory.flatMap { present.contains($0) ? $0 : nil } ?? withItems[0]
             VStack(spacing: 0) {
+                CleanupSummary(plan: plan)
+                    .padding(.horizontal, Metrics.pagePadding)
+                    .padding(.bottom, 16)
                 HStack(spacing: 0) {
                     CategorySidebar(plan: plan, categories: withItems, empty: empty,
                                     selection: Binding(get: { current }, set: { selectedCategory = $0 }))
-                        .frame(width: 290)
+                        .frame(width: 230)
                     Divider()
                     CategoryDetail(category: current, groups: visible.filter { $0.category == current }, expanded: $expanded)
                         .id(current)
                 }
+                .kmTableSurface()
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, 16)
                 ActionBar {
-                    HStack(spacing: 4) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("\(cleanup.selectedCount) items selected, \(Format.bytes(cleanup.selectedBytes)).")
-                        Text(FileActions.deleteMode == .permanent ? "Items are deleted permanently." : "Items go to the Trash.")
+                        Text(cleanup.selectionDeletesPermanently ? "Some selected items are deleted permanently." : "Items go to the Trash.")
                             .foregroundStyle(.kmFgMuted)
                     }
                 } trailing: {
-                    Button { confirm = true } label: { RemoveLabel(bytes: cleanup.selectedBytes) }
+                    Button { confirm = true } label: {
+                        if cleanup.selectionDeletesPermanently { Text("Clean up \(Format.bytes(cleanup.selectedBytes))") }
+                        else { RemoveLabel(bytes: cleanup.selectedBytes) }
+                    }
                         .buttonStyle(.kmPrimary)
                         .disabled(cleanup.selected.isEmpty)
                         .keyboardShortcut(.defaultAction)
@@ -113,6 +122,31 @@ struct CleanupView: View {
         return cleanup.selectionDeletesPermanently
             ? Text("Clean up \(size)? Some items are deleted permanently.")
             : Text("Move \(cleanup.selectedCount) items (\(size)) to the Trash?")
+    }
+}
+
+private struct CleanupSummary: View {
+    @Environment(AppModel.self) private var model
+    let plan: CleanupPlan
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 24) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Ready to review").foregroundStyle(.kmFgMuted)
+                Text(Format.bytes(plan.groups.reduce(0) { $0 + $1.bytes }))
+                    .font(.largeTitle.weight(.semibold)).tabular()
+            }
+            Spacer(minLength: 0)
+            VStack(alignment: .trailing, spacing: 6) {
+                Text("\(Format.bytes(model.cleanup.selectedBytes)) selected")
+                    .font(.headline).tabular().foregroundStyle(.kmAccentText)
+                Text("Nothing moves until you click the button below, and only what is checked.")
+                    .font(.callout).foregroundStyle(.kmFgMuted)
+                    .multilineTextAlignment(.trailing).frame(maxWidth: 300)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .kmGroup()
     }
 }
 
@@ -149,12 +183,8 @@ private struct CategorySidebar: View {
     @State private var showEmpty = false
 
     var body: some View {
-        let total = categories.reduce(Int64(0)) { $0 + plan.bytes(in: $1) }
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                summary(total: total)
-                    .padding(16)
-                Divider()
                 VStack(spacing: 2) {
                     ForEach(categories, id: \.self) { row($0) }
                 }
@@ -172,27 +202,6 @@ private struct CategorySidebar: View {
         }
     }
 
-    private func summary(total: Int64) -> some View {
-        let selected = model.cleanup.selectedBytes
-        return VStack(alignment: .leading, spacing: 6) {
-            Text(Format.bytes(total)).font(.system(size: 28, weight: .semibold)).tabular()
-            Text("can be cleaned").foregroundStyle(.kmFgMuted)
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(.kmSurfaceMuted)
-                    Capsule().fill(.kmAccent)
-                        .frame(width: total > 0 ? geo.size.width * min(1, CGFloat(selected) / CGFloat(total)) : 0)
-                }
-            }
-            .frame(height: 6)
-            .padding(.top, 4)
-            Text("\(Format.bytes(selected)) selected").font(.callout).tabular()
-            Text("Nothing moves until you click the button below, and only what is checked.")
-                .font(.footnote).foregroundStyle(.kmFgMuted)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-
     private func row(_ category: CleanupCategory) -> some View {
         let ids = plan.groups(in: category).flatMap { $0.items.map(\.id) }
         let state = model.cleanup.state(of: ids)
@@ -203,18 +212,25 @@ private struct CategorySidebar: View {
             Image(systemName: category.symbol)
                 .frame(width: 18)
                 .foregroundStyle(isSelected ? .kmAccentText : .kmFgMuted)
-            Text(category.title).lineLimit(1)
-                .foregroundStyle(ids.isEmpty ? .kmFgMuted : .kmFg)
-            Spacer(minLength: 4)
-            (ids.isEmpty ? Text(verbatim: "–") : Text(Format.bytes(plan.bytes(in: category))))
-                .tabular()
-                .foregroundStyle(state == .off ? .kmFgMuted : .kmFg)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(category.title).fontWeight(isSelected ? .semibold : .regular)
+                    .foregroundStyle(ids.isEmpty ? .kmFgMuted : .kmFg)
+                    .fixedSize(horizontal: false, vertical: true)
+                (ids.isEmpty ? Text(verbatim: "–") : Text(Format.bytes(plan.bytes(in: category))))
+                    .font(.callout).tabular().foregroundStyle(.kmFgMuted)
+            }
+            Spacer(minLength: 0)
         }
         .padding(.horizontal, 10)
-        .padding(.vertical, 8)
+        .frame(minHeight: Metrics.detailRowHeight)
+        .padding(.vertical, 4)
         .background(isSelected ? Color.kmAccentSoft : .clear, in: RoundedRectangle(cornerRadius: Metrics.radiusControl))
         .contentShape(Rectangle())
         .onTapGesture { selection = category }
+        .focusable()
+        .onKeyPress(.return) { selection = category; return .handled }
+        .onKeyPress(.space) { selection = category; return .handled }
+        .accessibilityAction { selection = category }
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
@@ -236,7 +252,7 @@ private struct CategoryDetail: View {
                     Image(systemName: category.symbol).font(.title3).foregroundStyle(.kmAccentText)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(category.title).font(.title3.weight(.semibold))
-                        Text(category.subtitle).foregroundStyle(.kmFgMuted).lineLimit(1)
+                        Text(category.subtitle).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
                     }
                     Spacer()
                     if !available.isEmpty {
@@ -277,6 +293,7 @@ private struct RuleRow: View {
     @Binding var isExpanded: Bool
     @State private var showAll = false
     @State private var showInfo = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let shownItems = 15
     private var lang: String { Locale.current.language.languageCode?.identifier ?? "en" }
@@ -289,10 +306,16 @@ private struct RuleRow: View {
             HStack(spacing: 10) {
                 TriStateBox(state: state) { model.cleanup.toggle(ids) }
                     .accessibilityLabel(Text(verbatim: group.rule.title.value(for: lang)))
-                Text(verbatim: group.rule.title.value(for: lang)).fontWeight(.medium).lineLimit(1)
-                if group.deletesPermanently { Tag(text: "Deleted permanently") }
-                if group.isCommand { Tag(text: "Command") }
-                if group.rule.optIn && state == .off { Tag(text: "Off by default") }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(verbatim: group.rule.title.value(for: lang)).fontWeight(.semibold)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if group.deletesPermanently { Tag(text: "Deleted permanently") }
+                    if group.isCommand { Tag(text: "Command") }
+                    if group.rule.optIn && state == .off { Tag(text: "Off by default") }
+                    if group.items.count > 1 {
+                        Text("\(group.items.count) items").font(.callout).foregroundStyle(.kmFgMuted).tabular()
+                    }
+                }
                 Button { showInfo.toggle() } label: { Image(systemName: "info.circle") }
                     .buttonStyle(.borderless)
                     .foregroundStyle(.kmFgMuted)
@@ -302,21 +325,28 @@ private struct RuleRow: View {
                         Text(verbatim: detail).padding(14).frame(width: 300).fixedSize(horizontal: false, vertical: true)
                     }
                 Spacer(minLength: 8)
-                if group.items.count > 1 {
-                    Text("\(group.items.count) items").font(.callout).foregroundStyle(.kmFgMuted).tabular()
-                }
                 Text(Format.bytes(group.bytes)).tabular()
                     .foregroundStyle(state == .off ? .kmFgMuted : .kmFg)
                     .frame(minWidth: 72, alignment: .trailing)
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.kmFgMuted)
-                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                Button {
+                    withAnimation(reduceMotion ? nil : .easeOut(duration: 0.15)) { isExpanded.toggle() }
+                } label: {
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.kmFgMuted)
+                        .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                        .frame(width: 24, height: 32)
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(isExpanded ? Text("Collapse") : Text("Expand"))
+                .accessibilityIdentifier("cleanup.disclosure.\(group.id)")
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 10)
+            .frame(minHeight: Metrics.detailRowHeight)
+            .padding(.vertical, 8)
+            .background(isExpanded ? Color.kmSurfaceMuted : Color.kmSurface)
             .contentShape(Rectangle())
-            .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { isExpanded.toggle() } }
+            .onTapGesture { withAnimation(reduceMotion ? nil : .easeOut(duration: 0.15)) { isExpanded.toggle() } }
             .accessibilityAction(named: isExpanded ? Text("Collapse") : Text("Expand")) { isExpanded.toggle() }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("cleanup.rule.\(group.id)")
@@ -356,7 +386,7 @@ private struct RuleRow: View {
         }
         .padding(.leading, 12)
         .overlay(alignment: .leading) { Rectangle().fill(.kmAccent).frame(width: 2) }
-        .padding(.leading, 48)
+        .padding(.leading, 24)
         .padding(.trailing, 20)
         .padding(.bottom, 12)
     }
@@ -373,6 +403,7 @@ private struct UnavailableRow: View {
             Spacer(minLength: 8)
             reason.font(.callout)
         }
+        .frame(minHeight: Metrics.rowHeight)
         .help(Text(verbatim: group.rule.detail.value(for: lang)))
     }
 
@@ -412,20 +443,18 @@ private struct ItemRow: View {
             Image(systemName: item.isCommand ? "terminal" : item.isDirectory ? "folder" : "doc")
                 .foregroundStyle(.kmFgMuted)
                 .frame(width: 16)
-            Text(verbatim: name)
-                .font(item.isCommand ? .system(.callout, design: .monospaced) : .body)
-                .lineLimit(1)
-                .truncationMode(.middle)
-            if !item.isCommand && showsParent {
-                Text(verbatim: ((item.path as NSString).deletingLastPathComponent as NSString).abbreviatingWithTildeInPath)
-                    .font(.system(.caption, design: .monospaced))
-                    .foregroundStyle(.kmFgMuted)
-                    .lineLimit(1)
-                    .truncationMode(.middle)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(verbatim: name)
+                    .font(item.isCommand ? .system(.callout, design: .monospaced) : .body)
+                    .lineLimit(1).truncationMode(.middle)
+                if !item.isCommand && showsParent {
+                    PathText(path: (item.path as NSString).deletingLastPathComponent)
+                }
             }
             Spacer(minLength: 8)
             Text(Format.bytes(item.bytes)).tabular().foregroundStyle(.kmFgMuted)
         }
+        .frame(minHeight: showsParent ? Metrics.detailRowHeight : Metrics.rowHeight)
         .padding(.vertical, 4)
         .help(item.isCommand ? (item.command?.commandLine ?? item.path) : item.path)
         .contextMenu {

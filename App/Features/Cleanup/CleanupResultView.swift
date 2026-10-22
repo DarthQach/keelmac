@@ -19,7 +19,7 @@ struct CleanupResultView: View {
             VStack(alignment: .leading, spacing: 22) {
                 HStack(alignment: .top, spacing: 14) {
                     Image(systemName: "checkmark.circle")
-                        .font(.system(size: 28))
+                        .font(.largeTitle)
                         .foregroundStyle(.kmSuccess)
                         .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 4) {
@@ -35,16 +35,19 @@ struct CleanupResultView: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .kmGroup()
 
                 if !notRemoved.isEmpty || !failedCommands.isEmpty {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Skipped").font(.headline)
                         Table(notRemoved, columns: {
-                            TableColumn("Item") { o in PathText(path: o.path).foregroundStyle(.kmFg) }
+                            TableColumn("Item") { o in FileIdentity(name: (o.path as NSString).lastPathComponent, path: o.path) }
                             TableColumn("Size") { o in Text(Format.bytes(o.bytes)).tabular().frame(maxWidth: .infinity, alignment: .trailing) }.width(80)
                             TableColumn("Reason") { o in Text(LocalizedStringKey(o.reason ?? "")).foregroundStyle(o.result == .failed ? .kmDanger : .kmWarning) }
                         })
                         .frame(minHeight: 160, maxHeight: 280)
+                        .kmTableSurface()
                         ForEach(failedCommands, id: \.0) { id, r in
                             Text("A command failed with exit code \(r.exitCode): \(r.stderr.trimmingCharacters(in: .whitespacesAndNewlines))")
                                 .foregroundStyle(.kmDanger).font(.callout)
@@ -63,7 +66,7 @@ struct CleanupResultView: View {
                 }
 
                 if coffeeVisible {
-                    HStack(alignment: .center, spacing: 14) {
+                    VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Freed \(Format.bytes(result.bytesFreed)). Buy me a coffee?").fontWeight(.semibold)
                             Text("KeelMac is free and stays free. This shows at most once a month.").foregroundStyle(.kmFgMuted)
@@ -80,7 +83,7 @@ struct CleanupResultView: View {
                     .kmGroup()
                 }
             }
-            .padding(32)
+            .padding(Metrics.pagePadding)
             .frame(maxWidth: 860, alignment: .leading)
         }
         .onAppear {

@@ -84,3 +84,24 @@ enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
         self = route
     }
 }
+
+
+extension Route {
+    var subtitle: LocalizedStringKey {
+        switch self {
+        case .dashboard: "A clear view of your Mac."
+        case .monitor: "Live activity, at a glance."
+        case .storageMap: "See where your space goes."
+        case .largeOld: "Find what is worth keeping."
+        case .systemData: "Understand the space behind System Data."
+        case .duplicates: "Compare copies before removing them."
+        case .snapshots: "See how your storage changes over time."
+        case .cleanup: "More room. Every item in your control."
+        case .apps: "Your apps and everything that comes with them."
+        case .leftovers: "Review files left behind by removed apps."
+        case .loginItems: "Know what starts with your Mac."
+        case .maintenance: "Purposeful tools. Transparent commands."
+        case .operationLog: "A record of every change."
+        }
+    }
+}

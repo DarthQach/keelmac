@@ -2,7 +2,7 @@ import MetricsKit
 import ReportKit
 import SwiftUI
 
-/// S2: Health Score sentence, the load line, the factor ledger with fixes, and a summary strip (C1–C3).
+/// S2: health, capacity, live metrics and the complete factor breakdown (C1–C3).
 struct DashboardView: View {
     @Environment(AppModel.self) private var model
 
@@ -15,41 +15,65 @@ struct DashboardView: View {
                                  actionTitle: "Open Privacy & Security") { model.openFullDiskAccessSettings() }
             }
             ScrollView {
-                VStack(alignment: .leading, spacing: 28) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(report.band.sentence)
-                            .font(.system(size: 26, weight: .semibold))
-                            .accessibilityAddTraits(.isHeader)
-                        Text("\(report.score) of 100").font(.title3).foregroundStyle(.kmFgMuted).tabular()
+                VStack(alignment: .leading, spacing: 24) {
+                    HStack(alignment: .center, spacing: 24) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Label("Mac health", systemImage: "heart.text.square")
+                                .font(.headline).foregroundStyle(.kmAccentText)
+                            Text(report.band.sentence)
+                                .font(.title2.weight(.semibold))
+                                .accessibilityAddTraits(.isHeader)
+                        }
+                        Spacer(minLength: 0)
+                        VStack(alignment: .trailing, spacing: 4) {
+                            Text("\(report.score)").font(.largeTitle.weight(.semibold)).tabular()
+                            Text("of 100").font(.callout).foregroundStyle(.kmFgMuted)
+                        }
+                        .accessibilityElement(children: .combine)
                     }
+                    .kmGroup()
 
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text("Macintosh HD").fontWeight(.semibold)
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Label("Macintosh HD", systemImage: "internaldrive").font(.headline)
+                                Text(Format.bytes(inputs.diskAvailable)).font(.largeTitle.weight(.semibold)).tabular()
+                                Text("Available space").foregroundStyle(.kmFgMuted)
+                            }
                             Spacer()
-                            Text("\(Format.bytes(inputs.diskTotal - inputs.diskAvailable)) used of \(Format.bytes(inputs.diskTotal)), \(Format.bytes(inputs.diskAvailable)) free")
-                                .foregroundStyle(.kmFgMuted).tabular()
+                            VStack(alignment: .trailing, spacing: 8) {
+                                Text("\(Format.bytes(inputs.diskTotal - inputs.diskAvailable)) used").fontWeight(.medium)
+                                Text("\(Format.bytes(inputs.diskTotal)) total").foregroundStyle(.kmFgMuted)
+                            }
+                            .tabular()
                         }
                         LoadLineGauge(total: inputs.diskTotal, used: inputs.diskTotal - inputs.diskAvailable)
-                        HStack(alignment: .firstTextBaseline) {
-                            LoadLineSentence(total: inputs.diskTotal, used: inputs.diskTotal - inputs.diskAvailable)
-                                .font(.headline).tabular()
-                            Spacer()
-                            Text(LoadLine.marginBytes(total: inputs.diskTotal, used: inputs.diskTotal - inputs.diskAvailable) >= 0
-                                 ? "The load line is 85% full. Keep below it so macOS has room for updates and swap."
-                                 : "macOS needs free space for updates and swap. Cleanup and the storage map show what to remove.")
-                                .foregroundStyle(.kmFgMuted)
-                                .multilineTextAlignment(.trailing)
+                        ViewThatFits(in: .horizontal) {
+                            HStack(alignment: .firstTextBaseline, spacing: 24) {
+                                loadLine(inputs)
+                                Spacer()
+                                storageExplanation(inputs).frame(maxWidth: 420)
+                            }
+                            VStack(alignment: .leading, spacing: 8) {
+                                loadLine(inputs)
+                                storageExplanation(inputs)
+                            }
                         }
                     }
-
-                    FactorLedger(report: report, inputs: inputs)
+                    .kmGroup()
 
                     SummaryStrip(metrics: model.metrics)
+
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Health breakdown").font(.title2.weight(.semibold)).accessibilityAddTraits(.isHeader)
+                        FactorLedger(report: report, inputs: inputs)
+                    }
+                    .kmGroup()
                 }
-                .padding(.horizontal, 32)
-                .padding(.vertical, 28)
-                .frame(maxWidth: 1000, alignment: .leading)
+                .padding(Metrics.pagePadding)
+                .padding(.top, -12)
+                .frame(maxWidth: Metrics.contentMaxWidth)
+                .frame(maxWidth: .infinity, alignment: .top)
             }
         }
         .navigationSubtitle(Text("Updated \(Date.now.formatted(date: .omitted, time: .shortened))"))
@@ -61,6 +85,19 @@ struct DashboardView: View {
         .onAppear { model.health.refreshCounts() }
         .onDisappear { model.health.cache(inputs) }
     }
+
+    private func loadLine(_ inputs: HealthInputs) -> some View {
+        LoadLineSentence(total: inputs.diskTotal, used: inputs.diskTotal - inputs.diskAvailable)
+            .font(.callout.weight(.medium)).tabular()
+    }
+
+    private func storageExplanation(_ inputs: HealthInputs) -> some View {
+        Text(LoadLine.marginBytes(total: inputs.diskTotal, used: inputs.diskTotal - inputs.diskAvailable) >= 0
+             ? "The load line is 85% full. Keep below it so macOS has room for updates and swap."
+             : "macOS needs free space for updates and swap. Cleanup and the storage map show what to remove.")
+            .font(.callout).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
+    }
+
 }
 
 private struct FactorLedger: View {
@@ -69,23 +106,22 @@ private struct FactorLedger: View {
     let inputs: HealthInputs
 
     var body: some View {
-        Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 0) {
-            GridRow {
-                Text("Factor"); Text("Score").gridColumnAlignment(.trailing); Text("Why"); Text(verbatim: "")
-            }
-            .font(.callout).foregroundStyle(.kmFgMuted)
-            .padding(.bottom, 6)
+        VStack(spacing: 0) {
             ForEach(report.factors) { f in
-                Divider().gridCellUnsizedAxes(.horizontal)
-                GridRow {
-                    Text(f.id.title)
-                    Text("\(f.points)/\(f.maxPoints)").tabular()
-                    why(f).foregroundStyle(.kmFgMuted).tabular()
-                    fixButton(f)
+                HStack(alignment: .center, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(f.id.title).fontWeight(.semibold)
+                        why(f).foregroundStyle(.kmFgMuted).tabular().fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack(alignment: .trailing, spacing: 6) {
+                        Text("\(f.points)/\(f.maxPoints)").font(.headline).tabular()
+                        fixButton(f)
+                    }
                 }
-                .padding(.vertical, 9)
+                .padding(.vertical, 12)
+                if f.id != report.factors.last?.id { Divider() }
             }
-            Divider().gridCellUnsizedAxes(.horizontal)
         }
     }
 
@@ -129,34 +165,26 @@ private struct SummaryStrip: View {
 
     var body: some View {
         let s = metrics.latest
-        Grid(horizontalSpacing: 0) {
-            GridRow {
-                cell("CPU", s?.cpu.map { Text(Format.percent($0.total)) }, s?.cpu.map { Text("\($0.perCore.count) cores") })
-                VRule()
-                cell("Memory", s?.memory.map { Text(Format.percent(Double($0.usedBytes) / Double(max($0.totalBytes, 1)))) },
-                     s?.memory.map { m in Text("\(Format.memory(m.usedBytes)) of \(Format.memory(m.totalBytes)), pressure ") + Text(m.pressure.label) })
-                VRule()
-                cell("Battery", metrics.battery.flatMap { b in b.isPresent ? b.chargePercent.map { Text("\($0)%") } : Text("No battery") },
-                     metrics.battery.flatMap { b in b.isPresent ? (b.isCharging ? Text("Charging") : b.isPluggedIn ? Text("Plugged in") : Text("On battery")) : nil })
-                VRule()
-                cell("Uptime", Text(Duration.seconds(metrics.systemInfo.uptime(now: .now)).formatted(.units(allowed: [.days, .hours], width: .abbreviated, maximumUnitCount: 2))),
-                     Text(verbatim: "macOS \(metrics.systemInfo.macOSVersion), \(metrics.systemInfo.chip)"))
-            }
+        MetricColumns {
+            cell("CPU", s?.cpu.map { Text(Format.percent($0.total)) }, s?.cpu.map { Text("\($0.perCore.count) cores") })
+            cell("Memory", s?.memory.map { Text(Format.percent(Double($0.usedBytes) / Double(max($0.totalBytes, 1)))) },
+                 s?.memory.map { m in Text("\(Format.memory(m.usedBytes)) of \(Format.memory(m.totalBytes)), pressure ") + Text(m.pressure.label) })
+            cell("Battery", metrics.battery.flatMap { b in b.isPresent ? b.chargePercent.map { Text("\($0)%") } : Text("No battery") },
+                 metrics.battery.flatMap { b in b.isPresent ? (b.isCharging ? Text("Charging") : b.isPluggedIn ? Text("Plugged in") : Text("On battery")) : nil })
+            cell("Uptime", Text(Duration.seconds(metrics.systemInfo.uptime(now: .now)).formatted(.units(allowed: [.days, .hours], width: .abbreviated, maximumUnitCount: 2))),
+                 Text(verbatim: "macOS \(metrics.systemInfo.macOSVersion), \(metrics.systemInfo.chip)"))
         }
-        .padding(.vertical, 4)
-        .overlay(alignment: .top) { Divider() }
-        .overlay(alignment: .bottom) { Divider() }
         .tabular()
     }
 
     private func cell(_ title: LocalizedStringKey, _ value: Text?, _ caption: Text?) -> some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title).font(.callout).foregroundStyle(.kmFgMuted)
-            (value ?? Text("Measuring…")).font(.system(size: 17, weight: .semibold))
+            (value ?? Text("Measuring…")).font(.title.weight(.semibold))
             (caption ?? Text(verbatim: " ")).font(.callout).foregroundStyle(.kmFgMuted).lineLimit(2).fixedSize(horizontal: false, vertical: true)
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .kmGroup()
     }
 }
 

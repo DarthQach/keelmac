@@ -11,11 +11,25 @@ struct KeelMacApp: App {
         Task { @MainActor in Appearance.apply(appearance) }
     }
 
+    @ViewBuilder private var mainContent: some View {
+        if VisualFixtures.enabled, let surface = VisualFixtures.argument("-fixture-surface") {
+            switch surface {
+            case "settings": SettingsView()
+            case "welcome": WelcomeView()
+            case "about": AboutView()
+            case "menuBar": MenuBarPopover()
+            case "result": FixtureResultView()
+            case "uninstall": UninstallSheet(app: VisualFixtures.apps[0])
+            default: RootView()
+            }
+        } else { RootView().frame(minWidth: 960, minHeight: 640) }
+    }
+
     var body: some Scene {
         Window("KeelMac", id: "main") {
-            RootView()
+            mainContent
                 .environment(model)
-                .frame(minWidth: 960, minHeight: 640)
+                .background(FixtureWindowSetup())
                 .onOpenURL { model.open($0) }
                 .modelContainer(model.container)
         }

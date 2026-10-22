@@ -22,6 +22,12 @@ final class CleanupModel {
     init(log: OperationLogging, onReclaimable: @escaping (Int64) -> Void) {
         self.log = log
         self.onReclaimable = onReclaimable
+        if VisualFixtures.enabled {
+            plan = VisualFixtures.cleanupPlan
+            selected = plan?.defaultSelection() ?? []
+            phase = VisualFixtures.state == "loading" ? .planning : .ready
+            if VisualFixtures.state == "error" { phase = .idle; loadError = "Couldn’t read the cleanup rules" }
+        }
     }
 
     var selectedBytes: Int64 { plan?.bytes(selected: selected) ?? 0 }
@@ -34,7 +40,7 @@ final class CleanupModel {
 
     /// Builds the dry-run plan. Nothing is removed or run.
     func check(hasFullDiskAccess: Bool) async {
-        guard phase != .planning, phase != .cleaning else { return }
+        guard !VisualFixtures.enabled, phase != .planning, phase != .cleaning else { return }
         phase = .planning
         loadError = nil
         do {
@@ -56,7 +62,7 @@ final class CleanupModel {
 
     /// Removes exactly the selected plan items and logs every one.
     func clean() async {
-        guard let plan, phase == .ready, !selected.isEmpty else { return }
+        guard !VisualFixtures.enabled, let plan, phase == .ready, !selected.isEmpty else { return }
         phase = .cleaning
         let remover = SafeRemover(pathGuard: FileActions.pathGuard(), mode: FileActions.deleteMode, context: .cleanup)
         let executor = CleanupExecutor(remover: remover, runner: ProcessCommandRunner(), log: log)

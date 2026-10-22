@@ -2,101 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>KeelMac monitor</title>
+<title>KeelMac · Monitor · native reference</title>
 <script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<link rel="stylesheet" href="../tokens.css">
 <style>
-:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--wa:oklch(0.84 0.05 190);--ok:oklch(0.5 0.12 145);--wn:oklch(0.55 0.12 65);--er:oklch(0.52 0.19 27);--sb:oklch(0.94 0.006 80)}
-body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
-a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
-.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
-.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
-.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
-.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
-.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
-.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
-.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
-main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
-.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
-.tb h1{font-size:15px;font-weight:600;margin:0}
-.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:4px 10px;min-height:26px}
-.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:6px 14px;font-weight:600;min-height:28px}
-table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--fm);font-size:12px;text-align:left;padding:6px 10px}td{padding:6px 10px;border-top:1px solid var(--bd)}
-.r{text-align:right}.m{color:var(--fm)}
-.lbl{font-size:12px;color:var(--fm)}
+html,body{margin:0;height:100%;font:14px -apple-system,system-ui;color:var(--fg);background:var(--bg)}
+x-dc{display:block;height:100%}main{height:100%;display:grid;place-items:center}
+object{width:100%;height:100%;object-fit:contain}p{padding:24px}a{color:var(--accent-text)}
 </style>
-</helmet>
-<div style="padding: 32px 16px; box-sizing: border-box">
-<div class="win">
-  <nav class="side" aria-label="Sections">
-    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
-    <div class="h">Overview</div>
-    <a href="Dashboard.dc.html">Dashboard</a><a href="#" aria-current="page">Monitor</a>
-    <div class="h">Storage</div>
-    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="System-Data.dc.html">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="Snapshots.dc.html">Snapshots</a>
-    <div class="h">Clean</div>
-    <a href="Cleanup.dc.html">Cleanup</a><a href="Apps.dc.html">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
-    <div class="h">History</div>
-    <a href="Operation-Log.dc.html">Operation log</a>
-  </nav>
-  <main>
-    <div class="tb"><h1>Monitor</h1><span class="m">Last 60 minutes, every 2 seconds</span></div>
-    <div style="padding: 20px 24px; display: flex; flex-direction: column; gap: 20px">
-      <section aria-label="Live charts" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--bd); border-radius: 10px; background: var(--sf)">
-        <div style="padding: 12px 14px; border-right: 1px solid var(--bd)"><div class="lbl">CPU</div><div class="num" style="font-size: 20px; font-weight: 600">7%</div>
-          <svg viewBox="0 0 200 50" width="100%" height="50" role="img" aria-label="CPU over the last hour, between 3 and 41 percent"><polyline fill="none" stroke="oklch(0.49 0.09 185)" stroke-width="1.5" points="0,44 10,42 20,43 30,38 40,40 50,30 60,12 70,22 80,36 90,41 100,40 110,42 120,38 130,40 140,41 150,35 160,39 170,42 180,41 190,43 200,42"></polyline></svg></div>
-        <div style="padding: 12px 14px; border-right: 1px solid var(--bd)"><div class="lbl">Memory pressure</div><div class="num" style="font-size: 20px; font-weight: 600">Normal</div>
-          <svg viewBox="0 0 200 50" width="100%" height="50" role="img" aria-label="Memory pressure over the last hour, normal throughout"><polyline fill="none" stroke="oklch(0.49 0.09 185)" stroke-width="1.5" points="0,34 20,33 40,32 60,30 80,31 100,30 120,29 140,30 160,31 180,30 200,31"></polyline></svg></div>
-        <div style="padding: 12px 14px; border-right: 1px solid var(--bd)"><div class="lbl">Network</div><div class="num" style="font-size: 20px; font-weight: 600">In 1.2&nbsp;MB/s</div>
-          <div class="num lbl">Out 84&nbsp;KB/s</div>
-          <svg viewBox="0 0 200 34" width="100%" height="34" role="img" aria-label="Network in over the last hour"><polyline fill="none" stroke="oklch(0.49 0.09 185)" stroke-width="1.5" points="0,30 20,29 40,20 50,8 60,24 80,30 100,28 120,29 140,30 160,22 180,27 200,24"></polyline></svg></div>
-        <div style="padding: 12px 14px"><div class="lbl">Temperature</div><div class="num" style="font-size: 20px; font-weight: 600">48&nbsp;°C</div>
-          <svg viewBox="0 0 200 50" width="100%" height="50" role="img" aria-label="SoC temperature over the last hour, 44 to 71 degrees"><polyline fill="none" stroke="oklch(0.49 0.09 185)" stroke-width="1.5" points="0,40 20,38 40,35 60,12 70,14 80,26 100,34 120,36 140,37 160,38 180,37 200,38"></polyline></svg></div>
-      </section>
-
-      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
-        <section aria-label="Top processes" style="flex: 2 1 480px; min-width: 0">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px">
-            <h2 style="font-size: 13px; font-weight: 600; margin: 0">Top processes</h2>
-            <div role="group" aria-label="Sort by" style="display: flex; border: 1px solid var(--bs); border-radius: 6px; overflow: hidden"><button type="button" aria-pressed="true" style="font: inherit; border: 0; background: var(--as); color: var(--at); font-weight: 600; padding: 3px 12px">CPU</button><button type="button" aria-pressed="false" style="font: inherit; border: 0; border-left: 1px solid var(--bs); background: var(--sf); color: var(--fg); padding: 3px 12px">Memory</button></div>
-          </div>
-          <table>
-            <thead><tr><th style="padding-left: 0">Process</th><th class="r">CPU</th><th class="r">Memory</th><th>User</th><th><span style="position: absolute; left: -9999px">Action</span></th></tr></thead>
-            <tbody class="num">
-              <tr><td style="padding-left: 0">Xcode</td><td class="r">38.2%</td><td class="r">3.1&nbsp;GB</td><td class="m">carlos</td><td class="r"><button type="button" class="btn">Quit</button></td></tr>
-              <tr><td style="padding-left: 0">com.docker.backend</td><td class="r">12.6%</td><td class="r">4.8&nbsp;GB</td><td class="m">carlos</td><td class="r"><button type="button" class="btn">Quit…</button></td></tr>
-              <tr><td style="padding-left: 0">Arc Helper (Renderer)</td><td class="r">6.9%</td><td class="r">612&nbsp;MB</td><td class="m">carlos</td><td class="r"><button type="button" class="btn">Quit…</button></td></tr>
-              <tr><td style="padding-left: 0">WindowServer</td><td class="r">5.1%</td><td class="r">498&nbsp;MB</td><td class="m">_windowserver</td><td class="r m" style="font-size: 12px">System</td></tr>
-              <tr style="border-bottom: 1px solid var(--bd)"><td style="padding-left: 0">node</td><td class="r">3.4%</td><td class="r">310&nbsp;MB</td><td class="m">carlos</td><td class="r"><button type="button" class="btn">Quit…</button></td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section aria-label="Battery" style="flex: 1 1 280px; min-width: 0; border: 1px solid var(--bd); border-radius: 10px; background: var(--sf); padding: 14px 16px">
-          <h2 style="font-size: 13px; font-weight: 600; margin: 0 0 10px">Battery</h2>
-          <dl class="num" style="display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin: 0">
-            <dt class="m">Charge</dt><dd style="margin: 0">76%, on battery</dd>
-            <dt class="m">Time left</dt><dd style="margin: 0">4 h 10 min</dd>
-            <dt class="m">Maximum capacity</dt><dd style="margin: 0">88%</dd>
-            <dt class="m">Cycle count</dt><dd style="margin: 0">412</dd>
-            <dt class="m">Condition</dt><dd style="margin: 0; color: var(--ok)">Normal</dd>
-            <dt class="m">Temperature</dt><dd style="margin: 0">31.4&nbsp;°C</dd>
-            <dt class="m">Adapter</dt><dd style="margin: 0">Not connected</dd>
-          </dl>
-        </section>
-      </div>
-    </div>
-  </main>
-</div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
-class Component extends DCLogic {
-  renderVals() { return {}; }
-}
-</script>
-</body>
+</head>
+<body><x-dc><main>
+<object type="image/png" data="../../build/revamp-shots/revamp-monitor-light-en.png" aria-label="Native Monitor reference, synthetic data">
+<p>Generate the current native reference with <code>bash scripts/revamp-shots.sh</code>.
+See <a href="../../docs/forge/05-ui-revamp.md">the UI verification record</a>.</p>
+</object>
+</main></x-dc></body>
 </html>

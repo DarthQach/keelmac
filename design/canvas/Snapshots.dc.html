@@ -2,90 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>KeelMac snapshots and weekly report</title>
+<title>KeelMac · Snapshots · native reference</title>
 <script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<link rel="stylesheet" href="../tokens.css">
 <style>
-:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--wa:oklch(0.84 0.05 190);--ok:oklch(0.5 0.12 145);--sb:oklch(0.94 0.006 80)}
-body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
-a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
-.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
-.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
-.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
-.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
-.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
-.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
-.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
-main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
-.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
-.tb h1{font-size:15px;font-weight:600;margin:0}
-.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:4px 12px;min-height:26px}
-.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:5px 14px;font-weight:600;min-height:26px}
-table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--fm);font-size:12px;text-align:left;padding:6px 10px}td{padding:7px 10px;border-top:1px solid var(--bd)}
-.r{text-align:right}.m{color:var(--fm)}
-.snap{display:block;padding:8px 10px;border-radius:6px;color:var(--fg);text-decoration:none}
-.snap[aria-current]{background:var(--as);color:var(--at)}
-select{font:inherit;border:1px solid var(--bs);border-radius:6px;background:var(--sf);color:var(--fg);padding:3px 8px}
+html,body{margin:0;height:100%;font:14px -apple-system,system-ui;color:var(--fg);background:var(--bg)}
+x-dc{display:block;height:100%}main{height:100%;display:grid;place-items:center}
+object{width:100%;height:100%;object-fit:contain}p{padding:24px}a{color:var(--accent-text)}
 </style>
-</helmet>
-<div style="padding: 32px 16px; box-sizing: border-box">
-<div class="win">
-  <nav class="side" aria-label="Sections">
-    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
-    <div class="h">Overview</div>
-    <a href="Dashboard.dc.html">Dashboard</a><a href="Monitor.dc.html">Monitor</a>
-    <div class="h">Storage</div>
-    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="System-Data.dc.html">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="#" aria-current="page">Snapshots</a>
-    <div class="h">Clean</div>
-    <a href="Cleanup.dc.html">Cleanup</a><a href="Apps.dc.html">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
-    <div class="h">History</div>
-    <a href="Operation-Log.dc.html">Operation log</a>
-  </nav>
-  <main>
-    <div class="tb"><h1>Snapshots</h1><div style="display: flex; gap: 8px"><button type="button" class="btn">Export report…</button><button type="button" class="pri">Take snapshot</button></div></div>
-    <div style="display: flex; flex-wrap: wrap; flex: 1">
-      <div style="flex: 1 1 220px; max-width: 260px; border-right: 1px solid var(--bd); padding: 12px 10px; box-sizing: border-box" class="num">
-        <div class="m" style="font-size: 12px; padding: 0 10px 6px">Weekly, every Monday at 09:00</div>
-        <a href="#" class="snap" aria-current="true"><b>Mon 20 Oct</b><div class="m" style="font-size: 12px">382&nbsp;GB used</div></a>
-        <a href="#" class="snap"><b>Mon 13 Oct</b><div class="m" style="font-size: 12px">371&nbsp;GB used</div></a>
-        <a href="#" class="snap"><b>Mon 6 Oct</b><div class="m" style="font-size: 12px">402&nbsp;GB used</div></a>
-        <a href="#" class="snap"><b>Mon 29 Sep</b><div class="m" style="font-size: 12px">396&nbsp;GB used</div></a>
-        <a href="#" class="snap"><b>Mon 22 Sep</b><div class="m" style="font-size: 12px">388&nbsp;GB used</div></a>
-      </div>
-      <div style="flex: 999 1 480px; min-width: 0; padding: 16px 24px; display: flex; flex-direction: column; gap: 16px" class="num">
-        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><h2 style="font-size: 15px; font-weight: 600; margin: 0">What grew</h2><label for="cmp" class="m">since</label><select id="cmp"><option>Mon 13 Oct</option><option>Mon 6 Oct</option></select></div>
-        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd)">
-          <div style="padding: 12px 12px 12px 0; border-right: 1px solid var(--bd)"><div class="m" style="font-size: 12px">Space used</div><div style="font-size: 17px; font-weight: 600">11.2&nbsp;GB more</div></div>
-          <div style="padding: 12px; border-right: 1px solid var(--bd)"><div class="m" style="font-size: 12px">Battery capacity</div><div style="font-size: 17px; font-weight: 600">88%, down 0.4</div></div>
-          <div style="padding: 12px 0 12px 12px"><div class="m" style="font-size: 12px">Reclaimable now</div><div style="font-size: 17px; font-weight: 600">40.1&nbsp;GB</div></div>
-        </div>
-        <table>
-          <thead><tr><th style="padding-left: 0">Folder</th><th class="r">13 Oct</th><th class="r">20 Oct</th><th class="r">Change</th></tr></thead>
-          <tbody>
-            <tr><td class="mono" style="padding-left: 0">~/Library/Developer/Xcode/DerivedData</td><td class="r">11.9&nbsp;GB</td><td class="r">18.6&nbsp;GB</td><td class="r"><b>+6.7&nbsp;GB</b></td></tr>
-            <tr><td class="mono" style="padding-left: 0">~/Developer/Toodday_v4</td><td class="r">19.1&nbsp;GB</td><td class="r">22.4&nbsp;GB</td><td class="r"><b>+3.3&nbsp;GB</b></td></tr>
-            <tr><td class="mono" style="padding-left: 0">~/Library/Containers/com.docker.docker</td><td class="r">10.4&nbsp;GB</td><td class="r">12.0&nbsp;GB</td><td class="r"><b>+1.6&nbsp;GB</b></td></tr>
-            <tr><td class="mono" style="padding-left: 0">~/Downloads</td><td class="r">14.6&nbsp;GB</td><td class="r">14.0&nbsp;GB</td><td class="r m">−0.6&nbsp;GB</td></tr>
-            <tr style="border-bottom: 1px solid var(--bd)"><td class="mono" style="padding-left: 0">~/Movies</td><td class="r">41.0&nbsp;GB</td><td class="r">41.0&nbsp;GB</td><td class="r m">No change</td></tr>
-          </tbody>
-        </table>
-        <div style="background: var(--mu); border-radius: 8px; padding: 12px 14px">
-          <div style="font-weight: 600; margin-bottom: 4px">Weekly summary notification</div>
-          <div class="m">“This week: 11.2&nbsp;GB more used, mostly DerivedData. 40.1&nbsp;GB can be cleaned. Battery at 88%.”</div>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
-class Component extends DCLogic {
-  renderVals() { return {}; }
-}
-</script>
-</body>
+</head>
+<body><x-dc><main>
+<object type="image/png" data="../../build/revamp-shots/revamp-snapshots-light-en.png" aria-label="Native Snapshots reference, synthetic data">
+<p>Generate the current native reference with <code>bash scripts/revamp-shots.sh</code>.
+See <a href="../../docs/forge/05-ui-revamp.md">the UI verification record</a>.</p>
+</object>
+</main></x-dc></body>
 </html>

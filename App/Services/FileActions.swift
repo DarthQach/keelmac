@@ -25,6 +25,7 @@ enum FileActions {
     /// Removes the given items (already previewed and confirmed by the user) and logs every outcome.
     static func remove(_ requests: [RemovalRequest], context: PathContext, kind: OperationKind, title: String,
                        log: OperationLogging, mode: DeleteMode? = nil) async -> [RemovalOutcome] {
+        guard !VisualFixtures.enabled else { return [] }
         let remover = SafeRemover(pathGuard: pathGuard(), mode: mode ?? deleteMode, context: context)
         let outcomes = await Task.detached(priority: .userInitiated) { remover.remove(requests) }.value
         await log.record(SafeRemover.entries(outcomes, batchID: UUID(), kind: kind, title: title))

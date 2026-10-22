@@ -10,15 +10,22 @@ struct RootView: View {
                 ForEach(Route.Section.allCases) { section in
                     Section(section.title) {
                         ForEach(section.routes) { route in
-                            Label(route.title, systemImage: route.symbol)
-                                .tag(route)
-                                .accessibilityIdentifier("sidebar.\(route.rawValue)")
+                            Label {
+                                Text(route.title).fontWeight(model.route == route ? .semibold : .regular)
+                            } icon: {
+                                Image(systemName: route.symbol)
+                                    .foregroundStyle(model.route == route ? Color.primary : Color.kmFgMuted)
+                            }
+                            .padding(.vertical, 5)
+                            .tag(route)
+                            .accessibilityIdentifier("sidebar.\(route.rawValue)")
+                            .help(Text(route.title))
                         }
                     }
                 }
             }
             .listStyle(.sidebar)
-            .navigationSplitViewColumnWidth(min: 210, ideal: 250, max: 300)
+            .navigationSplitViewColumnWidth(min: 210, ideal: 230, max: 300)
             .safeAreaInset(edge: .bottom) {
                 if !model.hasFullDiskAccess {
                     Button {
@@ -61,36 +68,43 @@ struct RouteView: View {
 
     var body: some View {
         Page {
-            switch route {
-            case .dashboard:
-                DashboardView()
-            case .monitor:
-                MonitorView()
-            case .operationLog:
-                OperationLogView()
-            case .duplicates:
-                DuplicatesView()
-            case .snapshots:
-                SnapshotsView()
-            case .maintenance:
-                MaintenanceView()
-            case .cleanup:
-                CleanupView()
-            case .storageMap:
-                StorageMapView()
-            case .largeOld:
-                LargeOldView()
-            case .systemData:
-                SystemDataView()
-            case .apps:
-                AppsView()
-            case .leftovers:
-                LeftoversView()
-            case .loginItems:
-                LoginItemsView()
+            VStack(spacing: 0) {
+                PageHeader(title: route.title, subtitle: route.subtitle)
+                destination
             }
         }
         .navigationTitle(route.title)
+    }
+
+    @ViewBuilder private var destination: some View {
+        switch route {
+        case .dashboard:
+            DashboardView()
+        case .monitor:
+            MonitorView()
+        case .operationLog:
+            OperationLogView()
+        case .duplicates:
+            DuplicatesView()
+        case .snapshots:
+            SnapshotsView()
+        case .maintenance:
+            MaintenanceView()
+        case .cleanup:
+            CleanupView()
+        case .storageMap:
+            StorageMapView()
+        case .largeOld:
+            LargeOldView()
+        case .systemData:
+            SystemDataView()
+        case .apps:
+            AppsView()
+        case .leftovers:
+            LeftoversView()
+        case .loginItems:
+            LoginItemsView()
+        }
     }
 }
 

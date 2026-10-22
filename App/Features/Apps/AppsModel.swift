@@ -24,12 +24,22 @@ final class AppsModel {
         self.log = log
         self.helper = helper
         self.onStartupCounts = onStartupCounts
+        if VisualFixtures.enabled {
+            apps = VisualFixtures.state == "empty" ? [] : VisualFixtures.apps
+            leftovers = VisualFixtures.state == "empty" ? [] : [LeftoverGroup(id: "com.example.editor", displayName: "Previous editor", files: VisualFixtures.relatedFiles)]
+            launchItems = VisualFixtures.state == "empty" ? [] : VisualFixtures.apps.prefix(4).map {
+                LaunchItem(label: $0.bundleID ?? $0.name, plistPath: VisualFixtures.root + "/Library/LaunchAgents/\($0.name).plist",
+                           program: nil, domain: .userAgent, schedule: .atLoad, ownerName: $0.name, ownerInstalled: true, isDisabled: false)
+            }
+            loadingApps = VisualFixtures.state == "loading"
+            if loadingApps { apps = []; leftovers = nil; launchItems = nil }
+        }
     }
 
     private var home: String { NSHomeDirectory() }
 
     func loadApps() async {
-        guard !loadingApps else { return }
+        guard !VisualFixtures.enabled, !loadingApps else { return }
         loadingApps = true
         let folders = AppInventory.defaultFolders(home: home)
         // Names first (fast), then sizes and last-used dates.
@@ -40,7 +50,7 @@ final class AppsModel {
     }
 
     func loadLeftovers() async {
-        guard !loadingLeftovers else { return }
+        guard !VisualFixtures.enabled, !loadingLeftovers else { return }
         loadingLeftovers = true
         if apps.isEmpty { await loadApps() }
         let installed = apps, home = self.home
@@ -49,7 +59,7 @@ final class AppsModel {
     }
 
     func loadLaunchItems() async {
-        guard !loadingLaunchItems else { return }
+        guard !VisualFixtures.enabled, !loadingLaunchItems else { return }
         loadingLaunchItems = true
         if apps.isEmpty { await loadApps() }
         let store = LaunchItemStore(home: home, uid: getuid(), runner: ProcessCommandRunner(), installed: apps)
@@ -62,6 +72,7 @@ final class AppsModel {
     // MARK: Uninstall
 
     func relatedFiles(for app: InstalledApp) async -> [RelatedFile] {
+        if VisualFixtures.enabled { return VisualFixtures.relatedFiles }
         let installed = apps, home = self.home
         return await Task.detached(priority: .userInitiated) { RelatedFileMatcher.find(for: app, home: home, installed: installed) }.value
     }
@@ -116,6 +127,7 @@ final class AppsModel {
     // MARK: Launch items
 
     func setEnabled(_ item: LaunchItem, _ enabled: Bool) async -> String? {
+        guard !VisualFixtures.enabled else { return nil }
         let title = String(localized: "Login items")
         let result: String?
         if item.needsHelper {
@@ -141,6 +153,7 @@ final class AppsModel {
     }
 
     func remove(_ item: LaunchItem) async -> String? {
+        guard !VisualFixtures.enabled else { return nil }
         let title = String(localized: "Login items")
         if item.needsHelper {
             guard helper.isEnabled else { return RefusalReason.needsHelper.englishDescription }
@@ -164,6 +177,7 @@ final class AppsModel {
     // MARK: Trash watcher (C18)
 
     func updateTrashWatcher(enabled: Bool) {
+        guard !VisualFixtures.enabled else { return }
         if enabled, watcher == nil {
             let w = TrashWatcher(trashPath: home + "/.Trash") { appPath, bundleID, name in
                 var components = URLComponents(string: "keelmac://open/apps")!

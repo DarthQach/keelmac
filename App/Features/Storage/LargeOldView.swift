@@ -40,7 +40,7 @@ struct LargeOldView: View {
                 table
                 ActionBar {
                     Text("\(selection.count) selected, \(Format.bytes(selectedBytes)). Locked rows belong to an app that is open; quit it to remove them.")
-                        .lineLimit(1)
+                        .fixedSize(horizontal: false, vertical: true)
                 } trailing: {
                     Button("Reveal in Finder") { FileActions.reveal(selectedRows.map(\.item.path)) }.disabled(selection.isEmpty)
                     Button("Quick Look") { quickLook = selectedRows.first.map { URL(fileURLWithPath: $0.item.path) } }.disabled(selection.isEmpty)
@@ -85,12 +85,10 @@ struct LargeOldView: View {
     private var table: some View {
         Table(shown, selection: $selection) {
             TableColumn("Name") { r in
-                HStack(spacing: 6) {
-                    Image(systemName: r.item.kind.symbol).foregroundStyle(.kmFgMuted)
-                    Text(verbatim: r.item.name).lineLimit(1)
-                }
-                .opacity(r.isLocked ? 0.55 : 1)
-            }
+                FileIdentity(name: r.item.name, path: (r.item.path as NSString).deletingLastPathComponent,
+                             symbol: r.item.kind.symbol)
+                    .opacity(r.isLocked ? 0.55 : 1)
+            }.width(min: 220, ideal: 300)
             TableColumn("Size") { r in Text(Format.bytes(r.item.bytes)).tabular().frame(maxWidth: .infinity, alignment: .trailing) }.width(80)
             TableColumn("Last opened") { r in
                 Text(r.item.lastOpened.map { $0.formatted(.relative(presentation: .named)) } ?? String(localized: "Never"))
@@ -99,10 +97,13 @@ struct LargeOldView: View {
             TableColumn("Used by") { r in
                 Text(verbatim: r.owner?.name ?? String(localized: "Your files")).lineLimit(1)
                     .foregroundStyle(r.owner == nil ? .kmFgMuted : .kmFg)
-            }.width(min: 90, ideal: 130)
-            TableColumn("Status") { r in StatusText(status: r.status) }.width(min: 110, ideal: 170)
-            TableColumn("Where") { r in PathText(path: (r.item.path as NSString).deletingLastPathComponent) }
+            }.width(min: 90, ideal: 110, max: 140)
+            TableColumn("Status") { r in StatusText(status: r.status) }.width(min: 110, ideal: 140, max: 180)
+
         }
+        .kmTableSurface()
+        .padding(.horizontal, Metrics.pagePadding)
+        .padding(.vertical, 16)
         .contextMenu(forSelectionType: String.self) { ids in
             Button("Reveal in Finder") { FileActions.reveal(rows.filter { ids.contains($0.id) }.map(\.item.path)) }
             Button("Quick Look") { quickLook = rows.first { ids.contains($0.id) }.map { URL(fileURLWithPath: $0.item.path) } }
@@ -126,6 +127,7 @@ struct LargeOldView: View {
     }
 
     private func reload() async {
+        if VisualFixtures.enabled { rows = VisualFixtures.state == "empty" ? [] : VisualFixtures.reviewRows; return }
         guard let tree = model.storage.tree else { return }
         loading = true
         let cutoff = months == 0 ? nil : Calendar.current.date(byAdding: .month, value: -months, to: Date())
@@ -195,7 +197,7 @@ private struct KindStrip: View {
                 }
             }
             .padding(.horizontal, Metrics.pagePadding)
-            .padding(.vertical, 10)
+            .padding(.vertical, 16)
         }
     }
 
@@ -277,7 +279,7 @@ struct SystemDataView: View {
                     Section {
                         ForEach(items.sorted { ($0.bytes ?? -1) > ($1.bytes ?? -1) }) { item in
                             HStack(alignment: .top, spacing: 16) {
-                                VStack(alignment: .leading, spacing: 3) {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text(item.kind.title).fontWeight(.semibold)
                                     PathText(path: item.paths.first ?? "")
                                     Text(item.kind.explanation).font(.callout).foregroundStyle(.kmFgMuted)
@@ -285,7 +287,7 @@ struct SystemDataView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 VStack(alignment: .trailing, spacing: 6) {
                                     if let b = item.bytes {
-                                        Text(Format.bytes(b)).tabular()
+                                        Text(Format.bytes(b)).font(.title3.weight(.semibold)).tabular()
                                         if b > 0 { Capsule().fill(.kmWater).frame(width: max(4, 140 * CGFloat(Double(b) / Double(largest))), height: 6) }
                                     } else if item.needsFullDiskAccess {
                                         Text("Needs Full Disk Access").foregroundStyle(.kmWarning)
@@ -302,11 +304,14 @@ struct SystemDataView: View {
                                     Button("Reveal") { FileActions.reveal([p]) }.frame(width: 100)
                                 }
                             }
-                            .padding(.vertical, 4)
+                            .padding(.vertical, 12)
                         }
                     }
                 }
                 .listStyle(.inset)
+                .kmTableSurface()
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, Metrics.pagePadding)
             } else {
                 VStack(spacing: 12) {
                     ProgressView()

@@ -45,6 +45,10 @@ struct DuplicatesView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            PathText(path: roots.joined(separator: ", "))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Metrics.pagePadding)
+                .padding(.bottom, 16)
             content
             if case .done(let result) = phase, !result.groups.isEmpty {
                 ActionBar {
@@ -56,13 +60,8 @@ struct DuplicatesView: View {
                 }
             }
         }
+        .onAppear { if VisualFixtures.enabled && VisualFixtures.state != "empty" { phase = .done(VisualFixtures.duplicates); applyRule() } }
         .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Text(verbatim: roots.joined(separator: ", "))
-                    .font(.system(.callout, design: .monospaced))
-                    .foregroundStyle(.kmFgMuted)
-                    .lineLimit(1)
-            }
             ToolbarItem { Button("Choose folders…", action: chooseFolders) }
             ToolbarItem {
                 Picker("Keep", selection: $rule) {
@@ -134,6 +133,9 @@ struct DuplicatesView: View {
                 }
             }
             .listStyle(.inset)
+            .kmTableSurface()
+            .padding(.horizontal, Metrics.pagePadding)
+            .padding(.bottom, 16)
         }
     }
 
@@ -147,6 +149,7 @@ struct DuplicatesView: View {
     }
 
     private func start() {
+        guard !VisualFixtures.enabled else { return }
         search?.cancel()
         phase = .searching(nil)
         let finder = DuplicateFinder(pathGuard: FileActions.pathGuard())
@@ -237,8 +240,8 @@ private struct DuplicateRow: View {
             Toggle(isOn: Binding(get: { !isKept }, set: { _ in toggle() })) { EmptyView() }
                 .toggleStyle(.checkbox)
                 .accessibilityLabel(Text(isKept ? "Keep \(file.path)" : "Move \(file.path) to Trash"))
-            PathText(path: file.path)
-                .foregroundStyle(.kmFg)
+            FileIdentity(name: (file.path as NSString).lastPathComponent,
+                         path: (file.path as NSString).deletingLastPathComponent)
             if isKept {
                 Text("Keep")
                     .font(.caption.weight(.semibold))

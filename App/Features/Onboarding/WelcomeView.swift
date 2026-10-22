@@ -6,20 +6,21 @@ struct WelcomeView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 24) {
             LoadLineMark()
                 .frame(width: 56, height: 30)
                 .accessibilityHidden(true)
             Text("Welcome to KeelMac")
-                .font(.title2.weight(.semibold))
+                .font(.largeTitle.weight(.semibold))
             Text("KeelMac needs Full Disk Access to see caches, logs and other folders macOS protects. It never reads file contents, except to compare files when you look for duplicates.")
                 .fixedSize(horizontal: false, vertical: true)
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 16) {
                 Text("1. Click **Open Privacy & Security**.")
                 Text("2. Turn on **KeelMac** under Full Disk Access. If it isn’t listed, click the plus button and choose KeelMac in Applications.")
                 Text("3. Come back here. KeelMac notices the change on its own.")
             }
             .fixedSize(horizontal: false, vertical: true)
+            .kmGroup()
 
             if model.hasFullDiskAccess {
                 StatusBadge(text: "Full Disk Access is on.", tone: .success)
@@ -49,7 +50,9 @@ struct WelcomeView: View {
             }
         }
         .padding(32)
-        .frame(width: 560)
+        .frame(width: 600)
+        .background(.kmBg)
+        .foregroundStyle(.kmFg)
         .task {
             while !Task.isCancelled && !model.hasFullDiskAccess {
                 try? await Task.sleep(for: .seconds(2))

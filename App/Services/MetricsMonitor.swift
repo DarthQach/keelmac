@@ -24,7 +24,7 @@ final class MetricsMonitor {
     private(set) var history = RingBuffer<HistoryPoint>(capacity: 1_800)
     private(set) var processes: [ProcessSample] = []
     private(set) var battery: BatteryInfo?
-    let systemInfo = SystemInfo.current()
+    let systemInfo = VisualFixtures.enabled ? VisualFixtures.system : SystemInfo.current()
 
     private let sampler = MetricsSampler()
     private var loop: Task<Void, Never>?
@@ -35,6 +35,20 @@ final class MetricsMonitor {
     var onAlert: (@MainActor ([AlertEvent]) -> Void)?
 
     init() {
+        if VisualFixtures.enabled {
+            alertEngine = AlertEngine(thresholds: MetricsMonitor.thresholds())
+            if VisualFixtures.state != "loading" {
+                latest = VisualFixtures.snapshot
+                battery = VisualFixtures.battery
+                processes = VisualFixtures.processes
+                for i in 0..<60 {
+                    history.append(HistoryPoint(date: VisualFixtures.date.addingTimeInterval(Double(i - 59) * 60),
+                        cpu: 0.18 + 0.09 * sin(Double(i) / 4), memoryUsedFraction: 0.55 + 0.03 * sin(Double(i) / 9), pressure: .normal,
+                        netIn: 1_200_000 + 400_000 * sin(Double(i) / 3), netOut: 84_000, temperature: VisualFixtures.state == "unavailable" ? nil : 48))
+                }
+            }
+            return
+        }
         if let data = UserDefaults.standard.data(forKey: "alertEngine"), let engine = try? JSONDecoder().decode(AlertEngine.self, from: data) {
             alertEngine = engine
         } else {
@@ -55,7 +69,7 @@ final class MetricsMonitor {
     }
 
     func start() {
-        guard loop == nil else { return }
+        guard !VisualFixtures.enabled, loop == nil else { return }
         loop = Task { [weak self] in
             while !Task.isCancelled {
                 guard let self else { return }
@@ -68,6 +82,7 @@ final class MetricsMonitor {
 
     /// Call from views that show processes or temperature (popover, Monitor, Dashboard).
     func beginDetailed() {
+        guard !VisualFixtures.enabled else { return }
         detailedConsumers += 1
         if detailedConsumers == 1 { Task { await tick() } }
     }
