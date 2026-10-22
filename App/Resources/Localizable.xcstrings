@@ -287,17 +287,6 @@
       },
       "extractionState": "manual"
     },
-    "%@, %@ %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, %@ %@"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%@, above your %@ alert.": {
       "localizations": {
         "es": {
@@ -309,12 +298,34 @@
       },
       "extractionState": "manual"
     },
+    "%@, down %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, bajó %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@, no change": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%@, sin cambios"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@, up %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, subió %@"
           }
         }
       },
@@ -4176,6 +4187,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Cerrar %@?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quit app": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar app"
           }
         }
       },

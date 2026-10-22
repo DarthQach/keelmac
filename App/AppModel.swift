@@ -38,7 +38,7 @@ final class AppModel {
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
         let defaults = UserDefaults.standard
-        if !isUITesting && !defaults.bool(forKey: Preferences.Key.welcomeShown) && !hasFullDiskAccess {
+        if !isUITesting && !CommandLine.arguments.contains("-menuBarOnly") && !defaults.bool(forKey: Preferences.Key.welcomeShown) && !hasFullDiskAccess {
             showWelcome = true
         }
     }
@@ -67,8 +67,8 @@ final class AppModel {
     private var started = false
 
     func refreshFullDiskAccess() {
-        hasFullDiskAccess = FullDiskAccess.isGranted()
-        helper.refresh()
+        let granted = FullDiskAccess.isGranted()
+        if granted != hasFullDiskAccess { hasFullDiskAccess = granted }
     }
 
     func open(_ url: URL) {

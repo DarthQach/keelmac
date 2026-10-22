@@ -150,7 +150,8 @@ private struct SnapshotDetail: View {
         guard let before = previous.batteryMaxCapacityPercent else { return Text(nowText) }
         let delta = now - before
         if abs(delta) < 0.05 { return Text("\(nowText), no change") }
-        return Text("\(nowText), \(delta < 0 ? "down" : "up") \(abs(delta).formatted(.number.precision(.fractionLength(1))))")
+        let points = abs(delta).formatted(.number.precision(.fractionLength(1)))
+        return delta < 0 ? Text("\(nowText), down \(points)") : Text("\(nowText), up \(points)")
     }
 }
 

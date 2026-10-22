@@ -58,14 +58,8 @@ struct DashboardView: View {
                 Button("Refresh") { model.health.refreshCounts() }
             }
         }
-        .onAppear {
-            model.metrics.beginDetailed()
-            model.health.refreshCounts()
-        }
-        .onDisappear {
-            model.metrics.endDetailed()
-            model.health.cache(inputs)
-        }
+        .onAppear { model.health.refreshCounts() }
+        .onDisappear { model.health.cache(inputs) }
     }
 }
 

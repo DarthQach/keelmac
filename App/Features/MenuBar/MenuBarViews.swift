@@ -115,8 +115,7 @@ struct MenuBarPopover: View {
         }
         .padding(14)
         .frame(width: 340)
-        .onAppear { m.beginDetailed() }
-        .onDisappear { m.endDetailed() }
+        .detailedMetrics(m)
     }
 }
 
@@ -246,7 +245,7 @@ struct QuitButton: View {
             if !process.isOwnedByCurrentUser || process.id == ProcessInfo.processInfo.processIdentifier {
                 Text("System").font(.caption).foregroundStyle(.kmFgMuted).frame(minWidth: 44)
             } else if let app = NSRunningApplication(processIdentifier: process.id), app.activationPolicy != .prohibited {
-                Button("Quit") { app.terminate() }
+                Button { app.terminate() } label: { Text("Quit app") }
                     .controlSize(compact ? .small : .regular)
             } else {
                 Button("Quit…") { confirm = true }

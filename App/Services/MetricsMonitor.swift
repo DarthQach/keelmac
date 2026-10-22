@@ -78,9 +78,21 @@ final class MetricsMonitor {
         MenuBarItem.decode(UserDefaults.standard.string(forKey: Preferences.Key.menuBarItems) ?? "").contains(.temperature)
     }
 
+    private var lastTemperatureRead = Date.distantPast
+    private var cachedTemperature: Double?
+
     private func tick() async {
         let detailed = detailedConsumers > 0
-        let snapshot = await sampler.sample(includeProcesses: detailed, includeTemperature: detailed || menuBarWantsTemperature)
+        // Reading the SoC sensors costs a few ms of CPU: every tick while a chart is visible, every 30 s for the menu bar.
+        let wantTemperature = detailed || (menuBarWantsTemperature && Date().timeIntervalSince(lastTemperatureRead) >= 30)
+        var snapshot = await sampler.sample(includeProcesses: detailed, includeTemperature: wantTemperature)
+        if wantTemperature {
+            lastTemperatureRead = Date()
+            cachedTemperature = snapshot.temperatureCelsius
+        } else if snapshot.temperatureCelsius == nil {
+            snapshot = MetricsSnapshot(date: snapshot.date, cpu: snapshot.cpu, memory: snapshot.memory, disk: snapshot.disk, network: snapshot.network,
+                                       battery: snapshot.battery, temperatureCelsius: cachedTemperature, processes: snapshot.processes)
+        }
         latest = snapshot
         if detailed { processes = snapshot.processes }
         await refreshBatteryReportIfNeeded()

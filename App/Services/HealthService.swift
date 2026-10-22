@@ -39,7 +39,7 @@ final class HealthService {
     func inputs(metrics: MetricsMonitor) -> HealthInputs {
         if metrics.latest == nil, let cached { return cached }
         let disk = metrics.latest?.disk
-        let fallback = StartupVolume.capacity()
+        let fallback = disk == nil ? StartupVolume.capacity() : (total: 0, available: 0)
         let fractions = metrics.pressureFractions
         let battery = metrics.battery
         return HealthInputs(

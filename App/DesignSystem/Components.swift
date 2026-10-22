@@ -150,3 +150,50 @@ struct VRule: View {
         Rectangle().fill(.kmBorder).frame(width: 1).frame(maxHeight: .infinity)
     }
 }
+
+/// Reports whether the hosting window is actually visible on screen (not just created).
+/// Used to run expensive sampling only while someone can see the result.
+struct WindowVisibilityReader: NSViewRepresentable {
+    let onChange: (Bool) -> Void
+
+    func makeNSView(context: Context) -> VisibilityView {
+        let v = VisibilityView()
+        v.onChange = onChange
+        return v
+    }
+
+    func updateNSView(_ nsView: VisibilityView, context: Context) { nsView.onChange = onChange }
+
+    final class VisibilityView: NSView {
+        var onChange: ((Bool) -> Void)?
+        private var observer: NSObjectProtocol?
+        private var last: Bool?
+
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            if let observer { NotificationCenter.default.removeObserver(observer); self.observer = nil }
+            guard let window else { report(false); return }
+            observer = NotificationCenter.default.addObserver(forName: NSWindow.didChangeOcclusionStateNotification, object: window, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.report(window.occlusionState.contains(.visible)) }
+            }
+            report(window.occlusionState.contains(.visible))
+        }
+
+        private func report(_ visible: Bool) {
+            guard visible != last else { return }
+            last = visible
+            onChange?(visible)
+        }
+
+        // The observer is removed in viewDidMoveToWindow when the view leaves its window.
+    }
+}
+
+extension View {
+    /// Asks the metrics monitor for processes and temperature only while this view's window is visible.
+    func detailedMetrics(_ metrics: MetricsMonitor) -> some View {
+        background(WindowVisibilityReader { visible in
+            if visible { metrics.beginDetailed() } else { metrics.endDetailed() }
+        })
+    }
+}

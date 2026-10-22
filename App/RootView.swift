@@ -49,7 +49,9 @@ struct RootView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             model.refreshFullDiskAccess()
+            model.helper.refresh()
         }
+        .background(MenuBarOnlyCloser())
     }
 }
 
@@ -90,4 +92,16 @@ struct RouteView: View {
         }
         .navigationTitle(route.title)
     }
+}
+
+/// `-menuBarOnly` starts KeelMac with only the menu bar item (used to measure idle cost).
+private struct MenuBarOnlyCloser: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSView {
+        let v = NSView()
+        if CommandLine.arguments.contains("-menuBarOnly") {
+            DispatchQueue.main.async { v.window?.close() }
+        }
+        return v
+    }
+    func updateNSView(_ nsView: NSView, context: Context) {}
 }

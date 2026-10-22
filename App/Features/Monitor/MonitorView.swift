@@ -49,8 +49,7 @@ struct MonitorView: View {
             }
             .padding(Metrics.pagePadding)
         }
-        .onAppear { m.beginDetailed() }
-        .onDisappear { m.endDetailed() }
+        .detailedMetrics(m)
     }
 }
 
