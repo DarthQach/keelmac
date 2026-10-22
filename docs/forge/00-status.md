@@ -1,6 +1,6 @@
 ---
 name: KeelMac
-stage: "4 · Building (M1–M7)"
+stage: "5 · Deployed (site live; app built, tested and packaged locally; notarized release pending Developer ID)"
 variant: E · Native macOS (SwiftUI + privileged helper, static Cloudflare site)
 live: https://keelmac.flowrunnerapp.workers.dev
 repo: https://github.com/DarthQach/keelmac (private)
@@ -11,7 +11,7 @@ created: 2026-10-22
 
 **One-liner:** Keep your Mac fast and roomy: see what's happening, clean safely, and never pay a subscription.
 **Live:** https://keelmac.flowrunnerapp.workers.dev (landing + appcast)
-**Next step:** integrate the module packages into the app, milestone by milestone.
+**Next step:** Carlos installs `dist/KeelMac-1.0.0.dmg`, grants Full Disk Access, approves the helper, then adds Developer ID + notary secrets and tags v1.0.0.
 
 ## Documents
 - [01 · Brief](01-brief.md)
@@ -32,3 +32,6 @@ Carlos asked app-forge not to wait for approvals ("Do not wait for me to approve
 - 2026-10-22 08:55 · 2 · Designed · 04-plan.md written: M0–M9, SwiftData models, rules schema, test/deploy/rollback, access checked (Xcode, XcodeGen, signing team 735MC85596, wrangler, gh).
 - 2026-10-22 08:56 · 3 · Planned · Gate 2 approved by standing instruction.
 - 2026-10-22 09:20 · 4 · Building (M0) · SafetyKit (PathGuard, whitelist, Trash-first remover, op log types, command runner; 26 tests). XcodeGen app shell with sidebar, empty states, Settings, menu bar extra, welcome/FDA sheet; tokens → 23 colour sets; app icon; EN/ES catalog (67 keys); site EN/ES live on workers.dev; CI workflow; repo docs. verify.sh passes. Six module packages handed to parallel agents against docs/forge/contracts.md.
+- 2026-10-22 10:00 · 4 · Building (M1–M9) · Six module packages built by parallel agents against contracts.md (308 tests). App screens: dashboard + load line, monitor, menu bar, storage map (treemap, sunburst), large/old, System Data, cleanup + result + coffee prompt, operation log, apps + uninstall + drop zone + trash watcher, leftovers, login items, maintenance + embedded SMAppService helper, duplicates, snapshots + weekly report, settings, about, Sparkle (key in login keychain, account "keelmac"). Spanish for all 562 strings. Site with real screenshots.
+- 2026-10-22 10:05 · findings · Idle CPU 1.1–1.25 % at 2 s (target < 1 %, open). Two screenshots with the username were live on the site for ~2 minutes and removed. macOS window restoration kept the window closed after `-menuBarOnly` runs; launches now always open it.
+- 2026-10-22 10:10 · 5 · Deployed · verify.sh passes; 5 UI tests pass; live clean acceptance passes. DMG at dist/KeelMac-1.0.0.dmg (Apple Development signed, not notarized). Site live. Pending on Carlos: helper approval, Developer ID + notarization, making the repo public, Buy Me a Coffee handle.

@@ -36,15 +36,15 @@ KeelMac/
 | # | Milestone | Capabilities | Status |
 |---|---|---|---|
 | M0 | Foundation: repo, XcodeGen project, KeelKit skeleton, app shell, tokens, CI, site deployed | C30 (shell), C31 (part), C32 (part) | [x] |
-| M1 | Monitor: MetricsKit, menu bar extra and popover, Monitor screen, battery | C3, C4, C5, C6 | [ ] |
-| M2 | Storage: ScanKit, storage map (treemap, sunburst), large and old files, System Data, file actions | C8, C9, C10, C11 | [ ] |
-| M3 | Cleanup and safety: SafetyKit, CleanKit, rules JSON, dry-run, Trash-first executor, operation log, coffee prompt | C12, C13, C14, C15, C28 (prompt) | [ ] |
-| M4 | Health, alerts, onboarding, settings | C1, C2, C3, C7, C26, C27 | [ ] |
-| M5 | Apps: inventory, uninstall, leftovers, drop zone, Trash watcher, login items | C16, C17, C18, C19, C20 | [ ] |
-| M6 | Helper and maintenance | C21, C22 | [ ] |
-| M7 | Duplicates, snapshots, weekly report | C23, C24, C25 | [ ] |
-| M8 | Distribution: Sparkle, About, landing page and appcast, release workflow, DMG, cask, repo docs | C28 (About), C29, C31, C32 | [ ] |
-| M9 | Polish: fidelity vs artboards, Spanish complete, accessibility, performance, docs final | C30, all | [ ] |
+| M1 | Monitor: MetricsKit, menu bar extra and popover, Monitor screen, battery | C3, C4, C5, C6 | [x] |
+| M2 | Storage: ScanKit, storage map (treemap, sunburst), large and old files, System Data, file actions | C8, C9, C10, C11 | [x] |
+| M3 | Cleanup and safety: SafetyKit, CleanKit, rules JSON, dry-run, Trash-first executor, operation log, coffee prompt | C12, C13, C14, C15, C28 (prompt) | [x] |
+| M4 | Health, alerts, onboarding, settings | C1, C2, C3, C7, C26, C27 | [x] |
+| M5 | Apps: inventory, uninstall, leftovers, drop zone, Trash watcher, login items | C16, C17, C18, C19, C20 | [x] |
+| M6 | Helper and maintenance | C21, C22 | [x] |
+| M7 | Duplicates, snapshots, weekly report | C23, C24, C25 | [x] |
+| M8 | Distribution: Sparkle, About, landing page and appcast, release workflow, DMG, cask, repo docs | C28 (About), C29, C31, C32 | [x] |
+| M9 | Polish: fidelity vs artboards, Spanish complete, accessibility, performance, docs final | C30, all | [x] |
 
 ### M0 · Foundation
 **Goal:** `bash scripts/mac.sh run` opens KeelMac with the full sidebar, every destination showing its designed empty state, and the landing page skeleton is live on workers.dev.
@@ -250,6 +250,23 @@ KeelMac/
 | 4 | VoiceOver labels on charts, treemap, gauge; keyboard shortcuts ⌘1…⌘9 |
 | 5 | Performance: idle CPU, scan time, memory, app size, launch time measured and recorded |
 | 6 | Remove one accessory; final slop audit |
+
+## Build results (2026-10-22)
+| Check | Result |
+|---|---|
+| Package tests | 308 passing (SafetyKit 26, MetricsKit 28, ScanKit 28, CleanKit 61, AppsKit 50, MaintenanceKit 66, InsightsKit 46), zero warnings |
+| App tests | 9 unit, 5 UI (navigation, live screens, real read-only disk scan, light-mode and Spanish shots) |
+| `verify.sh` | passes (slop 0 errors, tokens, strings 562/562 es, build, site check) |
+| Full scan of `/` (Data volume, ~850 GB used) | 24–27 s in scanbench; under 60 s through the app UI test; peak 128–134 MB |
+| CPU / memory vs system tools | CPU matches `HOST_CPU_LOAD_INFO` within 0.01 pt; memory matches `vm_stat` exactly; battery cycles and condition match System Information, max capacity matches via `system_profiler` |
+| Idle CPU, menu bar only, 2 s refresh | ~1.1–1.25 % (target < 1 %). The remaining cost is SwiftUI redrawing the menu bar label every tick; at a 3 s interval it drops below 1 %. Open item. |
+| Memory | 59–61 MB footprint idle (target < 80 MB) |
+| App size | 19 MB universal (arm64 + x86_64), DMG 6.5 MB |
+| First window | under 1 s |
+| Live clean acceptance | `KEELMAC_LIVE_CLEAN=1 swift test --filter LiveCleanAcceptance` in CleanKit: of a real 371-item plan, only the planted fixture was trashed; one log entry |
+| Not verifiable here | Helper execution (needs a signed build approved in Login Items), notarized release (needs Developer ID), Sparkle against a real update (needs a published release) |
+
+Deviations recorded during the build: `runPeriodic` is unavailable on macOS 27 (the tool was removed) and shows as such; language-file cleanup is limited to unsigned apps because removing `.lproj` from signed apps breaks their signature; the appcast stays empty until the first public release (its 1.0.0 item is written by `scripts/release.sh`).
 
 ## Data model
 SwiftData models live in the app target (`App/Persistence`); KeelKit talks to them through protocols so packages stay testable without a store.

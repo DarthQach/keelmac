@@ -30,6 +30,10 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 - Commits: conventional (`feat(Mx): …`). Never commit secrets or signing material.
 
 ## Gotchas
+- macOS restores the main window's closed state between launches (same bundle ID for Debug and Release). The menu bar label opens the window on launch unless `-menuBarOnly` is passed; use `-menuBarOnly` only to measure idle cost.
+- UI test screenshots show real data from this Mac (usernames, apps, processes). Review them before publishing anything to the site.
+- Detailed metrics (processes, per-tick temperature) run only while a view using `.detailedMetrics(_:)` is in a visible window.
+- Live, opt-in package tests: `KEELMAC_LIVE=1` (CleanKit, AppsKit read-only), `KEELMAC_LIVE_CLEAN=1` (CleanKit, trashes only a planted fixture).
 - `URL.resolvingSymlinksInPath()` strips `/private` from `/private/var/...`; compare paths through `PathGuard.canonical`.
 - Window screenshots need Screen Recording permission for the shell; use `scripts/shots.sh` (UI test attachments) instead.
 - The helper only works in a signed build after the user approves it in System Settings › General › Login Items.
