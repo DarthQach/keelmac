@@ -104,7 +104,7 @@ SwiftUI native: `Table` (sortable, multi-select), `List` with `DisclosureGroup` 
 | S3 | Monitor | sidebar › Monitor | Owner | C5, C6 | Quit process (per row) |
 | S4 | Menu bar popover | menu bar | Owner | C4, C5, C6 | Open KeelMac |
 | S5 | Storage map | sidebar › Storage map | Owner | C8, C11 | Scan disk / Rescan |
-| S6 | Large & old files | sidebar › Large & old | Owner | C9, C11 | Move to Trash (selected) |
+| S6 | Review large files (per-kind totals, owner app and in-use status; AI models one row per model; a running owner locks its rows) | sidebar › Review large files | Owner | C9, C11 | Move to Trash / Remove model (selected) |
 | S7 | System Data | sidebar › System Data | Owner | C10, C11 | Reveal in Finder |
 | S8 | Cleanup review | sidebar › Cleanup | Owner | C12, C13, C14 | Move 12.4 GB to Trash |
 | S9 | Cleanup result | after S8 | Owner | C13, C15, C28 | Done (secondary: View log) |
@@ -168,7 +168,7 @@ SwiftUI native: `Table` (sortable, multi-select), `List` with `DisclosureGroup` 
 | S3 Monitor | — (always data) | First sample within 1 s, charts fill from the left | Temperature "Unavailable on this Mac" | Live | Other users' processes shown without Quit | n/a |
 | S4 Popover | — | "Measuring…" for the first sample | Readout shows "–" | Live | — | n/a |
 | S5 Storage map | "Scan Macintosh HD to see what fills it" + Scan disk | Linear progress, files counted, current folder, Cancel | "Scan stopped: …" + Retry; unreadable folders listed | Treemap/sunburst + breadcrumb | Banner: N folders skipped without Full Disk Access | n/a |
-| S6 Large & old | "No files over 500 MB opened more than 3 months ago" | Uses scan; if none: "Scan first" | as S5 | Table | as S5 | n/a |
+| S6 Review large files | "No files over 500 MB that you haven’t opened in 6 months" | Uses scan; if none: "Scan first" | as S5 | Table | as S5 | n/a |
 | S7 System Data | "Scan to break down System Data" | Rows appear as measured | Row "Couldn't measure" with reason | Table with sizes | Rows needing FDA marked | n/a |
 | S8 Cleanup | "Nothing to clean right now. Last checked 2 min ago." | Category rows measure one by one with spinners | Category "Couldn't read" + reason | Category list with totals, items, exclusions | Categories needing FDA show "Needs Full Disk Access" and are unchecked | n/a |
 | S9 Result | — | Progress "Moving 214 items to Trash…" | Per-item failures listed with reason; summary counts | "Moved 12.4 GB to Trash" + skipped list | — | n/a |

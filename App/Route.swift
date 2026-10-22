@@ -39,7 +39,7 @@ enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
         case .dashboard: "Dashboard"
         case .monitor: "Monitor"
         case .storageMap: "Storage map"
-        case .largeOld: "Large and old files"
+        case .largeOld: "Review large files"
         case .systemData: "System Data"
         case .duplicates: "Duplicates"
         case .snapshots: "Snapshots"

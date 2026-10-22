@@ -60,6 +60,11 @@ public struct SunburstSegment: Sendable { id: NodeID; depth: Int; startAngle, en
 public enum SunburstLayout { static func layout(tree: ScanTree, root: NodeID, maxDepth: Int, minAngle: Double) -> [SunburstSegment] }
 public struct LargeFile: Sendable, Identifiable { id: String /*path*/; path: String; bytes: Int64; modified: Date; lastOpened: Date? }
 public enum LargeFileFinder { static func find(in tree: ScanTree, minBytes: Int64, notOpenedSince: Date?, lastOpened: (String) -> Date?) -> [LargeFile]; static func spotlightLastOpened(_ path: String) -> Date? }
+public enum FileKind: String, Sendable, CaseIterable { document, video, audio, image, archive /*and disk images*/, aiModel, virtualMachine, other; static func of(path: String) -> FileKind /*by extension*/ }
+public enum ReviewOwner: Sendable, Hashable { ollama, lmStudio, huggingFace, app(bundleID: String) /*~/Library/(Group )Containers*/, appSupport(folder: String), none }
+public enum ReviewRemoval: Sendable, Hashable { trash([String]), ollamaRemove(model: String) /*`ollama rm`, keeps Ollama's index valid*/ }
+public struct ReviewItem: Sendable, Identifiable, Hashable { id: String; name: String; path: String; kind: FileKind; bytes: Int64; nodes: [NodeID]; lastOpened: Date?; owner: ReviewOwner; removal: ReviewRemoval }
+public enum ReviewFinder { static func find(in tree: ScanTree, home: String, minBytes: Int64, notOpenedSince: Date?, lastOpened: (String) -> Date?) -> [ReviewItem] /*largest first; AI models one item per model (Ollama manifests, LM Studio and Hugging Face folders, model folders inside app data); files inside packages (.app, .photoslibrary…), Mail, Messages and the Trash are skipped*/ }
 public struct SystemDataItem: Sendable, Identifiable { id: String; kind: SystemDataKind; paths: [String]; bytes: Int64?; needsFullDiskAccess: Bool; cleanupCategory: String? /*matches CleanKit category raw value*/ }
 public enum SystemDataKind: String, Sendable, CaseIterable { simulators, localSnapshots, swap, appCaches, temporaryFiles, systemCaches, logs, iosBackups, xcode, mailDownloads, other }
 public enum SystemDataBreakdown { static func measure(home: String, runner: …) async -> [SystemDataItem] }

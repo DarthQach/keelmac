@@ -11,8 +11,31 @@ struct StorageMapView: View {
     @AppStorage("storageView") private var mode: MapMode = .treemap
     @State private var confirmTrash = false
     @State private var quickLook: URL?
+    @AppStorage("mapHighlight") private var highlightMode: HighlightMode = .none
+    @AppStorage(ReviewKindFilter.storageKey) private var reviewKind = ReviewKindFilter.all
+    @AppStorage("reviewMonths") private var reviewMonths = 6
+    @State private var highlightItems: [ReviewItem] = []
+    @State private var highlight: MapHighlight?
 
     enum MapMode: String { case treemap, sunburst }
+
+    /// What the map lights up: review candidates of one kind, or anything not opened in 6 months.
+    enum HighlightMode: String, CaseIterable {
+        case none, stale, aiModel, video, archive, document
+
+        var kind: FileKind? { FileKind(rawValue: rawValue) }
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .none: "No highlight"
+            case .stale: "Not opened in 6 months"
+            case .aiModel: "AI models"
+            case .video: "Video"
+            case .archive: "Archives and disk images"
+            case .document: "Documents"
+            }
+        }
+    }
 
     private var storage: StorageModel { model.storage }
 
@@ -26,6 +49,7 @@ struct StorageMapView: View {
         }
         .toolbar { toolbar }
         .onAppear { storage.loadCache() }
+        .task(id: "\(highlightMode.rawValue)-\(storage.tree?.scannedAt.timeIntervalSince1970 ?? 0)") { await loadHighlight() }
         .quickLookPreview($quickLook)
         .confirmationDialog(trashTitle, isPresented: $confirmTrash) {
             Button("Move to Trash", role: .destructive) { trashSelection() }
@@ -40,6 +64,14 @@ struct StorageMapView: View {
             if let tree = storage.tree, let root = focus ?? Optional(tree.root) {
                 Breadcrumb(tree: tree, node: root) { focus = $0; selection = nil }
             }
+        }
+        ToolbarItem {
+            Picker("Highlight", selection: $highlightMode) {
+                ForEach(HighlightMode.allCases, id: \.self) { Text($0.title).tag($0) }
+            }
+            .fixedSize()
+            .disabled(storage.tree == nil)
+            .help("Light up big files worth reviewing")
         }
         ToolbarItem {
             Picker("View", selection: $mode) {
@@ -69,9 +101,9 @@ struct StorageMapView: View {
                     Group {
                         switch mode {
                         case .treemap:
-                            TreemapView(tree: tree, root: current, selection: $selection) { open($0, tree: tree) }
+                            TreemapView(tree: tree, root: current, selection: $selection, highlight: highlight) { open($0, tree: tree) }
                         case .sunburst:
-                            SunburstView(tree: tree, root: current, selection: $selection) { open($0, tree: tree) }
+                            SunburstView(tree: tree, root: current, selection: $selection, highlight: highlight) { open($0, tree: tree) }
                         }
                     }
                     .focusable()
@@ -84,8 +116,14 @@ struct StorageMapView: View {
                     .onKeyPress(.upArrow) { move(-1, tree: tree, in: current); return .handled }
                     .accessibilityRepresentation { accessibilityList(tree: tree, root: current) }
                     HStack {
-                        Text("Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.")
-                            .font(.callout).foregroundStyle(.kmFgMuted)
+                        if highlight != nil {
+                            Text("\(Format.bytes(highlightItems.reduce(0) { $0 + $1.bytes })) highlighted in \(highlightItems.count) items")
+                                .font(.callout.weight(.semibold)).tabular()
+                            Button("Review them") { reviewHighlighted() }.buttonStyle(.link).font(.callout)
+                        } else {
+                            Text("Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.")
+                                .font(.callout).foregroundStyle(.kmFgMuted)
+                        }
                         Spacer()
                         if storage.phase == .scanning {
                             ProgressView().controlSize(.small)
@@ -112,6 +150,28 @@ struct StorageMapView: View {
                            message: "A full scan takes about a minute and never reads file contents. After that, rescans only look at folders that changed.",
                            actionTitle: "Scan disk") { storage.scan() }
         }
+    }
+
+    private func loadHighlight() async {
+        guard highlightMode != .none, let tree = storage.tree else { highlight = nil; highlightItems = []; return }
+        let mode = highlightMode
+        let cutoff = mode == .stale ? Calendar.current.date(byAdding: .month, value: -6, to: Date()) : nil
+        let home = NSHomeDirectory()
+        let (items, lit) = await Task.detached(priority: .userInitiated) {
+            let items = ReviewFinder.find(in: tree, home: home, minBytes: 100_000_000, notOpenedSince: cutoff)
+                .filter { mode.kind == nil || $0.kind == mode.kind }
+            return (items, MapHighlight(items: items, tree: tree))
+        }.value
+        guard mode == highlightMode else { return }
+        highlightItems = items
+        highlight = lit
+    }
+
+    /// Opens Review with the same kind (and, for "not opened in 6 months", the same age filter).
+    private func reviewHighlighted() {
+        reviewKind = highlightMode.kind?.rawValue ?? ReviewKindFilter.all
+        if highlightMode == .stale { reviewMonths = 6 }
+        model.route = .largeOld
     }
 
     private func open(_ id: NodeID, tree: ScanTree) {

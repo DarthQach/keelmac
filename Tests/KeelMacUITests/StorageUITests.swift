@@ -29,4 +29,23 @@ final class StorageUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 20)
         attach(window, "live-systemData")
     }
+
+    /// The map with AI models highlighted, then Review filtered to AI models (from the cached scan).
+    @MainActor
+    func testHighlightAndReview() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uitest", "-mapHighlight", "aiModel", "-reviewKind", "aiModel", "-reviewMonths", "0", "-largeMinBytes", "100000000"]
+        app.launch()
+        let window = app.windows.firstMatch
+        XCTAssertTrue(window.waitForExistence(timeout: 10))
+        window.outlines.cells.containing(.any, identifier: "sidebar.storageMap").firstMatch.click()
+        let scan = window.buttons["Scan disk"].firstMatch
+        if scan.waitForExistence(timeout: 3) { scan.click() }
+        XCTAssertTrue(window.buttons["Rescan"].firstMatch.waitForExistence(timeout: 120), "scan ready")
+        Thread.sleep(forTimeInterval: 8)
+        attach(window, "live-storageMap-highlight")
+        window.outlines.cells.containing(.any, identifier: "sidebar.largeOld").firstMatch.click()
+        Thread.sleep(forTimeInterval: 10)
+        attach(window, "live-review")
+    }
 }
