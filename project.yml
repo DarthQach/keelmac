@@ -23,6 +23,9 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     DEAD_CODE_STRIPPING: YES
 packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.10.0
   SafetyKit:
     path: Packages/SafetyKit
   InsightsKit:
@@ -31,6 +34,12 @@ packages:
     path: Packages/MaintenanceKit
   MetricsKit:
     path: Packages/MetricsKit
+  ScanKit:
+    path: Packages/ScanKit
+  CleanKit:
+    path: Packages/CleanKit
+  AppsKit:
+    path: Packages/AppsKit
 targets:
   KeelMac:
     type: application
@@ -52,8 +61,12 @@ targets:
         product: MaintenanceKit
       - package: MaintenanceKit
         product: HelperShared
+      - package: Sparkle
       - package: SafetyKit
       - package: MetricsKit
+      - package: ScanKit
+      - package: CleanKit
+      - package: AppsKit
       - package: InsightsKit
         product: DuplicatesKit
       - package: InsightsKit

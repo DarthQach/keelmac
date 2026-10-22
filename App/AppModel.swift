@@ -19,11 +19,14 @@ final class AppModel {
     let helper = HelperService()
     let metrics = MetricsMonitor()
     let health = HealthService()
+    let cleanup: CleanupModel
 
     init() {
         container = Store.makeContainer(inMemory: CommandLine.arguments.contains("-uitest"))
         operationLog = OperationLogStore(modelContainer: container)
         snapshots = SnapshotService(store: SnapshotStore(modelContainer: container))
+        let health = self.health
+        cleanup = CleanupModel(log: operationLog, onReclaimable: { health.recordReclaimable($0) })
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
         let defaults = UserDefaults.standard

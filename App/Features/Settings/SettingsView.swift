@@ -190,7 +190,6 @@ struct AlertSettings: View {
 struct CleanupSettings: View {
     @AppStorage(Preferences.Key.deleteMode) private var deleteMode = "trash"
     @AppStorage(Preferences.Key.skipRunningAppCaches) private var skipRunning = true
-    @AppStorage(Preferences.Key.logMinAgeDays) private var logAge = 7
     @State private var whitelist: [String] = UserDefaults.standard.stringArray(forKey: Preferences.Key.whitelist) ?? []
     @State private var exclusions: [String] = UserDefaults.standard.stringArray(forKey: Preferences.Key.scanExclusions) ?? []
     @State private var newEntry = ""
@@ -207,9 +206,6 @@ struct CleanupSettings: View {
                     Text("Turn off to delete permanently. Every delete still asks first.")
                 }
                 Toggle("Skip caches of apps that are open", isOn: $skipRunning)
-                Stepper(value: $logAge, in: 1...90) {
-                    Text("Only clean logs older than \(logAge) days").tabular()
-                }
             }
             Section {
                 ForEach(whitelist, id: \.self) { entry in

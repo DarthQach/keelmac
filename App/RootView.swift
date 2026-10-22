@@ -67,6 +67,8 @@ struct RouteView: View {
                 SnapshotsView()
             case .maintenance:
                 MaintenanceView()
+            case .cleanup:
+                CleanupView()
             default:
                 PlaceholderScreen(route: route)
             }
