@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KeelMac System Data breakdown</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--wa:oklch(0.84 0.05 190);--wn:oklch(0.55 0.12 65);--sb:oklch(0.94 0.006 80)}
+body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
+.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
+.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
+.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
+.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
+.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
+.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
+.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
+main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
+.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
+.tb h1{font-size:15px;font-weight:600;margin:0}
+.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:3px 10px;min-height:24px;font-size:12px}
+table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--fm);font-size:12px;text-align:left;padding:6px 10px}td{padding:8px 10px;border-top:1px solid var(--bd);vertical-align:top}
+.r{text-align:right}.m{color:var(--fm)}
+.bar{height:6px;border-radius:3px;background:var(--wa)}
+</style>
+</helmet>
+<div style="padding: 32px 16px; box-sizing: border-box">
+<div class="win">
+  <nav class="side" aria-label="Sections">
+    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
+    <div class="h">Overview</div>
+    <a href="Dashboard.dc.html">Dashboard</a><a href="Monitor.dc.html">Monitor</a>
+    <div class="h">Storage</div>
+    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="#" aria-current="page">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="Snapshots.dc.html">Snapshots</a>
+    <div class="h">Clean</div>
+    <a href="Cleanup.dc.html">Cleanup</a><a href="Apps.dc.html">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
+    <div class="h">History</div>
+    <a href="Operation-Log.dc.html">Operation log</a>
+  </nav>
+  <main>
+    <div class="tb"><h1>System Data</h1><span class="m num">System Settings shows 71.4&nbsp;GB. KeelMac found 66.8&nbsp;GB of it.</span></div>
+    <div style="padding: 16px 24px; overflow: auto">
+      <p class="m" style="margin: 0 0 12px; max-width: 70ch; line-height: 1.5">“System Data” is everything macOS can’t put in another category. These are the folders behind it. Some are safe to clean in Cleanup; others macOS manages and you should leave alone.</p>
+      <table class="num">
+        <thead><tr><th>Folder</th><th class="r">Size</th><th style="width: 160px"><span style="position: absolute; left: -9999px">Share</span></th><th>What it is</th><th><span style="position: absolute; left: -9999px">Actions</span></th></tr></thead>
+        <tbody>
+          <tr><td>iOS Simulators<div class="mono m">~/Library/Developer/CoreSimulator</div></td><td class="r">21.3&nbsp;GB</td><td><div class="bar" style="width: 100%"></div></td><td class="m">Simulator devices and runtimes. Unavailable devices can be removed in Cleanup.</td><td class="r"><button type="button" class="btn">Reveal</button></td></tr>
+          <tr><td>Local Time Machine snapshots<div class="mono m">tmutil listlocalsnapshots /</div></td><td class="r">14.9&nbsp;GB</td><td><div class="bar" style="width: 70%"></div></td><td class="m">macOS deletes these when it needs space. You can thin them in Maintenance.</td><td class="r"><a href="Maintenance.dc.html" style="font-size: 12px">Maintenance</a></td></tr>
+          <tr><td>Swap and sleep image<div class="mono m">/private/var/vm</div></td><td class="r">9.0&nbsp;GB</td><td><div class="bar" style="width: 42%"></div></td><td class="m">Managed by macOS. Shrinks after a restart.</td><td></td></tr>
+          <tr><td>App caches<div class="mono m">~/Library/Caches</div></td><td class="r">8.6&nbsp;GB</td><td><div class="bar" style="width: 40%"></div></td><td class="m">Rebuilt by apps as needed. Listed in Cleanup.</td><td class="r"><a href="Cleanup.dc.html" style="font-size: 12px">Cleanup</a></td></tr>
+          <tr><td>Temporary files<div class="mono m">/private/var/folders</div></td><td class="r">5.2&nbsp;GB</td><td><div class="bar" style="width: 24%"></div></td><td class="m">Per-app temporary items. macOS clears them on restart.</td><td class="r"><button type="button" class="btn">Reveal</button></td></tr>
+          <tr><td>System caches<div class="mono m">/Library/Caches</div></td><td class="r">3.1&nbsp;GB</td><td><div class="bar" style="width: 15%"></div></td><td class="m">Shared caches. Cleaning needs the helper.</td><td class="r"><button type="button" class="btn">Reveal</button></td></tr>
+          <tr><td>Logs and diagnostics<div class="mono m">~/Library/Logs, /private/var/log</div></td><td class="r">2.7&nbsp;GB</td><td><div class="bar" style="width: 13%"></div></td><td class="m">Old logs and crash reports. Listed in Cleanup.</td><td class="r"><a href="Cleanup.dc.html" style="font-size: 12px">Cleanup</a></td></tr>
+          <tr><td>iPhone backups<div class="mono m">~/Library/Application Support/MobileSync/Backup</div></td><td class="r">2.0&nbsp;GB</td><td><div class="bar" style="width: 9%"></div></td><td class="m">One backup of Carlos’s iPhone from March.</td><td class="r"><a href="Cleanup.dc.html" style="font-size: 12px">Cleanup</a></td></tr>
+          <tr style="border-bottom: 1px solid var(--bd)"><td>Couldn’t measure<div class="mono m">/private/var/db</div></td><td class="r m">–</td><td></td><td style="color: var(--wn)">Needs Full Disk Access</td><td class="r"><button type="button" class="btn">Open settings</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

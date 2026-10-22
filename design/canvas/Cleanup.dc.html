@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KeelMac cleanup review</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--wn:oklch(0.55 0.12 65);--sb:oklch(0.94 0.006 80)}
+body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
+.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
+.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
+.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
+.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
+.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
+.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
+.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
+main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
+.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
+.tb h1{font-size:15px;font-weight:600;margin:0}
+.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:4px 12px;min-height:26px}
+.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:6px 16px;font-weight:600;min-height:28px}
+.m{color:var(--fm)}
+.cat{display:grid;grid-template-columns:20px 24px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--bd)}
+.it{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:center;padding:4px 0 4px 52px}
+.tag{font-size:11px;border-radius:4px;padding:1px 6px;background:var(--mu);color:var(--fm)}
+</style>
+</helmet>
+<div style="padding: 32px 16px; box-sizing: border-box">
+<div class="win">
+  <nav class="side" aria-label="Sections">
+    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
+    <div class="h">Overview</div>
+    <a href="Dashboard.dc.html">Dashboard</a><a href="Monitor.dc.html">Monitor</a>
+    <div class="h">Storage</div>
+    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="System-Data.dc.html">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="Snapshots.dc.html">Snapshots</a>
+    <div class="h">Clean</div>
+    <a href="#" aria-current="page">Cleanup</a><a href="Apps.dc.html">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
+    <div class="h">History</div>
+    <a href="Operation-Log.dc.html">Operation log</a>
+  </nav>
+  <main>
+    <div class="tb"><h1>Cleanup</h1><div style="display: flex; gap: 12px; align-items: center"><span class="m">Checked 2 minutes ago</span><button type="button" class="btn">Check again</button></div></div>
+    <div class="num" style="flex: 1; overflow: auto; padding: 8px 24px 12px">
+      <p class="m" style="margin: 8px 0 12px">This is a preview. Nothing moves until you click the button below, and only the items checked here.</p>
+
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="2,4 6,8 10,4" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="Developer junk"><div><b>Developer</b> <span class="m">Xcode, simulators, package managers</span></div><span style="font-weight: 600">34.6&nbsp;GB</span></div>
+      <div class="it"><input type="checkbox" checked aria-label="DerivedData"><div>Xcode DerivedData<div class="mono m">~/Library/Developer/Xcode/DerivedData</div></div><span class="tag">Rebuilt by Xcode</span><span>18.6&nbsp;GB</span></div>
+      <div class="it"><input type="checkbox" checked aria-label="DeviceSupport"><div>Old iOS DeviceSupport (17.0 to 18.4)<div class="mono m">~/Library/Developer/Xcode/iOS DeviceSupport</div></div><span class="tag">Keeps the newest 2</span><span>9.2&nbsp;GB</span></div>
+      <div class="it"><input type="checkbox" checked aria-label="Simulators"><div>Unavailable simulators (11 devices)<div class="mono m">xcrun simctl delete unavailable</div></div><span class="tag">Command</span><span>6.1&nbsp;GB</span></div>
+      <div class="it"><input type="checkbox" aria-label="Archives"><div>Xcode Archives older than 90 days<div class="mono m">~/Library/Developer/Xcode/Archives</div></div><span class="tag">Unchecked by you</span><span class="m">3.8&nbsp;GB</span></div>
+      <div class="it"><input type="checkbox" checked aria-label="npm"><div>npm, pnpm and yarn caches<div class="mono m">~/.npm/_cacache, ~/Library/pnpm/store, ~/Library/Caches/Yarn</div></div><span class="tag">Re-downloaded on install</span><span>0.7&nbsp;GB</span></div>
+
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="User caches"><div><b>App caches</b> <span class="m">214 folders in ~/Library/Caches</span></div><span style="font-weight: 600">2.9&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="Browser caches"><div><b>Browser caches</b> <span class="m">Arc, Chrome, Safari. History and passwords are never touched.</span></div><span style="font-weight: 600">1.6&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="Logs"><div><b>Logs and crash reports</b> <span class="m">Older than 7 days</span></div><span style="font-weight: 600">0.4&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="Installers"><div><b>Installers in Downloads</b> <span class="m">6 files: .dmg, .pkg, .xip</span></div><span style="font-weight: 600">0.6&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" aria-label="iOS backups"><div><b>Old iPhone and iPad backups</b> <span class="m">1 backup from March. Unchecked until you choose it.</span></div><span class="m">2.0&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" aria-label="Docker"><div><b>Docker</b> <span class="m">Off by default. Runs docker system prune for stopped containers and dangling images.</span></div><span class="m">5.3&nbsp;GB</span></div>
+      <div class="cat"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" aria-label="Language files"><div><b>App language files</b> <span class="m">Off by default. Keeps English and Spanish.</span></div><span class="m">1.2&nbsp;GB</span></div>
+      <div class="cat" style="border-bottom: 1px solid var(--bd)"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><polyline points="4,2 8,6 4,10" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg><input type="checkbox" checked aria-label="Trash"><div><b>Trash</b> <span class="m">Emptied permanently, on all volumes</span></div><span style="font-weight: 600">0.0&nbsp;GB</span></div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid var(--bd)">
+      <span class="num">612 items selected, 40.1&nbsp;GB. <span class="m">Items go to the Trash. 3 whitelisted paths are excluded.</span></span>
+      <button type="button" class="pri">Move 40.1&nbsp;GB to Trash</button>
+    </div>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

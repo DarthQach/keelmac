@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KeelMac apps</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--sb:oklch(0.94 0.006 80)}
+body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
+.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
+.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
+.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
+.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
+.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
+.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
+.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
+main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
+.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
+.tb h1{font-size:15px;font-weight:600;margin:0}
+.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:4px 12px;min-height:26px}
+.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:5px 14px;font-weight:600;min-height:26px}
+table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--fm);font-size:12px;text-align:left;padding:6px 10px}td{padding:6px 10px;border-top:1px solid var(--bd)}
+.r{text-align:right}.m{color:var(--fm)}
+.ic{width:20px;height:20px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px;background:var(--mu);box-shadow:inset 0 0 0 1px var(--bd)}
+tr.sel td{background:var(--as)}
+input[type=search]{font:inherit;border:1px solid var(--bs);border-radius:6px;background:var(--sf);color:var(--fg);padding:4px 10px;width:200px}
+</style>
+</helmet>
+<div style="padding: 32px 16px; box-sizing: border-box">
+<div class="win">
+  <nav class="side" aria-label="Sections">
+    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
+    <div class="h">Overview</div>
+    <a href="Dashboard.dc.html">Dashboard</a><a href="Monitor.dc.html">Monitor</a>
+    <div class="h">Storage</div>
+    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="System-Data.dc.html">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="Snapshots.dc.html">Snapshots</a>
+    <div class="h">Clean</div>
+    <a href="Cleanup.dc.html">Cleanup</a><a href="#" aria-current="page">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
+    <div class="h">History</div>
+    <a href="Operation-Log.dc.html">Operation log</a>
+  </nav>
+  <main>
+    <div class="tb">
+      <h1>Apps</h1>
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+        <label for="as" style="position: absolute; left: -9999px">Search apps</label><input id="as" type="search" placeholder="Search apps">
+        <label style="display: flex; gap: 6px; align-items: center"><input type="checkbox" checked> Offer cleanup when I trash an app</label>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; flex: 1">
+      <div style="flex: 999 1 520px; min-width: 0; overflow: auto; padding: 0 24px">
+        <table class="num">
+          <thead><tr><th>Name</th><th class="r">Size</th><th class="r">Last used</th><th>Version</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ic"></span>Xcode</td><td class="r">14.8&nbsp;GB</td><td class="r">Today</td><td class="m">27.1</td></tr>
+            <tr><td><span class="ic"></span>Docker</td><td class="r">2.1&nbsp;GB</td><td class="r">Today</td><td class="m">4.48</td></tr>
+            <tr class="sel"><td><span class="ic"></span>Adobe Acrobat Reader</td><td class="r">1.3&nbsp;GB</td><td class="r">8 months ago</td><td class="m">25.001</td></tr>
+            <tr><td><span class="ic"></span>Figma</td><td class="r">612&nbsp;MB</td><td class="r">3 days ago</td><td class="m">126.2</td></tr>
+            <tr><td><span class="ic"></span>Arc</td><td class="r">588&nbsp;MB</td><td class="r">Today</td><td class="m">1.98</td></tr>
+            <tr><td><span class="ic"></span>Slack</td><td class="r">498&nbsp;MB</td><td class="r">Yesterday</td><td class="m">4.47</td></tr>
+            <tr><td><span class="ic"></span>Notion</td><td class="r">472&nbsp;MB</td><td class="r">Today</td><td class="m">5.2</td></tr>
+            <tr><td><span class="ic"></span>Claude</td><td class="r">431&nbsp;MB</td><td class="r">Today</td><td class="m">1.9</td></tr>
+            <tr><td><span class="ic"></span>Spotify</td><td class="r">366&nbsp;MB</td><td class="r">Today</td><td class="m">1.2.70</td></tr>
+            <tr><td><span class="ic"></span>Raycast</td><td class="r">302&nbsp;MB</td><td class="r">Today</td><td class="m">1.104</td></tr>
+            <tr><td><span class="ic"></span>Ghostty</td><td class="r">58&nbsp;MB</td><td class="r">Today</td><td class="m">1.3</td></tr>
+            <tr style="border-bottom: 1px solid var(--bd)"><td><span class="ic"></span>Kindle</td><td class="r">212&nbsp;MB</td><td class="r">1 year ago</td><td class="m">1.40</td></tr>
+          </tbody>
+        </table>
+        <p class="m num" style="font-size: 12px">84 apps in /Applications and ~/Applications, 31.6&nbsp;GB. Apple’s built-in apps aren’t listed.</p>
+      </div>
+      <aside aria-label="Uninstall" style="flex: 1 1 260px; max-width: 320px; border-left: 1px solid var(--bd); padding: 16px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+        <div style="border: 1.5px dashed var(--bs); border-radius: 10px; padding: 22px 16px; text-align: center; display: flex; flex-direction: column; gap: 6px; align-items: center">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="5" width="18" height="18" rx="4" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></rect><line x1="14" y1="10" x2="14" y2="18" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></line><polyline points="10.5,14.5 14,18 17.5,14.5" fill="none" stroke="oklch(0.49 0.014 70)" stroke-width="1.5"></polyline></svg>
+          <b>Drop an app here to uninstall it</b>
+          <span class="m" style="font-size: 12px">You’ll see every related file first.</span>
+        </div>
+        <div>
+          <div style="font-size: 15px; font-weight: 600">Adobe Acrobat Reader</div>
+          <div class="mono m">com.adobe.Reader</div>
+        </div>
+        <dl class="num" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0">
+          <dt class="m">App</dt><dd style="margin: 0">1.3&nbsp;GB</dd>
+          <dt class="m">Related files</dt><dd style="margin: 0">14 items, 418&nbsp;MB</dd>
+          <dt class="m">Last used</dt><dd style="margin: 0">8 months ago</dd>
+        </dl>
+        <button type="button" class="pri">Uninstall…</button>
+        <button type="button" class="btn">Reveal in Finder</button>
+      </aside>
+    </div>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

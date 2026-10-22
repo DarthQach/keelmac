@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KeelMac cleanup result</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--ok:oklch(0.5 0.12 145);--wn:oklch(0.55 0.12 65);--sb:oklch(0.94 0.006 80)}
+body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
+.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
+.win{max-width:1216px;margin:0 auto;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px oklch(0.23 0.014 70 / 0.16),0 1px 3px oklch(0.23 0.014 70 / 0.10);overflow:hidden;display:flex;flex-wrap:wrap;min-height:776px}
+.side{flex:1 1 200px;max-width:220px;background:var(--sb);border-right:1px solid var(--bd);padding:14px 10px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px}
+.side .h{font-size:11px;font-weight:600;color:var(--fm);padding:14px 8px 4px}
+.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
+.side a[aria-current]{background:var(--as);color:var(--at);font-weight:600}
+.tl{display:flex;gap:8px;padding:0 6px 4px}.tl span{width:12px;height:12px;border-radius:6px}
+main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column}
+.tb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px;border-bottom:1px solid var(--bd)}
+.tb h1{font-size:15px;font-weight:600;margin:0}
+.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:5px 14px;min-height:28px}
+.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:6px 16px;font-weight:600;min-height:28px}
+table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--fm);font-size:12px;text-align:left;padding:6px 10px}td{padding:7px 10px;border-top:1px solid var(--bd)}
+.r{text-align:right}.m{color:var(--fm)}
+</style>
+</helmet>
+<div style="padding: 32px 16px; box-sizing: border-box">
+<div class="win">
+  <nav class="side" aria-label="Sections">
+    <div class="tl"><span style="background: #ff5f57"></span><span style="background: #febc2e"></span><span style="background: #28c840"></span></div>
+    <div class="h">Overview</div>
+    <a href="Dashboard.dc.html">Dashboard</a><a href="Monitor.dc.html">Monitor</a>
+    <div class="h">Storage</div>
+    <a href="Storage-Map.dc.html">Storage map</a><a href="Large-Old.dc.html">Large and old files</a><a href="System-Data.dc.html">System Data</a><a href="Duplicates.dc.html">Duplicates</a><a href="Snapshots.dc.html">Snapshots</a>
+    <div class="h">Clean</div>
+    <a href="#" aria-current="page">Cleanup</a><a href="Apps.dc.html">Apps</a><a href="Leftovers.dc.html">Leftovers</a><a href="Login-Items.dc.html">Login items</a><a href="Maintenance.dc.html">Maintenance</a>
+    <div class="h">History</div>
+    <a href="Operation-Log.dc.html">Operation log</a>
+  </nav>
+  <main>
+    <div class="tb"><h1>Cleanup</h1></div>
+    <div class="num" style="padding: 32px; max-width: 860px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="14" cy="14" r="12" fill="none" stroke="oklch(0.5 0.12 145)" stroke-width="2"></circle><polyline points="8,14.5 12.5,19 20,10" fill="none" stroke="oklch(0.5 0.12 145)" stroke-width="2"></polyline></svg>
+        <div>
+          <h2 style="font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em">Moved 39.8&nbsp;GB to Trash.</h2>
+          <div class="m">609 items moved, 3 skipped. You’re now 78&nbsp;GB above the load line. Empty the Trash to free the space.</div>
+        </div>
+      </div>
+
+      <section aria-label="Skipped items">
+        <h3 style="font-size: 13px; font-weight: 600; margin: 0 0 6px">Skipped</h3>
+        <table>
+          <thead><tr><th style="padding-left: 0">Item</th><th class="r">Size</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td class="mono" style="padding-left: 0">~/Library/Caches/com.apple.Safari</td><td class="r">212&nbsp;MB</td><td style="color: var(--wn)">In use by Safari</td></tr>
+            <tr><td class="mono" style="padding-left: 0">~/Library/Caches/Arc/Cache_Data/index</td><td class="r">48&nbsp;MB</td><td style="color: var(--wn)">Changed since the preview</td></tr>
+            <tr style="border-bottom: 1px solid var(--bd)"><td class="mono" style="padding-left: 0">~/Library/Developer/Xcode/DerivedData/PaceProphet-ghk…</td><td class="r">36&nbsp;MB</td><td style="color: var(--wn)">Xcode is building this project</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap"><button type="button" class="pri">Done</button><button type="button" class="btn">Empty Trash…</button><a href="Operation-Log.dc.html" style="align-self: center; margin-left: 6px">View in operation log</a></div>
+
+      <section aria-label="Support KeelMac" style="margin-top: 8px; border: 1px solid var(--bd); border-radius: 10px; background: var(--sf); padding: 16px 18px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between">
+        <div><div style="font-weight: 600; margin-bottom: 2px">Freed 39.8&nbsp;GB. Buy me a coffee?</div><div class="m">KeelMac is free and stays free. This shows at most once a month.</div></div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+          <label style="display: flex; gap: 6px; align-items: center" class="m"><input type="checkbox"> Don’t ask again</label>
+          <button type="button" class="btn">Not now</button>
+          <button type="button" class="btn" style="font-weight: 600">Buy me a coffee</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

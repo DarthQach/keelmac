@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KeelMac uninstall preview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{--bg:oklch(0.982 0.004 85);--sf:oklch(0.997 0.002 85);--mu:oklch(0.955 0.006 85);--bd:oklch(0.905 0.008 80);--bs:oklch(0.62 0.012 75);--fg:oklch(0.23 0.014 70);--fm:oklch(0.49 0.014 70);--ac:oklch(0.49 0.09 185);--as:oklch(0.95 0.025 185);--at:oklch(0.45 0.09 185);--oa:oklch(0.99 0.004 185);--wn:oklch(0.55 0.12 65)}
+body{margin:0;background:oklch(0.90 0.006 80);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:13px;color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:var(--at)}a:hover{color:oklch(0.40 0.09 185)}
+.num{font-variant-numeric:tabular-nums}.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px}
+.btn{font:inherit;border:1px solid var(--bs);background:var(--sf);color:var(--fg);border-radius:6px;padding:5px 14px;min-height:28px}
+.pri{font:inherit;border:0;background:var(--ac);color:var(--oa);border-radius:6px;padding:6px 16px;font-weight:600;min-height:28px}
+.m{color:var(--fm)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}
+.grp{font-size:12px;color:var(--fm);font-weight:600;padding:12px 0 4px}
+</style>
+</helmet>
+<div style="padding: 32px 16px; box-sizing: border-box">
+<div style="max-width: 1216px; margin: 0 auto; min-height: 776px; border-radius: 12px; background: oklch(0.93 0.006 80); box-shadow: 0 20px 50px oklch(0.23 0.014 70 / 0.16); display: flex; justify-content: center; align-items: flex-start; overflow: hidden">
+  <div role="dialog" aria-labelledby="u-title" class="num" style="width: 100%; max-width: 640px; background: var(--bg); border-radius: 0 0 12px 12px; box-shadow: 0 16px 40px oklch(0.23 0.014 70 / 0.20); padding: 24px 28px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+    <h1 id="u-title" style="font-size: 17px; font-weight: 600; margin: 0">Uninstall Adobe Acrobat Reader?</h1>
+    <p class="m" style="margin: 0">Found by bundle ID com.adobe.Reader and the name “Acrobat”. Uncheck anything you want to keep.</p>
+    <div>
+      <div class="grp">App</div>
+      <div class="row"><input type="checkbox" checked aria-label="App bundle"><span class="mono">/Applications/Adobe Acrobat Reader.app</span><span>1.3&nbsp;GB</span></div>
+      <div class="grp">Related files</div>
+      <div class="row"><input type="checkbox" checked aria-label="Application Support"><span class="mono">~/Library/Application Support/Adobe/Acrobat</span><span>286&nbsp;MB</span></div>
+      <div class="row"><input type="checkbox" checked aria-label="Caches"><span class="mono">~/Library/Caches/com.adobe.Reader</span><span>94&nbsp;MB</span></div>
+      <div class="row"><input type="checkbox" checked aria-label="Containers"><span class="mono">~/Library/Containers/com.adobe.Reader.QuickLook</span><span>21&nbsp;MB</span></div>
+      <div class="row"><input type="checkbox" checked aria-label="Saved state"><span class="mono">~/Library/Saved Application State/com.adobe.Reader.savedState</span><span>3&nbsp;MB</span></div>
+      <div class="row"><input type="checkbox" checked aria-label="Preferences"><span class="mono">~/Library/Preferences/com.adobe.Reader.plist</span><span>12&nbsp;KB</span></div>
+      <div class="row"><input type="checkbox" checked aria-label="Launch agent"><span class="mono">~/Library/LaunchAgents/com.adobe.ARMDCHelper.plist</span><span>2&nbsp;KB</span></div>
+      <div class="row"><input type="checkbox" aria-label="Shared Adobe folder"><span><span class="mono">~/Library/Application Support/Adobe/Common</span> <span style="color: var(--wn); font-size: 12px">Shared by other Adobe apps, unchecked</span></span><span class="m">14&nbsp;MB</span></div>
+      <div class="row" style="border-bottom: 1px solid var(--bd)"><span></span><span class="m">6 more items under 1&nbsp;MB</span><span class="m">88&nbsp;KB</span></div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 8px">
+      <span class="m">Everything goes to the Trash and is logged.</span>
+      <div style="display: flex; gap: 8px"><button type="button" class="btn">Cancel</button><button type="button" class="pri">Move 1.7&nbsp;GB to Trash</button></div>
+    </div>
+  </div>
+</div>
+<div class="num" style="max-width: 640px; margin: 24px auto 0; background: var(--bg); border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; box-shadow: 0 0 0 1px var(--bd)">
+  <span><b>Xcode is open.</b> <span class="m">Quit Xcode to uninstall it, so its files aren’t in use.</span></span>
+  <button type="button" class="btn" style="margin-left: auto">Quit Xcode</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
