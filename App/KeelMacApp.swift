@@ -22,6 +22,11 @@ struct KeelMacApp: App {
         .defaultSize(width: 1180, height: 780)
         .commands {
             CommandGroup(replacing: .newItem) {}
+            CommandGroup(replacing: .appInfo) {
+                AboutMenuButton()
+                Button("Check for Updates…") { model.updater.checkForUpdates() }
+                    .disabled(!model.updater.canCheck)
+            }
             CommandMenu("Go") {
                 ForEach(Route.allCases) { route in
                     if let key = route.shortcut {
@@ -32,6 +37,13 @@ struct KeelMacApp: App {
                 }
             }
         }
+
+        Window("About KeelMac", id: "about") {
+            AboutView()
+                .environment(model)
+        }
+        .windowResizability(.contentSize)
+        .windowStyle(.hiddenTitleBar)
 
         Settings {
             SettingsView()

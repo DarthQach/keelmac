@@ -88,6 +88,11 @@ targets:
         CFBundleURLTypes:
           - CFBundleURLName: mx.cvillegas.keelmac
             CFBundleURLSchemes: [keelmac]
+        SUFeedURL: https://keelmac.flowrunnerapp.workers.dev/appcast.xml
+        SUPublicEDKey: 05JtLdY4xboQcV61MR76UJIg7n4IrbhoLZyxbrsR9Dw=
+        SUEnableSystemProfiling: false
+        SUEnableInstallerLauncherService: false
+        SUScheduledCheckInterval: 86400
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: mx.cvillegas.keelmac

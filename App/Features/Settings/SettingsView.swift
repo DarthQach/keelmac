@@ -306,28 +306,71 @@ extension WhitelistProblem {
     }
 }
 
-// MARK: - Helper and updates (filled in by M6 and M8)
+// MARK: - Helper and updates
 
 struct HelperSettings: View {
+    @Environment(AppModel.self) private var model
+
     var body: some View {
         Form {
             Section {
-                Text("The helper isn’t installed. Admin-only maintenance tasks will ask for it.")
-                    .foregroundStyle(.kmFgMuted)
+                LabeledContent("Status") {
+                    switch model.helper.status {
+                    case .enabled: StatusBadge(text: "Installed and allowed", tone: .success)
+                    case .requiresApproval: StatusBadge(text: "Waiting for your approval in Login Items", tone: .warning)
+                    case .notRegistered: Text("Not installed").foregroundStyle(.kmFgMuted)
+                    case .notFound: Text("Not found in this copy of KeelMac").foregroundStyle(.kmDanger)
+                    case .unavailable(let reason): Text(verbatim: reason).foregroundStyle(.kmDanger)
+                    }
+                }
+                Text("The helper runs only the tasks listed in Maintenance and Login items, checks every path again before touching it, and accepts requests only from KeelMac signed by the same developer.")
+                    .font(.callout).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
+                if let error = model.helper.lastError { Text(verbatim: error).font(.callout).foregroundStyle(.kmDanger) }
+            }
+            Section {
+                HStack {
+                    switch model.helper.status {
+                    case .enabled:
+                        Button("Remove helper") { Task { await model.helper.remove() } }
+                    case .requiresApproval:
+                        Button("Open Login Items") { model.helper.openApprovalSettings() }
+                        Button("Remove helper") { Task { await model.helper.remove() } }
+                    default:
+                        Button("Install helper…") { model.helper.install() }
+                    }
+                }
             }
         }
         .formStyle(.grouped)
+        .onAppear { model.helper.refresh() }
     }
 }
 
 struct UpdateSettings: View {
+    @Environment(AppModel.self) private var model
     @AppStorage(Preferences.Key.automaticUpdates) private var automatic = true
+
     var body: some View {
         Form {
             Section {
                 Toggle("Check for updates automatically", isOn: $automatic)
+                    .onChange(of: automatic) { _, on in model.updater.automaticallyChecks = on }
+                LabeledContent("Version") {
+                    Text(verbatim: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")
+                }
+                if let last = model.updater.lastCheck {
+                    LabeledContent("Last checked") { Text(last.formatted(date: .abbreviated, time: .shortened)) }
+                }
+                HStack {
+                    Button("Check now") { model.updater.checkForUpdates() }.disabled(!model.updater.canCheck)
+                    Link("Release notes", destination: SupportLinks.releaseNotes).foregroundStyle(.kmAccentText)
+                }
+            } footer: {
+                Text("Updates are signed. The update check is the only network request KeelMac makes.")
+                    .font(.callout).foregroundStyle(.kmFgMuted)
             }
         }
         .formStyle(.grouped)
+        .onAppear { automatic = model.updater.automaticallyChecks }
     }
 }

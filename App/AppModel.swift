@@ -25,10 +25,12 @@ final class AppModel {
     let health = HealthService()
     let cleanup: CleanupModel
     let apps: AppsModel
+    let updater: Updater
 
     init() {
         container = Store.makeContainer(inMemory: CommandLine.arguments.contains("-uitest"))
         operationLog = OperationLogStore(modelContainer: container)
+        updater = Updater(start: !CommandLine.arguments.contains("-uitest"))
         snapshots = SnapshotService(store: SnapshotStore(modelContainer: container))
         let health = self.health
         cleanup = CleanupModel(log: operationLog, onReclaimable: { health.recordReclaimable($0) })
