@@ -107,8 +107,10 @@ struct HealthScoreTests {
         let s79 = HealthScore.compute(inputs(warning: 1, battery: 93.75, reclaimable: 0, orphans: 5))
         let s60 = HealthScore.compute(inputs(warning: 1, battery: 70, reclaimable: 0, orphans: 5))
         let s59 = HealthScore.compute(inputs(warning: 1, battery: 70, reclaimable: 7_500, orphans: 5))
-        #expect([s80.score, s79.score, s60.score, s59.score] == [80, 79, 60, 59])
-        #expect([s80.band, s79.band, s60.band, s59.band] == [.good, .fair, .fair, .poor])
+        let scores: [Int] = [s80.score, s79.score, s60.score, s59.score]
+        let bands: [HealthBand] = [s80.band, s79.band, s60.band, s59.band]
+        #expect(scores == [80, 79, 60, 59])
+        #expect(bands == [.good, .fair, .fair, .poor])
     }
 
     @Test("Each factor carries its fix route and raw details")

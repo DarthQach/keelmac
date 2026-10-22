@@ -147,6 +147,7 @@ public actor DuplicateFinder {
         .isRegularFileKey, .isDirectoryKey, .isSymbolicLinkKey, .isPackageKey, .fileSizeKey,
         .contentModificationDateKey, .creationDateKey,
     ]
+    private static let resourceKeySet = Set(resourceKeys)
 
     /// Synchronous on purpose: `FileManager.DirectoryEnumerator` can't be iterated from async code.
     private func list(
@@ -184,7 +185,7 @@ public actor DuplicateFinder {
             guard expanded.hasPrefix("/") else { continue }
             // The chosen folder itself may be reached through a symlink (/tmp); nothing below it is followed.
             let rootURL = URL(fileURLWithPath: expanded).resolvingSymlinksInPath()
-            guard let rootValues = try? rootURL.resourceValues(forKeys: Set(Self.resourceKeys)) else {
+            guard let rootValues = try? rootURL.resourceValues(forKeys: Self.resourceKeySet) else {
                 report.unreadable.insert(rootURL.path)
                 continue
             }
@@ -211,7 +212,7 @@ public actor DuplicateFinder {
 
             while let url = enumerator.nextObject() as? URL {
                 try Task.checkCancellation()
-                guard let values = try? url.resourceValues(forKeys: Set(Self.resourceKeys)) else {
+                guard let values = try? url.resourceValues(forKeys: Self.resourceKeySet) else {
                     report.unreadable.insert(url.path)
                     continue
                 }

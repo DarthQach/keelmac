@@ -132,7 +132,7 @@ public struct WeeklyReport: Sendable, Equatable {
     }
 
     static func bytes(_ value: Int64, locale: Locale) -> String {
-        value.formatted(.byteCount(style: .file).locale(locale))
+        value.formatted(.byteCount(style: .file, spellsOutZero: false).locale(locale))
     }
 
     static func signedBytes(_ value: Int64, locale: Locale) -> String {
