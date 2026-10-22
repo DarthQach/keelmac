@@ -22,6 +22,8 @@ enum Preferences {
         static let coffeeDismissedForever = "coffeeDismissedForever"
         static let healthCache = "healthCache"
         static let appearance = "appearance"                      // system, light, dark
+        static let byteUnits = "byteUnits"                        // decimal, binary
+        static let temperatureUnit = "temperatureUnit"            // celsius, fahrenheit
         static let automaticUpdates = "automaticUpdates"
     }
 
@@ -43,6 +45,8 @@ enum Preferences {
             Key.trashWatcher: false,
             Key.coffeeDismissedForever: false,
             Key.appearance: "system",
+            Key.byteUnits: "decimal",
+            Key.temperatureUnit: "celsius",
             Key.automaticUpdates: true,
         ])
     }

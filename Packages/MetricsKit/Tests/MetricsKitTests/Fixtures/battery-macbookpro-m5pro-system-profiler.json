@@ -1,0 +1,24 @@
+{
+  "SPPowerDataType": [
+    {
+      "_name": "spbattery_information",
+      "sppower_battery_charge_info": {
+        "sppower_battery_at_warn_level": "FALSE",
+        "sppower_battery_fully_charged": "TRUE",
+        "sppower_battery_is_charging": "FALSE",
+        "sppower_battery_state_of_charge": 100
+      },
+      "sppower_battery_health_info": {
+        "sppower_battery_cycle_count": 70,
+        "sppower_battery_health": "Good",
+        "sppower_battery_health_maximum_capacity": "99%"
+      }
+    },
+    {
+      "_name": "sppower_information"
+    },
+    {
+      "_name": "sppower_hwconfig_information"
+    }
+  ]
+}

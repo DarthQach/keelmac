@@ -68,7 +68,8 @@ extension ButtonStyle where Self == PrimaryButtonStyle {
 /// Byte and number formatting in the user's locale.
 enum Format {
     static func bytes(_ value: Int64) -> String {
-        ByteCountFormatter.string(fromByteCount: value, countStyle: .file)
+        let binary = UserDefaults.standard.string(forKey: Preferences.Key.byteUnits) == "binary"
+        return ByteCountFormatter.string(fromByteCount: value, countStyle: binary ? .memory : .file)
     }
 
     static func bytes(_ value: UInt64) -> String { bytes(Int64(clamping: value)) }
@@ -82,7 +83,8 @@ enum Format {
     }
 
     static func temperature(_ celsius: Double) -> String {
-        Measurement(value: celsius, unit: UnitTemperature.celsius)
-            .formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))))
+        let fahrenheit = UserDefaults.standard.string(forKey: Preferences.Key.temperatureUnit) == "fahrenheit"
+        let m = Measurement(value: celsius, unit: UnitTemperature.celsius).converted(to: fahrenheit ? .fahrenheit : .celsius)
+        return m.formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))))
     }
 }

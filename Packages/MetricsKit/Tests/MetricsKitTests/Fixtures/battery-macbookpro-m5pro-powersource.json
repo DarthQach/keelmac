@@ -1,0 +1,17 @@
+{
+  "Battery Provides Time Remaining": true,
+  "Current Capacity": 100,
+  "Is Charged": true,
+  "Type": "InternalBattery",
+  "Name": "InternalBattery-0",
+  "Power Source State": "AC Power",
+  "Time to Full Charge": 0,
+  "Is Charging": false,
+  "Max Capacity": 100,
+  "Time to Empty": 0,
+  "Transport Type": "Internal",
+  "Current": 0,
+  "DesignCycleCount": 300,
+  "LPM Active": false,
+  "Is Present": true
+}

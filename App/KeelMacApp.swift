@@ -7,6 +7,8 @@ struct KeelMacApp: App {
     init() {
         Preferences.registerDefaults()
         _model = State(initialValue: AppModel())
+        let appearance = UserDefaults.standard.string(forKey: Preferences.Key.appearance) ?? "system"
+        Task { @MainActor in Appearance.apply(appearance) }
     }
 
     var body: some Scene {
@@ -15,6 +17,7 @@ struct KeelMacApp: App {
                 .environment(model)
                 .frame(minWidth: 960, minHeight: 640)
                 .onOpenURL { model.open($0) }
+                .modelContainer(model.container)
         }
         .defaultSize(width: 1180, height: 780)
         .commands {

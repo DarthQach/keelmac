@@ -37,6 +37,7 @@ struct RootView: View {
             RouteView(route: model.route)
                 .id(model.route)
         }
+        .task { model.start() }
         .sheet(isPresented: $model.showWelcome) {
             WelcomeView()
         }
@@ -53,6 +54,14 @@ struct RouteView: View {
     var body: some View {
         Page {
             switch route {
+            case .operationLog:
+                OperationLogView()
+            case .duplicates:
+                DuplicatesView()
+            case .snapshots:
+                SnapshotsView()
+            case .maintenance:
+                MaintenanceView()
             default:
                 PlaceholderScreen(route: route)
             }

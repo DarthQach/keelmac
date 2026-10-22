@@ -25,14 +25,39 @@ settings:
 packages:
   SafetyKit:
     path: Packages/SafetyKit
+  InsightsKit:
+    path: Packages/InsightsKit
+  MaintenanceKit:
+    path: Packages/MaintenanceKit
+  MetricsKit:
+    path: Packages/MetricsKit
 targets:
   KeelMac:
     type: application
     platform: macOS
     sources:
       - path: App
+      - path: Config/mx.cvillegas.keelmac.helper.plist
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Library/LaunchDaemons
     dependencies:
+      - target: KeelMacHelper
+        embed: true
+        codeSign: true
+        copy:
+          destination: executables
+      - package: MaintenanceKit
+        product: MaintenanceKit
+      - package: MaintenanceKit
+        product: HelperShared
       - package: SafetyKit
+      - package: MetricsKit
+      - package: InsightsKit
+        product: DuplicatesKit
+      - package: InsightsKit
+        product: ReportKit
     entitlements:
       path: Config/KeelMac.entitlements
       properties: {}
@@ -59,6 +84,24 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_NSHumanReadableCopyright: "KeelMac is free software under the GPL-3.0 licence."
         COMBINE_HIDPI_IMAGES: YES
+  KeelMacHelper:
+    type: tool
+    platform: macOS
+    sources:
+      - path: Helper
+        excludes: [Info.plist]
+    dependencies:
+      - package: MaintenanceKit
+        product: HelperCore
+      - package: MaintenanceKit
+        product: HelperShared
+    settings:
+      base:
+        PRODUCT_NAME: KeelMacHelper
+        PRODUCT_BUNDLE_IDENTIFIER: mx.cvillegas.keelmac.helper
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        INFOPLIST_FILE: Helper/Info.plist
+        SKIP_INSTALL: YES
   KeelMacTests:
     type: bundle.unit-test
     platform: macOS
