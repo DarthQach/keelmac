@@ -11,7 +11,8 @@ final class ScreensUITests: XCTestCase {
         app.launch()
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10))
-        for (id, wait) in [("cleanup", 14.0), ("dashboard", 3.0)] {
+        for (id, wait) in [("leftovers", 15.0), ("loginItems", 8.0), ("dashboard", 2.0), ("maintenance", 1.0)] {
+            app.activate()
             let item = window.outlines.cells.containing(.any, identifier: "sidebar.\(id)").firstMatch
             XCTAssertTrue(item.waitForExistence(timeout: 5))
             item.click()

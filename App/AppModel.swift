@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import AppsKit
 import SafetyKit
 
 /// Root state shared by the main window, Settings and the menu bar.
@@ -23,6 +24,7 @@ final class AppModel {
     let metrics = MetricsMonitor()
     let health = HealthService()
     let cleanup: CleanupModel
+    let apps: AppsModel
 
     init() {
         container = Store.makeContainer(inMemory: CommandLine.arguments.contains("-uitest"))
@@ -30,6 +32,7 @@ final class AppModel {
         snapshots = SnapshotService(store: SnapshotStore(modelContainer: container))
         let health = self.health
         cleanup = CleanupModel(log: operationLog, onReclaimable: { health.recordReclaimable($0) })
+        apps = AppsModel(log: operationLog, helper: helper, onStartupCounts: { health.recordStartupItems(total: $0, orphans: $1) })
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
         let defaults = UserDefaults.standard
@@ -50,6 +53,13 @@ final class AppModel {
             NSApp.activate()
         }
         if !isUITesting { snapshots.startWeeklySchedule() }
+        apps.updateTrashWatcher(enabled: UserDefaults.standard.bool(forKey: Preferences.Key.trashWatcher))
+        // Measure reclaimable space and startup items in the background so the Health Score is complete.
+        Task {
+            try? await Task.sleep(for: .seconds(8))
+            if cleanup.phase == .idle { await cleanup.check(hasFullDiskAccess: hasFullDiskAccess) }
+            if apps.launchItems == nil { await apps.loadLaunchItems() }
+        }
     }
 
     private var started = false
@@ -60,7 +70,12 @@ final class AppModel {
     }
 
     func open(_ url: URL) {
-        if let route = Route(url: url) { self.route = route }
+        guard let route = Route(url: url) else { return }
+        self.route = route
+        if route == .apps, let path = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "trashed" })?.value,
+           PathGuard.isWithin(path, NSHomeDirectory() + "/.Trash"), let app = AppInventory.app(at: path) {
+            apps.uninstallTarget = app
+        }
     }
 
     func openFullDiskAccessSettings() {

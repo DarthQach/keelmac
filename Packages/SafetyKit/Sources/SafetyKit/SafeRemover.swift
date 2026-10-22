@@ -23,6 +23,10 @@ public struct RemovalOutcome: Sendable, Equatable {
     public let reason: String?
     /// Raw refusal reason when the guard refused or skipped.
     public let refusal: RefusalReason?
+
+    public init(path: String, bytes: Int64, result: OperationResult, reason: String?, refusal: RefusalReason?) {
+        self.path = path; self.bytes = bytes; self.result = result; self.reason = reason; self.refusal = refusal
+    }
 }
 
 /// Moves approved items to the Trash (or deletes them when the user chose permanent delete),

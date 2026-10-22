@@ -27,6 +27,7 @@ struct SettingsView: View {
 // MARK: - General
 
 struct GeneralSettings: View {
+    @Environment(AppModel.self) private var model
     @AppStorage(Preferences.Key.appearance) private var appearance = "system"
     @AppStorage(Preferences.Key.byteUnits) private var byteUnits = "decimal"
     @AppStorage(Preferences.Key.temperatureUnit) private var temperatureUnit = "celsius"
@@ -43,6 +44,7 @@ struct GeneralSettings: View {
                     Text(verbatim: loginError).foregroundStyle(.kmDanger).font(.callout)
                 }
                 Toggle("Offer cleanup when I move an app to the Trash", isOn: $trashWatcher)
+                    .onChange(of: trashWatcher) { _, on in model.apps.updateTrashWatcher(enabled: on) }
             }
             Section {
                 Picker("Appearance", selection: $appearance) {
