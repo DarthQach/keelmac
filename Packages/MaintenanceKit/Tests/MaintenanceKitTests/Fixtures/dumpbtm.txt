@@ -1,0 +1,62 @@
+========================
+ Records for UID -2 : FFFFEEEE-DDDD-CCCC-BBBB-AAAAFFFFFFFE
+========================
+
+ ServiceManagement migrated: true
+ LaunchServices registered: false
+
+ Items:
+
+ #1:
+                 UUID: 11111111-AAAA-4BBB-8CCC-000000000001
+                 Name: Example Tools
+       Developer Name: Example Corp
+                 Type: developer (0x20)
+                Flags: [ curated ] (0x4)
+          Disposition: [disabled, allowed, not notified] (0x2)
+           Identifier: Example Tools
+                  URL: (null)
+           Generation: 0
+  Embedded Item Identifiers:
+    #1: 16.com.example.helperd
+    #2: 8.com.example.agent
+
+ #2:
+                 UUID: 11111111-AAAA-4BBB-8CCC-000000000002
+                 Name: com.example.helperd
+       Developer Name: Example Corp
+      Team Identifier: ABCDE12345
+                 Type: legacy daemon (0x10010)
+                Flags: [ legacy, curated ] (0x5)
+          Disposition: [enabled, allowed, notified] (0xb)
+           Identifier: 16.com.example.helperd
+                  URL: /Library/LaunchDaemons/com.example.helperd.plist
+      Executable Path: /Library/PrivilegedHelperTools/com.example.helperd
+           Generation: 120
+             Last Use: 2026-10-22 07:50:36-06:00
+    Assoc. Bundle IDs: [ com.example.app, com.example.app2 ]
+    Parent Identifier: Example Tools
+
+
+========================
+ Records for UID 501 : 22222222-BBBB-4CCC-8DDD-000000000501
+========================
+
+ ServiceManagement migrated: true
+ LaunchServices registered: true
+
+ Items:
+
+ #1:
+                 UUID: 33333333-CCCC-4DDD-8EEE-000000000003
+                 Name: Example Helper
+       Developer Name: (null)
+      Team Identifier: ABCDE12345
+                 Type: login item (0x4)
+                Flags: [ sandboxed ] (0x40)
+          Disposition: [disabled, disallowed, notified] (0x8)
+           Identifier: 4.ABCDE12345.com.example.login
+                  URL: Contents/Library/LoginItems/Example Helper.app
+           Generation: 3
+    Bundle Identifier: ABCDE12345.com.example.login
+    Parent Identifier: 2.com.example.app

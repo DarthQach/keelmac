@@ -1,0 +1,6 @@
+// Shared build settings for every target.
+// Team 735MC85596 is the maintainer's Apple team. Contributors override it (and signing) in Config/Local.xcconfig (gitignored).
+DEVELOPMENT_TEAM = 735MC85596
+KM_BUNDLE_ID = mx.cvillegas.keelmac
+KM_HELPER_ID = mx.cvillegas.keelmac.helper
+#include? "Local.xcconfig"

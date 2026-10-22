@@ -8,6 +8,7 @@ When this plan is done, `~/Developer/KeelMac` holds a native macOS app, **KeelMa
 Independent module work inside a milestone (for example MetricsKit and ScanKit) runs in parallel subagents, each owning its own files; UI integration and verification happen in the main session.
 
 ## Repository layout
+Modules are split into one Swift package per group (see contracts.md) so they build and test independently; `Packages/KeelKit/Sources/<Module>` below reads as `Packages/<Kit>/Sources/<Module>`.
 ```
 KeelMac/
 ├── project.yml                  # XcodeGen: app, helper, UI tests (generates KeelMac.xcodeproj, not committed)
@@ -34,7 +35,7 @@ KeelMac/
 ## Milestones
 | # | Milestone | Capabilities | Status |
 |---|---|---|---|
-| M0 | Foundation: repo, XcodeGen project, KeelKit skeleton, app shell, tokens, CI, site deployed | C30 (shell), C31 (part), C32 (part) | [ ] |
+| M0 | Foundation: repo, XcodeGen project, KeelKit skeleton, app shell, tokens, CI, site deployed | C30 (shell), C31 (part), C32 (part) | [x] |
 | M1 | Monitor: MetricsKit, menu bar extra and popover, Monitor screen, battery | C3, C4, C5, C6 | [ ] |
 | M2 | Storage: ScanKit, storage map (treemap, sunburst), large and old files, System Data, file actions | C8, C9, C10, C11 | [ ] |
 | M3 | Cleanup and safety: SafetyKit, CleanKit, rules JSON, dry-run, Trash-first executor, operation log, coffee prompt | C12, C13, C14, C15, C28 (prompt) | [ ] |

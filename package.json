@@ -1,0 +1,12 @@
+{
+  "name": "keelmac",
+  "private": true,
+  "description": "KeelMac: macOS app checks wired for app-forge's verify.sh. The app itself is Swift; see README.md.",
+  "scripts": {
+    "lint": "bash scripts/mac.sh lint",
+    "test": "bash scripts/mac.sh test",
+    "build": "bash scripts/mac.sh build",
+    "e2e": "bash scripts/mac.sh e2e",
+    "run": "bash scripts/mac.sh run"
+  }
+}

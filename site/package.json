@@ -1,0 +1,14 @@
+{
+  "name": "keelmac-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "check": "node check.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/public-sans": "latest",
+    "wrangler": "latest"
+  }
+}

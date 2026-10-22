@@ -1,0 +1,102 @@
+name: KeelMac
+options:
+  bundleIdPrefix: mx.cvillegas
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+  groupSortPosition: top
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEAD_CODE_STRIPPING: YES
+packages:
+  SafetyKit:
+    path: Packages/SafetyKit
+targets:
+  KeelMac:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    dependencies:
+      - package: SafetyKit
+    entitlements:
+      path: Config/KeelMac.entitlements
+      properties: {}
+    info:
+      path: Config/Info-App.plist
+      properties:
+        CFBundleDisplayName: KeelMac
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleLocalizations: [en, es]
+        CFBundleDevelopmentRegion: en
+        LSApplicationCategoryType: public.app-category.utilities
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        NSHumanReadableCopyright: "KeelMac is free software under the GPL-3.0 licence."
+        CFBundleURLTypes:
+          - CFBundleURLName: mx.cvillegas.keelmac
+            CFBundleURLSchemes: [keelmac]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: mx.cvillegas.keelmac
+        PRODUCT_NAME: KeelMac
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSHumanReadableCopyright: "KeelMac is free software under the GPL-3.0 licence."
+        COMBINE_HIDPI_IMAGES: YES
+  KeelMacTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/KeelMacTests
+    dependencies:
+      - target: KeelMac
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: mx.cvillegas.keelmac.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/KeelMac.app/Contents/MacOS/KeelMac
+        BUNDLE_LOADER: $(TEST_HOST)
+  KeelMacUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - path: Tests/KeelMacUITests
+    dependencies:
+      - target: KeelMac
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: mx.cvillegas.keelmac.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: KeelMac
+schemes:
+  KeelMac:
+    build:
+      targets:
+        KeelMac: all
+        KeelMacTests: [test]
+        KeelMacUITests: [test]
+    test:
+      targets:
+        - KeelMacTests
+        - KeelMacUITests
+      gatherCoverageData: false
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select newest Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -1)" && xcodebuild -version
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Package tests
+        run: |
+          for p in Packages/*/; do
+            echo "::group::swift test $p"
+            (cd "$p" && swift test)
+            echo "::endgroup::"
+          done
+      - name: Build and unit-test the app (unsigned)
+        run: |
+          xcodegen generate
+          xcodebuild -project KeelMac.xcodeproj -scheme KeelMac -destination platform=macOS \
+            -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO \
+            test -only-testing:KeelMacTests
+      - name: Site check
+        run: cd site && node build.mjs && node check.mjs

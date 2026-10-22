@@ -1,0 +1,743 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "1. Click **Open Privacy & Security**.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Haz clic en **Abrir Privacidad y seguridad**."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "2. Turn on **KeelMac** under Full Disk Access. If it isn’t listed, click the plus button and choose KeelMac in Applications.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Activa **KeelMac** en Acceso total al disco. Si no aparece, haz clic en el botón de más y elige KeelMac en Aplicaciones."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "3. Come back here. KeelMac notices the change on its own.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3. Vuelve aquí. KeelMac detecta el cambio por sí solo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A full scan takes about a minute and never reads file contents. After that, rescans only look at folders that changed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un escaneo completo tarda alrededor de un minuto y nunca lee el contenido de los archivos. Después, los nuevos escaneos solo revisan las carpetas que cambiaron."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Agents and daemons that start with your Mac appear here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí aparecen los agentes y servicios que arrancan con tu Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Alerts": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Apps": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Apps in /Applications and ~/Applications appear here with their size and last use.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí aparecen las apps de /Applications y ~/Applications con su tamaño y último uso."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Choose folders to search": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige carpetas para buscar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clean": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Cleanup": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Cleanup and safety": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpieza y seguridad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Continue without access": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar sin acceso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Copied": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Copy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Dashboard": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Panel"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Duplicates": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duplicados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Each task shows the exact command it runs.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada tarea muestra el comando exacto que ejecuta."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Everything KeelMac moves or deletes is listed here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí aparece todo lo que KeelMac mueve o borra."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Files in your Library from apps that are no longer installed appear here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí aparecen los archivos de tu Biblioteca de apps que ya no están instaladas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Full Disk Access is off": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceso total al disco desactivado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Full Disk Access is off. Checking again every few seconds.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El acceso total al disco está desactivado. Revisando de nuevo cada pocos segundos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Full Disk Access is on.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El acceso total al disco está activado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "General": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Go": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ir"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Go to dashboard": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ir al panel"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Helper": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "History": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historial"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac checks again each time you open Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac vuelve a revisar cada vez que abres Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac compares files byte for byte. Nothing is moved until you choose.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac compara archivos byte por byte. Nada se mueve hasta que tú eliges."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac measures the folders macOS counts as System Data.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac mide las carpetas que macOS cuenta como Datos del sistema."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac needs Full Disk Access to see caches, logs and other folders macOS protects. It never reads file contents, except to compare files when you look for duplicates.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac necesita acceso total al disco para ver cachés, registros y otras carpetas que macOS protege. Nunca lee el contenido de los archivos, salvo para compararlos cuando buscas duplicados."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac takes one every week, so you can see what grew.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac toma una cada semana para que veas qué creció."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Large and old files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos grandes y antiguos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Large and old files come from the storage scan.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos grandes y antiguos salen del escaneo de almacenamiento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Leftovers": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Live charts fill in from the left every two seconds.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las gráficas en vivo se llenan desde la izquierda cada dos segundos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Login items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítems de inicio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Maintenance": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenimiento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measuring your Mac…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo tu Mac…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measuring…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Menu bar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barra de menús"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Monitor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monitor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No leftovers from deleted apps": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay restos de apps borradas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No login items or background agents": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ítems de inicio ni agentes en segundo plano"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No operations yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay operaciones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No snapshots yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay instantáneas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing to clean right now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay nada que limpiar por ahora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open Privacy & Security": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Privacidad y seguridad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Operation log": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registro de operaciones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Overview": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quit": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reading your apps…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leyendo tus apps…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scan first": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanea primero"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scan to break down System Data": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanea para desglosar los Datos del sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "See what fills Macintosh HD": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mira qué llena Macintosh HD"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Settings…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Snapshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instantáneas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Storage": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almacenamiento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Storage map": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mapa de almacenamiento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "System Data": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos del sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The Health Score appears as soon as the first readings are in.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La puntuación de salud aparece en cuanto llegan las primeras lecturas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Updates": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizaciones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Welcome to KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bienvenido a KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "You can skip this. KeelMac still works, and lists every folder it couldn’t read.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes omitir esto. KeelMac sigue funcionando y enumera cada carpeta que no pudo leer."
+          }
+        }
+      },
+      "extractionState": "manual"
+    }
+  },
+  "version": "1.0"
+}

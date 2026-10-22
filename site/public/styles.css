@@ -1,0 +1,160 @@
+/* KeelMac site. Tokens mirror design/tokens.css (the single source of truth). */
+@font-face{font-family:"Public Sans Variable";font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/public-sans-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Public Sans Variable";font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/public-sans-latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root {
+  color-scheme: light dark;
+
+  /* Surfaces */
+  --bg:             light-dark(oklch(0.982 0.004 85),  oklch(0.185 0.008 70));
+  --surface:        light-dark(oklch(0.997 0.002 85),  oklch(0.215 0.008 70));
+  --surface-muted:  light-dark(oklch(0.955 0.006 85),  oklch(0.250 0.009 70));
+
+  /* Lines */
+  --border:         light-dark(oklch(0.905 0.008 80),  oklch(0.310 0.010 70));
+  --border-strong:  light-dark(oklch(0.620 0.012 75),  oklch(0.540 0.012 75)); /* inputs: 3:1 vs bg */
+
+  /* Text */
+  --fg:             light-dark(oklch(0.230 0.014 70),  oklch(0.955 0.006 80));
+  --fg-muted:       light-dark(oklch(0.490 0.014 70),  oklch(0.730 0.012 75));
+
+  /* Accent: verdigris */
+  --accent:         light-dark(oklch(0.490 0.090 185), oklch(0.740 0.095 185));
+  --accent-hover:   light-dark(oklch(0.440 0.090 185), oklch(0.790 0.090 185));
+  --on-accent:      light-dark(oklch(0.990 0.004 185), oklch(0.180 0.020 185));
+  --accent-soft:    light-dark(oklch(0.950 0.025 185), oklch(0.290 0.040 185));
+  --accent-text:    light-dark(oklch(0.450 0.090 185), oklch(0.800 0.090 185));
+  --ring:           var(--accent);
+
+  /* Load line gauge: water = used space, ink = the mark */
+  --water:          light-dark(oklch(0.840 0.050 190), oklch(0.430 0.060 190));
+  --water-edge:     light-dark(oklch(0.490 0.090 185), oklch(0.740 0.095 185));
+  --hull-ink:       light-dark(oklch(0.230 0.014 70),  oklch(0.955 0.006 80));
+
+  /* Semantic (status, validation only); success shifted to 145 to stay apart from the accent */
+  --success:        light-dark(oklch(0.500 0.120 145), oklch(0.780 0.140 145));
+  --warning:        light-dark(oklch(0.550 0.120 65),  oklch(0.820 0.130 75));
+  --danger:         light-dark(oklch(0.520 0.190 27),  oklch(0.720 0.160 25));
+  --danger-solid:   light-dark(oklch(0.530 0.200 27),  oklch(0.520 0.190 27));
+  --on-danger:      light-dark(oklch(0.990 0 0),       oklch(0.990 0 0));
+  --warning-soft:   light-dark(oklch(0.960 0.030 75),  oklch(0.270 0.040 70)); /* permission banners */
+  --warning-ink:    light-dark(oklch(0.420 0.080 65),  oklch(0.860 0.100 75));
+
+  /* Window chrome (the app uses system sidebar material; these match it for mockups and the site) */
+  --sidebar:        light-dark(oklch(0.940 0.006 80),  oklch(0.220 0.009 70));
+
+  /* Type: SF Pro in the app (system). Public Sans on the landing page. SF Mono / ui-monospace only for paths and commands. */
+  --font-sans: "Public Sans Variable", "Public Sans", ui-sans-serif, -apple-system, sans-serif;
+  --font-app:  -apple-system, "SF Pro Text", ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Shape and elevation: macOS-native small radii; concentric when nested */
+  --radius-control: 6px;
+  --radius: 10px;
+  --radius-window: 12px;
+  --shadow-xs: 0 1px 2px oklch(0.23 0.014 70 / 0.06);
+  --shadow-md: 0 6px 16px oklch(0.23 0.014 70 / 0.10), 0 1px 3px oklch(0.23 0.014 70 / 0.08);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 160ms;
+}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+@media (prefers-reduced-motion: reduce){:root{--duration:0ms}}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:var(--accent-text);text-underline-offset:3px}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{text-wrap:pretty;margin:0}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--fg-muted)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--surface);padding:8px 12px;border-radius:6px}
+.skip:focus{left:16px}
+
+/* Header */
+.site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:650;font-size:18px}
+.brand svg{flex:none}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:24px;font-size:15px}
+.nav a{color:var(--fg-muted);text-decoration:none}
+.nav a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:var(--radius-control);font-weight:600;text-decoration:none;transition:background-color var(--duration) var(--ease-out),transform 120ms var(--ease-out)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover);color:var(--on-accent)}
+.nav .btn-primary{color:var(--on-accent)}
+
+/* Hero */
+.hero .wrap{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:72px;padding-bottom:96px}
+.hero-copy{flex:1 1 420px;min-width:0;max-width:520px}
+.hero h1{font-size:clamp(36px,5vw,52px);line-height:1.08;letter-spacing:-.02em;font-weight:650;margin-bottom:24px}
+.lede{font-size:19px;color:var(--fg-muted);margin-bottom:32px;max-width:30em}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
+.cta-row .btn{min-height:48px;font-size:16px;padding:14px 22px}
+.brew{display:flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-control);padding:6px 6px 6px 14px;min-height:48px;max-width:100%}
+.brew code{font-family:var(--font-mono);font-size:14px;overflow-x:auto;white-space:nowrap}
+.brew button{font:inherit;font-size:14px;border:1px solid var(--border-strong);background:var(--bg);color:var(--fg);border-radius:4px;padding:8px 12px;min-height:36px;cursor:pointer}
+.req{font-size:14px;color:var(--fg-muted)}
+.hero-figure{flex:1 1 560px;min-width:0;margin:0 -96px 0 0}
+.hero-figure img{display:block;width:100%;height:auto;border-radius:var(--radius-window);box-shadow:0 24px 60px oklch(0.23 0.014 70 / .16),0 0 0 1px oklch(0.23 0.014 70 / .10)}
+.hero-figure figcaption{font-size:14px;color:var(--fg-muted);margin-top:14px}
+@media (max-width:900px){.hero-figure{margin:0}}
+
+/* Load line gauge */
+.gauge{background:var(--surface);border-radius:var(--radius-window);box-shadow:0 24px 60px oklch(0.23 0.014 70 / .14),0 0 0 1px oklch(0.23 0.014 70 / .08);padding:28px}
+.gauge .score{font-size:26px;font-weight:600;letter-spacing:-.01em}
+.gauge .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin:24px 0 10px}
+.hull{position:relative;height:40px;border-radius:6px;background:var(--surface-muted);border:1px solid var(--border);overflow:hidden}
+.water{position:absolute;inset:0 22.7% 0 0;background:var(--water);border-right:2px solid var(--water-edge);transform-origin:left center;animation:rise 800ms var(--ease-out) 200ms both}
+.mark{position:relative;height:34px}
+.mark svg{position:absolute;left:calc(85% - 22px);top:6px}
+.tick{position:absolute;left:85%;top:-40px;width:2px;height:40px;background:var(--hull-ink)}
+.margin-line{font-size:17px;font-weight:600}
+@keyframes rise{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.water{animation:fadein 300ms ease-out both}}
+
+/* Sections */
+.band{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section{padding:96px 0}
+.section h2{font-size:32px;line-height:1.2;letter-spacing:-.015em;font-weight:650}
+.features{display:flex;flex-direction:column;gap:72px;margin-top:56px}
+.feature{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.feature-copy{flex:1 1 320px;max-width:420px}
+.feature-copy h3{font-size:22px;font-weight:600;margin-bottom:12px}
+.feature-copy p{color:var(--fg-muted)}
+.feature-shot{flex:2 1 520px;min-width:0}
+.feature-shot img{display:block;width:100%;height:auto;border-radius:var(--radius);box-shadow:0 0 0 1px oklch(0.23 0.014 70 / .10)}
+.split{display:flex;flex-wrap:wrap;gap:56px}
+.split > *{flex:1 1 380px;min-width:0}
+.rules{margin:24px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:12px}
+.free{background:var(--surface-muted)}
+.free p+p{margin-top:16px}
+.faq{max-width:720px;margin-top:32px}
+.faq details{border-top:1px solid var(--border);padding:16px 0}
+.faq details:last-child{border-bottom:1px solid var(--border)}
+.faq summary{font-weight:600;cursor:pointer;min-height:28px}
+.faq p{color:var(--fg-muted);margin-top:12px}
+.prose{max-width:68ch}
+.prose h2{font-size:24px;margin:40px 0 12px}
+.prose p,.prose ul{margin:0 0 16px}
+.page-head{padding:56px 0 8px}
+.page-head h1{font-size:40px;letter-spacing:-.02em;font-weight:650}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--border)}
+.site-footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;padding-top:32px;padding-bottom:32px;font-size:14px;color:var(--fg-muted)}
+.site-footer nav{display:flex;gap:20px;flex-wrap:wrap}
+
+@media (max-width:600px){
+  body{font-size:16px}
+  .section{padding:56px 0}
+  .hero .wrap{padding-top:32px;padding-bottom:48px;gap:40px}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .nav a:not(.btn){display:none}
+}
