@@ -259,7 +259,7 @@ KeelMac/
 |---|---|
 | 1 | `Packages/AssistantKit`: `JSONValue`, messages/tools, `ChatBackend`, `HTTPTransport` (`URLSessionTransport`, `StubTransport`), `OllamaClient` (NDJSON streaming, error mapping, `<think>` filter), `ChatSession` actor; 30 tests with fixtures; opt-in `KEELMAC_LIVE_OLLAMA=1` smoke |
 | 2 | App: `Preferences` keys, `ScreenContext` + builders + `.assistantContext(_:)`, `AssistantPrompt`, eight read-only tools (`get_health`, `get_metrics`, `list_top_processes`, `list_large_files`, `inspect_path`, `get_cleanup_summary`, `list_leftovers`, `list_login_items`), `AssistantModel`, `FixtureChatBackend` under `-uitest`; `KeelMacTests/AssistantTests` |
-| 3 | `AssistantPanel` as a trailing `.inspector` in `RootView`, toolbar toggle, ⌘⇧A, every state (off, checking, unreachable, no models, empty, loading, streaming, error), Spanish strings, `AssistantUITests` screenshots |
+| 3 | `AssistantPanel` in a resizable trailing `AssistantSplit` in `RootView` (below the toolbar), toolbar toggle, ⌘⇧A, every state (off, checking, unreachable, no models, empty, loading, streaming, error), Spanish strings, `AssistantUITests` screenshots |
 | 4 | Settings › Assistant (toggle, address with loopback/https rule, model picker, Test connection, privacy footer); privacy copy in Settings, `Updater`, site; docs (brief C33, stack, contracts, design S21, this plan, AGENTS) |
 | 5 | `.assistantContext` on Review large files, Monitor, Dashboard, Cleanup, Apps, Storage map, Leftovers, Login items; chips; 960 × 640 check; live run with `qwen3.8:27b-mlx` recorded in 00-status |
 

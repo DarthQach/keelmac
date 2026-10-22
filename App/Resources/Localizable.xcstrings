@@ -1244,17 +1244,6 @@
       },
       "extractionState": "manual"
     },
-    "Assistant options": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opciones del Asistente"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "At login": {
       "localizations": {
         "es": {
@@ -1816,17 +1805,6 @@
       },
       "extractionState": "manual"
     },
-    "Clear conversation": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Borrar conversación"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Clear font caches": {
       "localizations": {
         "es": {
@@ -1844,6 +1822,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Borra las búsquedas de nombres guardadas. Útil después de cambiar de red, de VPN o tu archivo hosts."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Close": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
           }
         }
       },
@@ -3620,12 +3609,12 @@
       },
       "extractionState": "manual"
     },
-    "Loading model…": {
+    "Loading %@…": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cargando modelo…"
+            "value": "Cargando %@…"
           }
         }
       },
@@ -3692,6 +3681,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Consultó %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Looking at %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viendo %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Looking at %@ and your selection": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viendo %@ y tu selección"
           }
         }
       },
@@ -4148,6 +4159,17 @@
       },
       "extractionState": "manual"
     },
+    "Names, sizes and dates only. Never file contents.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo nombres, tamaños y fechas. Nunca el contenido de los archivos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Needs Full Disk Access": {
       "localizations": {
         "es": {
@@ -4209,6 +4231,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tocar nunca (lista de exclusiones)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "New conversation": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva conversación"
           }
         }
       },
@@ -4357,12 +4390,12 @@
       },
       "extractionState": "manual"
     },
-    "No models": {
+    "No models in Ollama": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sin modelos"
+            "value": "No hay modelos en Ollama"
           }
         }
       },
@@ -4621,17 +4654,6 @@
       },
       "extractionState": "manual"
     },
-    "Not reachable": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sin conexión"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Nothing found": {
       "localizations": {
         "es": {
@@ -4830,6 +4852,17 @@
       },
       "extractionState": "manual"
     },
+    "Ollama isn’t running": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama no está abierto"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Ollama isn’t running.": {
       "localizations": {
         "es": {
@@ -4891,6 +4924,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bajo demanda"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "On this Mac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En esta Mac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "On this Mac · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En esta Mac · %@"
           }
         }
       },
@@ -7575,6 +7630,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Qué ocupa más espacio aquí?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What the Assistant can see": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que el Asistente puede ver"
           }
         }
       },

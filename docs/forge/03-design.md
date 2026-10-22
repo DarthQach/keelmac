@@ -15,7 +15,7 @@ SF system typography and SF Symbols; teal is a restrained signature for primary 
 - Rows: minimum 40 pt for one line, 56 pt for name + detail; allow growth for localization/accessibility. No density toggle.
 - Native NavigationSplitView retains sections, routes, shortcuts, selection and deep links. Standard page headers introduce each workspace; toolbar actions stay native.
 - Shared panels, filter/summary strips, row identity labels, status badges, notices and adaptive action bars enforce consistent hierarchy.
-- 960 × 640 minimum, 1180 × 780 default. Metrics use two columns when narrow and four when wide. Supporting panels stack when space is limited. The Assistant (S21) is a 300–480 pt trailing inspector available on every route (toolbar sparkles, ⌘⇧A); screens keep their own side panels and at 960 pt the inspector may overlay rather than squeeze them. Tables retain native scrolling, selection and sorting with meaningful minimum column widths.
+- 960 × 640 minimum, 1180 × 780 default. Metrics use two columns when narrow and four when wide. Supporting panels stack when space is limited. The Assistant (S21) is a resizable 300–480 pt trailing panel on every route (toolbar sparkles, ⌘⇧A), below the window toolbar so each screen's toolbar controls stay a window-level band; it sits on `surface-muted` behind a full-height 1 pt divider, and screens keep their own side panels. Tables retain native scrolling, selection and sorting with meaningful minimum column widths.
 - Permission and error notices wrap; persistent removal bars keep totals, consequences and actions readable. Empty/loading/success states use the same typography, spacing and panel treatment. Cleanup’s summary explicitly identifies selections containing permanent removals, using the existing `selectionDeletesPermanently` value.
 - English and Spanish, light/dark, VoiceOver, keyboard navigation and Reduce Motion remain supported. No new data sampling, package APIs, storage schemas or helper protocols.
 
@@ -54,7 +54,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S16 | Duplicates | sidebar › Duplicates | Owner | C23 | Move duplicates to Trash |
 | S17 | Snapshots | sidebar › Snapshots | Owner | C24, C25 | Take snapshot / Export report… |
 | S18 | Settings | ⌘, | Owner | C7, C14, C22, C26, C29 | (immediate apply) |
-| S21 | Assistant panel | toolbar sparkles / ⌘⇧A, trailing inspector on every route | Owner | C33 | Send |
+| S21 | Assistant panel | toolbar sparkles / ⌘⇧A, resizable trailing panel on every route | Owner | C33 | Send |
 | S19 | About | KeelMac › About | Owner | C28, C29, C31 | Buy me a coffee |
 | S20 | Notifications | macOS Notification Center | Owner | C7, C18, C25 | Open (notification action) |
 | L1 | Landing (EN, ES) | / , /es/ | Visitor | C32, C28 | Download for macOS |
@@ -121,7 +121,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S17 Snapshots | "No snapshots yet. KeelMac takes one every week." + Take snapshot | Taking snapshot… | Inline load/save error with Try again | Snapshot list + "What grew" comparison | — | n/a |
 | S18 Settings | — | — | Inline validation (e.g. whitelist path doesn't exist) | Applied instantly | Helper status row | n/a |
 | S1 Welcome | — | Checking access… (probe) | — | "Full Disk Access is on" check | Steps + Open Privacy & Security | n/a |
-| S21 Assistant | "Ask about what you see." + up to three suggestion chips for the current screen | "Checking Ollama…" badge; first reply shows "Loading the model… the first answer takes a few seconds." inline | Inline error under the transcript with Try again; the transcript is kept | Streaming transcript: user bubbles, assistant cards, tool rows collapsed as "Looked up the Health Score" | Off: "The Assistant is off." + Open Settings…; Ollama down: "Ollama isn’t running." + Open Ollama / Try again; no models: `ollama pull qwen3` | Context capped at 12 items / 1.5 KB; tool output 4 KB; 24 messages of history |
+| S21 Assistant | "Ask about what you see." + up to three full-width suggested questions; a "Looking at …" line under the composer opens the exact context sent | "Checking Ollama…" in the header status line; first reply shows "Loading the model… the first answer takes a few seconds." inline | Inline error under the transcript with Try again; the transcript is kept | Streaming transcript: accent user bubbles, unboxed assistant text, lookups as capsules ("Looked up the Health Score") that open to the raw result; follow-up chips wrap above the composer | Off: "The Assistant is off." + Open Settings…; Ollama down: "Ollama isn’t running." + Open Ollama / Try again; no models: `ollama pull qwen3` | Context capped at 12 items / 1.5 KB; tool output 4 KB; 24 messages of history |
 
 ## Microcopy
 Voice: calm, specific, numbers first, second person, sentence case, no exclamation marks except the one coffee prompt the spec writes. Never "danger", "threat", "infected", "boost", "junk is slowing you down".

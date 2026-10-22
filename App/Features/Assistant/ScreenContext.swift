@@ -30,6 +30,11 @@ struct ScreenContext: Hashable, Sendable {
 
     static func routeOnly(_ route: Route) -> ScreenContext { ScreenContext(route: route) }
 
+    /// True when `selection` is what the user picked (rather than the screen's own list).
+    var hasUserSelection: Bool {
+        !selection.isEmpty && [.largeOld, .storageMap, .apps, .cleanup].contains(route)
+    }
+
     /// Plain text for the model, capped so a big selection can’t crowd out the conversation.
     func rendered(maxItems: Int = 12, maxBytes: Int = 1_500) -> String {
         var lines = ["Screen: \(route.name) — \(route.tagline)"]

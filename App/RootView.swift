@@ -5,7 +5,6 @@ struct RootView: View {
 
     var body: some View {
         @Bindable var model = model
-        @Bindable var assistant = model.assistant
         NavigationSplitView {
             List(selection: Binding(get: { model.route }, set: { if let r = $0 { model.route = r } })) {
                 ForEach(Route.Section.allCases) { section in
@@ -42,20 +41,14 @@ struct RootView: View {
                 }
             }
         } detail: {
-            RouteView(route: model.route)
-                .id(model.route)
-                .alternatingRowBackgrounds(.disabled)
-                .inspector(isPresented: $assistant.isPresented) {
-                    AssistantPanel()
-                        .inspectorColumnWidth(min: 300, ideal: 340, max: 480)
-                }
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button { model.assistant.togglePanel() } label: { Label("Assistant", systemImage: "sparkles") }
-                            .help("Show or hide the Assistant (⌘⇧A)")
-                            .accessibilityIdentifier("assistant.toggle")
-                    }
-                }
+            AssistantSplit {
+                RouteView(route: model.route)
+                    .id(model.route)
+                    .alternatingRowBackgrounds(.disabled)
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) { AssistantToggle() }
+            }
         }
         .task { model.start() }
         .alert(Text("KeelMac didn’t change that item"), isPresented: Binding(get: { model.notice != nil }, set: { if !$0 { model.notice = nil } })) {

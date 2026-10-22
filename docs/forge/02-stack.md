@@ -72,7 +72,7 @@ KeelMac is a **native macOS app with no backend** (variant E · Native macOS). T
 | C28 Coffee | `CoffeePrompt` policy (≥ 2 GB, ≥ 30 days, dismiss forever), link constant | |
 | C29 Updates | Sparkle `SPUStandardUpdaterController` | Feed is the only network call KeelMac makes on its own |
 | C30 EN/ES, a11y | String Catalog, accessibility labels | |
-| C33 Assistant | AssistantKit `OllamaClient` (streaming `/api/chat` with tools over `URLSession`) + `ChatSession` tool loop; app-side `AssistantModel`, `ScreenContext`, eight read-only tools; trailing `.inspector` panel | Local Ollama only, off by default; loopback over http, anything else https; tools never remove, run or change anything; metadata only |
+| C33 Assistant | AssistantKit `OllamaClient` (streaming `/api/chat` with tools over `URLSession`) + `ChatSession` tool loop; app-side `AssistantModel`, `ScreenContext`, eight read-only tools; resizable trailing panel below the toolbar (`AssistantSplit`, not `.inspector`, so screen toolbars stay over their content) | Local Ollama only, off by default; loopback over http, anything else https; tools never remove, run or change anything; metadata only |
 | C31 Repo + CI | GitHub, Actions, cask | Repo private until Carlos flips it |
 | C32 Landing | Cloudflare Worker static assets | |
 

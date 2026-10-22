@@ -42,7 +42,10 @@ struct KeelMacApp: App {
                     .disabled(!model.updater.canCheck)
             }
             CommandGroup(after: .sidebar) {
-                Button(model.assistant.isPresented ? "Hide Assistant" : "Show Assistant") { model.assistant.togglePanel() }
+                Button(model.assistant.isPresented ? "Hide Assistant" : "Show Assistant") {
+                    let still = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+                    withAnimation(still ? nil : .snappy(duration: 0.28)) { model.assistant.togglePanel() }
+                }
                     .keyboardShortcut("a", modifiers: [.command, .shift])
             }
             CommandMenu("Go") {
