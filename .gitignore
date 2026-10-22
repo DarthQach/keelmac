@@ -1,0 +1,28 @@
+# Xcode / SwiftPM
+build/
+DerivedData/
+*.xcodeproj/
+!*.xcodeproj/project.xcworkspace/
+.swiftpm/
+.build/
+Packages/*/.build/
+*.xcuserstate
+xcuserdata/
+# Release artifacts
+dist/
+*.dmg
+*.xip
+# Node / site
+node_modules/
+.wrangler/
+# Secrets (never commit)
+.dev.vars*
+.env*
+!.env.example
+*.secrets*
+*.p12
+*.cer
+*.mobileprovision
+sparkle_private_key*
+# macOS
+.DS_Store
