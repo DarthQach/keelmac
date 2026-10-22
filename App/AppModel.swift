@@ -9,6 +9,9 @@ final class AppModel {
     var route: Route = .dashboard
     var hasFullDiskAccess: Bool = FullDiskAccess.isGranted()
     var showWelcome: Bool = false
+    /// A short message shown as an alert (for example why an item was refused).
+    var notice: String?
+    let storage = StorageModel()
 
     /// True when the app runs under UI tests with fixture data and an in-memory store.
     let isUITesting = CommandLine.arguments.contains("-uitest")

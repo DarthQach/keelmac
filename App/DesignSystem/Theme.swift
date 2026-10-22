@@ -69,7 +69,10 @@ extension ButtonStyle where Self == PrimaryButtonStyle {
 enum Format {
     static func bytes(_ value: Int64) -> String {
         let binary = UserDefaults.standard.string(forKey: Preferences.Key.byteUnits) == "binary"
-        return ByteCountFormatter.string(fromByteCount: value, countStyle: binary ? .memory : .file)
+        let f = ByteCountFormatter()
+        f.countStyle = binary ? .memory : .file
+        f.allowsNonnumericFormatting = false
+        return f.string(fromByteCount: value)
     }
 
     static func bytes(_ value: UInt64) -> String { bytes(Int64(clamping: value)) }

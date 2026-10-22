@@ -39,6 +39,11 @@ struct RootView: View {
                 .alternatingRowBackgrounds(.disabled)
         }
         .task { model.start() }
+        .alert(Text("KeelMac didn’t change that item"), isPresented: Binding(get: { model.notice != nil }, set: { if !$0 { model.notice = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(LocalizedStringKey(model.notice ?? ""))
+        }
         .sheet(isPresented: $model.showWelcome) {
             WelcomeView()
         }
@@ -69,6 +74,12 @@ struct RouteView: View {
                 MaintenanceView()
             case .cleanup:
                 CleanupView()
+            case .storageMap:
+                StorageMapView()
+            case .largeOld:
+                LargeOldView()
+            case .systemData:
+                SystemDataView()
             default:
                 PlaceholderScreen(route: route)
             }
