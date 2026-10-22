@@ -23,6 +23,10 @@ extension ShapeStyle where Self == Color {
     static var kmDangerSolid: Color { Color("dangerSolid") }
     static var kmWarningSoft: Color { Color("warningSoft") }
     static var kmWarningInk: Color { Color("warningInk") }
+    static var kmKindMedia: Color { Color("kindMedia") }
+    static var kmKindArchive: Color { Color("kindArchive") }
+    static var kmKindModel: Color { Color("kindModel") }
+    static var kmOnKind: Color { Color("onKind") }
 }
 
 enum Metrics {

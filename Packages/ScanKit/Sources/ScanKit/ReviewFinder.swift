@@ -155,6 +155,13 @@ public enum ReviewFinder {
         find(in: tree, home: home, minBytes: minBytes, notOpenedSince: notOpenedSince, lastOpened: LargeFileFinder.spotlightLastOpened)
     }
 
+    /// Whether `path` is inside Ollama, LM Studio or Hugging Face model storage, where files have no telling extension.
+    public static func isModelStorage(_ path: String, home: String) -> Bool {
+        let home = home.hasSuffix("/") ? String(home.dropLast()) : home
+        guard let rel = relative(path, to: home) else { return false }
+        return rel.hasPrefix(".ollama/models/") || modelRoots.contains { rel.hasPrefix($0.relative + "/") }
+    }
+
     // MARK: Ollama
 
     struct OllamaManifest: Decodable {

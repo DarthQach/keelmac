@@ -50,6 +50,7 @@ struct StorageMapView: View {
         .toolbar { toolbar }
         .onAppear { storage.loadCache() }
         .task(id: "\(highlightMode.rawValue)-\(storage.tree?.scannedAt.timeIntervalSince1970 ?? 0)") { await loadHighlight() }
+        .task(id: storage.tree.map(KindShares.key(for:))) { await storage.updateKindShares() }
         .quickLookPreview($quickLook)
         .confirmationDialog(trashTitle, isPresented: $confirmTrash) {
             Button("Move to Trash", role: .destructive) { trashSelection() }
@@ -101,9 +102,9 @@ struct StorageMapView: View {
                     Group {
                         switch mode {
                         case .treemap:
-                            TreemapView(tree: tree, root: current, selection: $selection, highlight: highlight) { open($0, tree: tree) }
+                            TreemapView(tree: tree, root: current, selection: $selection, highlight: highlight, colors: storage.kindShares) { open($0, tree: tree) }
                         case .sunburst:
-                            SunburstView(tree: tree, root: current, selection: $selection, highlight: highlight) { open($0, tree: tree) }
+                            SunburstView(tree: tree, root: current, selection: $selection, highlight: highlight, colors: storage.kindShares) { open($0, tree: tree) }
                         }
                     }
                     .focusable()
@@ -115,14 +116,14 @@ struct StorageMapView: View {
                     .onKeyPress(.leftArrow) { move(-1, tree: tree, in: current); return .handled }
                     .onKeyPress(.upArrow) { move(-1, tree: tree, in: current); return .handled }
                     .accessibilityRepresentation { accessibilityList(tree: tree, root: current) }
+                    .help("Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.")
                     HStack {
                         if highlight != nil {
                             Text("\(Format.bytes(highlightItems.reduce(0) { $0 + $1.bytes })) highlighted in \(highlightItems.count) items")
                                 .font(.callout.weight(.semibold)).tabular()
                             Button("Review them") { reviewHighlighted() }.buttonStyle(.link).font(.callout)
-                        } else {
-                            Text("Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.")
-                                .font(.callout).foregroundStyle(.kmFgMuted)
+                        } else if let shares = storage.kindShares {
+                            MapLegend(shares: shares) { highlightMode = $0.highlight }
                         }
                         Spacer()
                         if storage.phase == .scanning {
@@ -309,5 +310,46 @@ private struct Inspector: View {
         }
         .padding(18)
         .frame(maxHeight: .infinity, alignment: .top)
+    }
+}
+
+/// What the map's colours mean, with each kind's total. Clicking a kind highlights it.
+private struct MapLegend: View {
+    let shares: KindShares
+    let select: (MapColorGroup) -> Void
+
+    var body: some View {
+        HStack(spacing: 14) {
+            ForEach(MapColorGroup.allCases.filter { shares.total($0) > 0 }, id: \.self) { group in
+                Button { select(group) } label: {
+                    HStack(spacing: 6) {
+                        Swatch(group: group)
+                        Text(group.title)
+                        Text(Format.bytes(shares.total(group))).foregroundStyle(.kmFgMuted).tabular()
+                    }
+                }
+                .buttonStyle(.plain)
+                .help("Highlight this kind on the map")
+            }
+            HStack(spacing: 6) {
+                RoundedRectangle(cornerRadius: 3).fill(Color.kmWater.opacity(0.7)).frame(width: 12, height: 12)
+                Text("Folders and other files")
+            }
+        }
+        .font(.callout)
+        .lineLimit(1)
+    }
+}
+
+private struct Swatch: View {
+    let group: MapColorGroup
+    var body: some View {
+        Canvas { ctx, size in
+            let r = CGRect(origin: .zero, size: size)
+            ctx.fill(Path(roundedRect: r, cornerRadius: 3), with: .color(group.color ?? Color.kmWater.opacity(0.7)))
+            if group == .document { TreemapView.stripes(r, in: ctx, color: .kmFg) }
+        }
+        .frame(width: 12, height: 12)
+        .clipShape(RoundedRectangle(cornerRadius: 3))
     }
 }

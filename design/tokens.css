@@ -51,6 +51,14 @@
   --warning-soft:   light-dark(oklch(0.960 0.030 75),  oklch(0.270 0.040 70)); /* permission banners */
   --warning-ink:    light-dark(oklch(0.420 0.080 65),  oklch(0.860 0.100 75));
 
+  /* Storage map file kinds. Three hues only: a treemap puts any two side by side, and this trio is the
+     largest set that passes the dataviz validator on all pairs in both modes (normal-vision ΔE ≥ 19,
+     CVD ΔE ≥ 12). Light blue is stepped to L 0.595 so --on-kind clears 4.5:1. Documents use a stripe texture instead of a fourth hue. Ink on solid tiles: --on-kind. */
+  --kind-media:     light-dark(oklch(0.595 0.163 255.5), oklch(0.622 0.161 255.1)); /* video, photos, audio */
+  --kind-archive:   light-dark(oklch(0.764 0.161 75.1),  oklch(0.670 0.143 73.2));  /* archives, disk images, VMs */
+  --kind-model:     light-dark(oklch(0.716 0.141 357.4), oklch(0.622 0.171 0.8));   /* AI models */
+  --on-kind:        light-dark(oklch(0.160 0 0),         oklch(0.160 0 0));
+
   /* Window chrome (the app uses system sidebar material; these match it for mockups and the site) */
   --sidebar:        light-dark(oklch(0.940 0.006 80),  oklch(0.120 0 0));
 

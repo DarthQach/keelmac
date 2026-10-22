@@ -18,6 +18,7 @@ const MAP = {
   water: "--water", waterEdge: "--water-edge", hullInk: "--hull-ink",
   success: "--success", warning: "--warning", danger: "--danger", dangerSolid: "--danger-solid", onDanger: "--on-danger",
   warningSoft: "--warning-soft", warningInk: "--warning-ink", sidebar: "--sidebar",
+  kindMedia: "--kind-media", kindArchive: "--kind-archive", kindModel: "--kind-model", onKind: "--on-kind",
 };
 
 const css = readFileSync(CSS, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");

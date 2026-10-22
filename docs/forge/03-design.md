@@ -80,6 +80,7 @@ Dashboard window (1280 × 800):
 | --bg / --surface | oklch(0.982 0.004 85) / oklch(0.997 0.002 85) | oklch(0 0 0) / oklch(0.16 0 0) | window / grouped content |
 | --fg / --fg-muted | oklch(0.23 0.014 70) / oklch(0.49 0.014 70) | oklch(1 0 0) / oklch(0.76 0 0) | text |
 | --success / --warning / --danger | 145 / 65 / 27 | 145 / 75 / 25 | status only, always with a word or symbol |
+| --kind-media / --kind-archive / --kind-model | blue 255 / gold 75 / magenta 357 | same hues, dark steps | storage map file kinds (video and photos, archives and disk images, AI models); documents use a 45° stripe texture; text on solid tiles is --on-kind; always with a legend |
 
 Contrast check: passed 2026-10-22 (62 pairs, including the gauge, banner and sidebar pairs in `design/contrast-pairs.json`).
 

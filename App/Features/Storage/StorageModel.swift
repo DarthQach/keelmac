@@ -13,10 +13,20 @@ final class StorageModel {
     private(set) var progress: ScanProgress?
     private(set) var systemData: [SystemDataItem]?
     private(set) var measuringSystemData = false
+    /// Per-folder file-kind totals for the map's colours; nil until computed for the current tree.
+    private(set) var kindShares: KindShares?
     private var scanTask: Task<Void, Never>?
     private let cacheURL = ScanCache.defaultURL(forRoot: "/")
 
     init() {}
+
+    /// Computes the map colours for the current tree once (off the main thread).
+    func updateKindShares() async {
+        guard let tree, kindShares?.key != KindShares.key(for: tree) else { return }
+        let home = NSHomeDirectory()
+        let shares = await Task.detached(priority: .userInitiated) { KindShares(tree: tree, home: home) }.value
+        if let current = self.tree, KindShares.key(for: current) == shares.key { kindShares = shares }
+    }
 
     /// Loads the last scan from disk so the map appears instantly.
     func loadCache() {

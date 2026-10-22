@@ -7,7 +7,7 @@ final class StorageUITests: XCTestCase {
     @MainActor
     func testScanAndExplore() {
         let app = XCUIApplication()
-        app.launchArguments = ["-uitest"]
+        app.launchArguments = ["-uitest", "-mapHighlight", "none"]
         app.launch()
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10))

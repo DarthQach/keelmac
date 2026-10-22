@@ -63,5 +63,20 @@
   "--accent-text",
   "--sidebar",
   4.5
+ ],
+ [
+  "--on-kind",
+  "--kind-media",
+  4.5
+ ],
+ [
+  "--on-kind",
+  "--kind-archive",
+  4.5
+ ],
+ [
+  "--on-kind",
+  "--kind-model",
+  4.5
  ]
 ]

@@ -2201,6 +2201,17 @@
       },
       "extractionState": "manual"
     },
+    "Folders and other files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpetas y otros archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Found by bundle ID %@ and the app’s name. Uncheck anything you want to keep.": {
       "localizations": {
         "es": {
@@ -2394,6 +2405,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Resaltar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Highlight this kind on the map": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resaltar este tipo en el mapa"
           }
         }
       },
@@ -6035,6 +6057,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Video"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Video and photos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video y fotos"
           }
         }
       },

@@ -54,6 +54,7 @@ struct TreemapView: View {
     let root: NodeID
     @Binding var selection: NodeID?
     var highlight: MapHighlight?
+    var colors: KindShares?
     let open: (NodeID) -> Void
 
     static let maxDepth = 5
@@ -90,19 +91,31 @@ struct TreemapView: View {
         // Deeper folders are a shade stronger so nested levels stay apart.
         var fill: Color
         switch (t.node == nil, t.isDirectory) {
-        case (true, _): fill = Color.kmSurface
+        case (true, _): fill = Color.kmWater.opacity(0.12)
         case (_, true): fill = Color.kmWater.opacity(min(0.95, 0.35 + 0.12 * Double(t.depth)))
         default: fill = Color.kmWater.opacity(min(0.75, 0.2 + 0.12 * Double(t.depth)))
         }
         var ink = Color.kmFg
+        // File kinds: solid colour on files, a tint on folders mostly made of one kind, stripes for documents.
+        let group = t.node.flatMap { colors?.group(of: $0, in: tree) }
+        var tint: Color?
+        if let kind = group?.color {
+            if t.isDirectory { tint = kind.opacity(min(0.65, 0.35 + 0.08 * Double(t.depth))) } else { fill = kind; ink = .kmOnKind }
+        }
         switch t.role {
         case .normal: break
-        case .candidate: fill = .kmAccent; ink = .kmOnAccent
-        case .insideCandidate: fill = .kmAccentSoft
+        case .candidate: fill = .kmAccent; ink = .kmOnAccent; tint = nil
+        case .insideCandidate: fill = .kmAccentSoft; ink = .kmFg; tint = nil
         case .dimmed: ctx.opacity = 0.22
         }
         defer { ctx.opacity = 1 }
-        ctx.fill(Path(r), with: .color(fill))
+        if let tint {
+            ctx.fill(Path(r), with: .color(.kmSurfaceMuted))
+            ctx.fill(Path(r), with: .color(tint))
+        } else {
+            ctx.fill(Path(r), with: .color(fill))
+        }
+        if group == .document, t.role == .normal || t.role == .dimmed { Self.stripes(r, in: ctx) }
         if let n = t.node, n == selection {
             ctx.stroke(Path(r.insetBy(dx: 1, dy: 1)), with: .color(.kmAccent), lineWidth: 2.5)
         }
@@ -121,6 +134,20 @@ struct TreemapView: View {
             // A nesting tile's bottom edge is covered by its children, so only leaf tiles show the size there.
             ctx.draw(resolvedSize, at: CGPoint(x: r.minX + 6, y: r.maxY - 6), anchor: .bottomLeading)
         }
+    }
+
+    /// 45° hairlines: the documents texture (a fourth hue would not stay distinguishable).
+    static func stripes(_ r: CGRect, in ctx: GraphicsContext, color: Color = .kmFgMuted) {
+        var c = ctx
+        c.clip(to: Path(r))
+        var p = Path()
+        var x = r.minX - r.height
+        while x < r.maxX {
+            p.move(to: CGPoint(x: x, y: r.maxY))
+            p.addLine(to: CGPoint(x: x + r.height, y: r.minY))
+            x += 6
+        }
+        c.stroke(p, with: .color(color.opacity(0.35)), lineWidth: 1)
     }
 
     /// Follows a folder down while one child folder holds at least 95% of it, so
@@ -188,6 +215,7 @@ struct SunburstView: View {
     let root: NodeID
     @Binding var selection: NodeID?
     var highlight: MapHighlight?
+    var colors: KindShares?
     let open: (NodeID) -> Void
     private let maxDepth = 4
     @State private var hovered: NodeID?
@@ -208,12 +236,19 @@ struct SunburstView: View {
                         p.closeSubpath()
                         let opacity = max(0.35, 1.0 - Double(s.depth - 1) * 0.17)
                         var fill = tree.isDirectory(s.id) ? Color.kmWater.opacity(opacity) : Color.kmSurface
+                        let group = colors?.group(of: s.id, in: tree)
+                        if let kind = group?.color { fill = tree.isDirectory(s.id) ? kind.opacity(max(0.45, opacity * 0.8)) : kind }
                         if let h = highlight {
                             if h.candidates.contains(s.id) { fill = .kmAccent }
                             else if h.isInsideCandidate(s.id, tree: tree) { fill = .kmAccentSoft }
                             else if !h.lit.contains(s.id) { fill = fill.opacity(0.22) }
                         }
                         ctx.fill(p, with: .color(fill))
+                        if group == .document, highlight == nil {
+                            var c = ctx
+                            c.clip(to: p)
+                            TreemapView.stripes(p.boundingRect, in: c)
+                        }
                         ctx.stroke(p, with: .color(.kmBg), lineWidth: 1)
                         if s.id == selection { ctx.stroke(p, with: .color(.kmAccent), lineWidth: 2.5) }
                     }

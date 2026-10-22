@@ -63,3 +63,34 @@ struct ReviewRulesTests {
         #expect(tiles.first { $0.name == "a.safetensors" }?.role == .insideCandidate)
     }
 }
+
+@Suite("Map colours")
+struct MapColorTests {
+    @Test func foldersTakeTheKindThatFillsThem() {
+        var tree = ScanTree(rootPath: "/R", scanPath: "/R", rootName: "R", deviceID: 1, lastEventID: 1,
+                            eventsUUID: "U", largeFileThreshold: 50_000_000, firmlinks: [])
+        let gb: Int64 = 1_000_000_000
+        let root = tree.appendNode(parent: -1, name: "", isDirectory: true, ownBytes: 0, ownFiles: 0, ownModified: 0)
+        let home = tree.appendNode(parent: root, name: "u", isDirectory: true, ownBytes: 0, ownFiles: 0, ownModified: 0)
+        // Like the walker: a large file's bytes are also its folder's own bytes.
+        let movies = tree.appendNode(parent: home, name: "Movies", isDirectory: true, ownBytes: 9 * gb, ownFiles: 2, ownModified: 0)
+        let a = tree.appendNode(parent: movies, name: "a.mov", isDirectory: false, ownBytes: 5 * gb, ownFiles: 1, ownModified: 0)
+        _ = tree.appendNode(parent: movies, name: "b.mp4", isDirectory: false, ownBytes: 4 * gb, ownFiles: 1, ownModified: 0)
+        let mixed = tree.appendNode(parent: home, name: "Mixed", isDirectory: true, ownBytes: 4 * gb, ownFiles: 2, ownModified: 0)
+        _ = tree.appendNode(parent: mixed, name: "c.zip", isDirectory: false, ownBytes: 2 * gb, ownFiles: 1, ownModified: 0)
+        _ = tree.appendNode(parent: mixed, name: "d.pdf", isDirectory: false, ownBytes: 2 * gb, ownFiles: 1, ownModified: 0)
+        let ollama = tree.appendNode(parent: home, name: ".ollama", isDirectory: true, ownBytes: 0, ownFiles: 0, ownModified: 0)
+        let models = tree.appendNode(parent: ollama, name: "models", isDirectory: true, ownBytes: 0, ownFiles: 0, ownModified: 0)
+        let blobs = tree.appendNode(parent: models, name: "blobs", isDirectory: true, ownBytes: 3 * gb, ownFiles: 1, ownModified: 0)
+        let blob = tree.appendNode(parent: blobs, name: "sha256-abc", isDirectory: false, ownBytes: 3 * gb, ownFiles: 1, ownModified: 0)
+        tree.finalize()
+
+        let shares = KindShares(tree: tree, home: "/R/u")
+        #expect(shares.group(of: NodeID(raw: a), in: tree) == .media)
+        #expect(shares.group(of: NodeID(raw: movies), in: tree) == .media)
+        #expect(shares.group(of: NodeID(raw: mixed), in: tree) == nil)
+        #expect(shares.group(of: NodeID(raw: blob), in: tree) == .model)
+        #expect(shares.total(.media) == 9 * gb)
+        #expect(shares.total(.document) == 2 * gb)
+    }
+}
