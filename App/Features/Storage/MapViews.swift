@@ -1,23 +1,28 @@
 import ScanKit
 import SwiftUI
 
-/// One rectangle of the treemap. `id == nil` is the "small files" remainder of a folder.
+/// One rectangle of the treemap. `node == nil` is the "small files" remainder of a folder.
+/// `hasChildren` tiles draw a header row with their contents nested below it.
 struct Tile: Identifiable {
     let id: Int
     let node: NodeID?
     let rect: CGRect
     let depth: Int
     let isDirectory: Bool
+    let hasChildren: Bool
     let name: String
     let bytes: Int64
 }
 
-/// Squarified treemap, two levels deep, drawn with Canvas (C8).
+/// Squarified treemap, nested as deep as the space allows, drawn with Canvas (C8).
 struct TreemapView: View {
     let tree: ScanTree
     let root: NodeID
     @Binding var selection: NodeID?
     let open: (NodeID) -> Void
+
+    static let maxDepth = 5
+    static let maxTiles = 4000
 
     var body: some View {
         GeometryReader { geo in
@@ -47,13 +52,12 @@ struct TreemapView: View {
     private func draw(_ t: Tile, in ctx: inout GraphicsContext) {
         let r = t.rect.insetBy(dx: 1, dy: 1)
         guard r.width > 1, r.height > 1 else { return }
+        // Deeper folders are a shade stronger so nested levels stay apart.
         let fill: Color
-        switch (t.depth, t.isDirectory, t.node == nil) {
-        case (_, _, true): fill = Color.kmSurface
-        case (1, true, _): fill = Color.kmWater.opacity(0.55)
-        case (1, false, _): fill = Color.kmWater.opacity(0.35)
-        case (_, true, _): fill = Color.kmWater.opacity(0.95)
-        default: fill = Color.kmWater.opacity(0.7)
+        switch (t.node == nil, t.isDirectory) {
+        case (true, _): fill = Color.kmSurface
+        case (_, true): fill = Color.kmWater.opacity(min(0.95, 0.35 + 0.12 * Double(t.depth)))
+        default: fill = Color.kmWater.opacity(min(0.75, 0.2 + 0.12 * Double(t.depth)))
         }
         ctx.fill(Path(r), with: .color(fill))
         if let n = t.node, n == selection {
@@ -68,38 +72,59 @@ struct TreemapView: View {
         let resolvedSize = ctx.resolve(size)
         let sizeWidth = resolvedSize.measure(in: CGSize(width: r.width, height: 16)).width
         let headerFits = nameSize.width + sizeWidth + 18 < r.width
-        if t.depth == 1 && t.isDirectory && r.height >= 60 && headerFits {
+        if t.hasChildren && headerFits {
             ctx.draw(resolvedSize, at: CGPoint(x: r.maxX - 6, y: r.minY + 4), anchor: .topTrailing)
-        } else if r.height > 44 {
+        } else if !t.hasChildren && r.height > 44 {
+            // A nesting tile's bottom edge is covered by its children, so only leaf tiles show the size there.
             ctx.draw(resolvedSize, at: CGPoint(x: r.minX + 6, y: r.maxY - 6), anchor: .bottomLeading)
         }
     }
 
+    /// Follows a folder down while one child folder holds at least 95% of it, so
+    /// `Users › novfrost` takes one level instead of two near-identical blocks.
+    static func chain(from id: NodeID, in tree: ScanTree) -> [NodeID] {
+        var path = [id]
+        while let last = path.last, tree.isDirectory(last), let first = tree.children(of: last).first,
+              tree.isDirectory(first), tree.childCount(of: first) > 0,
+              Double(tree.bytes(of: first)) >= Double(tree.bytes(of: last)) * 0.95 {
+            path.append(first)
+        }
+        return path
+    }
+
     static func layout(tree: ScanTree, root: NodeID, in bounds: CGRect) -> [Tile] {
         var tiles: [Tile] = []
-        var nextID = 0
-        func place(parent: NodeID, rect: CGRect, depth: Int, limit: Int) {
-            let ids = Array(tree.children(of: parent).prefix(limit))
+        // `container` sets the size; `content` (the end of its chain) supplies the children.
+        // Whatever the children don't cover becomes the "Other files" tile.
+        func place(container: NodeID, content: NodeID, rect: CGRect, depth: Int) {
+            let ids = Array(tree.children(of: content).prefix(depth == 1 ? 60 : 40))
             var sizes = ids.map { Double(tree.bytes(of: $0)) }
-            let small = tree.smallFilesBytes(of: parent)
             let shown = sizes.reduce(0, +)
-            let rest = Double(tree.bytes(of: parent)) - shown
-            let remainder = max(Double(small), rest)
+            let remainder = max(Double(tree.smallFilesBytes(of: content)), Double(tree.bytes(of: container)) - shown)
             if remainder > shown * 0.01 { sizes.append(remainder) }
             guard sizes.reduce(0, +) > 0 else { return }
-            let rects = TreemapLayout.squarify(sizes: sizes, in: rect)
-            for (i, r) in rects.enumerated() {
-                let node: NodeID? = i < ids.count ? ids[i] : nil
-                let isDir = node.map(tree.isDirectory) ?? false
-                let name = node.map(tree.name(of:)) ?? String(localized: "Other files")
-                tiles.append(Tile(id: nextID, node: node, rect: r, depth: depth, isDirectory: isDir, name: name, bytes: Int64(sizes[i])))
-                nextID += 1
-                if depth == 1, let node, isDir, r.width > 90, r.height > 70, tree.childCount(of: node) > 0 {
-                    place(parent: node, rect: CGRect(x: r.minX + 6, y: r.minY + 24, width: r.width - 12, height: r.height - 30), depth: 2, limit: 40)
+            for (i, r) in TreemapLayout.squarify(sizes: sizes, in: rect).enumerated() {
+                guard tiles.count < maxTiles else { return }
+                guard i < ids.count else {
+                    tiles.append(Tile(id: tiles.count, node: nil, rect: r, depth: depth, isDirectory: false, hasChildren: false,
+                                      name: String(localized: "Other files"), bytes: Int64(sizes[i])))
+                    continue
+                }
+                let node = ids[i]
+                let isDir = tree.isDirectory(node)
+                let path = isDir ? chain(from: node, in: tree) : [node]
+                let inner = path[path.count - 1]
+                let nests = isDir && depth < maxDepth && r.width > 90 && r.height > 70 && tree.childCount(of: inner) > 0
+                tiles.append(Tile(id: tiles.count, node: inner, rect: r, depth: depth, isDirectory: isDir, hasChildren: nests,
+                                  name: path.map(tree.name(of:)).joined(separator: " › "), bytes: Int64(sizes[i])))
+                if nests {
+                    place(container: node, content: inner,
+                          rect: CGRect(x: r.minX + 6, y: r.minY + 24, width: r.width - 12, height: r.height - 30), depth: depth + 1)
                 }
             }
         }
-        place(parent: root, rect: bounds, depth: 1, limit: 60)
+        let path = chain(from: root, in: tree)
+        place(container: root, content: path[path.count - 1], rect: bounds, depth: 1)
         return tiles
     }
 }
