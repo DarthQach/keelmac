@@ -6,7 +6,7 @@
 **Looks like** a ship's load-line mark and a well-kept engine-room log, **not like** a neon "Mac optimizer" with a giant round Scan button, purple gradients and red scare warnings.
 **The one bold thing:** the **load line**. Disk usage is drawn as a hull's waterline: verdigris water fills the hull as space is used, and a hull-ink Plimsoll mark (a ring crossed by a line) sits at the safe-load point (85% used, the free space macOS needs for updates, swap and snapshots). "38 GB above the load line" is the headline sentence of the dashboard and of the landing page. Everything else stays quiet and native.
 
-Neutral: **sailcloth**, a barely warm grey (hue 70–85, chroma ≤ 0.014) that sits next to macOS's own window greys without looking like a template cream. Accent: **verdigris** (hue 185), the patina on a ship's bronze fittings: calm, maritime, and far from both the semantic green (moved to 145) and the AI-default blues and purples. In the app the type is **SF Pro** (system, because the spec asks for a native macOS look) with **SF Mono** only for paths and the exact commands maintenance tasks run. The landing page uses **Public Sans**: plain-spoken and trustworthy, matching the "honest, no scare tactics" principle. Icons: **SF Symbols** in the app (hierarchical rendering, regular weight next to body text); the landing page uses no icon set, only the load-line mark and real app screens. Radius: macOS-native, 6px controls, 10px groups, 12px windows, concentric when nested. Voice: calm, specific, numbers first; never "danger", "infected" or "junk is slowing your Mac".
+Neutral: **sailcloth**, a barely warm grey (hue 70–85, chroma ≤ 0.014) that sits next to macOS's own window greys without looking like a template cream; it is the light theme only. Dark mode uses **neutral black** (chroma 0: black window, near-black surfaces, white text) so it never reads as brown. Accent: **verdigris** (hue 185), the patina on a ship's bronze fittings: calm, maritime, and far from both the semantic green (moved to 145) and the AI-default blues and purples. In the app the type is **SF Pro** (system, because the spec asks for a native macOS look) with **SF Mono** only for paths and the exact commands maintenance tasks run. The landing page uses **Public Sans**: plain-spoken and trustworthy, matching the "honest, no scare tactics" principle. Icons: **SF Symbols** in the app (hierarchical rendering, regular weight next to body text); the landing page uses no icon set, only the load-line mark and real app screens. Radius: macOS-native, 6px controls, 10px groups, 12px windows, concentric when nested. Voice: calm, specific, numbers first; never "danger", "infected" or "junk is slowing your Mac".
 
 ### Critique of the first idea (frontend-design pass)
 - A warm sailcloth background close to `#F4F1EA` would read as default look #1 (cream). Revised to L 0.982, chroma 0.004: warmth you feel next to cool system greys, not cream. No serif anywhere.
@@ -76,9 +76,9 @@ Dashboard window (1280 × 800):
 |---|---|---|---|
 | --accent (verdigris) | oklch(0.49 0.09 185) | oklch(0.74 0.095 185) | primary actions, selection, focus, links |
 | --water / --water-edge | oklch(0.84 0.05 190) / accent | oklch(0.43 0.06 190) / accent | used space in the load-line gauge and treemap selection |
-| --hull-ink | oklch(0.23 0.014 70) | oklch(0.955 0.006 80) | the Plimsoll mark |
-| --bg / --surface | oklch(0.982 0.004 85) / oklch(0.997 0.002 85) | oklch(0.185 0.008 70) / oklch(0.215 0.008 70) | window / grouped content |
-| --fg / --fg-muted | oklch(0.23 0.014 70) / oklch(0.49 0.014 70) | oklch(0.955 0.006 80) / oklch(0.73 0.012 75) | text |
+| --hull-ink | oklch(0.23 0.014 70) | oklch(1 0 0) | the Plimsoll mark |
+| --bg / --surface | oklch(0.982 0.004 85) / oklch(0.997 0.002 85) | oklch(0 0 0) / oklch(0.16 0 0) | window / grouped content |
+| --fg / --fg-muted | oklch(0.23 0.014 70) / oklch(0.49 0.014 70) | oklch(1 0 0) / oklch(0.76 0 0) | text |
 | --success / --warning / --danger | 145 / 65 / 27 | 145 / 75 / 25 | status only, always with a word or symbol |
 
 Contrast check: passed 2026-10-22 (62 pairs, including the gauge, banner and sidebar pairs in `design/contrast-pairs.json`).

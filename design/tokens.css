@@ -4,7 +4,8 @@
  * asset catalog by scripts/tokens.mjs. Each colour token holds both themes via light-dark(LIGHT, DARK).
  * Theme: system by default; force with <html data-theme="light|dark">.
  *
- * Neutral family: sailcloth (warm, hue 70–85, chroma ≤ 0.014), kept close to macOS window greys.
+ * Neutral family: sailcloth (warm, hue 70–85, chroma ≤ 0.014) in light mode, kept close to macOS window greys.
+ * Dark mode neutrals are pure black/white (chroma 0) so the dark theme never reads as brown.
  * Accent: verdigris (hue 185), the green-blue patina on a ship's bronze fittings. Used for primary
  * actions, selection, focus, and the water in the load-line gauge.
  * Ink: hull ink (warm near-black) draws the load-line mark itself.
@@ -16,17 +17,17 @@
   color-scheme: light dark;
 
   /* Surfaces */
-  --bg:             light-dark(oklch(0.982 0.004 85),  oklch(0.185 0.008 70));
-  --surface:        light-dark(oklch(0.997 0.002 85),  oklch(0.215 0.008 70));
-  --surface-muted:  light-dark(oklch(0.955 0.006 85),  oklch(0.250 0.009 70));
+  --bg:             light-dark(oklch(0.982 0.004 85),  oklch(0 0 0));
+  --surface:        light-dark(oklch(0.997 0.002 85),  oklch(0.160 0 0));
+  --surface-muted:  light-dark(oklch(0.955 0.006 85),  oklch(0.205 0 0));
 
   /* Lines */
-  --border:         light-dark(oklch(0.905 0.008 80),  oklch(0.310 0.010 70));
-  --border-strong:  light-dark(oklch(0.620 0.012 75),  oklch(0.540 0.012 75)); /* inputs: 3:1 vs bg */
+  --border:         light-dark(oklch(0.905 0.008 80),  oklch(0.290 0 0));
+  --border-strong:  light-dark(oklch(0.620 0.012 75),  oklch(0.540 0 0)); /* inputs: 3:1 vs bg */
 
   /* Text */
-  --fg:             light-dark(oklch(0.230 0.014 70),  oklch(0.955 0.006 80));
-  --fg-muted:       light-dark(oklch(0.490 0.014 70),  oklch(0.730 0.012 75));
+  --fg:             light-dark(oklch(0.230 0.014 70),  oklch(1 0 0));
+  --fg-muted:       light-dark(oklch(0.490 0.014 70),  oklch(0.760 0 0));
 
   /* Accent: verdigris */
   --accent:         light-dark(oklch(0.490 0.090 185), oklch(0.740 0.095 185));
@@ -39,7 +40,7 @@
   /* Load line gauge: water = used space, ink = the mark */
   --water:          light-dark(oklch(0.840 0.050 190), oklch(0.430 0.060 190));
   --water-edge:     light-dark(oklch(0.490 0.090 185), oklch(0.740 0.095 185));
-  --hull-ink:       light-dark(oklch(0.230 0.014 70),  oklch(0.955 0.006 80));
+  --hull-ink:       light-dark(oklch(0.230 0.014 70),  oklch(1 0 0));
 
   /* Semantic (status, validation only); success shifted to 145 to stay apart from the accent */
   --success:        light-dark(oklch(0.500 0.120 145), oklch(0.780 0.140 145));
@@ -51,7 +52,7 @@
   --warning-ink:    light-dark(oklch(0.420 0.080 65),  oklch(0.860 0.100 75));
 
   /* Window chrome (the app uses system sidebar material; these match it for mockups and the site) */
-  --sidebar:        light-dark(oklch(0.940 0.006 80),  oklch(0.220 0.009 70));
+  --sidebar:        light-dark(oklch(0.940 0.006 80),  oklch(0.120 0 0));
 
   /* Type: SF Pro in the app (system). Public Sans on the landing page. SF Mono / ui-monospace only for paths and commands. */
   --font-sans: "Public Sans Variable", "Public Sans", ui-sans-serif, -apple-system, sans-serif;

@@ -134,11 +134,13 @@ struct PathText: View {
     }
 }
 
-/// The page content area: sailcloth background, readable max width.
+/// The page content area: token background (sailcloth light, black dark), readable max width.
+/// Lists and tables inside drop the system grey so the page colour shows through.
 struct Page<Content: View>: View {
     @ViewBuilder var content: Content
     var body: some View {
         content
+            .scrollContentBackground(.hidden)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(.kmBg)
     }
