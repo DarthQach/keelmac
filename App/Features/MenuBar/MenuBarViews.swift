@@ -5,6 +5,7 @@ import SwiftUI
 /// The text in the menu bar: the readouts chosen in Settings › Menu bar, or the KeelMac mark.
 struct MenuBarLabel: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.openWindow) private var openWindow
     @AppStorage(Preferences.Key.menuBarItems) private var itemsRaw = "cpu,memory,temperature"
 
     var body: some View {
@@ -18,7 +19,13 @@ struct MenuBarLabel: View {
             }
         }
         .accessibilityLabel("KeelMac")
-        .task { model.start() }
+        .task {
+            model.start()
+            // A launch opens the main window, even if it was closed when KeelMac last quit (window restoration).
+            if !CommandLine.arguments.contains("-menuBarOnly"), !NSApp.windows.contains(where: { $0.identifier?.rawValue == "main" && $0.isVisible }) {
+                openWindow(id: "main")
+            }
+        }
     }
 
     private func readout(_ item: MenuBarItem) -> String? {

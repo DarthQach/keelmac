@@ -18,7 +18,7 @@ struct RootView: View {
                 }
             }
             .listStyle(.sidebar)
-            .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 280)
+            .navigationSplitViewColumnWidth(min: 210, ideal: 250, max: 300)
             .safeAreaInset(edge: .bottom) {
                 if !model.hasFullDiskAccess {
                     Button {

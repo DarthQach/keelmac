@@ -189,7 +189,7 @@ function gauge(t) {
 function home(t) {
   const features = t.features.map(([key, h, p]) => `<div class="feature">
 <div class="feature-copy"><h3>${h}</h3><p>${p}</p></div>
-${shot(key) ? `<div class="feature-shot"><img src="/shots/${key}.png" alt="${h}" loading="lazy" width="1280" height="800"></div>` : ""}
+${shot(key) ? `<div class="feature-shot"><img src="/shots/${key}.png" alt="${h}" loading="lazy" width="1600" height="1058"></div>` : ""}
 </div>`).join("\n");
   return head(t, t.title, t.prefix + "/") + `<section class="hero"><div class="wrap">
 <div class="hero-copy">
@@ -202,7 +202,7 @@ ${shot(key) ? `<div class="feature-shot"><img src="/shots/${key}.png" alt="${h}"
 <p class="req">${t.req}</p>
 </div>
 <figure class="hero-figure">
-${shot("dashboard") ? `<img src="/shots/dashboard.png" alt="${t.gaugeLabel}" width="1280" height="800">` : gauge(t)}
+${shot("dashboard") ? `<img src="/shots/dashboard.png" alt="${t.gaugeLabel}" width="1600" height="1058">` : gauge(t)}
 <figcaption>${t.caption}</figcaption>
 </figure>
 </div></section>

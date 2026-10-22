@@ -5,6 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 rm -rf build/ui.xcresult build/shots && mkdir -p build/shots build/logs
 xcodegen generate --quiet
+pkill -x KeelMac 2>/dev/null || true
 xcodebuild -project KeelMac.xcodeproj -scheme KeelMac -destination platform=macOS -derivedDataPath build/DerivedData \
   -resultBundlePath build/ui.xcresult test ${1:--only-testing:KeelMacUITests} >build/logs/shots.log 2>&1 || { grep -E "error:|failed" build/logs/shots.log | head -20; }
 xcrun xcresulttool export attachments --path build/ui.xcresult --output-path build/shots >/dev/null

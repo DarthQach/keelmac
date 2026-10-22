@@ -88,8 +88,8 @@ struct HealthScoreTests {
         #expect(!HealthScore.compute(inputs(reclaimable: 0)).needsCleanupCheck)
     }
 
-    @Test("Startup items: 10 − 2 per orphan − 1 per item above 12",
-          arguments: [(0, 0, 10), (12, 0, 10), (13, 0, 9), (22, 0, 0), (40, 0, 0), (5, 2, 6), (14, 1, 6), (5, 5, 0)])
+    @Test("Startup items: 10 − 2 per orphan − 1 per 3 items above 12",
+          arguments: [(0, 0, 10), (12, 0, 10), (14, 0, 10), (15, 0, 9), (21, 0, 7), (42, 0, 0), (60, 0, 0), (5, 2, 6), (15, 1, 7), (5, 5, 0)])
     func startup(items: Int, orphans: Int, expected: Int) {
         #expect(points(.startupItems, inputs(startup: items, orphans: orphans)) == expected)
     }

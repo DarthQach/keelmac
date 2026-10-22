@@ -140,7 +140,8 @@ public enum HealthScore {
     public static let batteryRangePercent = 25.0
     /// Reclaimable space equal to this share of the disk scores zero.
     public static let reclaimableZeroScoreFraction = 0.15
-    /// Startup items up to this count cost nothing; each one above costs 1 point; each orphan costs 2.
+    /// Startup items up to this count cost nothing; every 3 above cost 1 point; each orphan costs 2.
+    /// (A developer Mac with 20 agents from installed apps is normal; orphans are what matter.)
     public static let startupItemAllowance = 12
 
     public static func compute(_ inputs: HealthInputs) -> HealthReport {
@@ -221,7 +222,7 @@ public enum HealthScore {
         let total = max(i.startupItems, 0)
         let orphans = max(i.orphanStartupItems, 0)
         let over = max(total - startupItemAllowance, 0)
-        let raw = startupMaxPoints - 2 * orphans - over
+        let raw = startupMaxPoints - 2 * orphans - over / 3
         return HealthFactor(
             id: .startupItems,
             points: min(max(raw, 0), startupMaxPoints),
