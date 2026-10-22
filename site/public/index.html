@@ -19,7 +19,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap">
-<a class="brand" href="/"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="17" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><line x1="1" y1="10" x2="33" y2="10" stroke="currentColor" stroke-width="2"/></svg>KeelMac</a>
+<a class="brand" href="/" translate="no"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="17" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><line x1="1" y1="10" x2="33" y2="10" stroke="currentColor" stroke-width="2"/></svg>KeelMac</a>
 <nav class="nav" aria-label="Main">
 <a href="/#safety">Safety</a><a href="/#faq">FAQ</a><a href="https://github.com/DarthQach/keelmac">GitHub</a>
 <a class="btn btn-primary" href="/#download">Download</a>
@@ -32,12 +32,12 @@
 <p class="lede">KeelMac shows what fills your disk, cleans only what is safe to clean, and writes down everything it touches. Free, open source, and it never phones home.</p>
 <div id="download" class="cta-row">
 <a class="btn btn-primary" href="https://github.com/DarthQach/keelmac/releases/latest">Download for macOS</a>
-<div class="brew"><code>brew install --cask keelmac</code><button type="button" data-copy="brew install --cask keelmac" data-copied="Copied" aria-label="Copy the Homebrew command">Copy</button></div>
+<div class="brew"><code translate="no">brew install --cask keelmac</code><button type="button" data-copy="brew install --cask keelmac" data-copied="Copied" aria-label="Copy the Homebrew command">Copy</button><span class="sr-only" aria-live="polite" data-copy-status></span></div>
 </div>
 <p class="req">macOS 14 Sonoma or later, Apple silicon and Intel.</p>
 </div>
 <figure class="hero-figure">
-<img src="/shots/dashboard.png" alt="382 GB used of 494 GB, 38 GB above the load line" width="1600" height="1058">
+<img src="/shots/dashboard.png" alt="382 GB used of 494 GB, 38 GB above the load line" width="1600" height="1058" fetchpriority="high">
 <figcaption>The load line marks 85% full. Below it, macOS has room for updates, swap and snapshots.</figcaption>
 </figure>
 </div></section>
@@ -101,6 +101,7 @@ document.querySelectorAll("[data-copy]").forEach(function (b) {
   b.addEventListener("click", function () {
     navigator.clipboard.writeText(b.getAttribute("data-copy")).then(function () {
       var label = b.textContent; b.textContent = b.getAttribute("data-copied");
+      var status = b.parentNode.querySelector("[data-copy-status]"); if (status) status.textContent = b.getAttribute("data-copied");
       setTimeout(function () { b.textContent = label; }, 1500);
     });
   });

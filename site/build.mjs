@@ -144,7 +144,7 @@ function head(t, title, path) {
 <body>
 <a class="skip" href="#main">${t.skip}</a>
 <header class="site-header"><div class="wrap">
-<a class="brand" href="${t.prefix}/">${mark()}KeelMac</a>
+<a class="brand" href="${t.prefix}/" translate="no">${mark()}KeelMac</a>
 <nav class="nav" aria-label="Main">
 <a href="${t.prefix}/#safety">${t.safety}</a><a href="${t.prefix}/#faq">${t.faq}</a><a href="${REPO}">GitHub</a>
 <a class="btn btn-primary" href="${t.prefix}/#download">${t.download}</a>
@@ -165,6 +165,7 @@ document.querySelectorAll("[data-copy]").forEach(function (b) {
   b.addEventListener("click", function () {
     navigator.clipboard.writeText(b.getAttribute("data-copy")).then(function () {
       var label = b.textContent; b.textContent = b.getAttribute("data-copied");
+      var status = b.parentNode.querySelector("[data-copy-status]"); if (status) status.textContent = b.getAttribute("data-copied");
       setTimeout(function () { b.textContent = label; }, 1500);
     });
   });
@@ -197,12 +198,12 @@ ${shot(key) ? `<div class="feature-shot"><img src="/shots/${key}.png" alt="${h}"
 <p class="lede">${t.lede}</p>
 <div id="download" class="cta-row">
 <a class="btn btn-primary" href="${DOWNLOAD}">${t.cta}</a>
-<div class="brew"><code>brew install --cask keelmac</code><button type="button" data-copy="brew install --cask keelmac" data-copied="${t.copied}" aria-label="${t.copyLabel}">${t.copy}</button></div>
+<div class="brew"><code translate="no">brew install --cask keelmac</code><button type="button" data-copy="brew install --cask keelmac" data-copied="${t.copied}" aria-label="${t.copyLabel}">${t.copy}</button><span class="sr-only" aria-live="polite" data-copy-status></span></div>
 </div>
 <p class="req">${t.req}</p>
 </div>
 <figure class="hero-figure">
-${shot("dashboard") ? `<img src="/shots/dashboard.png" alt="${t.gaugeLabel}" width="1600" height="1058">` : gauge(t)}
+${shot("dashboard") ? `<img src="/shots/dashboard.png" alt="${t.gaugeLabel}" width="1600" height="1058" fetchpriority="high">` : gauge(t)}
 <figcaption>${t.caption}</figcaption>
 </figure>
 </div></section>
