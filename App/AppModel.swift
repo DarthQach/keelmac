@@ -17,6 +17,8 @@ final class AppModel {
     let operationLog: OperationLogStore
     let snapshots: SnapshotService
     let helper = HelperService()
+    let metrics = MetricsMonitor()
+    let health = HealthService()
 
     init() {
         container = Store.makeContainer(inMemory: CommandLine.arguments.contains("-uitest"))
@@ -34,6 +36,8 @@ final class AppModel {
     func start() {
         guard !started else { return }
         started = true
+        metrics.start()
+        metrics.onAlert = { events in Task { await AlertNotifications.post(events) } }
         Notifier.shared.configure()
         Notifier.shared.onOpenURL = { [weak self] url in
             self?.open(url)

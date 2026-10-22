@@ -74,6 +74,16 @@ enum Format {
 
     static func bytes(_ value: UInt64) -> String { bytes(Int64(clamping: value)) }
 
+    /// RAM sizes use binary units, as Activity Monitor and About This Mac do.
+    static func memory(_ value: UInt64) -> String {
+        ByteCountFormatter.string(fromByteCount: Int64(clamping: value), countStyle: .memory)
+    }
+
+    /// Bytes per second, e.g. "1.2 MB/s".
+    static func rate(_ bytesPerSecond: Double) -> String {
+        "\(bytes(Int64(bytesPerSecond.rounded())))/s"
+    }
+
     static func percent(_ fraction: Double, digits: Int = 0) -> String {
         fraction.formatted(.percent.precision(.fractionLength(digits)))
     }

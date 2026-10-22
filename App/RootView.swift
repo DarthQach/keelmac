@@ -36,6 +36,7 @@ struct RootView: View {
         } detail: {
             RouteView(route: model.route)
                 .id(model.route)
+                .alternatingRowBackgrounds(.disabled)
         }
         .task { model.start() }
         .sheet(isPresented: $model.showWelcome) {
@@ -54,6 +55,10 @@ struct RouteView: View {
     var body: some View {
         Page {
             switch route {
+            case .dashboard:
+                DashboardView()
+            case .monitor:
+                MonitorView()
             case .operationLog:
                 OperationLogView()
             case .duplicates:

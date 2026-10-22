@@ -124,9 +124,9 @@ private struct SnapshotDetail: View {
         Grid(alignment: .leading, horizontalSpacing: 0) {
             GridRow {
                 stat(title: "Space used", value: usedDelta >= 0 ? Text("\(Format.bytes(usedDelta)) more") : Text("\(Format.bytes(-usedDelta)) less"))
-                Divider()
+                VRule()
                 stat(title: "Battery capacity", value: batteryText(previous: previous))
-                Divider()
+                VRule()
                 stat(title: "Reclaimable", value: Text(Format.bytes(current.reclaimableBytes)))
             }
         }

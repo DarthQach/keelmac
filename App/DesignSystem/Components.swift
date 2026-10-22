@@ -143,3 +143,10 @@ struct Page<Content: View>: View {
             .background(.kmBg)
     }
 }
+
+/// A 1px vertical rule for rows of stats (Divider is horizontal inside grids).
+struct VRule: View {
+    var body: some View {
+        Rectangle().fill(.kmBorder).frame(width: 1).frame(maxHeight: .infinity)
+    }
+}
