@@ -20,4 +20,20 @@ final class ScreensUITests: XCTestCase {
             attach(window, "live-\(id)")
         }
     }
+
+    /// Cleanup with its largest rule opened, so the nesting shows.
+    @MainActor
+    func testCleanup() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uitest"]
+        app.launch()
+        let window = app.windows.firstMatch
+        XCTAssertTrue(window.waitForExistence(timeout: 10))
+        window.outlines.cells.containing(.any, identifier: "sidebar.cleanup").firstMatch.click()
+        let rule = window.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'cleanup.rule.'")).firstMatch
+        XCTAssertTrue(rule.waitForExistence(timeout: 60), "plan ready")
+        rule.click()
+        Thread.sleep(forTimeInterval: 1)
+        attach(window, "live-cleanup")
+    }
 }

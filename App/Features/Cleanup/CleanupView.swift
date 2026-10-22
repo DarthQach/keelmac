@@ -8,6 +8,7 @@ struct CleanupView: View {
     @Environment(AppModel.self) private var model
     @State private var expanded: Set<String> = []
     @State private var confirm = false
+    @State private var selectedCategory: CleanupCategory?
 
     private var cleanup: CleanupModel { model.cleanup }
 
@@ -77,24 +78,20 @@ struct CleanupView: View {
             EmptyStateView(symbol: "checkmark.circle", title: "Nothing to clean right now.",
                            message: "Last checked \(plan.createdAt.formatted(.relative(presentation: .named))). KeelMac checks again each time you open Cleanup.")
         } else {
+            let present = CleanupCategory.allCases.filter { c in visible.contains { $0.category == c } }
+            let withItems = present.filter { c in visible.contains { $0.category == c && !$0.items.isEmpty } }
+                .sorted { plan.bytes(in: $0) > plan.bytes(in: $1) }
+            let empty = present.filter { !withItems.contains($0) }
+            let current = selectedCategory.flatMap { present.contains($0) ? $0 : nil } ?? withItems[0]
             VStack(spacing: 0) {
-                List {
-                    Section {
-                        Text("This is a preview. Nothing moves until you click the button below, and only the items checked here.")
-                            .foregroundStyle(.kmFgMuted)
-                    }
-                    ForEach(CleanupCategory.allCases, id: \.self) { category in
-                        let groups = visible.filter { $0.category == category }
-                        if !groups.isEmpty {
-                            Section {
-                                ForEach(groups) { group in GroupRow(group: group, expanded: $expanded) }
-                            } header: {
-                                CategoryHeader(category: category, groups: groups)
-                            }
-                        }
-                    }
+                HStack(spacing: 0) {
+                    CategorySidebar(plan: plan, categories: withItems, empty: empty,
+                                    selection: Binding(get: { current }, set: { selectedCategory = $0 }))
+                        .frame(width: 290)
+                    Divider()
+                    CategoryDetail(category: current, groups: visible.filter { $0.category == current }, expanded: $expanded)
+                        .id(current)
                 }
-                .listStyle(.inset)
                 ActionBar {
                     HStack(spacing: 4) {
                         Text("\(cleanup.selectedCount) items selected, \(Format.bytes(cleanup.selectedBytes)).")
@@ -137,92 +134,273 @@ struct TriStateBox: View {
     }
 }
 
-private struct CategoryHeader: View {
+extension CleanupPlan {
+    func groups(in category: CleanupCategory) -> [CleanupGroup] { groups.filter { $0.category == category } }
+    func bytes(in category: CleanupCategory) -> Int64 { groups(in: category).reduce(0) { $0 + $1.bytes } }
+}
+
+/// Left pane: what can be cleaned in total, then one row per category.
+private struct CategorySidebar: View {
     @Environment(AppModel.self) private var model
-    let category: CleanupCategory
-    let groups: [CleanupGroup]
+    let plan: CleanupPlan
+    let categories: [CleanupCategory]
+    let empty: [CleanupCategory]
+    @Binding var selection: CleanupCategory
+    @State private var showEmpty = false
 
     var body: some View {
-        let ids = groups.flatMap { $0.items.map(\.id) }
-        HStack(spacing: 8) {
-            TriStateBox(state: model.cleanup.state(of: ids), disabled: ids.isEmpty) { model.cleanup.toggle(ids) }
-                .accessibilityLabel(Text(category.title))
-            Text(category.title).font(.headline).foregroundStyle(.kmFg)
-            Text(category.subtitle).foregroundStyle(.kmFgMuted).lineLimit(1)
-            Spacer()
-            Text(Format.bytes(groups.reduce(0) { $0 + $1.bytes })).font(.headline).foregroundStyle(.kmFg).tabular()
+        let total = categories.reduce(Int64(0)) { $0 + plan.bytes(in: $1) }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                summary(total: total)
+                    .padding(16)
+                Divider()
+                VStack(spacing: 2) {
+                    ForEach(categories, id: \.self) { row($0) }
+                }
+                .padding(8)
+                if !empty.isEmpty {
+                    DisclosureGroup(isExpanded: $showEmpty) {
+                        VStack(spacing: 2) { ForEach(empty, id: \.self) { row($0) } }
+                    } label: {
+                        Text("Nothing to clean (\(empty.count))").foregroundStyle(.kmFgMuted)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                }
+            }
         }
-        .padding(.vertical, 4)
+    }
+
+    private func summary(total: Int64) -> some View {
+        let selected = model.cleanup.selectedBytes
+        return VStack(alignment: .leading, spacing: 6) {
+            Text(Format.bytes(total)).font(.system(size: 28, weight: .semibold)).tabular()
+            Text("can be cleaned").foregroundStyle(.kmFgMuted)
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(.kmSurfaceMuted)
+                    Capsule().fill(.kmAccent)
+                        .frame(width: total > 0 ? geo.size.width * min(1, CGFloat(selected) / CGFloat(total)) : 0)
+                }
+            }
+            .frame(height: 6)
+            .padding(.top, 4)
+            Text("\(Format.bytes(selected)) selected").font(.callout).tabular()
+            Text("Nothing moves until you click the button below, and only what is checked.")
+                .font(.footnote).foregroundStyle(.kmFgMuted)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private func row(_ category: CleanupCategory) -> some View {
+        let ids = plan.groups(in: category).flatMap { $0.items.map(\.id) }
+        let state = model.cleanup.state(of: ids)
+        let isSelected = selection == category
+        return HStack(spacing: 10) {
+            TriStateBox(state: state, disabled: ids.isEmpty) { model.cleanup.toggle(ids) }
+                .accessibilityLabel(Text(category.title))
+            Image(systemName: category.symbol)
+                .frame(width: 18)
+                .foregroundStyle(isSelected ? .kmAccentText : .kmFgMuted)
+            Text(category.title).lineLimit(1)
+                .foregroundStyle(ids.isEmpty ? .kmFgMuted : .kmFg)
+            Spacer(minLength: 4)
+            (ids.isEmpty ? Text(verbatim: "–") : Text(Format.bytes(plan.bytes(in: category))))
+                .tabular()
+                .foregroundStyle(state == .off ? .kmFgMuted : .kmFg)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .background(isSelected ? Color.kmAccentSoft : .clear, in: RoundedRectangle(cornerRadius: Metrics.radiusControl))
+        .contentShape(Rectangle())
+        .onTapGesture { selection = category }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }
 
-private struct GroupRow: View {
+/// Right pane: the selected category's rules, one line each; items open under a rule.
+private struct CategoryDetail: View {
+    let category: CleanupCategory
+    let groups: [CleanupGroup]
+    @Binding var expanded: Set<String>
+    @State private var showUnavailable = false
+
+    var body: some View {
+        let available = groups.filter { !$0.items.isEmpty }.sorted { $0.bytes > $1.bytes }
+        let unavailable = groups.filter { $0.items.isEmpty }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                    Image(systemName: category.symbol).font(.title3).foregroundStyle(.kmAccentText)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(category.title).font(.title3.weight(.semibold))
+                        Text(category.subtitle).foregroundStyle(.kmFgMuted).lineLimit(1)
+                    }
+                    Spacer()
+                    if !available.isEmpty {
+                        Text(Format.bytes(available.reduce(0) { $0 + $1.bytes })).font(.title3.weight(.semibold)).tabular()
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 18)
+                .padding(.bottom, 12)
+                Divider()
+                ForEach(available) { group in
+                    RuleRow(group: group, isExpanded: Binding(get: { expanded.contains(group.id) },
+                                                              set: { if $0 { expanded.insert(group.id) } else { expanded.remove(group.id) } }))
+                    Divider().padding(.leading, 20)
+                }
+                if !unavailable.isEmpty {
+                    if available.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) { ForEach(unavailable) { UnavailableRow(group: $0) } }
+                            .padding(20)
+                    } else {
+                        DisclosureGroup(isExpanded: $showUnavailable) {
+                            VStack(alignment: .leading, spacing: 8) { ForEach(unavailable) { UnavailableRow(group: $0) } }
+                                .padding(.top, 8)
+                        } label: {
+                            Text("Not available here (\(unavailable.count))").foregroundStyle(.kmFgMuted)
+                        }
+                        .padding(20)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct RuleRow: View {
     @Environment(AppModel.self) private var model
     let group: CleanupGroup
-    @Binding var expanded: Set<String>
+    @Binding var isExpanded: Bool
+    @State private var showAll = false
+    @State private var showInfo = false
 
+    private static let shownItems = 15
     private var lang: String { Locale.current.language.languageCode?.identifier ?? "en" }
 
     var body: some View {
         let ids = group.items.map(\.id)
-        DisclosureGroup(isExpanded: Binding(get: { expanded.contains(group.id) }, set: { if $0 { expanded.insert(group.id) } else { expanded.remove(group.id) } })) {
-            ForEach(group.items) { item in ItemRow(item: item) }
-            if !group.skipped.isEmpty {
-                ForEach(group.skipped) { s in
-                    HStack {
-                        PathText(path: s.path)
-                        Spacer()
-                        if case .appRunning(let bid) = s.reason {
-                            Text("Skipped while \(RunningName.of(bid)) is open").font(.callout).foregroundStyle(.kmWarning)
-                        }
-                    }
-                }
-            }
-        } label: {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                TriStateBox(state: model.cleanup.state(of: ids), disabled: ids.isEmpty) { model.cleanup.toggle(ids) }
+        let state = model.cleanup.state(of: ids)
+        let detail = group.rule.detail.value(for: lang)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 10) {
+                TriStateBox(state: state) { model.cleanup.toggle(ids) }
                     .accessibilityLabel(Text(verbatim: group.rule.title.value(for: lang)))
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
-                        Text(verbatim: group.rule.title.value(for: lang))
-                        if group.deletesPermanently { Tag(text: "Deleted permanently") }
-                        if group.isCommand { Tag(text: "Command") }
-                        if group.rule.optIn && model.cleanup.state(of: ids) == .off && !ids.isEmpty { Tag(text: "Off by default") }
+                Text(verbatim: group.rule.title.value(for: lang)).fontWeight(.medium).lineLimit(1)
+                if group.deletesPermanently { Tag(text: "Deleted permanently") }
+                if group.isCommand { Tag(text: "Command") }
+                if group.rule.optIn && state == .off { Tag(text: "Off by default") }
+                Button { showInfo.toggle() } label: { Image(systemName: "info.circle") }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(.kmFgMuted)
+                    .help(Text(verbatim: detail))
+                    .accessibilityLabel(Text("About this item"))
+                    .popover(isPresented: $showInfo) {
+                        Text(verbatim: detail).padding(14).frame(width: 300).fixedSize(horizontal: false, vertical: true)
                     }
-                    Text(verbatim: group.rule.detail.value(for: lang)).font(.callout).foregroundStyle(.kmFgMuted).lineLimit(2)
-                    status
+                Spacer(minLength: 8)
+                if group.items.count > 1 {
+                    Text("\(group.items.count) items").font(.callout).foregroundStyle(.kmFgMuted).tabular()
                 }
-                Spacer()
-                Text(group.items.isEmpty ? "–" : Format.bytes(group.bytes)).tabular()
-                    .foregroundStyle(model.cleanup.state(of: ids) == .off ? .kmFgMuted : .kmFg)
+                Text(Format.bytes(group.bytes)).tabular()
+                    .foregroundStyle(state == .off ? .kmFgMuted : .kmFg)
+                    .frame(minWidth: 72, alignment: .trailing)
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.kmFgMuted)
+                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
             }
-            .padding(.vertical, 3)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .contentShape(Rectangle())
+            .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { isExpanded.toggle() } }
+            .accessibilityAction(named: isExpanded ? Text("Collapse") : Text("Expand")) { isExpanded.toggle() }
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("cleanup.rule.\(group.id)")
+            if isExpanded { items }
         }
     }
 
-    @ViewBuilder private var status: some View {
+    private var items: some View {
+        let sorted = group.items.sorted { $0.bytes > $1.bytes }
+        let shown = showAll ? sorted : Array(sorted.prefix(Self.shownItems))
+        // When every item lives in the same folder, name the folder once instead of on each row.
+        let parents = Set(group.items.filter { !$0.isCommand }.map { ($0.path as NSString).deletingLastPathComponent })
+        let sharedParent = parents.count == 1 ? parents.first : nil
+        return VStack(alignment: .leading, spacing: 0) {
+            if let sharedParent {
+                Text("In \((sharedParent as NSString).abbreviatingWithTildeInPath)")
+                    .font(.system(.caption, design: .monospaced)).foregroundStyle(.kmFgMuted)
+                    .lineLimit(1).truncationMode(.middle)
+                    .padding(.vertical, 4)
+            }
+            ForEach(shown) { ItemRow(item: $0, showsParent: sharedParent == nil) }
+            if sorted.count > shown.count {
+                Button("Show all \(sorted.count)") { showAll = true }.buttonStyle(.link).padding(.vertical, 6)
+            }
+            ForEach(group.skipped) { s in
+                HStack(spacing: 8) {
+                    Image(systemName: "pause.circle").foregroundStyle(.kmWarning).frame(width: 16)
+                    Text(verbatim: (s.path as NSString).lastPathComponent).lineLimit(1)
+                    if case .appRunning(let bid) = s.reason {
+                        Text("Skipped while \(RunningName.of(bid)) is open").font(.callout).foregroundStyle(.kmWarning).lineLimit(1)
+                    }
+                    Spacer()
+                }
+                .padding(.vertical, 4)
+                .help(s.path)
+            }
+        }
+        .padding(.leading, 12)
+        .overlay(alignment: .leading) { Rectangle().fill(.kmAccent).frame(width: 2) }
+        .padding(.leading, 48)
+        .padding(.trailing, 20)
+        .padding(.bottom, 12)
+    }
+}
+
+/// A rule with nothing to offer here, with the reason.
+private struct UnavailableRow: View {
+    let group: CleanupGroup
+    private var lang: String { Locale.current.language.languageCode?.identifier ?? "en" }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Text(verbatim: group.rule.title.value(for: lang)).foregroundStyle(.kmFgMuted)
+            Spacer(minLength: 8)
+            reason.font(.callout)
+        }
+        .help(Text(verbatim: group.rule.detail.value(for: lang)))
+    }
+
+    @ViewBuilder private var reason: some View {
         switch group.status {
         case .ready:
-            if let cmd = group.items.first?.command { Text(verbatim: cmd.commandLine).font(.system(.caption, design: .monospaced)).foregroundStyle(.kmFgMuted) }
+            Text("Nothing found").foregroundStyle(.kmFgMuted)
         case .needsFullDiskAccess:
-            Text("Needs Full Disk Access").font(.callout).foregroundStyle(.kmWarning)
+            Text("Needs Full Disk Access").foregroundStyle(.kmWarning)
         case .toolMissing:
-            Text("Not installed on this Mac").font(.callout).foregroundStyle(.kmFgMuted)
+            Text("Not installed on this Mac").foregroundStyle(.kmFgMuted)
         case .toolNotResponding:
-            Text("Installed but not running").font(.callout).foregroundStyle(.kmFgMuted)
+            Text("Installed but not running").foregroundStyle(.kmFgMuted)
         case .appRunning(let bid):
-            Text("Skipped while \(RunningName.of(bid)) is open").font(.callout).foregroundStyle(.kmWarning)
+            Text("Skipped while \(RunningName.of(bid)) is open").foregroundStyle(.kmWarning)
         case .failed(let message):
-            Text("Couldn’t measure: \(message)").font(.callout).foregroundStyle(.kmDanger).lineLimit(2)
+            Text("Couldn’t measure: \(message)").foregroundStyle(.kmDanger).lineLimit(2)
         case .needsHelper:
-            Text("Needs the KeelMac helper").font(.callout).foregroundStyle(.kmFgMuted)
+            Text("Needs the KeelMac helper").foregroundStyle(.kmFgMuted)
         }
     }
 }
 
+/// One item under an opened rule: its name first, where it lives after.
 private struct ItemRow: View {
     @Environment(AppModel.self) private var model
     let item: CleanupItem
+    var showsParent = true
 
     var body: some View {
         HStack(spacing: 8) {
@@ -230,20 +408,37 @@ private struct ItemRow: View {
                 if on { model.cleanup.selected.insert(item.id) } else { model.cleanup.selected.remove(item.id) }
             })) { EmptyView() }
             .toggleStyle(.checkbox)
-            .accessibilityLabel(Text(verbatim: item.path))
-            VStack(alignment: .leading, spacing: 1) {
-                if let title = detailTitle { Text(verbatim: title) }
-                PathText(path: item.isCommand ? (item.command?.commandLine ?? item.path) : item.path)
+            .accessibilityLabel(Text(verbatim: name))
+            Image(systemName: item.isCommand ? "terminal" : item.isDirectory ? "folder" : "doc")
+                .foregroundStyle(.kmFgMuted)
+                .frame(width: 16)
+            Text(verbatim: name)
+                .font(item.isCommand ? .system(.callout, design: .monospaced) : .body)
+                .lineLimit(1)
+                .truncationMode(.middle)
+            if !item.isCommand && showsParent {
+                Text(verbatim: ((item.path as NSString).deletingLastPathComponent as NSString).abbreviatingWithTildeInPath)
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundStyle(.kmFgMuted)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
             }
-            Spacer()
+            Spacer(minLength: 8)
             Text(Format.bytes(item.bytes)).tabular().foregroundStyle(.kmFgMuted)
         }
+        .padding(.vertical, 4)
+        .help(item.isCommand ? (item.command?.commandLine ?? item.path) : item.path)
         .contextMenu {
             if !item.isCommand {
                 Button("Reveal in Finder") { FileActions.reveal([item.path]) }
                 Button("Never clean this…") { addToWhitelist(item.path) }
             }
         }
+    }
+
+    private var name: String {
+        if item.isCommand { return item.command?.commandLine ?? item.path }
+        return detailTitle ?? (item.path as NSString).lastPathComponent
     }
 
     private var detailTitle: String? {
@@ -290,6 +485,20 @@ enum RunningName {
 }
 
 extension CleanupCategory {
+    var symbol: String {
+        switch self {
+        case .developer: "hammer"
+        case .userCaches: "shippingbox"
+        case .browserCaches: "globe"
+        case .logs: "doc.text.magnifyingglass"
+        case .installers: "arrow.down.app"
+        case .iosBackups: "iphone"
+        case .docker: "cube"
+        case .languageFiles: "character.bubble"
+        case .trash: "trash"
+        }
+    }
+
     var title: LocalizedStringKey {
         switch self {
         case .developer: "Developer"

@@ -265,6 +265,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ selected": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ seleccionados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ used": {
       "localizations": {
         "es": {
@@ -502,6 +513,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld grupos, %@ en copias de más. Los archivos coinciden byte por byte (SHA-256)."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld elementos"
           }
         }
       },
@@ -777,6 +799,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Acerca de KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "About this item": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de este elemento"
           }
         }
       },
@@ -1530,6 +1563,17 @@
       },
       "extractionState": "manual"
     },
+    "Collapse": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraer"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Command": {
       "localizations": {
         "es": {
@@ -2025,6 +2069,17 @@
       },
       "extractionState": "manual"
     },
+    "Expand": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Export log…": {
       "localizations": {
         "es": {
@@ -2459,7 +2514,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Entrada %@"
+            "value": "En %@"
           }
         }
       },
@@ -3763,6 +3818,17 @@
       },
       "extractionState": "manual"
     },
+    "Not available here (%lld)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No disponible aquí (%lld)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Not available on this version of macOS": {
       "localizations": {
         "es": {
@@ -3906,6 +3972,17 @@
       },
       "extractionState": "manual"
     },
+    "Nothing found": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró nada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Nothing matches these filters": {
       "localizations": {
         "es": {
@@ -3917,12 +3994,34 @@
       },
       "extractionState": "manual"
     },
+    "Nothing moves until you click the button below, and only what is checked.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Nothing to clean": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Nada que limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing to clean (%lld)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que limpiar (%lld)"
           }
         }
       },
@@ -5160,6 +5259,17 @@
       },
       "extractionState": "manual"
     },
+    "Show all %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar los %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Show in the menu bar": {
       "localizations": {
         "es": {
@@ -6365,6 +6475,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Primero verás cada archivo relacionado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "can be cleaned": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "se pueden limpiar"
           }
         }
       },
