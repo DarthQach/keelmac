@@ -58,7 +58,7 @@ Numbered; everything downstream traces to these ids. Spec priority in brackets: 
 - **C16** [v2] · A user fully uninstalls an app: the bundle plus related files (Application Support, Caches, Preferences, Containers, Group Containers, Saved State, Logs, LaunchAgents, cookies) matched by bundle ID and name, previewed first.
 - **C17** [v2] · A user finds orphaned files left by apps that are already deleted.
 - **C18** [v2] · A user drags an app onto a drop zone to uninstall it, and can turn on a watcher that offers cleanup when an app is moved to the Trash.
-- **C19** [v2] · A user lists login items and background agents (LaunchAgents, LaunchDaemons, SMAppService items) and can enable, disable or remove them.
+- **C19** [v2] · A user lists login items and background agents (LaunchAgents, LaunchDaemons, SMAppService items) and can enable, disable or remove them. The screen explains what the startup items factor counts (enabled items that start on their own; on-demand and disabled items don't count) and marks the items KeelMac recommends turning off or removing, each with a plain-language reason.
 - **C20** [v2] · A user sees installed apps sorted by size and last-used date.
 
 **Maintenance**

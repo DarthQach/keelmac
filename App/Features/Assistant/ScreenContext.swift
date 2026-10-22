@@ -217,15 +217,20 @@ extension ScreenContext {
         return c
     }
 
-    static func loginItems(_ items: [LaunchItem]) -> ScreenContext {
+    static func loginItems(_ items: [LaunchItem], advice: [String: LaunchAdvice]) -> ScreenContext {
         var c = ScreenContext(route: .loginItems)
         c.facts.append(ContextFact(label: String(localized: "Found"), value: String(localized: "\(items.count) items, \(items.filter { !$0.ownerInstalled }.count) without an installed app")))
-        c.selection = items.prefix(12).map { i in
-            ContextItem(id: i.id, kind: .launchItem, name: i.label, path: i.plistPath, fields: [
+        c.facts.append(ContextFact(label: "Counted for the score", value: "\(items.filter(\.countsTowardStartup).count) (enabled items that start on their own; \(HealthScore.startupItemAllowance) are free, every 3 more cost 1 point, each item from a deleted app costs 2)"))
+        // Advised items first, so the 12 the model sees include every recommendation it may be asked about.
+        let ordered = items.filter { advice[$0.id] != nil } + items.filter { advice[$0.id] == nil }
+        c.selection = ordered.prefix(12).map { i in
+            var fields = [
                 ContextFact(label: String(localized: "Program"), value: i.program ?? String(localized: "Unknown")),
                 ContextFact(label: String(localized: "Owner"), value: i.ownerName ?? String(localized: "Unknown")),
                 ContextFact(label: String(localized: "Status"), value: i.isDisabled ? String(localized: "disabled") : String(localized: "enabled")),
-            ])
+            ]
+            if let a = advice[i.id] { fields.append(ContextFact(label: "Advice", value: a.summary)) }
+            return ContextItem(id: i.id, kind: .launchItem, name: i.label, path: i.plistPath, fields: fields)
         }
         return c
     }
@@ -288,5 +293,19 @@ private struct AssistantContextModifier: ViewModifier {
             .onAppear { model.assistant.context = context }
             .onChange(of: context) { _, new in model.assistant.context = new }
             .onDisappear { if model.assistant.context?.route == context?.route { model.assistant.context = nil } }
+    }
+}
+
+extension LaunchAdvice {
+    /// English for the model, like the other non-localized context labels.
+    var summary: String {
+        let verb = action == .remove ? "remove" : "turn off"
+        let why = switch reason {
+        case .appGone: "its app is no longer installed"
+        case .duplicate(let other): "the same label also runs from \(other)"
+        case .updater: "it only checks for updates; the app updates itself when opened"
+        case .appUnused(let lastUsed): "its app hasn't been opened since \(lastUsed.formatted(date: .abbreviated, time: .omitted))"
+        }
+        return "\(isStrong ? "recommended" : "worth a look"): \(verb), because \(why)"
     }
 }

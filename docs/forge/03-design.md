@@ -49,7 +49,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S11 | Apps | sidebar › Apps | Owner | C16, C18, C20 | Uninstall… |
 | S12 | Uninstall preview | sheet from S11 / drop | Owner | C16, C14 | Move 1.3 GB to Trash |
 | S13 | Leftovers | sidebar › Leftovers | Owner | C17 | Move to Trash (selected) |
-| S14 | Login items | sidebar › Login items | Owner/Admin | C19, C22 | Disable (per row) |
+| S14 | Login items | sidebar › Login items | Owner/Admin | C1, C19, C22 | Turn off (per recommended item) |
 | S15 | Maintenance | sidebar › Maintenance | Owner/Admin | C21, C22 | Run (per task) |
 | S16 | Duplicates | sidebar › Duplicates | Owner | C23 | Move duplicates to Trash |
 | S17 | Snapshots | sidebar › Snapshots | Owner | C24, C25 | Take snapshot / Export report… |
@@ -115,7 +115,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S11 Apps | "No apps found in /Applications" (rare) | Sizes measure in place | Row size "–" | Table + drop zone | — | n/a |
 | S12 Uninstall preview | "Only the app bundle was found" | Matching related files… | Item can't be moved: reason | List with checkboxes | App is running: "Quit Xcode to uninstall it" + Quit | n/a |
 | S13 Leftovers | "No leftovers from deleted apps" | Searching Library… | as S8 | Table grouped by bundle id | FDA banner | n/a |
-| S14 Login items | "No login items or background agents" | Reading launchd… | Toggle failed: reason | Table | System items: "Needs the KeelMac helper" + Install helper | n/a |
+| S14 Login items | "No login items or background agents" | Reading launchd… | Toggle failed: reason | Summary card (points, how many start on their own vs the 12 that are free, recommended items with Turn off / Remove…, projected points) above the table; advised rows carry a one-line reason; disabled and on-demand rows say "Not counted" | System items: "Needs the KeelMac helper" + Install helper | n/a |
 | S15 Maintenance | — (catalogue) | Task row shows progress + live output | Exit code and last output lines | "Finished in 3 s" + output | Admin tasks: "Needs the KeelMac helper" + Install helper | n/a |
 | S16 Duplicates | "Choose folders to search" / "No duplicates found in ~/Documents" | Stages: grouping by size, hashing (n of m) | Unreadable files listed | Groups with auto-select | FDA banner | n/a |
 | S17 Snapshots | "No snapshots yet. KeelMac takes one every week." + Take snapshot | Taking snapshot… | Inline load/save error with Try again | Snapshot list + "What grew" comparison | — | n/a |

@@ -92,6 +92,7 @@ struct HealthScoreTests {
           arguments: [(0, 0, 10), (12, 0, 10), (14, 0, 10), (15, 0, 9), (21, 0, 7), (42, 0, 0), (60, 0, 0), (5, 2, 6), (15, 1, 7), (5, 5, 0)])
     func startup(items: Int, orphans: Int, expected: Int) {
         #expect(points(.startupItems, inputs(startup: items, orphans: orphans)) == expected)
+        #expect(HealthScore.startupPoints(total: items, orphans: orphans) == expected)
     }
 
     @Test("Bands at 59, 60, 79 and 80")

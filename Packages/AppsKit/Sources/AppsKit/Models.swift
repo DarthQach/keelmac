@@ -134,6 +134,12 @@ public struct LaunchItem: Sendable, Identifiable, Hashable {
 
     /// Only user agents can be changed without the helper.
     public var needsHelper: Bool { domain != .userAgent }
+
+    /// False for on-demand jobs: they run only when another program asks for them, never at login.
+    public var startsOnItsOwn: Bool { schedule != .onDemand }
+
+    /// What the Health Score's startup items factor counts: enabled and starting on its own.
+    public var countsTowardStartup: Bool { !isDisabled && startsOnItsOwn }
 }
 
 public enum LaunchSchedule: Sendable, Hashable {

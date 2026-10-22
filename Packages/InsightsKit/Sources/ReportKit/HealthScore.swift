@@ -222,14 +222,20 @@ public enum HealthScore {
         let total = max(i.startupItems, 0)
         let orphans = max(i.orphanStartupItems, 0)
         let over = max(total - startupItemAllowance, 0)
-        let raw = startupMaxPoints - 2 * orphans - over / 3
         return HealthFactor(
             id: .startupItems,
-            points: min(max(raw, 0), startupMaxPoints),
+            points: startupPoints(total: total, orphans: orphans),
             maxPoints: startupMaxPoints,
             fix: .loginItems,
             details: .startupItems(total: total, orphans: orphans, overLimit: over)
         )
+    }
+
+    /// The startup items factor for these counts; the Login items screen uses it to project the effect of its advice.
+    public static func startupPoints(total: Int, orphans: Int) -> Int {
+        let over = max(max(total, 0) - startupItemAllowance, 0)
+        let raw = startupMaxPoints - 2 * max(orphans, 0) - over / 3
+        return min(max(raw, 0), startupMaxPoints)
     }
 
     // MARK: - Math

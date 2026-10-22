@@ -154,9 +154,10 @@ private struct FactorLedger: View {
         case .reclaimable(let bytes, _):
             guard let bytes else { return Text("Not checked yet. Open Cleanup to measure it.") }
             return bytes == 0 ? Text("Nothing to clean") : Text("\(Format.bytes(bytes)) ready to review in Cleanup")
-        case .startupItems(let total, let orphans, _):
-            return orphans > 0 ? Text("\(total) login items and agents, \(orphans) from apps that are gone")
-                : Text("\(total) login items and agents, all from installed apps")
+        case .startupItems(let total, let orphans, let over):
+            if orphans > 0 { return Text("\(total) start on their own, \(orphans) from apps that are gone") }
+            return over > 0 ? Text("\(total) start on their own, \(over) more than the \(HealthScore.startupItemAllowance) that are free")
+                : Text("\(total) start on their own, within the \(HealthScore.startupItemAllowance) that are free")
         }
     }
 }
@@ -226,7 +227,7 @@ extension FixRoute {
         case .storageMap: "Open storage map"
         case .monitor: kind == .battery ? "View battery" : "Show processes"
         case .cleanup: "Review cleanup"
-        case .loginItems: "Review"
+        case .loginItems: "See recommendations"
         }
     }
 }

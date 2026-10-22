@@ -52,6 +52,23 @@ enum VisualFixtures {
                          bytes: Int64(8 - i) * 340_000_000, lastUsed: date.addingTimeInterval(-Double(i) * 86_400), isApple: false)
         }
     }
+    /// One of each kind the Login items screen explains: counted, updater, duplicate, orphan, disabled, on demand.
+    static var launchItems: [LaunchItem] {
+        let user = root + "/Library/LaunchAgents/", global = "/Library/LaunchAgents/"
+        func item(_ label: String, _ folder: String, _ schedule: LaunchSchedule, owner: String?, installed: Bool = true, disabled: Bool = false) -> LaunchItem {
+            LaunchItem(label: label, plistPath: folder + label + ".plist", program: nil, domain: folder == user ? .userAgent : .globalAgent,
+                       schedule: schedule, ownerName: owner, ownerInstalled: installed, isDisabled: disabled)
+        }
+        return [
+            item("com.example.app2.helper", user, .atLoad, owner: "Visual Studio Code"),
+            item("com.example.app0.updater", user, .interval(3600), owner: "Affinity Photo"),
+            item("com.example.app4.sync", user, .keepAlive, owner: "Obsidian"),
+            item("com.example.app5.agent", user, .onDemand, owner: "Transmit"),
+            item("com.example.app6.helper", user, .atLoad, owner: "Things", disabled: true),
+            item("com.example.app5.agent", global, .onDemand, owner: "Transmit"),
+            item("com.example.previous-editor.helper", global, .keepAlive, owner: "Previous editor", installed: false),
+        ]
+    }
     static var relatedFiles: [RelatedFile] {
         ["Application Support", "Caches", "Preferences"].enumerated().map { i, name in
             RelatedFile(path: root + "/Library/\(name)/com.example.editor", bytes: Int64(3 - i) * 120_000_000,

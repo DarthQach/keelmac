@@ -48,7 +48,7 @@ struct GetHealthTool: AssistantTool {
             case .reclaimable(let bytes, let fraction):
                 line += bytes.map { " — \(Format.bytes($0)) reclaimable in Cleanup (\(Format.percent(fraction ?? 0)) of the disk)" } ?? " — not measured yet (Cleanup › Check again)"
             case .startupItems(let total, let orphans, let over):
-                line += " — \(total) login items, \(orphans) without an installed app, \(over) over the allowance"
+                line += " — \(total) enabled items that start on their own (on-demand and disabled ones don't count), \(orphans) without an installed app, \(over) over the allowance of \(HealthScore.startupItemAllowance)"
             }
             if let fix = f.fix, let route = Route(rawValue: fix.rawValue) { line += " · fix in \(route.name) (keelmac://open/\(route.rawValue))" }
             lines.append(line)
@@ -282,7 +282,7 @@ struct ListLoginItemsTool: AssistantTool {
                 guard let items = apps.launchItems else { return "Login items haven't been listed yet. Open Login items (keelmac://open/loginItems)." }
                 guard !items.isEmpty else { return "No login items." }
                 let lines = items.prefix(40).map { i in
-                    "\(i.label): \(i.program.map(ScreenContext.abbreviate) ?? "unknown program"), \(i.domain.rawValue), \(i.schedule), owner \(i.ownerName ?? "unknown")\(i.ownerInstalled ? "" : " (app not installed)")\(i.isDisabled ? ", disabled" : "")"
+                    "\(i.label): \(i.program.map(ScreenContext.abbreviate) ?? "unknown program"), \(i.domain.rawValue), \(i.schedule), owner \(i.ownerName ?? "unknown")\(i.ownerInstalled ? "" : " (app not installed)")\(i.isDisabled ? ", disabled" : "")\(i.countsTowardStartup ? "" : ", not counted")\(apps.launchAdvice[i.id].map { "; \($0.summary)" } ?? "")"
                 }
                 return AssistantTools.cap((["Login items (keelmac://open/loginItems):"] + lines).joined(separator: "\n"))
             }

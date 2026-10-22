@@ -12,6 +12,8 @@ final class AppsModel {
     private(set) var leftovers: [LeftoverGroup]?
     private(set) var loadingLeftovers = false
     private(set) var launchItems: [LaunchItem]?
+    /// `LaunchAdvisor` output for `launchItems`, keyed by item id.
+    private(set) var launchAdvice: [String: LaunchAdvice] = [:]
     private(set) var loadingLaunchItems = false
     var uninstallTarget: InstalledApp?
 
@@ -27,10 +29,8 @@ final class AppsModel {
         if VisualFixtures.enabled {
             apps = VisualFixtures.state == "empty" ? [] : VisualFixtures.apps
             leftovers = VisualFixtures.state == "empty" ? [] : [LeftoverGroup(id: "com.example.editor", displayName: "Previous editor", files: VisualFixtures.relatedFiles)]
-            launchItems = VisualFixtures.state == "empty" ? [] : VisualFixtures.apps.prefix(4).map {
-                LaunchItem(label: $0.bundleID ?? $0.name, plistPath: VisualFixtures.root + "/Library/LaunchAgents/\($0.name).plist",
-                           program: nil, domain: .userAgent, schedule: .atLoad, ownerName: $0.name, ownerInstalled: true, isDisabled: false)
-            }
+            launchItems = VisualFixtures.state == "empty" ? [] : VisualFixtures.launchItems
+            launchAdvice = LaunchAdvisor.advise(launchItems ?? [], installed: apps, now: VisualFixtures.date)
             loadingApps = VisualFixtures.state == "loading"
             if loadingApps { apps = []; leftovers = nil; launchItems = nil }
         }
@@ -65,7 +65,9 @@ final class AppsModel {
         let store = LaunchItemStore(home: home, uid: getuid(), runner: ProcessCommandRunner(), installed: apps)
         let items = await store.list()
         launchItems = items
-        onStartupCounts(items.count, items.filter { !$0.ownerInstalled }.count)
+        launchAdvice = LaunchAdvisor.advise(items, installed: apps, now: .now)
+        let counted = items.filter(\.countsTowardStartup)
+        onStartupCounts(counted.count, counted.filter { !$0.ownerInstalled }.count)
         loadingLaunchItems = false
     }
 

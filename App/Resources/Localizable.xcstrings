@@ -133,6 +133,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ hasn’t been opened since %@. If you no longer use it, you can turn this off.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no se abre desde el %@. Si ya no la usas, puedes desactivarlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ highlighted in %lld items across the entire scan": {
       "localizations": {
         "es": {
@@ -150,6 +161,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ en %lld grupos, %@ seleccionados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ is no longer installed, so this item has nothing left to do.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ya no está instalada, así que este ítem ya no tiene nada que hacer."
           }
         }
       },
@@ -370,6 +392,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ en uso de %@, %@ por debajo de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ used of %@, %@ free": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en uso de %@, %@ libres"
           }
         }
       },
@@ -683,6 +716,39 @@
       },
       "extractionState": "manual"
     },
+    "%lld more are marked in the list below.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld más están marcados en la lista de abajo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld of %lld points": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de %lld puntos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld of 100": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de 100"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld operations. Stored in ~/Library/Application Support/KeelMac.": {
       "localizations": {
         "es": {
@@ -705,12 +771,56 @@
       },
       "extractionState": "manual"
     },
+    "%lld selected, %@. Last opened comes from Spotlight, or the last access date when Spotlight doesn’t know.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld seleccionados, %@. La última apertura viene de Spotlight, o de la fecha del último acceso cuando Spotlight no la sabe."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld selected, %@. Locked rows belong to an app that is open; quit it to remove them.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld seleccionados, %@. Las filas bloqueadas son de una app abierta; ciérrala para quitarlas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld start on their own, %lld from apps that are gone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld se inician solos, %lld de apps que ya no están"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld start on their own, %lld more than the %lld that are free": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld se inician solos, %lld más de los %lld gratuitos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld start on their own, within the %lld that are free": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld se inician solos, dentro de los %lld gratuitos"
           }
         }
       },
@@ -1827,6 +1937,17 @@
       },
       "extractionState": "manual"
     },
+    "Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haz clic en un bloque para seleccionarlo y doble clic para abrirlo. Las flechas mueven la selección, Retorno abre y Escape sube un nivel."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Close": {
       "localizations": {
         "es": {
@@ -2289,6 +2410,17 @@
       },
       "extractionState": "manual"
     },
+    "Doing these brings the score to %lld of %lld points.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con esto la puntuación sube a %lld de %lld puntos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Done": {
       "localizations": {
         "es": {
@@ -2542,6 +2674,17 @@
       },
       "extractionState": "manual"
     },
+    "Factor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Factor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Fahrenheit": {
       "localizations": {
         "es": {
@@ -2768,6 +2911,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se liberaron %@. ¿Me invitas un café?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "From apps you deleted: %lld, 2 points each.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De apps que borraste: %lld, 2 puntos cada uno."
           }
         }
       },
@@ -3147,6 +3301,17 @@
       },
       "extractionState": "manual"
     },
+    "Items are deleted permanently.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems se borran para siempre."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Items go to the Trash.": {
       "localizations": {
         "es": {
@@ -3169,12 +3334,34 @@
       },
       "extractionState": "manual"
     },
+    "Items that are off or run only when needed don’t count.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems desactivados o que solo se ejecutan cuando hace falta no cuentan."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Items won’t go to the Trash, so you can’t put them back. KeelMac still shows a preview and asks before every cleanup.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Los ítems no irán a la Papelera, así que no podrás recuperarlos. KeelMac sigue mostrando una vista previa y pregunta antes de cada limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Its app hasn’t been opened since %@. If you no longer use it, you can turn this off.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su app no se abre desde el %@. Si ya no la usas, puedes desactivarlo."
           }
         }
       },
@@ -3406,6 +3593,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conoce lo que se inicia con tu Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Large and old files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos grandes y antiguos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Large and old files come from the storage scan.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos grandes y antiguos salen del escaneo de almacenamiento."
           }
         }
       },
@@ -4033,6 +4242,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mover %lld copias a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld files (%@) to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld archivos (%@) a la Papelera?"
           }
         }
       },
@@ -4720,6 +4940,17 @@
       },
       "extractionState": "manual"
     },
+    "Nothing to do here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay nada que hacer aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Notify me when": {
       "localizations": {
         "es": {
@@ -4770,6 +5001,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apagado por defecto. KeelMac no contacta nada hasta que lo actives, y entonces solo al Ollama de la dirección de abajo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Off, so it doesn’t count toward the score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado, así que no cuenta para la puntuación"
           }
         }
       },
@@ -4957,6 +5199,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una copia de cada archivo se queda donde está. Todo lo que se mueve aparece en el registro de operaciones."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Only checks for updates. %@ still updates itself when you open it.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo busca actualizaciones. %@ se sigue actualizando al abrirla."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Only checks for updates. The app still updates itself when you open it.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo busca actualizaciones. La app se sigue actualizando al abrirla."
           }
         }
       },
@@ -5166,6 +5430,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otros"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Other files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros archivos"
           }
         }
       },
@@ -5600,6 +5875,39 @@
       },
       "extractionState": "manual"
     },
+    "Recommended": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Recommended: remove": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendado: eliminar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Recommended: turn off": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendado: desactivar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Refresh": {
       "localizations": {
         "es": {
@@ -5930,6 +6238,17 @@
       },
       "extractionState": "manual"
     },
+    "Runs only when needed, so it doesn’t count toward the score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se ejecuta cuando hace falta, así que no cuenta para la puntuación"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Runs the daily, weekly and monthly housekeeping scripts macOS used to run overnight.": {
       "localizations": {
         "es": {
@@ -6018,6 +6337,17 @@
       },
       "extractionState": "manual"
     },
+    "Score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puntos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Search": {
       "localizations": {
         "es": {
@@ -6101,6 +6431,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Observa cómo cambia tu almacenamiento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "See recommendations": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver recomendaciones"
           }
         }
       },
@@ -6469,6 +6810,17 @@
       },
       "extractionState": "manual"
     },
+    "Start on their own: %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se inician solos: %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Start the path with / or ~/.": {
       "localizations": {
         "es": {
@@ -6480,12 +6832,78 @@
       },
       "extractionState": "manual"
     },
+    "Starts on its own at a regular interval.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se inicia solo cada cierto tiempo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Starts on its own at set times.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se inicia solo a horas fijas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Starts once when you log in.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se inicia una vez al iniciar sesión."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Starts only when another program needs it. It doesn’t count toward the score.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se inicia cuando otro programa lo necesita. No cuenta para la puntuación."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Starts when you log in and restarts whenever it stops.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se inicia al iniciar sesión y se reinicia cada vez que se detiene."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Startup items": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Ítems de arranque"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Startup items score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puntuación de ítems de inicio"
           }
         }
       },
@@ -6574,6 +6992,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Memoria virtual e imagen de reposo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Switching an item off is safe: it stops starting on its own, and you can switch it back on any time.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivar un ítem es seguro: deja de iniciarse solo y puedes volver a activarlo cuando quieras."
           }
         }
       },
@@ -6722,6 +7151,17 @@
       },
       "extractionState": "manual"
     },
+    "The app it belongs to is no longer installed, so this item has nothing left to do.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app a la que pertenece ya no está instalada, así que este ítem ya no tiene nada que hacer."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "The helper didn’t respond": {
       "localizations": {
         "es": {
@@ -6827,6 +7267,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "La revisión sale del escaneo de almacenamiento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The same item also runs from %@. One copy is enough.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mismo ítem también se ejecuta desde %@. Con una copia basta."
           }
         }
       },
@@ -6964,6 +7415,17 @@
       },
       "extractionState": "manual"
     },
+    "This is a preview. Nothing moves until you click the button below, and only the items checked here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es una vista previa. Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "This is the first snapshot. Next week’s will show what grew.": {
       "localizations": {
         "es": {
@@ -7003,6 +7465,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tiempo restante"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "To get the rest back, switch off items for apps or devices you don’t use. Every 3 fewer gives back a point.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para recuperar el resto, desactiva ítems de apps o dispositivos que no uses. Cada 3 menos devuelven un punto."
           }
         }
       },
@@ -7091,6 +7564,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Actívalo en Ajustes para preguntar sobre lo que ves. Solo habla con Ollama en esta Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Turn off": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivar"
           }
         }
       },
@@ -7250,6 +7734,17 @@
       },
       "extractionState": "manual"
     },
+    "Up to %lld are free; every 3 more cost 1 point.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta %lld son gratuitos; cada 3 más cuestan 1 punto."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Updated %@": {
       "localizations": {
         "es": {
@@ -7278,6 +7773,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac, aparte de tu propio Ollama local si activas el Asistente."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Updates are signed. The update check is the only network request KeelMac makes.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac."
           }
         }
       },
@@ -7657,6 +8163,17 @@
       },
       "extractionState": "manual"
     },
+    "Where": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ubicación"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Which apps haven’t I used in months?": {
       "localizations": {
         "es": {
@@ -7712,6 +8229,17 @@
       },
       "extractionState": "manual"
     },
+    "Why": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Why is CPU high?": {
       "localizations": {
         "es": {
@@ -7740,6 +8268,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Si no eliges nada, la barra de menús muestra el símbolo de KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Worth a look": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vale la pena revisarlo"
           }
         }
       },
@@ -7872,6 +8411,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tus archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your score is already full. These are optional and only cut background activity.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu puntuación ya está completa. Esto es opcional y solo reduce la actividad en segundo plano."
           }
         }
       },
