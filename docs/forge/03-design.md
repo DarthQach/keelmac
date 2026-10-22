@@ -145,7 +145,7 @@ Voice: calm, specific, numbers first, second person, sentence case, no exclamati
 - Respect Reduce Motion: storage navigation redraws without spatial animation.
 
 ## App icon
-Hull-ink rounded square, verdigris water across the lower third, the Plimsoll mark (ring and line) in sailcloth white on the waterline (About artboard).
+Drawn from the dark-theme tokens, no warm browns: a neutral charcoal rounded square (`--sidebar` to `--surface-muted` dark, lit from the top), deep verdigris water (`--water` dark, darkening with depth) across the lower 40%, a bright `--water-edge` waterline, and the Plimsoll mark (ring and line) in white on the waterline; the part under water is tinted by the water. A faint inner rim keeps the edge readable on dark Docks.
 
 ## Storage Map · progressive exploration
 

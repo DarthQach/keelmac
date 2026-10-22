@@ -57,7 +57,7 @@ KeelMac/
 | 2 | `project.yml` with targets KeelMac (app), KeelMacHelper (tool), KeelMacUITests; KeelKit local package | project.yml, Config/ |
 | 3 | KeelKit package with nine library targets and a test target each | Packages/KeelKit |
 | 4 | `scripts/tokens.mjs` mirrors design/tokens.css into colour sets; `--check` in lint | scripts/tokens.mjs, App/Resources/Assets.xcassets |
-| 5 | App icon generated from the design (hull ink, verdigris water, Plimsoll mark) | scripts/make_icon.swift |
+| 5 | App icon generated from the design (dark-theme charcoal, verdigris water, Plimsoll mark) | scripts/make_icon.swift |
 | 6 | App shell: `NavigationSplitView` with sections, `Route` enum, empty states, Settings scene, MenuBarExtra placeholder | App/ |
 | 7 | String Catalog with en + es | App/Resources/Localizable.xcstrings |
 | 8 | `scripts/mac.sh` (lint, test, build, run, e2e) + `package.json` scripts for verify.sh | scripts/mac.sh, package.json |
