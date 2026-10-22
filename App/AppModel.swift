@@ -1,6 +1,7 @@
 import SwiftData
 import SwiftUI
 import AppsKit
+import AssistantKit
 import SafetyKit
 
 /// Root state shared by the main window, Settings and the menu bar.
@@ -26,6 +27,7 @@ final class AppModel {
     let cleanup: CleanupModel
     let apps: AppsModel
     let updater: Updater
+    let assistant = AssistantModel()
 
     init() {
         container = Store.makeContainer(inMemory: (CommandLine.arguments.contains("-uitest") || VisualFixtures.enabled))
@@ -37,6 +39,11 @@ final class AppModel {
         apps = AppsModel(log: operationLog, helper: helper, onStartupCounts: { health.recordStartupItems(total: $0, orphans: $1) })
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
+        var fixtureBackend: (@Sendable (URL) -> any ChatBackend)?
+        if isUITesting { fixtureBackend = { _ in FixtureChatBackend() as any ChatBackend } }
+        let tools = AssistantTools.all(self)
+        let routeOf: @MainActor () -> Route = { [unowned self] in self.route }
+        assistant.configure(tools: tools, backend: fixtureBackend, route: routeOf)
         if VisualFixtures.enabled {
             for (i, file) in VisualFixtures.relatedFiles.enumerated() {
                 container.mainContext.insert(OperationRecord(OperationEntry(batchID: UUID(), kind: .cleanup, title: "Cleanup",
@@ -65,6 +72,7 @@ final class AppModel {
         }
         if !isUITesting { snapshots.startWeeklySchedule() }
         apps.updateTrashWatcher(enabled: UserDefaults.standard.bool(forKey: Preferences.Key.trashWatcher))
+        if assistant.isEnabled, assistant.isPresented { Task { await assistant.refreshStatus() } }
         // Measure reclaimable space and startup items in the background so the Health Score is complete.
         Task {
             try? await Task.sleep(for: .seconds(8))

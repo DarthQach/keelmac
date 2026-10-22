@@ -63,6 +63,7 @@ struct StorageMapView: View {
             }
         }
         .toolbar { toolbar }
+        .assistantContext(model.storage.tree.map { ScreenContext.storageMap(tree: $0, focus: focus ?? $0.root, selected: selection?.node) })
         .onAppear { storage.loadCache() }
         .onChange(of: selection) { _, _ in rememberLocation() }
         .onChange(of: storage.tree.map(KindShares.key(for:)), initial: true) { _, _ in

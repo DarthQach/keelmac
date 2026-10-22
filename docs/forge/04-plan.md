@@ -17,12 +17,12 @@ KeelMac/
 │   ├── KeelMacApp.swift         # scenes: main window, Settings, MenuBarExtra
 │   ├── AppModel.swift           # @Observable root state, services wiring
 │   ├── DesignSystem/            # Theme colours (asset catalog), LoadLineGauge, StatusBadge, ByteText, EmptyStateView…
-│   ├── Features/<Screen>/       # one folder per screen (Dashboard, Monitor, MenuBar, Storage, LargeOld, SystemData, Cleanup, OperationLog, Apps, Leftovers, LoginItems, Maintenance, Duplicates, Snapshots, Settings, About, Onboarding)
+│   ├── Features/<Screen>/       # one folder per screen (Dashboard, Monitor, MenuBar, Storage, LargeOld, SystemData, Cleanup, OperationLog, Apps, Leftovers, LoginItems, Maintenance, Duplicates, Snapshots, Settings, About, Onboarding, Assistant)
 │   ├── Persistence/             # SwiftData models + OperationLog/SnapshotStore implementations
 │   └── Resources/               # Assets.xcassets (generated colour sets + AppIcon), Localizable.xcstrings
 ├── Helper/                      # KeelMacHelper daemon (main.swift, HelperService.swift)
 ├── Packages/KeelKit/            # Swift package, one library per module + tests
-│   └── Sources/{SafetyKit,MetricsKit,ScanKit,CleanKit,AppsKit,MaintenanceKit,DuplicatesKit,ReportKit,HelperShared}
+│   └── Sources/{SafetyKit,MetricsKit,ScanKit,CleanKit,AppsKit,MaintenanceKit,DuplicatesKit,ReportKit,HelperShared,AssistantKit}
 ├── Tests/KeelMacUITests/        # XCUITest happy paths
 ├── scripts/                     # mac.sh (lint/test/build/run/e2e), tokens.mjs, make_icon.swift, make_dmg.sh, release.sh, strings.mjs
 ├── site/                        # Cloudflare Worker static assets (landing EN/ES, releases, privacy, appcast.xml)
@@ -45,6 +45,7 @@ KeelMac/
 | M7 | Duplicates, snapshots, weekly report | C23, C24, C25 | [x] |
 | M8 | Distribution: Sparkle, About, landing page and appcast, release workflow, DMG, cask, repo docs | C28 (About), C29, C31, C32 | [x] |
 | M9 | Polish: fidelity vs artboards, Spanish complete, accessibility, performance, docs final | C30, all | [x] |
+| M10 | Assistant: AssistantKit (Ollama client, tool loop), panel on every route, read-only tools, Settings tab, docs | C33 | [x] |
 
 ### M0 · Foundation
 **Goal:** `bash scripts/mac.sh run` opens KeelMac with the full sidebar, every destination showing its designed empty state, and the landing page skeleton is live on workers.dev.
@@ -251,6 +252,17 @@ KeelMac/
 | 5 | Performance: idle CPU, scan time, memory, app size, launch time measured and recorded |
 | 6 | Remove one accessory; final slop audit |
 
+### M10 · Assistant
+**Goal:** On any screen, ask a local Ollama model about what is on it and get a calm, specific answer that points to the KeelMac action. Off by default; nothing leaves the Mac; the model never acts.
+
+| # | Task |
+|---|---|
+| 1 | `Packages/AssistantKit`: `JSONValue`, messages/tools, `ChatBackend`, `HTTPTransport` (`URLSessionTransport`, `StubTransport`), `OllamaClient` (NDJSON streaming, error mapping, `<think>` filter), `ChatSession` actor; 30 tests with fixtures; opt-in `KEELMAC_LIVE_OLLAMA=1` smoke |
+| 2 | App: `Preferences` keys, `ScreenContext` + builders + `.assistantContext(_:)`, `AssistantPrompt`, eight read-only tools (`get_health`, `get_metrics`, `list_top_processes`, `list_large_files`, `inspect_path`, `get_cleanup_summary`, `list_leftovers`, `list_login_items`), `AssistantModel`, `FixtureChatBackend` under `-uitest`; `KeelMacTests/AssistantTests` |
+| 3 | `AssistantPanel` as a trailing `.inspector` in `RootView`, toolbar toggle, ⌘⇧A, every state (off, checking, unreachable, no models, empty, loading, streaming, error), Spanish strings, `AssistantUITests` screenshots |
+| 4 | Settings › Assistant (toggle, address with loopback/https rule, model picker, Test connection, privacy footer); privacy copy in Settings, `Updater`, site; docs (brief C33, stack, contracts, design S21, this plan, AGENTS) |
+| 5 | `.assistantContext` on Review large files, Monitor, Dashboard, Cleanup, Apps, Storage map, Leftovers, Login items; chips; 960 × 640 check; live run with `qwen3.8:27b-mlx` recorded in 00-status |
+
 ## Build results (2026-10-22)
 | Check | Result |
 |---|---|
@@ -360,6 +372,7 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 - `xcodebuild test` for the app: unit tests for view-model glue and one XCUITest per milestone with UI (launch with `-uitest` to use an in-memory store and fixture data provider).
 - `scripts/mac.sh lint`: `swift format lint --strict` on sources, `tokens.mjs --check`, `strings.mjs --check` (no missing es), slop check via verify.sh.
 - `verify.sh` runs lint → test → build (+ e2e with `E2E=1`).
+- AssistantKit: `StubTransport` and a scripted backend replace the network; the app's `FixtureChatBackend` answers under `-uitest`; one opt-in live test (`KEELMAC_LIVE_OLLAMA=1`).
 - Manual acceptance (recorded in the status log): Activity Monitor comparison, battery vs System Information, scan timing, idle CPU, real DerivedData cleanup, maintenance run, update check.
 
 ## Deploy plan
@@ -378,6 +391,8 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 - **Helper can't be fully exercised without approval.** Mitigation: allowlist unit tests, user-level tasks work without it, documented manual check.
 - **Undocumented IOHID temperature API.** Mitigation: dlsym with graceful "Unavailable", battery temperature fallback.
 - **Scan speed on 500 GB.** Mitigation: `getattrlistbulk` + parallel subtrees; measured at M2.
+- **Assistant hallucinating actions or safety.** Mitigation: no action buttons in the panel, only `keelmac://` route links; the prompt forbids claiming changes; every tool is read-only (the only loaders triggered are the dry-run cleanup check, leftovers and login items); file contents never leave the Mac.
+- **Ollama latency and models without tools.** Mitigation: `loadingModel` state with honest copy, `keep_alive 10m`, 300 s chunk timeout, Stop always available; a 400 "does not support tools" retries once without tools and says so.
 - **Swift 6 strict concurrency with C APIs.** Mitigation: readers are `Sendable` structs returning value types; one `@MainActor` monitor.
 
 ## Coverage
@@ -415,6 +430,7 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 | C30 | M0, M9 |
 | C31 | M0, M8 |
 | C32 | M0, M8 |
+| C33 | M10 |
 
 ## Access checklist
 - [x] Xcode 27.1, Swift 6.4, macOS 27 SDK (`xcodebuild -version`).

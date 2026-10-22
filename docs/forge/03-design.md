@@ -15,7 +15,7 @@ SF system typography and SF Symbols; teal is a restrained signature for primary 
 - Rows: minimum 40 pt for one line, 56 pt for name + detail; allow growth for localization/accessibility. No density toggle.
 - Native NavigationSplitView retains sections, routes, shortcuts, selection and deep links. Standard page headers introduce each workspace; toolbar actions stay native.
 - Shared panels, filter/summary strips, row identity labels, status badges, notices and adaptive action bars enforce consistent hierarchy.
-- 960 × 640 minimum, 1180 × 780 default. Metrics use two columns when narrow and four when wide. Supporting panels stack when space is limited. Tables retain native scrolling, selection and sorting with meaningful minimum column widths.
+- 960 × 640 minimum, 1180 × 780 default. Metrics use two columns when narrow and four when wide. Supporting panels stack when space is limited. The Assistant (S21) is a 300–480 pt trailing inspector available on every route (toolbar sparkles, ⌘⇧A); screens keep their own side panels and at 960 pt the inspector may overlay rather than squeeze them. Tables retain native scrolling, selection and sorting with meaningful minimum column widths.
 - Permission and error notices wrap; persistent removal bars keep totals, consequences and actions readable. Empty/loading/success states use the same typography, spacing and panel treatment. Cleanup’s summary explicitly identifies selections containing permanent removals, using the existing `selectionDeletesPermanently` value.
 - English and Spanish, light/dark, VoiceOver, keyboard navigation and Reduce Motion remain supported. No new data sampling, package APIs, storage schemas or helper protocols.
 
@@ -27,7 +27,7 @@ SF system typography and SF Symbols; teal is a restrained signature for primary 
 - Apps: comfortable native table with a focused selected-app inspector and secondary drop target. Uninstall preview retains all selectable files and running-app checks.
 - Storage map: synchronized two-level map and contents list, breadcrumb/Up navigation, fixed hover preview and selection details. App-level geometry and hit testing share one presentation model; scanning and removal policy stay unchanged. Large files keep owner, locks, location and filters.
 - Other lists: consistent table headers and row rhythm; distinct duplicate groups; aligned snapshot comparison values; clear System Data size bars; operation log result labels remain explicit.
-- Maintenance: separate task panels containing description, exact command, helper status and output. Settings, Welcome, About, results and menu bar use the same visual vocabulary. Settings uses native grouped tabs on macOS 15+, with the default tab style on macOS 14; all six sections remain visible at the intended 700 pt width.
+- Maintenance: separate task panels containing description, exact command, helper status and output. Settings, Welcome, About, results and menu bar use the same visual vocabulary. Settings uses native grouped tabs on macOS 15+, with the default tab style on macOS 14; all seven sections remain visible at the intended 700 pt width.
 
 ## Verification
 
@@ -54,6 +54,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S16 | Duplicates | sidebar › Duplicates | Owner | C23 | Move duplicates to Trash |
 | S17 | Snapshots | sidebar › Snapshots | Owner | C24, C25 | Take snapshot / Export report… |
 | S18 | Settings | ⌘, | Owner | C7, C14, C22, C26, C29 | (immediate apply) |
+| S21 | Assistant panel | toolbar sparkles / ⌘⇧A, trailing inspector on every route | Owner | C33 | Send |
 | S19 | About | KeelMac › About | Owner | C28, C29, C31 | Buy me a coffee |
 | S20 | Notifications | macOS Notification Center | Owner | C7, C18, C25 | Open (notification action) |
 | L1 | Landing (EN, ES) | / , /es/ | Visitor | C32, C28 | Download for macOS |
@@ -95,6 +96,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | C30 | all (EN/ES, light/dark, VoiceOver) |
 | C31 | repo (no screen), L1 links |
 | C32 | L1, L3 |
+| C33 | S21, S18 |
 
 ## State matrix
 "No permission" means missing Full Disk Access or an unapproved helper. There are no plans, so "over limit" doesn't apply (n/a).
@@ -119,9 +121,11 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S17 Snapshots | "No snapshots yet. KeelMac takes one every week." + Take snapshot | Taking snapshot… | Inline load/save error with Try again | Snapshot list + "What grew" comparison | — | n/a |
 | S18 Settings | — | — | Inline validation (e.g. whitelist path doesn't exist) | Applied instantly | Helper status row | n/a |
 | S1 Welcome | — | Checking access… (probe) | — | "Full Disk Access is on" check | Steps + Open Privacy & Security | n/a |
+| S21 Assistant | "Ask about what you see." + up to three suggestion chips for the current screen | "Checking Ollama…" badge; first reply shows "Loading the model… the first answer takes a few seconds." inline | Inline error under the transcript with Try again; the transcript is kept | Streaming transcript: user bubbles, assistant cards, tool rows collapsed as "Looked up the Health Score" | Off: "The Assistant is off." + Open Settings…; Ollama down: "Ollama isn’t running." + Open Ollama / Try again; no models: `ollama pull qwen3` | Context capped at 12 items / 1.5 KB; tool output 4 KB; 24 messages of history |
 
 ## Microcopy
 Voice: calm, specific, numbers first, second person, sentence case, no exclamation marks except the one coffee prompt the spec writes. Never "danger", "threat", "infected", "boost", "junk is slowing you down".
+- Assistant: it never claims to have changed anything; it names the screen and button ("Review large files › Move to Trash") and links it; unknown vendor folders get "I can’t be sure"; tool rows read "Looked up the Health Score"; the Settings footer states exactly what is sent (question, screen summary, names/sizes/dates) and what never is (file contents).
 - Score sentence: "Your Mac is in good shape." (≥ 80) · "Your Mac could use some room." (60–79) · "Your Mac needs attention." (< 60), then "82 of 100".
 - Load line: "38 GB above the load line" / "6 GB below the load line. macOS needs free space for updates and swap."
 - Cleanup primary: **Move 12.4 GB to Trash** (permanent mode: **Delete 12.4 GB permanently**, danger solid, confirmation names the size and count).

@@ -23,6 +23,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ (open now)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (abierta ahora)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ above the load line": {
       "localizations": {
         "es": {
@@ -78,6 +89,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ free of %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ libres de %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ free on Macintosh HD, below your %@ alert.": {
       "localizations": {
         "es": {
@@ -117,6 +139,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ resaltados en %lld elementos de todo el análisis"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ in %lld groups, %@ selected": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en %lld grupos, %@ seleccionados"
           }
         }
       },
@@ -309,6 +342,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ used it %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ lo usó %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ used of %@, %@ above the load line": {
       "localizations": {
         "es": {
@@ -419,6 +463,28 @@
       },
       "extractionState": "manual"
     },
+    "%lld apps": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld apps left %@ behind": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld apps dejaron %@ atrás"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld apps, %@. Apple’s built-in apps aren’t listed.": {
       "localizations": {
         "es": {
@@ -496,6 +562,17 @@
       },
       "extractionState": "manual"
     },
+    "%lld files over %@ not opened in %lld months, %@ in all": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld archivos de más de %@ sin abrir en %lld meses, %@ en total"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld folders skipped without Full Disk Access": {
       "localizations": {
         "es": {
@@ -568,6 +645,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld ítems seleccionados, %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld items, %lld without an installed app": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems, %lld sin app instalada"
           }
         }
       },
@@ -958,6 +1046,28 @@
       },
       "extractionState": "manual"
     },
+    "Answering…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respondiendo…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Answers come from Ollama on this Mac. KeelMac shares the names, sizes and dates of what is on screen, never file contents.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las respuestas vienen de Ollama en esta Mac. KeelMac comparte los nombres, tamaños y fechas de lo que hay en pantalla, nunca el contenido de los archivos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "App": {
       "localizations": {
         "es": {
@@ -1057,12 +1167,89 @@
       },
       "extractionState": "manual"
     },
+    "Are these leftovers safe to remove?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Es seguro eliminar estos restos?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Are they safe to remove?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Es seguro eliminarlos?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ask about this screen…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregunta sobre esta pantalla…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ask about what you see.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregunta sobre lo que ves."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Asks macOS to free up to 20 GB held by local snapshots. Your backups on the backup disk aren’t affected.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Pide a macOS liberar hasta 20 GB ocupados por instantáneas locales. Tus respaldos en el disco de respaldo no se ven afectados."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Assistant": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Assistant Settings…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes del Asistente…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Assistant options": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opciones del Asistente"
           }
         }
       },
@@ -1096,6 +1283,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Audio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Automatic (first model that supports tools)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automático (el primer modelo con soporte de herramientas)"
           }
         }
       },
@@ -1310,6 +1508,17 @@
       },
       "extractionState": "manual"
     },
+    "Can’t reach Ollama": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede conectar con Ollama"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Celsius": {
       "localizations": {
         "es": {
@@ -1464,12 +1673,34 @@
       },
       "extractionState": "manual"
     },
+    "Checking Ollama…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprobando Ollama…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Checking when each file was last opened…": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Revisando cuándo se abrió cada archivo por última vez…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Checking…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprobando…"
           }
         }
       },
@@ -1585,6 +1816,17 @@
       },
       "extractionState": "manual"
     },
+    "Clear conversation": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar conversación"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Clear font caches": {
       "localizations": {
         "es": {
@@ -1690,6 +1932,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Condición"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Connected, %lld models": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conectado, %lld modelos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Connected, no models": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conectado, sin modelos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Connection": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conexión"
           }
         }
       },
@@ -1915,6 +2190,28 @@
       },
       "extractionState": "manual"
     },
+    "Design system.fig is an 11 GB Figma archive in Documents, last opened six months ago. Sketch is open and holds it, so the row is locked. Quit Sketch first, then Review large files › Move to Trash. The file goes to the Trash, where you can put it back.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Design system.fig es un archivo de Figma de 11 GB en Documentos, abierto por última vez hace seis meses. Sketch está abierto y lo retiene, así que la fila está bloqueada. Cierra Sketch primero y luego Revisar archivos grandes › Mover a la Papelera. El archivo va a la Papelera, de donde puedes recuperarlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Detail": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detalle"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Developer": {
       "localizations": {
         "es": {
@@ -1932,6 +2229,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Desactivado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Disk": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disco"
           }
         }
       },
@@ -2014,6 +2322,17 @@
       },
       "extractionState": "manual"
     },
+    "Download one in Terminal, then try again. A model that supports tools can look things up for you.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descarga uno en Terminal y vuelve a intentarlo. Un modelo con soporte de herramientas puede consultar datos por ti."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Drop an app here to uninstall it": {
       "localizations": {
         "es": {
@@ -2086,6 +2405,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Activado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Enter an address like http://localhost:11434.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe una dirección como http://localhost:11434."
           }
         }
       },
@@ -2267,6 +2597,17 @@
       },
       "extractionState": "manual"
     },
+    "Files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Files go to the Trash, where you can put them back. Ollama models are removed with ollama rm and would need to be downloaded again.": {
       "localizations": {
         "es": {
@@ -2383,6 +2724,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Found": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrados"
           }
         }
       },
@@ -2542,6 +2894,17 @@
       },
       "extractionState": "manual"
     },
+    "Health Score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puntaje de salud"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Health breakdown": {
       "localizations": {
         "es": {
@@ -2559,6 +2922,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Hide Assistant": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar Asistente"
           }
         }
       },
@@ -2619,6 +2993,17 @@
       },
       "extractionState": "manual"
     },
+    "How do I raise my score?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo subo mi puntaje?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Images": {
       "localizations": {
         "es": {
@@ -2647,6 +3032,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Instalar asistente…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Installed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instaladas"
           }
         }
       },
@@ -2685,6 +3081,39 @@
       },
       "extractionState": "manual"
     },
+    "Is it safe to remove?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Es seguro eliminarlo?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Is it safe to uninstall?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Es seguro desinstalarla?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Is this temperature normal?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Es normal esta temperatura?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "It has been high for %lld minutes. Open Monitor to see which app is using the most.": {
       "localizations": {
         "es": {
@@ -2713,6 +3142,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ítem"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítems"
           }
         }
       },
@@ -2790,6 +3230,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "KeelMac no encontró el comando ollama."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac couldn’t read Ollama’s reply.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac no pudo leer la respuesta de Ollama."
           }
         }
       },
@@ -2894,6 +3345,17 @@
       },
       "extractionState": "manual"
     },
+    "KeelMac talks only to the Ollama at this address. It sends your question, a summary of the current screen and the names, sizes and dates of what you select. It never sends file contents, and nothing else leaves your Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac habla solo con el Ollama de esta dirección. Envía tu pregunta, un resumen de la pantalla actual y los nombres, tamaños y fechas de lo que seleccionas. Nunca envía el contenido de los archivos, y nada más sale de tu Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Keep": {
       "localizations": {
         "es": {
@@ -2933,6 +3395,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Siempre activo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Kind": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         }
       },
@@ -3147,6 +3620,28 @@
       },
       "extractionState": "manual"
     },
+    "Loading model…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando modelo…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Loading the model… the first answer takes a few seconds.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando el modelo… la primera respuesta tarda unos segundos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Local Time Machine snapshots": {
       "localizations": {
         "es": {
@@ -3186,6 +3681,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registros y diagnósticos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Looked up %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultó %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Looking up %@…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultando %@…"
           }
         }
       },
@@ -3428,6 +3945,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modelo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Modified": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificado"
           }
         }
       },
@@ -3829,6 +4357,28 @@
       },
       "extractionState": "manual"
     },
+    "No models": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin modelos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No models in Ollama.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay modelos en Ollama."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "No operations yet": {
       "localizations": {
         "es": {
@@ -4071,6 +4621,17 @@
       },
       "extractionState": "manual"
     },
+    "Not reachable": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conexión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Nothing found": {
       "localizations": {
         "es": {
@@ -4159,12 +4720,34 @@
       },
       "extractionState": "manual"
     },
+    "Off": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Off by default": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Desactivado por omisión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Off by default. KeelMac contacts nothing until you turn this on, and then only the Ollama at the address below.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagado por defecto. KeelMac no contacta nada hasta que lo actives, y entonces solo al Ollama de la dirección de abajo."
           }
         }
       },
@@ -4225,6 +4808,61 @@
       },
       "extractionState": "manual"
     },
+    "Ollama address": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dirección de Ollama"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ollama answered %lld: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama respondió %lld: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ollama isn’t running.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama no está abierto."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ollama model": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelo de Ollama"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ollama no longer has the model %@. Pick another one in Settings.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama ya no tiene el modelo %@. Elige otro en Ajustes."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "On a schedule": {
       "localizations": {
         "es": {
@@ -4280,12 +4918,34 @@
       },
       "extractionState": "manual"
     },
+    "Only this Mac can be reached over http. Use https for another machine.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo esta Mac puede usarse por http. Usa https para otra máquina."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Abrir"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir %@"
           }
         }
       },
@@ -4324,6 +4984,28 @@
       },
       "extractionState": "manual"
     },
+    "Open Ollama": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Ollama"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open Ollama, then try again. KeelMac looks for it at this address:": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Ollama y vuelve a intentarlo. KeelMac lo busca en esta dirección:"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open Ollama, then try again. KeelMac removes models through Ollama.": {
       "localizations": {
         "es": {
@@ -4341,6 +5023,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir Privacidad y seguridad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open Settings…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Ajustes…"
           }
         }
       },
@@ -4467,6 +5160,17 @@
       },
       "extractionState": "manual"
     },
+    "Owner": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propietario"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Parent folders": {
       "localizations": {
         "es": {
@@ -4561,6 +5265,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Proceso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Program": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programa"
           }
         }
       },
@@ -5369,6 +6084,17 @@
       },
       "extractionState": "manual"
     },
+    "Send": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Send alerts": {
       "localizations": {
         "es": {
@@ -5435,6 +6161,17 @@
       },
       "extractionState": "manual"
     },
+    "Show Assistant": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar Asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Show Trash": {
       "localizations": {
         "es": {
@@ -5479,6 +6216,17 @@
       },
       "extractionState": "manual"
     },
+    "Show or hide the Assistant (⌘⇧A)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar u ocultar el Asistente (⌘⇧A)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Show processes": {
       "localizations": {
         "es": {
@@ -5496,6 +6244,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrar tamaños"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Showing": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrando"
           }
         }
       },
@@ -5864,12 +6623,34 @@
       },
       "extractionState": "manual"
     },
+    "Test connection": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probar conexión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "That folder doesn’t exist. Check the spelling.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Esa carpeta no existe. Revisa cómo está escrita."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The Assistant is off.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Asistente está apagado."
           }
         }
       },
@@ -5925,6 +6706,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "La línea de carga está al 85% de ocupación. Mantente por debajo para que macOS tenga espacio para actualizaciones y memoria virtual."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The model %@ can’t use lookups.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modelo %@ no puede hacer consultas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The model kept looking things up without answering. Try asking more specifically.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modelo siguió consultando sin responder. Prueba una pregunta más específica."
           }
         }
       },
@@ -6117,6 +6920,17 @@
       },
       "extractionState": "manual"
     },
+    "This model can’t look things up; answers use only what is on screen.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este modelo no puede hacer consultas; las respuestas usan solo lo que hay en pantalla."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Time": {
       "localizations": {
         "es": {
@@ -6211,6 +7025,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Intentar de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Turn it on in Settings to ask about what you see. It only talks to Ollama on this Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actívalo en Ajustes para preguntar sobre lo que ves. Solo habla con Ollama en esta Mac."
           }
         }
       },
@@ -6392,12 +7217,12 @@
       },
       "extractionState": "manual"
     },
-    "Updates are signed. The update check is the only network request KeelMac makes.": {
+    "Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama if you turn the Assistant on.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac."
+            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac, aparte de tu propio Ollama local si activas el Asistente."
           }
         }
       },
@@ -6409,6 +7234,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tiempo encendida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Use a local assistant (Ollama)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar un asistente local (Ollama)"
           }
         }
       },
@@ -6601,12 +7437,144 @@
       },
       "extractionState": "manual"
     },
+    "What are these files?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué son estos archivos?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What did KeelMac change recently?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué cambió KeelMac recientemente?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What does this app leave behind?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué deja esta app atrás?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What does this category hold?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué contiene esta categoría?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What does this item do?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué hace este ítem?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "What grew": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Qué creció"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What grew the most?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué creció más?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What is safe to clean here?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué es seguro limpiar aquí?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What is safe to remove?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué es seguro eliminar?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What is this file?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué es este archivo?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What is using memory?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué está usando memoria?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What should I do first?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué debería hacer primero?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "What takes the most space here?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué ocupa más espacio aquí?"
           }
         }
       },
@@ -6623,12 +7591,78 @@
       },
       "extractionState": "manual"
     },
+    "Which apps haven’t I used in months?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué apps no he usado en meses?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Which copy should I keep?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué copia debería conservar?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Which login items can I turn off?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué ítems de inicio puedo desactivar?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Which task helps with a slow Mac?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué tarea ayuda con una Mac lenta?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Whitelisted": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "En la lista de exclusiones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Why is CPU high?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Por qué el CPU está alto?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Why is it so big?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Por qué es tan grande?"
           }
         }
       },
@@ -6799,6 +7833,50 @@
       },
       "extractionState": "manual"
     },
+    "a path": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una ruta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "checking": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "comprobando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "disabled": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desactivado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "enabled": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "activado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "iOS Simulators": {
       "localizations": {
         "es": {
@@ -6816,6 +7894,61 @@
           "stringUnit": {
             "state": "translated",
             "value": "Respaldos de iPhone y iPad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "large files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archivos grandes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "leftovers": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "restos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "live metrics": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "métricas en vivo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "locked, %@ is open": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bloqueado, %@ está abierta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "login items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ítems de inicio"
           }
         }
       },
@@ -6865,12 +7998,45 @@
       },
       "extractionState": "manual"
     },
+    "max capacity %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "capacidad máxima %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "min": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "min"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "no tools": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin herramientas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "not checked yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin comprobar todavía"
           }
         }
       },
@@ -6893,6 +8059,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "desde"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "the Health Score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el puntaje de salud"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "the cleanup plan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el plan de limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "top processes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "procesos principales"
           }
         }
       },

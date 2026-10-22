@@ -20,6 +20,7 @@
 | `Packages/AppsKit` | AppsKit | SafetyKit | agent |
 | `Packages/MaintenanceKit` | HelperShared, HelperCore, MaintenanceKit | SafetyKit | agent |
 | `Packages/InsightsKit` | DuplicatesKit, ReportKit | SafetyKit | agent |
+| `Packages/AssistantKit` | AssistantKit | — | main session (M10) |
 
 ## SafetyKit (implemented)
 `PathContext` (cleanup, userFile, uninstall, helper) · `PathGuard(home:userName:uid:whitelist:)` with `verdict(for:context:) -> PathVerdict` and `expandTilde` · `Whitelist(patterns)` · `GlobMatcher` · `SafeRemover(pathGuard:mode:context:)` with `remove([RemovalRequest]) -> [RemovalOutcome]` and injectable `trasher` · `DeleteMode` · `OperationEntry`, `OperationKind`, `OperationResult`, `OperationLogging`, `InMemoryOperationLog`, `OperationLogExporter` · `CommandRunning`, `ProcessCommandRunner`, `RecordingCommandRunner`, `CommandResult` · `FullDiskAccess.isGranted()`, `.settingsURL`.
@@ -159,6 +160,32 @@ public enum SnapshotTaker { static func folders(home: String) -> [String]; stati
 public struct WeeklyReport: Sendable, Equatable { usedDelta: Int64; batteryNow: Double?; batteryDelta: Double?; topGrowth: [FolderChange]; reclaimable: Int64; static func make(current: SnapshotValue, previous: SnapshotValue?) -> WeeklyReport; func markdown(appVersion: String) -> String }
 ```
 
+## AssistantKit (M10)
+Pure Foundation, no dependencies. Everything public is a `Sendable` value type except the `ChatSession` actor and the lock-guarded `StubTransport`.
+```swift
+public enum JSONValue: Sendable, Hashable, Codable { null, bool, number, string, array, object; subscript(key:)/subscript(index:); stringValue/intValue/doubleValue/boolValue/arrayValue/objectValue; static func schema(properties:required:); static func property(_ type:_ description:enum:) }  // literal-expressible
+public enum ChatRole: String { system, user, assistant, tool }
+public struct ToolCall: Sendable, Codable, Hashable, Identifiable { id: String /*minted on parse*/; name: String; arguments: JSONValue }
+public struct ToolResult: Sendable, Hashable { call: ToolCall; output: String; isError: Bool }
+public struct ChatMessage: Sendable, Codable, Hashable { role; content; toolCalls: [ToolCall]; toolName: String?; static func system/user/assistant(_:toolCalls:)/tool(name:output:) }
+public struct ToolSpec: Sendable, Codable, Hashable { name, description: String; parameters: JSONValue }
+public protocol AssistantTool: Sendable { name, description: String; parameters: JSONValue; func call(_ arguments: JSONValue) async throws -> String }   // + `spec`
+public struct ModelInfo: Sendable, Codable, Hashable, Identifiable { name; sizeBytes: Int64?; parameterSize: String?; family: String?; capabilities: [String]; supportsTools: Bool? }
+public struct ChatOptions: Sendable, Hashable { temperature = 0.2; numCtx = 8192; keepAlive = "10m" }
+public struct ChatRequest: Sendable, Hashable { model; messages; tools: [ToolSpec]; think = false; options }
+public struct ChatUsage: Sendable, Hashable { promptTokens, completionTokens: Int?; totalDuration: TimeInterval? }
+public enum ChatEvent: Sendable, Hashable { token(String), thinking(String), toolCalls([ToolCall]), done(ChatUsage?) }
+public protocol ChatBackend: Sendable { func ping() async throws; func listModels() async throws -> [ModelInfo]; func chat(_: ChatRequest) -> AsyncThrowingStream<ChatEvent, Error> }
+public enum AssistantError: Error, Sendable, Hashable { unreachable(String), httpStatus(Int, String), modelNotFound(String), toolsUnsupported(String), decoding(String), cancelled, toolFailed(name: String, String), tooManyToolRounds }
+public protocol HTTPTransport: Sendable { func data(for: URLRequest) async throws -> (status: Int, body: Data); func lines(for: URLRequest) async throws -> (status: Int, lines: AsyncThrowingStream<String, Error>) }
+public struct URLSessionTransport: HTTPTransport { init(session: URLSession = .shared) }
+public final class StubTransport: HTTPTransport { init(handler: @Sendable (URLRequest) throws -> (Int, Data)); var requests: [URLRequest] }
+public struct OllamaClient: ChatBackend { static let defaultBaseURL /*http://localhost:11434*/; init(baseURL:transport:) }   // GET api/version, GET api/tags, POST api/chat stream:true; 404 "not found" → modelNotFound, 400 "does not support tools" → toolsUnsupported, URLError → unreachable; `<think>…</think>` in content becomes `.thinking`
+public enum SessionEvent: Sendable, Hashable { token(String), thinking(String), toolStarted(ToolCall), toolFinished(ToolResult), finished(ChatMessage) }
+public actor ChatSession { init(backend:model:tools:systemPrompt:maxToolRounds: 4, maxHistory: 24, options:); var messages: [ChatMessage]; var useTools: Bool; func send(_ text: String, context: String?) -> AsyncThrowingStream<SessionEvent, Error>; func cancel(); func reset(systemPrompt:); func setSystemPrompt(_:); func setUseTools(_:) }
+```
+`send` prepends `context` to the wire user message (the UI shows only `text`), streams tokens, runs tool calls in order (a throwing tool becomes an `isError` result the model can read), loops up to `maxToolRounds`, trims history past `maxHistory` without splitting an assistant/tool pair, and rolls the turn back on failure (a stopped reply keeps its partial text). Tools are the app's: they read services and never remove, run or change anything.
+
 ## Implementation notes (2026-10-22, after the packages were built)
 The packages kept every name above and added these (see each package's sources for signatures):
 - **MetricsKit:** `ProcessSample.path/isRestricted`; `SystemInfo.macOSBuild/uptime(now:)`; `BatteryInfo.absent/applying(_:)`. System Information's exact "Maximum Capacity" needs `system_profiler SPPowerDataType -json` (run by the app hourly through `CommandRunning`, parsed by `BatteryReader.parseSystemProfiler`). On macOS 27 battery values live under `AppleSmartBatteryPack/BatteryData`. Root and other users' processes report 0 CPU/memory (the kernel refuses them).
@@ -166,5 +193,6 @@ The packages kept every name above and added these (see each package's sources f
 - **CleanKit:** rules gain `measureWith`, `toolPaths`, `filter`, `itemInfo`, `deletesPermanently`; `GroupStatus` gains `.toolNotResponding`, `.needsHelper`; `CleanupResult` splits bytes moved/deleted/freed by commands. Schema: `Packages/CleanKit/RULES.md`.
 - **AppsKit:** `RelatedFile.needsHelper/modified/reason`; `RelatedLocation` gains `applicationScripts`, `launchDaemons`, `privilegedHelperTools`; `LaunchItemStore.apply(_:enabled:) -> LaunchToggleOutcome` and `unload(_:)`. Cookies files are matched but refused by PathGuard (`Library/Cookies` is protected) by design.
 - **MaintenanceKit:** `HelperOperation.dumpBackgroundItems`; `HelperResponse.rejection/timedOut`; `MaintenanceEvent.failed(_:)`; launchd lsregister flags are `-gc -f -all local,system,user` on macOS 27; `runPeriodic` is unavailable on macOS 27 (`/usr/sbin/periodic` removed). The helper moves removed system items to the caller's `~/.Trash/KeelMac`; if TCC refuses that, the item is reported failed and nothing is deleted.
+- **ScanKit (M10):** `ReviewFinder.relative(_:to:)` and `ReviewFinder.owner(ofRelative:)` are public so the app's `inspect_path` tool can name the owning app without re-implementing the container rules.
 - **InsightsKit:** `HealthFactor.details` carries raw values for the "why" sentence; `DuplicateFinder.search` returns unreadable paths; `WeeklyReport.markdown` is English by design.
 - **SafetyKit (after review):** cache roots (DerivedData, Archives, DeviceSupport, `.npm/_cacache`, Homebrew/CocoaPods/Yarn/SwiftPM caches, pnpm store) are container folders: their contents may be cleaned, the roots never. `SafeRemover.with(mode:)` added.

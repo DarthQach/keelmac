@@ -204,7 +204,8 @@ public enum ReviewFinder {
 
     // MARK: Paths
 
-    static func relative(_ path: String, to home: String) -> String? {
+    /// The path inside `home`, or nil when it is elsewhere.
+    public static func relative(_ path: String, to home: String) -> String? {
         path.hasPrefix(home + "/") ? String(path.dropFirst(home.count + 1)) : nil
     }
 
@@ -221,7 +222,8 @@ public enum ReviewFinder {
         }
     }
 
-    static func owner(ofRelative rel: String) -> ReviewOwner {
+    /// Which app a path under `~/Library` belongs to, from its container or Application Support folder.
+    public static func owner(ofRelative rel: String) -> ReviewOwner {
         let parts = rel.split(separator: "/").map(String.init)
         guard parts.count > 2, parts[0] == "Library" else { return .none }
         switch parts[1] {

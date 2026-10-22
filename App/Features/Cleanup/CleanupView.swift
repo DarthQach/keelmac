@@ -21,6 +21,7 @@ struct CleanupView: View {
             content
         }
         .navigationSubtitle(subtitle)
+        .assistantContext(.cleanup(cleanup, category: selectedCategory, languageCode: AssistantPrompt.languageCode))
         .toolbar {
             ToolbarItem {
                 Button("Check again") { Task { await cleanup.check(hasFullDiskAccess: model.hasFullDiskAccess) } }

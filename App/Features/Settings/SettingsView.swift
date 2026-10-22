@@ -26,6 +26,8 @@ struct SettingsView: View {
                 .tabItem { Label("Helper", systemImage: "lock.rotation") }
             UpdateSettings()
                 .tabItem { Label("Updates", systemImage: "arrow.down.circle") }
+            AssistantSettings()
+                .tabItem { Label("Assistant", systemImage: "sparkles") }
         }
         .padding(16)
         .frame(width: 700)
@@ -383,7 +385,7 @@ struct UpdateSettings: View {
                     Link("Release notes", destination: SupportLinks.releaseNotes).foregroundStyle(.kmAccentText)
                 }
             } footer: {
-                Text("Updates are signed. The update check is the only network request KeelMac makes.")
+                Text("Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama if you turn the Assistant on.")
                     .font(.callout).foregroundStyle(.kmFgMuted)
             }
         }

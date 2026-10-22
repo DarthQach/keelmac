@@ -85,6 +85,7 @@ struct AppsView: View {
         .searchable(text: $search, placement: .toolbar, prompt: Text("Search apps"))
         .task { if apps.apps.isEmpty { await apps.loadApps() } }
         .sheet(item: $apps.uninstallTarget) { app in UninstallSheet(app: app) }
+        .assistantContext(.apps(apps, selected: apps.apps.first { $0.id == selection }))
     }
 
     private var dropZone: some View {

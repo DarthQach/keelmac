@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 DD=build/DerivedData
 LOGS=build/logs
 mkdir -p "$LOGS"
-PACKAGES=(${KM_PACKAGES:-SafetyKit MetricsKit ScanKit CleanKit AppsKit MaintenanceKit InsightsKit})
+PACKAGES=(${KM_PACKAGES:-SafetyKit MetricsKit ScanKit CleanKit AppsKit MaintenanceKit InsightsKit AssistantKit})
 
 gen() { xcodegen generate --quiet; }
 

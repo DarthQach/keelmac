@@ -69,6 +69,7 @@ struct LargeOldView: View {
             }
         }
         .quickLookPreview($quickLook, in: selectedRows.map { URL(fileURLWithPath: $0.item.path) })
+        .assistantContext(.largeFiles(shown: shown, selected: selectedRows, minBytes: Int64(minBytes), months: months))
         .task(id: "\(minBytes)-\(months)-\(model.storage.tree?.scannedAt.timeIntervalSince1970 ?? 0)") { await reload() }
         .onChange(of: selection) { _, new in
             let locked = Set(rows.filter(\.isLocked).map(\.id))

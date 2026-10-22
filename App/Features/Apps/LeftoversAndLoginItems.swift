@@ -66,6 +66,7 @@ struct LeftoversView: View {
         }
         .toolbar { ToolbarItem { Button("Search again") { Task { await model.apps.loadLeftovers() } }.disabled(model.apps.loadingLeftovers) } }
         .task { if model.apps.leftovers == nil { await model.apps.loadLeftovers() } }
+        .assistantContext(model.apps.leftovers.map(ScreenContext.leftovers))
         .confirmationDialog(Text("Move \(chosen.count) leftover items to the Trash?"), isPresented: $confirm) {
             Button("Move to Trash", role: .destructive) { Task { _ = await model.apps.removeLeftovers(chosen) } }
             Button("Cancel", role: .cancel) {}
@@ -121,6 +122,7 @@ struct LoginItemsView: View {
         .navigationSubtitle(Text("Changes take effect at next login unless noted"))
         .toolbar { ToolbarItem { Button("Refresh") { Task { await model.apps.loadLaunchItems() } } } }
         .task { await model.apps.loadLaunchItems() }
+        .assistantContext(model.apps.launchItems.map(ScreenContext.loginItems))
         .confirmationDialog(Text("Remove \(confirmRemove?.label ?? "")?"), isPresented: Binding(get: { confirmRemove != nil }, set: { if !$0 { confirmRemove = nil } }), presenting: confirmRemove) { item in
             Button("Remove", role: .destructive) {
                 Task { if let error = await model.apps.remove(item) { model.notice = error } }

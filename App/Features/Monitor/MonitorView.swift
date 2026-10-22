@@ -52,6 +52,7 @@ struct MonitorView: View {
             }
         }
         .detailedMetrics(m)
+        .assistantContext(.monitor(m))
     }
 }
 

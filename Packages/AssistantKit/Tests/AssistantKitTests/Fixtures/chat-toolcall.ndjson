@@ -1,0 +1,2 @@
+{"model":"qwen3.8:27b-mlx","created_at":"2026-10-22T20:00:01Z","message":{"role":"assistant","content":"","tool_calls":[{"function":{"name":"inspect_path","arguments":{"path":"~/Library/Caches","limit":5,"options":{"deep":true}}}}]},"done":false}
+{"model":"qwen3.8:27b-mlx","created_at":"2026-10-22T20:00:01.5Z","message":{"role":"assistant","content":""},"done_reason":"stop","done":true,"total_duration":1200000000,"prompt_eval_count":300,"eval_count":30}

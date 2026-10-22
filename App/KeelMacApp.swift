@@ -41,6 +41,10 @@ struct KeelMacApp: App {
                 Button("Check for Updates…") { model.updater.checkForUpdates() }
                     .disabled(!model.updater.canCheck)
             }
+            CommandGroup(after: .sidebar) {
+                Button(model.assistant.isPresented ? "Hide Assistant" : "Show Assistant") { model.assistant.togglePanel() }
+                    .keyboardShortcut("a", modifiers: [.command, .shift])
+            }
             CommandMenu("Go") {
                 ForEach(Route.allCases) { route in
                     if let key = route.shortcut {

@@ -16,7 +16,7 @@ A **native macOS app** (Swift 6, SwiftUI, AppKit where needed), free and open so
 - **Safety first:** nothing is deleted without a preview; everything goes to Trash first; every action is logged.
 - **Honest:** no fake warnings, no "RAM boost". macOS manages memory; KeelMac only reports it.
 - **Transparent:** open source; maintenance tasks show the exact command they run.
-- **Private:** zero telemetry, no account, works offline except the update check.
+- **Private:** zero telemetry, no account, works offline except the update check and, only if the user turns it on, their own local Ollama.
 - **Native and light:** small binary, near-zero idle CPU.
 
 ## Users and roles
@@ -83,6 +83,9 @@ Numbered; everything downstream traces to these ids. Spec priority in brackets: 
 - **C31** [v1] · A contributor finds a complete repo (README with safety model, LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CHANGELOG, issue templates), CI that builds and tests every push, a release workflow (sign, notarize, DMG, appcast), and a Homebrew cask; cleanup rules live in a versioned JSON file contributors can extend by PR.
 - **C32** [v1] · A visitor reads the landing page (what it does, screenshots, safety model, FAQ), downloads the DMG or copies the Homebrew command, and can support the project.
 
+**Assistant**
+- **C33** [v2] · A user opens the Assistant panel (toolbar sparkles or ⌘⇧A) on any screen and asks about what is on it ("what is this file?", "is it safe to remove?", "why is CPU high?"). A local Ollama model answers using read-only lookups (health, live metrics, top processes, large files, one path's metadata, the cleanup plan, leftovers, login items) and points to the KeelMac screen and button to act; it never removes, runs or changes anything itself. Off by default; localhost Ollama only; the model sees names, paths, sizes, dates and owning apps, never file contents.
+
 ## Monetization
 Free, open source (GPL-3.0). Optional Buy Me a Coffee. No payments in the app, so no Stripe.
 
@@ -112,7 +115,7 @@ All local, in the user's Library:
 ## Non-functionals
 - Users at launch / in 12 months: 1 (Carlos) / a few thousand downloads; no server load beyond static files.
 - Regions and data residency: none; no data leaves the Mac.
-- Compliance: none regulated. Privacy: zero telemetry, no network calls except the Sparkle feed.
+- Compliance: none regulated. Privacy: zero telemetry, no network calls except the Sparkle feed and, when the user turns the Assistant on, their own local Ollama (localhost by default; file contents are never sent).
 - Languages (UI copy): English and Spanish at v1.0.
 - Accessibility: VoiceOver labels, keyboard navigation, Dynamic Type where macOS supports it; landing page WCAG 2.2 AA.
 - Platform: macOS 14 Sonoma or later, Apple silicon primary, universal binary (Intel best-effort).

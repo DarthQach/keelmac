@@ -3,9 +3,9 @@
 Read this before changing code. Source-of-truth documents live in `docs/forge/` (brief, stack, design, plan, module contracts). If code and docs disagree, fix the doc first, then the code.
 
 ## Layout
-- `App/` SwiftUI app. `KeelMacApp.swift` (scenes: main `Window`, `Settings`, `MenuBarExtra`), `AppModel.swift` (root @Observable state), `Route.swift` (sidebar destinations), `Features/<Screen>/`, `DesignSystem/` (Theme colours from the asset catalog, components), `Services/`, `Persistence/` (SwiftData models).
+- `App/` SwiftUI app. `KeelMacApp.swift` (scenes: main `Window`, `Settings`, `MenuBarExtra`), `AppModel.swift` (root @Observable state), `Route.swift` (sidebar destinations), `Features/<Screen>/` (incl. `Features/Assistant/`: panel, model, read-only tools, screen context), `DesignSystem/` (Theme colours from the asset catalog, components), `Services/`, `Persistence/` (SwiftData models).
 - `Helper/` the privileged helper daemon target (`KeelMacHelper`), embedded in `Contents/MacOS`, launchd plist in `Contents/Library/LaunchDaemons`.
-- `Packages/<Kit>/` one Swift package per module group; public APIs listed in `docs/forge/contracts.md`.
+- `Packages/<Kit>/` one Swift package per module group; public APIs listed in `docs/forge/contracts.md`. `AssistantKit` is the Ollama client and tool loop (no KeelMac knowledge).
 - `design/` tokens (`tokens.css` is the only colour source), contrast pairs, Claude Design artboards in `design/canvas/`.
 - `site/` landing page generator (`build.mjs`), static output in `site/public`, Sparkle `appcast.xml`.
 - `scripts/` `mac.sh` (lint/test/build/e2e/run/release-build), `tokens.mjs`, `strings.mjs`, `make_icon.swift`, `shots.sh`, release scripts.
@@ -26,7 +26,7 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 - Packages return values; the app localizes. Every user-facing string in `App/` needs an `es` entry in `App/Resources/translations.es.json`.
 - Only token colours (`.kmFg`, `.kmAccent`…), SF Symbols, system text styles; numbers use `.monospacedDigit()`.
 - Every screen ships with its empty, loading and error states (see the state matrix in `docs/forge/03-design.md`).
-- Tests never touch the real home folder, Trash, launchd or the network: use fixtures in temp dirs, `SafeRemover.trasher` injection and `RecordingCommandRunner`.
+- Tests never touch the real home folder, Trash, launchd or the network: use fixtures in temp dirs, `SafeRemover.trasher` injection, `RecordingCommandRunner` and AssistantKit's `StubTransport`.
 - Commits: conventional (`feat(Mx): …`). Never commit secrets or signing material.
 
 ## Gotchas
@@ -37,3 +37,4 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 - `URL.resolvingSymlinksInPath()` strips `/private` from `/private/var/...`; compare paths through `PathGuard.canonical`.
 - Window screenshots need Screen Recording permission for the shell; use `scripts/shots.sh` (UI test attachments) instead.
 - The helper only works in a signed build after the user approves it in System Settings › General › Login Items.
+- The Assistant is the only feature that talks to a local server (Ollama, opt-in, off by default). Its tools are read-only by contract; never add one that removes, runs or changes anything. `-uitest` swaps in `FixtureChatBackend`; `KEELMAC_LIVE_OLLAMA=1 swift test` in `Packages/AssistantKit` runs one live check.

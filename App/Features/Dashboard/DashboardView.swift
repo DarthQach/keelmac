@@ -77,6 +77,7 @@ struct DashboardView: View {
             }
         }
         .navigationSubtitle(Text("Updated \(Date.now.formatted(date: .omitted, time: .shortened))"))
+        .assistantContext(.dashboard(report: report, inputs: inputs))
         .toolbar {
             ToolbarItem {
                 Button("Refresh") { model.health.refreshCounts() }
