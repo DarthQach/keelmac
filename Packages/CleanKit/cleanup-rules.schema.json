@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KeelMac cleanup rules, schema version 1",
+  "description": "See RULES.md. CleanKit also validates these constraints in RuleSet.validate().",
+  "type": "object",
+  "required": ["schemaVersion", "rules"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+  },
+  "$defs": {
+    "text": {
+      "type": "object",
+      "required": ["en", "es"],
+      "properties": { "en": { "type": "string", "minLength": 1 }, "es": { "type": "string", "minLength": 1 } }
+    },
+    "glob": {
+      "type": "string",
+      "description": "Absolute or ~/ path; * and ? within one component; {uid} placeholder; no ** and no . or .. components.",
+      "pattern": "^(/|~/)",
+      "not": { "pattern": "(^|/)(\\*\\*|\\.|\\.\\.)(/|$)" }
+    },
+    "command": {
+      "type": "object",
+      "required": ["executable", "arguments"],
+      "properties": {
+        "executable": { "type": "string", "description": "Absolute path, or {tool} for the first executable entry of toolPaths.", "pattern": "^(/|\\{tool\\}$)" },
+        "arguments": { "type": "array", "items": { "type": "string" } },
+        "timeoutSeconds": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "category", "title", "detail"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+        "category": { "enum": ["developer", "userCaches", "browserCaches", "logs", "installers", "iosBackups", "docker", "languageFiles", "trash"] },
+        "title": { "$ref": "#/$defs/text" },
+        "detail": { "$ref": "#/$defs/text" },
+        "note": { "type": "string" },
+        "kind": { "enum": ["paths", "command"], "default": "paths" },
+        "paths": { "type": "array", "items": { "$ref": "#/$defs/glob" }, "default": [] },
+        "exclude": { "type": "array", "items": { "$ref": "#/$defs/glob" }, "default": [] },
+        "minAgeDays": { "type": "integer", "minimum": 0, "default": 0 },
+        "keepNewest": { "type": "integer", "minimum": 0, "default": 0 },
+        "optIn": { "type": "boolean", "default": false },
+        "needsAdmin": { "type": "boolean", "default": false },
+        "needsFullDiskAccess": { "type": "boolean", "default": false },
+        "skipIfRunning": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "skipItemIfAppRunning": { "type": "boolean", "default": false },
+        "deletesPermanently": { "type": "boolean", "default": false },
+        "command": { "$ref": "#/$defs/command" },
+        "measure": { "type": "array", "items": { "$ref": "#/$defs/glob" } },
+        "measureWith": { "enum": ["simctlUnavailableDevices", "pnpmStorePath", "dockerSystemDF"] },
+        "requiresTool": { "type": "string" },
+        "toolPaths": { "type": "array", "items": { "type": "string", "pattern": "^(/|~/)[^*?]*$" }, "default": [] },
+        "toolCheck": { "$ref": "#/$defs/command" },
+        "filter": { "enum": ["unsignedAppLanguages"] },
+        "keepLanguages": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "itemInfo": { "enum": ["iosBackup"] }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "command" } }, "required": ["kind"] },
+          "then": { "required": ["command"], "properties": { "paths": { "maxItems": 0 } } },
+          "else": { "required": ["paths"], "properties": { "paths": { "minItems": 1 }, "command": false } } }
+      ]
+    }
+  }
+}

@@ -73,8 +73,10 @@ public enum MatchReason: String, Sendable, Hashable, CaseIterable {
     case vendorFolder
     /// A launchd plist whose program lives inside the app bundle.
     case program
+    /// A Group Container listed in the app's `com.apple.security.application-groups` entitlement.
+    case appGroup
 
-    var isStrong: Bool { self == .bundleID || self == .program }
+    var isStrong: Bool { self == .bundleID || self == .program || self == .appGroup }
 }
 
 /// Files left behind by an app that is no longer installed.

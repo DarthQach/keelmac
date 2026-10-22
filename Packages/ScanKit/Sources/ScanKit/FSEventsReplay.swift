@@ -85,10 +85,8 @@ enum FSEventsReplay {
             FSEventStreamInvalidate(box.stream)
             FSEventStreamRelease(box.stream)
         }
-        collector.lock.lock(); defer { collector.lock.unlock() }
-        var result = Result()
-        result.fullScanReason = collector.reason
-        result.paths = collector.paths.map { ScanTree.normalize($0) }.sorted()
-        return result
+        return collector.lock.withLock {
+            Result(paths: collector.paths.map { ScanTree.normalize($0) }.sorted(), fullScanReason: collector.reason)
+        }
     }
 }

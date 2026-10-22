@@ -40,6 +40,14 @@ public struct SafeRemover: Sendable {
         self.pathGuard = pathGuard; self.mode = mode; self.context = context
     }
 
+    /// The same remover (guard, context, trasher, tolerance) with another delete mode.
+    public func with(mode: DeleteMode) -> SafeRemover {
+        var copy = SafeRemover(pathGuard: pathGuard, mode: mode, context: context)
+        copy.trasher = trasher
+        copy.modificationTolerance = modificationTolerance
+        return copy
+    }
+
     public func remove(_ requests: [RemovalRequest]) -> [RemovalOutcome] {
         requests.map(removeOne)
     }

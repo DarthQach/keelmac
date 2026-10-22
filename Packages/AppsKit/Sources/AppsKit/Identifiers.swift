@@ -40,7 +40,8 @@ enum Identifiers {
 
     /// A ten-character Apple team identifier: `UBF8T346G9`.
     static func isTeamID(_ s: Substring) -> Bool {
-        s.count == 10 && s.allSatisfy { $0.isASCII && ($0.isUppercase || $0.isNumber) } && s.contains { $0.isLetter }
+        s.count == 10 && s.allSatisfy { $0.isASCII && ($0.isUppercase || $0.isNumber) }
+            && s.contains { $0.isLetter } && s.contains { $0.isNumber }
     }
 
     /// Second-level components that are hosting namespaces rather than vendors (`com.github.user.app`).
@@ -74,6 +75,8 @@ enum Identifiers {
         return l == "com.apple" || l.hasPrefix("com.apple.") || l.hasPrefix("group.com.apple.")
             || l.contains(".com.apple.") || l.hasSuffix(".com.apple") || l.hasPrefix("systemgroup.")
             || l.hasPrefix("com.apple-")
+            // Apple-owned namespaces that don't say "apple": Shortcuts (Workflow) and CUPS printing.
+            || l.hasPrefix("is.workflow.") || l.hasPrefix("org.cups.")
     }
 
     /// Ids written by frameworks, SDKs, toolchains and shared updaters inside many apps. A cache or plist named
@@ -87,7 +90,8 @@ enum Identifiers {
         "com.adobe.adobeupdatedaemon", "com.adobe.arm", "com.oracle.java", "com.oracle.javadeployment",
         "org.python", "org.swift", "org.llvm", "org.cocoapods", "org.carthage", "org.nodejs", "org.chromium",
         "com.github.electron", "org.mozilla.updater", "com.squirrel", "com.electron", "org.gpgtools",
-        "org.macports", "org.xquartz", "com.openssh", "org.openssh", "com.docker.vmnetd", "com.vmware.fusion.shared",
+        "org.macports", "org.xquartz", "com.openssh", "org.openssh", "com.vmware.fusion.shared", "org.webkit",
+        "com.onevcat", "com.squareup", "com.facebook.sdk", "com.google.gtm", "com.google.gtmsessionfetcher",
     ]
 
     static func isSharedVendorID(_ id: String) -> Bool {
@@ -102,6 +106,20 @@ enum Identifiers {
         "updater", "user", "users", "electron", "chromium", "cef", "common", "plugins", "extensions", "library",
         "diagnostics", "reports", "storage", "webkit", "google", "microsoft", "adobe", "mozilla",
     ]
+
+    /// Words too common to tie an id to an installed app.
+    static let genericTokens: Set<String> = [
+        "app", "apps", "mac", "macos", "osx", "the", "inc", "llc", "ltd", "labs", "lab", "software", "studio",
+        "desktop", "helper", "agent", "com", "org", "net", "dev", "pro", "plus", "tools", "tool", "tech", "group",
+        "media", "digital", "systems", "cloud", "web", "online", "games", "game", "team", "client", "for", "and",
+        "update", "updater", "service", "services", "mobile", "beta", "free", "lite", "new", "manager", "assistant",
+    ]
+
+    /// Lowercased alphanumeric words of at least three characters.
+    static func tokens(_ s: String) -> Set<String> {
+        Set(s.lowercased().split { !($0.isLetter || $0.isNumber) }.map(String.init)
+            .filter { $0.count >= 3 && !genericTokens.contains($0) && !$0.allSatisfy(\.isNumber) })
+    }
 
     static func strippingByHostSuffix(_ stem: String) -> String {
         // ByHost plists: com.foo.app.0E5F2A4B-1C2D-3E4F-5A6B-7C8D9E0F1A2B (or a 12-hex Ethernet id on old macOS).

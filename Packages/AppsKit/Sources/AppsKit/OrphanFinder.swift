@@ -14,7 +14,8 @@ public enum OrphanFinder {
         public var runningBundleIDs: Set<String>
         /// Paths currently open in, or executing as, the user's processes. Defaults to a libproc sweep.
         public var pathsInUse: Set<String>
-        /// Whether LaunchServices knows an app with this bundle id somewhere on disk (outside the Trash).
+        /// Whether an app (or any bundle) with this id exists somewhere on disk outside the Trash. Live: LaunchServices
+        /// and Spotlight.
         public var isRegisteredApp: @Sendable (String) -> Bool
         /// Folders with launchd plists whose labels and programs keep their ids owned.
         public var launchdFolders: [String]
@@ -34,9 +35,9 @@ public enum OrphanFinder {
 
         /// The live system: running apps, open files, LaunchServices and the three launchd folders.
         public static func live(home: String) -> Options {
-            Options(runningBundleIDs: RunningApps.bundleIDs(),
+            Options(runningBundleIDs: RunningApps.bundleIDs().union(ProcessPaths.runningBundleIDs()),
                     pathsInUse: ProcessPaths.inUse(under: [(home as NSString).appendingPathComponent("Library")]),
-                    isRegisteredApp: { RunningApps.isRegisteredApp(bundleID: $0) },
+                    isRegisteredApp: { RunningApps.existsAnywhere(bundleID: $0) },
                     launchdFolders: [(home as NSString).appendingPathComponent("Library/LaunchAgents"),
                                      "/Library/LaunchAgents", "/Library/LaunchDaemons"])
         }
@@ -95,6 +96,9 @@ public enum OrphanFinder {
                                          isShared: false, needsHelper: false, modified: modified, reason: .bundleID))
             }
             guard keep, !files.isEmpty else { continue }
+            // Command-line tools and SDKs also write bundle-id-named folders to Application Support and Caches
+            // (`com.vercel.cli` holds a login token). Only offer ids that left something only apps leave.
+            guard files.contains(where: { Self.appEvidence.contains($0.location) }) else { continue }
             files.sort { $0.bytes > $1.bytes }
             out.append(LeftoverGroup(id: group.id, displayName: displayName(for: group.id, files: files),
                                      files: files, lastModified: newest))
@@ -104,14 +108,18 @@ public enum OrphanFinder {
 
     // MARK: - Where to look
 
-    struct Spec {
+    /// Locations only apps write to (sandbox containers, window state, defaults, WebKit and URL session storage).
+    static let appEvidence: Set<RelatedLocation> = [.containers, .savedState, .preferences, .httpStorages, .webKit,
+                                                    .groupContainers]
+
+    struct Spec: Sendable {
         let relative: String
         let location: RelatedLocation
         /// The bundle id an entry is named after, or nil when it doesn't look like one.
-        let id: (String, String) -> String?
+        let id: @Sendable (String, String) -> String?
     }
 
-    static func bundleIDFolder(_ name: String, _ path: String) -> String? {
+    @Sendable static func bundleIDFolder(_ name: String, _ path: String) -> String? {
         guard Identifiers.looksLikeBundleID(name), FileSizer.isDirectory(path) else { return nil }
         return name
     }
@@ -149,7 +157,8 @@ public enum OrphanFinder {
             }
             let parts = name.split(separator: ".", maxSplits: 1)
             if parts.count == 2, Identifiers.isTeamID(parts[0]) { return name }
-            return Identifiers.looksLikeBundleID(name) ? name : nil
+            // Bare names (`com.facebook.family`) are legacy groups shared across a vendor's apps: never offered.
+            return nil
         }),
     ]
 
@@ -160,14 +169,19 @@ public enum OrphanFinder {
         let vendorKeys: Set<String>
         let teamIDs: Set<String>
         let pathsInUse: [String]
+        let nameTokens: Set<String>       // words from installed apps' names and ids
+        let appGroups: Set<String>        // lowercased app-group entitlements of installed apps and their extensions
         let isRegistered: @Sendable (String) -> Bool
 
         init(installed: [InstalledApp], options: Options) {
             var ids = Set<String>()
             var teams = Set<String>()
+            var groups = Set<String>()
             for app in installed {
+                for g in OrphanFinder.appGroups(ofApp: app.path) { groups.insert(g.lowercased()) }
                 if let bid = app.bundleID { ids.insert(bid.lowercased()) }
-                if let team = app.teamID { teams.insert(team.uppercased()) }
+                // Unmeasured apps have no team id yet; without it every team group container would look orphaned.
+                if let team = app.teamID ?? CodeSignature.teamID(ofBundle: app.path) { teams.insert(team.uppercased()) }
                 for inner in OrphanFinder.embeddedBundleIDs(in: app.path) { ids.insert(inner.lowercased()) }
             }
             for bid in options.runningBundleIDs { ids.insert(bid.lowercased()) }
@@ -180,6 +194,14 @@ public enum OrphanFinder {
             }
             bundleIDs = Array(ids)
             vendorKeys = Set(installed.compactMap { $0.bundleID.flatMap(Identifiers.vendorKey) })
+            var words = Set<String>()
+            for app in installed {
+                words.formUnion(Identifiers.tokens(app.name))
+                words.formUnion(Identifiers.tokens(BundleReader.stem(of: app.path)))
+                if let bid = app.bundleID { words.formUnion(Identifiers.tokens(bid)) }
+            }
+            nameTokens = words
+            appGroups = groups
             teamIDs = teams
             pathsInUse = Array(options.pathsInUse)
             isRegistered = options.isRegisteredApp
@@ -188,6 +210,7 @@ public enum OrphanFinder {
         func isOwned(_ rawID: String) -> Bool {
             let id = rawID.lowercased()
             if Identifiers.isApple(id) || Identifiers.isSharedVendorID(id) { return true }
+            if appGroups.contains(id) || appGroups.contains("group." + id) { return true }
             // group.TEAMID.x and TEAMID.x: owned while an app of that team is installed.
             let body = id.hasPrefix("group.") ? String(id.dropFirst(6)) : id
             let teamPart = body.split(separator: ".", maxSplits: 1)
@@ -209,11 +232,37 @@ public enum OrphanFinder {
                 }
             }
             if let vendor = Identifiers.vendorKey(id), vendorKeys.contains(vendor) { return true }
+            // Generous on purpose (it only hides candidates): a vendor word that is also a word of an installed
+            // app's name or id. `com.dji-dji-assistant-2-consumer.Accounts` stays with "DJI Assistant 2".
+            let parts = id.split(separator: ".")
+            if parts.count >= 2 {
+                let vendorPart = Identifiers.hostingNamespaces.contains(String(parts[1])) && parts.count >= 3 ? parts[2] : parts[1]
+                if !Identifiers.tokens(String(vendorPart)).isDisjoint(with: nameTokens) { return true }
+            }
             return isRegistered(id)
         }
 
         func inUse(_ path: String) -> Bool {
-            pathsInUse.contains { PathGuard.isWithin($0, path) || PathGuard.isWithin(path, $0) }
+            // An open file or a running executable inside the entry. (Not the other way round: a process whose
+            // working directory is ~/Library would otherwise hold everything.)
+            pathsInUse.contains { PathGuard.isWithin($0, path) }
+        }
+    }
+
+    /// App groups an app and the extensions and helpers inside it are entitled to.
+    static func appGroups(ofApp appPath: String) -> [String] {
+        var groups = CodeSignature.info(ofBundle: appPath)?.appGroups ?? []
+        for path in embeddedBundlePaths(in: appPath) {
+            groups += CodeSignature.info(ofBundle: path)?.appGroups ?? []
+        }
+        return groups
+    }
+
+    /// Extensions, login items and XPC services inside an app bundle (the ones that can hold app groups).
+    static func embeddedBundlePaths(in appPath: String) -> [String] {
+        ["Contents/PlugIns", "Contents/Library/LoginItems", "Contents/XPCServices", "Contents/Extensions",
+         "Contents/Library/SystemExtensions", "Contents/Helpers"].flatMap { root in
+            FileSizer.list(appPath + "/" + root).map { appPath + "/" + root + "/" + $0 }.filter(FileSizer.isDirectory)
         }
     }
 
@@ -235,8 +284,8 @@ public enum OrphanFinder {
                 if let bid = BundleReader.read(bundle: path)?.bundleID { ids.append(bid) }
                 if root == "Contents/Frameworks", name.hasSuffix(".framework") {
                     // Electron and Chromium helper apps live in Frameworks and inside the main framework.
-                    for helper in FileSizer.list(path + "/Versions/A/Helpers") where helper.hasSuffix(".app") {
-                        if let bid = BundleReader.read(bundle: path + "/Versions/A/Helpers/" + helper)?.bundleID { ids.append(bid) }
+                    for helper in FileSizer.list(path + "/Versions/Current/Helpers") where helper.hasSuffix(".app") {
+                        if let bid = BundleReader.read(bundle: path + "/Versions/Current/Helpers/" + helper)?.bundleID { ids.append(bid) }
                     }
                 }
             }

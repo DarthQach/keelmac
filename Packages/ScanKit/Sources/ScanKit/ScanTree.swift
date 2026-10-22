@@ -152,7 +152,7 @@ public struct ScanTree: Sendable {
             for p in 0..<n {
                 let lo = Int(childOffsets[p]), hi = Int(childOffsets[p + 1])
                 if hi - lo > 1 {
-                    let slice = UnsafeMutableBufferPointer(rebasing: buf[lo..<hi])
+                    var slice = UnsafeMutableBufferPointer(rebasing: buf[lo..<hi])
                     slice.sort { a, b in
                         let ba = bytes[Int(a)], bb = bytes[Int(b)]
                         return ba != bb ? ba > bb : a < b
@@ -394,6 +394,11 @@ extension ScanTree: Codable {
         ownBytes = try Self.unpack(c.decode(Data.self, forKey: .ownBytes))
         ownFiles = try Self.unpack(c.decode(Data.self, forKey: .ownFiles))
         ownModified = try Self.unpack(c.decode(Data.self, forKey: .ownModified))
+        try validateAndFinalize()
+    }
+
+    /// Checks loaded arrays for consistency, then rebuilds the derived arrays (keeping `unreadable`).
+    mutating func validateAndFinalize() throws {
         let n = parents.count
         guard n > 0, [nameStart.count, nameLength.count, flags.count, ownBytes.count, ownFiles.count, ownModified.count].allSatisfy({ $0 == n }),
               parents[0] == -1,
@@ -432,7 +437,11 @@ extension ScanTree: Codable {
     }
 
     static func pack<T: FixedWidthInteger>(_ array: [T]) -> Data {
-        array.map { $0.littleEndian }.withUnsafeBufferPointer { Data(buffer: $0) }
+        #if _endian(little)
+        return array.withUnsafeBufferPointer { Data(buffer: $0) }
+        #else
+        return array.map { $0.littleEndian }.withUnsafeBufferPointer { Data(buffer: $0) }
+        #endif
     }
 
     static func unpack<T: FixedWidthInteger>(_ data: Data) throws -> [T] {
@@ -440,9 +449,11 @@ extension ScanTree: Codable {
         guard data.count % size == 0 else {
             throw DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Bad packed array length"))
         }
-        let count = data.count / size
-        var out = [T](repeating: 0, count: count)
+        var out = [T](repeating: 0, count: data.count / size)
         out.withUnsafeMutableBytes { dst in _ = data.copyBytes(to: dst) }
-        return out.map { T(littleEndian: $0) }
+        #if _endian(big)
+        out = out.map { T(littleEndian: $0) }
+        #endif
+        return out
     }
 }

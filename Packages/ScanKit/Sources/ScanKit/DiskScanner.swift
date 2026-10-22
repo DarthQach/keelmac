@@ -40,13 +40,13 @@ public actor DiskScanner {
         let config = configuration
         return Self.stream { [weak self] emit in
             let started = Date()
-            guard let node = tree.nearestNode(for: folder), tree.isDirectory(node) || tree.parent(of: node) != nil else {
+            guard let node = tree.nearestNode(for: folder) else {
                 let (t, read) = try await ScanEngine.fullScan(root: tree.rootPath, exclusions: exclusions, config: config, progress: emit)
                 await self?.record(RescanSummary(mode: .full(.pathOutsideTree), changedDirectories: [], directoriesRead: read,
                                                  elapsed: Date().timeIntervalSince(started)))
                 return t
             }
-            let dir = tree.isDirectory(node) ? node : tree.parent(of: node)!
+            let dir = tree.isDirectory(node) ? node : (tree.parent(of: node) ?? tree.root)
             let walk = Walk(tree: tree.emptyCopy(), old: tree, config: config,
                             exclusions: Exclusions.resolve(exclusions, for: tree))
             walk.fullRescan = [dir.raw]

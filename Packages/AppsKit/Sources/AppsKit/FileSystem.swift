@@ -117,20 +117,68 @@ enum FileSystemList {
 }
 
 enum CodeSignature {
+    struct Info: Sendable {
+        let teamID: String?
+        /// `com.apple.security.application-groups` from the entitlements.
+        let appGroups: [String]
+    }
+
     /// The signing team, read from the code directory without validating the signature.
-    static func teamID(ofBundle path: String) -> String? {
+    static func teamID(ofBundle path: String) -> String? { info(ofBundle: path)?.teamID }
+
+    /// Team and app groups, read without validating the signature. Cached per path and modification date.
+    static func info(ofBundle path: String) -> Info? {
+        let stamp = FileSizer.modificationDate(of: path)
+        if let hit = cache.get(path, stamp) { return hit }
         var code: SecStaticCode?
         guard SecStaticCodeCreateWithPath(URL(fileURLWithPath: path) as CFURL, [], &code) == errSecSuccess,
-              let code else { return nil }
-        var info: CFDictionary?
-        guard SecCodeCopySigningInformation(code, SecCSFlags(rawValue: kSecCSSigningInformation), &info) == errSecSuccess,
-              let dict = info as? [String: Any] else { return nil }
-        guard let team = dict[kSecCodeInfoTeamIdentifier as String] as? String, !team.isEmpty else { return nil }
-        return team
+              let code else { cache.set(path, stamp, nil); return nil }
+        var raw: CFDictionary?
+        let flags = SecCSFlags(rawValue: kSecCSSigningInformation | kSecCSRequirementInformation)
+        guard SecCodeCopySigningInformation(code, flags, &raw) == errSecSuccess, let dict = raw as? [String: Any] else {
+            cache.set(path, stamp, nil); return nil
+        }
+        let team = (dict[kSecCodeInfoTeamIdentifier as String] as? String).flatMap { $0.isEmpty ? nil : $0 }
+        let entitlements = dict[kSecCodeInfoEntitlementsDict as String] as? [String: Any]
+        let groups = entitlements?["com.apple.security.application-groups"] as? [String] ?? []
+        let info = Info(teamID: team, appGroups: groups)
+        cache.set(path, stamp, info)
+        return info
+    }
+
+    private static let cache = InfoCache()
+
+    final class InfoCache: @unchecked Sendable {
+        private let lock = NSLock()
+        private var entries: [String: (Date?, Info?)] = [:]
+        func get(_ path: String, _ stamp: Date?) -> Info?? {
+            lock.withLock {
+                guard let (s, info) = entries[path], s == stamp else { return nil }
+                return .some(info)
+            }
+        }
+        func set(_ path: String, _ stamp: Date?, _ info: Info?) { lock.withLock { entries[path] = (stamp, info) } }
     }
 }
 
 enum Spotlight {
+    /// Paths of bundles Spotlight indexed with this bundle id (apps in Steam folders, build folders, other volumes).
+    static func bundles(withID bundleID: String) -> [String] {
+        // Only plain ids reach the query string.
+        let allowed = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: ".-_"))
+        guard !bundleID.isEmpty, bundleID.unicodeScalars.allSatisfy({ $0.isASCII && allowed.contains($0) }) else { return [] }
+        guard let query = MDQueryCreate(kCFAllocatorDefault, "kMDItemCFBundleIdentifier == '\(bundleID)'c" as CFString, nil, nil)
+        else { return [] }
+        guard MDQueryExecute(query, CFOptionFlags(kMDQuerySynchronous.rawValue)) else { return [] }
+        var paths: [String] = []
+        for i in 0..<MDQueryGetResultCount(query) {
+            guard let raw = MDQueryGetResultAtIndex(query, i) else { continue }
+            let item = Unmanaged<MDItem>.fromOpaque(raw).takeUnretainedValue()
+            if let path = MDItemCopyAttribute(item, kMDItemPath) as? String { paths.append(path) }
+        }
+        return paths
+    }
+
     static func lastUsed(_ path: String) -> Date? {
         guard let item = MDItemCreate(kCFAllocatorDefault, path as CFString) else { return nil }
         return MDItemCopyAttribute(item, kMDItemLastUsedDate) as? Date

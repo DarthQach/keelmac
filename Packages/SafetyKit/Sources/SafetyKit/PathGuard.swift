@@ -127,6 +127,12 @@ public struct PathGuard: Sendable {
         "Library/LaunchAgents", "Library/Developer", "Library/Developer/Xcode", "Library/HTTPStorages",
         "Library/WebKit", "Library/Logs/DiagnosticReports", "Library/Application Support/MobileSync",
         "Library/Application Support/MobileSync/Backup", "Library/Developer/CoreSimulator",
+        // Cache roots: their contents may be cleaned, the root folders themselves never.
+        "Library/Developer/Xcode/DerivedData", "Library/Developer/Xcode/Archives", "Library/Developer/Xcode/iOS DeviceSupport",
+        "Library/Developer/Xcode/watchOS DeviceSupport", "Library/Developer/Xcode/tvOS DeviceSupport",
+        "Library/Developer/Xcode/visionOS DeviceSupport", "Library/Developer/CoreSimulator/Devices",
+        ".npm", ".npm/_cacache", ".gradle", ".gradle/caches", "Library/Caches/Homebrew", "Library/Caches/CocoaPods",
+        "Library/Caches/Yarn", "Library/Caches/org.swift.swiftpm", "Library/pnpm", "Library/pnpm/store",
     ]
 
     // MARK: - Verdict

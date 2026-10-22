@@ -17,18 +17,22 @@ import SafetyKit
 /// - Every path must pass `PathGuard` in the `.uninstall` context; /Library items come back with `needsHelper`.
 public enum RelatedFileMatcher {
     public static func find(for app: InstalledApp, home: String, installed: [InstalledApp]) -> [RelatedFile] {
-        find(for: app, home: home, installed: installed, systemLibrary: "/Library", pathGuard: nil)
+        find(for: app, home: home, installed: installed, systemLibrary: "/Library", pathGuard: nil,
+             registeredAppPaths: { RunningApps.registeredAppPaths(bundleID: $0) })
     }
 
     /// - Parameters:
     ///   - systemLibrary: the /Library to search for helper-only items; nil skips it (tests).
     ///   - pathGuard: defaults to `PathGuard(home: home)`; pass the app's guard to honour the user's whitelist.
+    ///   - registeredAppPaths: LaunchServices lookup. A sub-id entry (`com.google.Chrome.for.testing`) that names a
+    ///     separate app registered elsewhere belongs to that app and is left out. nil skips the lookup (tests).
     public static func find(for app: InstalledApp, home: String, installed: [InstalledApp],
-                            systemLibrary: String?, pathGuard: PathGuard?) -> [RelatedFile] {
+                            systemLibrary: String?, pathGuard: PathGuard?,
+                            registeredAppPaths: (@Sendable (String) -> [String])? = nil) -> [RelatedFile] {
         let guardian = pathGuard ?? PathGuard(home: home)
         let me = AppKey(app)
         let others = installed.filter { $0.path != app.path }.map(AppKey.init)
-        let cache = LaunchdCache()
+        let cache = LaunchdCache(appPath: app.path, bundleID: app.bundleID, registeredAppPaths: registeredAppPaths)
         let homeLibrary = (home as NSString).appendingPathComponent("Library")
 
         var candidates: [Candidate] = []
@@ -71,7 +75,7 @@ public enum RelatedFileMatcher {
         let isShared: Bool
     }
 
-    enum Rule { case bundleID, groupContains, team, name, launchd }
+    enum Rule { case bundleID, groupContains, team, name, launchd, appGroup, signedByTeam }
 
     struct LocationSpec {
         let relative: String
@@ -84,7 +88,7 @@ public enum RelatedFileMatcher {
             .init(relative: "Preferences", location: .preferences, rules: [.bundleID]),
             .init(relative: "Preferences/ByHost", location: .preferences, rules: [.bundleID]),
             .init(relative: "Containers", location: .containers, rules: [.bundleID]),
-            .init(relative: "Group Containers", location: .groupContainers, rules: [.groupContains, .team]),
+            .init(relative: "Group Containers", location: .groupContainers, rules: [.groupContains, .team, .appGroup]),
             .init(relative: "Saved Application State", location: .savedState, rules: [.bundleID]),
             .init(relative: "Logs", location: .logs, rules: [.bundleID, .name]),
             .init(relative: "LaunchAgents", location: .launchAgents, rules: [.bundleID, .launchd]),
@@ -101,7 +105,7 @@ public enum RelatedFileMatcher {
             .init(relative: "Logs", location: .logs, rules: [.bundleID, .name]),
             .init(relative: "LaunchAgents", location: .launchAgents, rules: [.bundleID, .launchd]),
             .init(relative: "LaunchDaemons", location: .launchDaemons, rules: [.bundleID, .launchd]),
-            .init(relative: "PrivilegedHelperTools", location: .privilegedHelperTools, rules: [.bundleID]),
+            .init(relative: "PrivilegedHelperTools", location: .privilegedHelperTools, rules: [.bundleID, .signedByTeam]),
         ]
     }
 
@@ -113,6 +117,7 @@ public enum RelatedFileMatcher {
         let names: Set<String>          // lowercased, generic names removed
         let vendorKey: String?
         let vendorName: String?
+        let appGroups: Set<String>      // lowercased
 
         init(_ app: InstalledApp) {
             path = app.path
@@ -126,6 +131,7 @@ public enum RelatedFileMatcher {
             names = Set(n.map { $0.lowercased() }.filter { $0.count >= 3 && !Identifiers.genericNames.contains($0) })
             vendorKey = app.bundleID.flatMap(Identifiers.vendorKey)
             vendorName = app.bundleID.flatMap(Identifiers.vendorName)
+            appGroups = Set(OrphanFinder.appGroups(ofApp: app.path).map { $0.lowercased() })
         }
     }
 
@@ -137,8 +143,38 @@ public enum RelatedFileMatcher {
         static func < (a: Claim, b: Claim) -> Bool { (a.rank, a.specificity) < (b.rank, b.specificity) }
     }
 
+    /// Per-call memo of launchd plists and LaunchServices answers.
     final class LaunchdCache {
         private var plists: [String: LaunchdPlist?] = [:]
+        private var otherApps: [String: Bool] = [:]
+        let appPath: String
+        let bundleID: String?
+        let registeredAppPaths: (@Sendable (String) -> [String])?
+
+        init(appPath: String, bundleID: String?, registeredAppPaths: (@Sendable (String) -> [String])?) {
+            self.appPath = appPath; self.bundleID = bundleID; self.registeredAppPaths = registeredAppPaths
+        }
+
+        private var teams: [String: String?] = [:]
+
+        /// Signing team of an executable or bundle.
+        func team(of path: String) -> String? {
+            if let hit = teams[path] { return hit }
+            let team = FileSizer.exists(path) ? CodeSignature.teamID(ofBundle: path) : nil
+            teams[path] = team
+            return team
+        }
+
+        /// A sub-id that LaunchServices knows as an app outside this bundle.
+        func isSeparateApp(_ subID: String) -> Bool {
+            guard let registeredAppPaths else { return false }
+            let key = subID.lowercased()
+            if let hit = otherApps[key] { return hit }
+            let answer = registeredAppPaths(subID).contains { !PathGuard.isWithin($0, appPath) }
+            otherApps[key] = answer
+            return answer
+        }
+
         func plist(_ path: String) -> LaunchdPlist? {
             if let hit = plists[path] { return hit }
             let parsed = LaunchdPlist.read(path)
@@ -177,6 +213,8 @@ public enum RelatedFileMatcher {
                 }
             case .name:
                 if key.names.contains(lower) { offer(Claim(reason: .name, rank: 1, specificity: 0)) }
+            case .appGroup:
+                if key.appGroups.contains(lower) { offer(Claim(reason: .appGroup, rank: 2, specificity: 1_000)) }
             case .launchd:
                 guard name.hasSuffix(".plist"), let job = cache.plist(path) else { continue }
                 if job.mentionedPaths.contains(where: { PathGuard.isWithin($0, key.path) }) {
@@ -185,6 +223,15 @@ public enum RelatedFileMatcher {
                           Identifiers.isOrSubID(job.label, of: bid)
                             || job.associatedBundleIDs.contains(where: { $0.caseInsensitiveCompare(bid) == .orderedSame }) {
                     offer(Claim(reason: .bundleID, rank: 2, specificity: bid.count))
+                } else if let team = key.teamID, let program = job.executable, program.hasPrefix("/"),
+                          cache.team(of: program) == team {
+                    // A vendor helper (`com.docker.vmnetd`) signed by the app's team: weak, so shared when the
+                    // team has other installed apps.
+                    offer(Claim(reason: .teamID, rank: 1, specificity: 0))
+                }
+            case .signedByTeam:
+                if let team = key.teamID, cache.team(of: path) == team {
+                    offer(Claim(reason: .teamID, rank: 1, specificity: 0))
                 }
             }
         }
@@ -211,6 +258,11 @@ public enum RelatedFileMatcher {
             let path = dir + "/" + name
             if spec.relative == "Preferences" && name == "ByHost" { continue }
             guard let mine = claim(entry: name, path: path, rules: spec.rules, key: me, cache: cache) else { continue }
+            if mine.reason == .bundleID, spec.rules.contains(.bundleID), let bid = me.bundleID {
+                let subID = Identifiers.strippingByHostSuffix(stem(name))
+                if subID.caseInsensitiveCompare(bid) != .orderedSame, Identifiers.isOrSubID(subID, of: bid),
+                   cache.isSeparateApp(subID) { continue }
+            }
             guard let shared = sharing(mine: mine, entry: name, path: path, rules: spec.rules, others: others, cache: cache)
             else { continue }
             out.append(Candidate(path: path, location: spec.location, reason: mine.reason, isShared: shared))
