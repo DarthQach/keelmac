@@ -1,6 +1,633 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ above the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por encima de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ below the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por debajo de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ can be cleaned.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se pueden limpiar %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ files, %@ counted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ archivos, %@ contados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ free on Macintosh HD, below your %@ alert.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ libres en Macintosh HD, por debajo de tu alerta de %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ free, %@ above the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ libres, %@ por encima de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ free, %@ below the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ libres, %@ por debajo de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ is open. Quit it to uninstall it, so its files aren’t in use.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ está abierta. Ciérrala para desinstalarla y que sus archivos no estén en uso."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ less": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ menos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ less used.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ menos en uso."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ more": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ más"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ more used, mostly %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ más en uso, sobre todo en %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ more used.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ más en uso."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ more was freed by emptying the Trash and running commands.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se liberaron %@ más al vaciar la Papelera y ejecutar comandos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ of %@ used": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de %@ en uso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ of %@, pressure ": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de %@, presión "
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ of design capacity": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de la capacidad original"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ of design capacity after %lld cycles": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de la capacidad original tras %lld ciclos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ ready to review in Cleanup": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ listos para revisar en Limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ used": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en uso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ used of %@, %@ above the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en uso de %@, %@ por encima de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ used of %@, %@ below the load line": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en uso de %@, %@ por debajo de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ used of %@, %@ free": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ en uso de %@, %@ libres"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@, %@ %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@ %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@, above your %@ alert.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, por encima de tu alerta de %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@, no change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, sin cambios"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld W": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld W"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld apps, %@. Apple’s built-in apps aren’t listed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld apps, %@. Las apps integradas de Apple no aparecen."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld copies selected, %@. One copy in every group is always kept.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld copias seleccionadas, %@. Siempre se conserva una copia de cada grupo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld copies, %@ each": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld copias, %@ cada una"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld cores": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld núcleos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld cycles": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ciclos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld files compared. Try other folders with Choose folders….": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld archivos comparados. Prueba otras carpetas con Elegir carpetas…."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld files couldn’t be read and were skipped.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld archivos no se pudieron leer y se omitieron."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld folders skipped without Full Disk Access": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld carpetas omitidas sin acceso total al disco"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld folders were skipped.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se omitieron %lld carpetas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld groups, %@ in extra copies. Files match byte for byte (SHA-256).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld grupos, %@ en copias de más. Los archivos coinciden byte por byte (SHA-256)."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld items handled, %lld skipped.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems procesados, %lld omitidos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld items selected, %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems seleccionados, %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld items selected, %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems seleccionados, %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld login items and agents, %lld from apps that are gone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems de inicio y agentes, %lld de apps que ya no están"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld login items and agents, all from installed apps": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ítems de inicio y agentes, todos de apps instaladas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld of 100": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de 100"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld operations. Stored in ~/Library/Application Support/KeelMac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld operaciones. Guardadas en ~/Library/Application Support/KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld s": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld s"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld selected, %@. Last opened comes from Spotlight, or the last access date when Spotlight doesn’t know.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld seleccionados, %@. La última apertura viene de Spotlight, o de la fecha del último acceso cuando Spotlight no la sabe."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld%%": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld %%"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld/%lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    ", charging": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", cargando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    ", on battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", con batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    ", plugged in": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", conectada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    ".dmg, .pkg and .xip files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos .dmg, .pkg y .xip"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "/System, /bin, /sbin, /usr (except Homebrew in /usr/local), other users’ homes, iCloud Drive, the Photos library, Mail, Messages, Safari history, Keychains and KeelMac’s own data. These can’t be changed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/System, /bin, /sbin, /usr (salvo Homebrew en /usr/local), las cuentas de otros usuarios, iCloud Drive, la fototeca, Mail, Mensajes, el historial de Safari, los llaveros y los datos de KeelMac. Esto no se puede cambiar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "1. Click **Open Privacy & Security**.": {
       "localizations": {
         "es": {
@@ -34,12 +661,89 @@
       },
       "extractionState": "manual"
     },
+    "A command failed with exit code %d: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un comando falló con el código de salida %d: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "A full scan takes about a minute and never reads file contents. After that, rescans only look at folders that changed.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Un escaneo completo tarda alrededor de un minuto y nunca lee el contenido de los archivos. Después, los nuevos escaneos solo revisan las carpetas que cambiaron."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A system folder that holds other items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una carpeta del sistema que contiene otros ítems"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "About KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Adapter": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adaptador"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Add": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Add folder…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir carpeta…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Admin": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Administrador"
           }
         }
       },
@@ -56,12 +760,111 @@
       },
       "extractionState": "manual"
     },
+    "Agents for every user": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agentes para todos los usuarios"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Alerts": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Alertas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "All": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Allow the KeelMac helper.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite el asistente de KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Always protected": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre protegido"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "App": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "App caches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cachés de apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "App language files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos de idioma de apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "App not installed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App no instalada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Appearance": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apariencia"
           }
         }
       },
@@ -89,12 +892,441 @@
       },
       "extractionState": "manual"
     },
-    "Choose folders to search": {
+    "Apps that open at login are managed in System Settings.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elige carpetas para buscar"
+            "value": "Las apps que se abren al iniciar sesión se administran en Configuración del Sistema."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Asks macOS to free up to 20 GB held by local snapshots. Your backups on the backup disk aren’t affected.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pide a macOS liberar hasta 20 GB ocupados por instantáneas locales. Tus respaldos en el disco de respaldo no se ven afectados."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "At login": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al iniciar sesión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Attachments you opened from Mail.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos adjuntos que abriste desde Mail."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Backups of your iPhone and iPad. Old ones are listed in Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldos de tu iPhone y iPad. Los antiguos aparecen en Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery %@ capacity": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batería con %@ de capacidad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery at %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batería al %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery capacity": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capacidad de la batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery capacity falls below": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La capacidad de la batería baja de"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery capacity is getting low": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La capacidad de la batería está bajando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery health": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salud de la batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Battery sensor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sensor de la batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Belongs to another user": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pertenece a otro usuario"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Binary (1 GiB = 1,024 MiB)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Binario (1 GiB = 1024 MiB)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Browser caches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cachés del navegador"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Browser caches, the Trash and iPhone backups can’t be measured.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pueden medir las cachés del navegador, la Papelera ni los respaldos del iPhone."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Buy me a coffee": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invítame un café"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "CPU": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CPU"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "CSV": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Cancel": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Cancel scan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar escaneo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Celsius": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celsius"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Changed since the preview": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambió desde la vista previa"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Changes take effect at next login unless noted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los cambios se aplican en el próximo inicio de sesión salvo que se indique"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Charge": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Charging": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Chart": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gráfica"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check for Updates…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar actualizaciones…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check for updates automatically": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar actualizaciones automáticamente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar ahora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check what can be cleaned": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisa qué se puede limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Checked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Checked %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisado %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Checking when each file was last opened…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisando cuándo se abrió cada archivo por última vez…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Chip": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chip"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Choose folders…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpetas…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Choose folder…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpeta…"
           }
         }
       },
@@ -106,6 +1338,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clean up": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clean up %@? Some items are deleted permanently.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Limpiar %@? Algunos ítems se borran para siempre."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clean up after %@?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Limpiar lo que dejó %@?"
           }
         }
       },
@@ -128,6 +1393,94 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limpieza y seguridad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clear font caches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar cachés de fuentes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Clears cached name lookups. Useful after changing networks, VPNs or your hosts file.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borra las búsquedas de nombres guardadas. Útil después de cambiar de red, de VPN o tu archivo hosts."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haz clic en un bloque para seleccionarlo y doble clic para abrirlo. Las flechas mueven la selección, Retorno abre y Escape sube un nivel."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Command": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Comparing full contents: %lld of %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparando el contenido completo: %lld de %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Comparing the start and end of %lld of %lld files…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparando el inicio y el final de %lld de %lld archivos…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Condition": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condición"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Contains a whitelisted item": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene un ítem de la lista de exclusiones"
           }
         }
       },
@@ -166,12 +1519,254 @@
       },
       "extractionState": "manual"
     },
+    "Copy in a preferred folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia en una carpeta preferida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t export the log": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo exportar el registro"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t measure: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo medir: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read the cleanup rules": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron leer las reglas de limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Cycle count": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ciclos de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Dark": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oscura"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Dashboard": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Panel"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Date": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Delete %@ permanently": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar %@ para siempre"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Delete permanently": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar para siempre"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Delete permanently from now on?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Borrar para siempre a partir de ahora?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Deleted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Deleted permanently": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se borra para siempre"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "DerivedData, archives and device support. Listed in Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DerivedData, archivos y soporte de dispositivos. Aparece en Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Developer": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desarrollo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Disabled": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Disk free": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disco libre"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Disk free drops below": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El espacio libre baja de"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Disk space is low": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queda poco espacio en disco"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Docker": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Docker"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Done": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Don’t ask again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No volver a preguntar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Drop an app here to uninstall it": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suelta una app aquí para desinstalarla"
           }
         }
       },
@@ -188,12 +1783,89 @@
       },
       "extractionState": "manual"
     },
-    "Each task shows the exact command it runs.": {
+    "Elevated": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cada tarea muestra el comando exacto que ejecuta."
+            "value": "Elevada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Elevated for %lld min in the last hour": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elevada durante %lld min en la última hora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Emptied permanently, on all volumes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se vacía para siempre, en todos los volúmenes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Empty the Trash to free the space.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vacía la Papelera para liberar el espacio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Enabled": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Erases and rebuilds the index for Macintosh HD. Search results are incomplete for about an hour.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borra y reconstruye el índice de Macintosh HD. Los resultados de búsqueda estarán incompletos durante una hora aproximadamente."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Every %lld h": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada %lld h"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Every %lld min": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada %lld min"
           }
         }
       },
@@ -210,12 +1882,243 @@
       },
       "extractionState": "manual"
     },
-    "Files in your Library from apps that are no longer installed appear here.": {
+    "Everything else macOS counts here.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aquí aparecen los archivos de tu Biblioteca de apps que ya no están instaladas."
+            "value": "Todo lo demás que macOS cuenta aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Everything goes to the Trash and is logged.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo va a la Papelera y queda registrado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Exit code %d": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de salida %d"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Export log…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar registro…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Export report…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar informe…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Factor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Factor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Fahrenheit": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fahrenheit"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Failed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falló"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Failed or refused": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falló o se rechazó"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Files in your Library from apps that are no longer installed appear here. Apple’s own folders and anything an installed app uses are never listed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí aparecen archivos de tu Biblioteca de apps que ya no están instaladas. Nunca se muestran las carpetas de Apple ni nada que use una app instalada."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Files in your Library from apps that are no longer installed. Apple’s own folders and anything shared by an installed app are never listed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos de tu Biblioteca de apps que ya no están instaladas. Nunca se muestran las carpetas de Apple ni nada que comparta una app instalada."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Find duplicate files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrar archivos duplicados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Finding related files…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando archivos relacionados…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Finished %@ in %lld s": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminó %@ en %lld s"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "First snapshot taken. Next week you’ll see what grew.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primera instantánea tomada. La próxima semana verás qué creció."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Fixes duplicate apps in “Open With” menus and wrong default apps.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige apps duplicadas en los menús “Abrir con” y apps predeterminadas incorrectas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Flush DNS cache": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaciar caché de DNS"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Found by bundle ID %@ and the app’s name. Uncheck anything you want to keep.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrados por el ID de paquete %@ y el nombre de la app. Desmarca lo que quieras conservar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Free and open source under the GPL-3.0 licence. No account, no telemetry.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis y de código abierto con licencia GPL-3.0. Sin cuenta, sin telemetría."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Freed %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se liberaron %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Freed %@. Buy me a coffee?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se liberaron %@. ¿Me invitas un café?"
           }
         }
       },
@@ -227,6 +2130,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Acceso total al disco desactivado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Full Disk Access is off.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El acceso total al disco está desactivado."
           }
         }
       },
@@ -254,12 +2168,34 @@
       },
       "extractionState": "manual"
     },
+    "GB": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "General": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "General"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub"
           }
         }
       },
@@ -287,12 +2223,45 @@
       },
       "extractionState": "manual"
     },
+    "Grouping by size…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agrupando por tamaño…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Helper": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "High": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "High for %lld min in the last hour": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alta durante %lld min en la última hora"
           }
         }
       },
@@ -309,6 +2278,171 @@
       },
       "extractionState": "manual"
     },
+    "History and passwords are never touched": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El historial y las contraseñas nunca se tocan"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "In %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrada %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Install helper…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalar asistente…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Installed and allowed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalado y permitido"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Installed but not running": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalado pero sin ejecutarse"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Installers in Downloads": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instaladores en Descargas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It has been high for %lld minutes. Open Monitor to see which app is using the most.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lleva %lld minutos alta. Abre Monitor para ver qué app usa más."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It isn’t an app with a window, so unsaved work in it may be lost.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es una app con ventana, así que podrías perder trabajo sin guardar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Item": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítem"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítems"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items are deleted permanently.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems se borran para siempre."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items go to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems van a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items in the Trash category, and everything when permanent delete is on in Settings, are deleted and can’t be put back.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems de la categoría Papelera, y todo cuando el borrado permanente está activo en Ajustes, se borran y no se pueden recuperar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Items won’t go to the Trash, so you can’t put them back. KeelMac still shows a preview and asks before every cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems no irán a la Papelera, así que no podrás recuperarlos. KeelMac sigue mostrando una vista previa y pregunta antes de cada limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "JSON": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JSON"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "KeelMac": {
       "localizations": {
         "es": {
@@ -320,34 +2454,89 @@
       },
       "extractionState": "manual"
     },
-    "KeelMac checks again each time you open Cleanup.": {
+    "KeelMac compares files in the folders above byte for byte. Nothing is moved until you choose.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "KeelMac vuelve a revisar cada vez que abres Limpieza."
+            "value": "KeelMac compara byte por byte los archivos de las carpetas de arriba. Nada se mueve hasta que tú eliges."
           }
         }
       },
       "extractionState": "manual"
     },
-    "KeelMac compares files byte for byte. Nothing is moved until you choose.": {
+    "KeelMac couldn’t read this folder. Turn on Full Disk Access to measure it.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "KeelMac compara archivos byte por byte. Nada se mueve hasta que tú eliges."
+            "value": "KeelMac no pudo leer esta carpeta. Activa el acceso total al disco para medirla."
           }
         }
       },
       "extractionState": "manual"
     },
-    "KeelMac measures the folders macOS counts as System Data.": {
+    "KeelMac didn’t change that item": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "KeelMac mide las carpetas que macOS cuenta como Datos del sistema."
+            "value": "KeelMac no cambió ese ítem"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac installs a small helper that can only run the tasks listed here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac instala un pequeño asistente que solo puede ejecutar las tareas que aparecen aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac is free and stays free. This shows at most once a month.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac es gratis y seguirá siéndolo. Esto aparece como mucho una vez al mes."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac measured %@ in these folders.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac midió %@ en estas carpetas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac measures caches, logs and developer leftovers. Nothing moves until you choose.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac mide cachés, registros y restos de desarrollo. Nada se mueve hasta que tú eliges."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac needs Full Disk Access to measure them.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac necesita acceso total al disco para medirlas."
           }
         }
       },
@@ -375,6 +2564,50 @@
       },
       "extractionState": "manual"
     },
+    "Keep": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conservar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Keep %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conservar %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Keep using the Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguir usando la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Kept alive": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre activo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Large and old files": {
       "localizations": {
         "es": {
@@ -397,6 +2630,127 @@
       },
       "extractionState": "manual"
     },
+    "Larger than": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más grandes que"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Larger than 1 GB": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más de 1 GB"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Larger than 100 MB": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más de 100 MB"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Larger than 500 MB": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más de 500 MB"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last 60 minutes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 60 minutos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last checked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última revisión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last checked %@. KeelMac checks again each time you open Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última revisión %@. KeelMac vuelve a revisar cada vez que abres Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last hour, between %@ and %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última hora, entre %@ y %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last hour, up to %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última hora, hasta %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last opened": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última apertura"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last used": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último uso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Leftovers": {
       "localizations": {
         "es": {
@@ -408,12 +2762,56 @@
       },
       "extractionState": "manual"
     },
-    "Live charts fill in from the left every two seconds.": {
+    "Light": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las gráficas en vivo se llenan desde la izquierda cada dos segundos."
+            "value": "Clara"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Like Finder (1 GB = 1,000 MB)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como el Finder (1 GB = 1000 MB)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Listing files…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listando archivos…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Listing files… %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listando archivos… %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Local Time Machine snapshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instantáneas locales de Time Machine"
           }
         }
       },
@@ -430,6 +2828,50 @@
       },
       "extractionState": "manual"
     },
+    "Logs and crash reports": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registros e informes de fallos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Logs and diagnostics": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registros y diagnósticos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Macintosh HD": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macintosh HD"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Mail downloads": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descargas de Mail"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Maintenance": {
       "localizations": {
         "es": {
@@ -441,12 +2883,100 @@
       },
       "extractionState": "manual"
     },
-    "Measuring your Mac…": {
+    "Managed by macOS. Shrinks after a restart.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Midiendo tu Mac…"
+            "value": "Lo administra macOS. Se reduce al reiniciar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Markdown": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Match the system": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Igual que el sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Maximum capacity": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capacidad máxima"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Maximum capacity is %@, below your %@ alert.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La capacidad máxima es %@, por debajo de tu alerta de %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measure again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Medir de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measuring caches, logs and developer leftovers…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo cachés, registros y restos de desarrollo…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measuring sizes…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo tamaños…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Measuring the folders macOS counts as System Data…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo las carpetas que macOS cuenta como Datos del sistema…"
           }
         }
       },
@@ -463,6 +2993,50 @@
       },
       "extractionState": "manual"
     },
+    "Memory": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memoria"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Memory pressure": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presión de memoria"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Memory pressure is high": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La presión de memoria es alta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Memory pressure is red for": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La presión de memoria está en rojo durante"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Menu bar": {
       "localizations": {
         "es": {
@@ -474,12 +3048,397 @@
       },
       "extractionState": "manual"
     },
+    "Metric collection approaches studied from Stats (MIT). Cleanup coverage informed by Mole (GPL-3.0). Updates by Sparkle.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formas de medir estudiadas de Stats (MIT). Cobertura de limpieza basada en Mole (GPL-3.0). Actualizaciones con Sparkle."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Minutes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minutos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Model": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Modified": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Modified %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificado %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Monitor": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Monitor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %@ to Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover %@ a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld copies (%@) to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld copias (%@) a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld copies to Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover %lld copias a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld files (%@) to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld archivos (%@) a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld items (%@) to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld ítems (%@) a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld leftover items to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld restos a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move items to the Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover ítems a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move to Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move to Trash…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a la Papelera…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move “%@” (%@) to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover “%@” (%@) a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Moved %@ to Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se movieron %@ a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Moved or deleted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movido o borrado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Moved to Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movido a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Moving %lld items to the Trash…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moviendo %lld ítems a la Papelera…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Name": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Needs Full Disk Access": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesita acceso total al disco"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Needs the KeelMac helper": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesita el asistente de KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Network": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Red"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Never": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nunca"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Never clean this…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No limpiar nunca esto…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Never touch (whitelist)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No tocar nunca (lista de exclusiones)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "New, %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo, %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Newest copy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia más reciente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No apps found": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin cambios"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No data yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay datos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No duplicates found": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron duplicados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No files over %@ that you haven’t opened in %lld months.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay archivos de más de %@ que no hayas abierto en %lld meses."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No items to remove": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ítems para quitar"
           }
         }
       },
@@ -507,6 +3466,17 @@
       },
       "extractionState": "manual"
     },
+    "No longer exists": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya no existe"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "No operations yet": {
       "localizations": {
         "es": {
@@ -529,12 +3499,386 @@
       },
       "extractionState": "manual"
     },
-    "Nothing to clean right now": {
+    "Normal": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No hay nada que limpiar por ahora"
+            "value": "Normal"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Normal for the last hour": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normal durante la última hora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not a clean absolute path": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es una ruta absoluta limpia"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not a valid amount of space": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es una cantidad de espacio válida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not a valid launchd label": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es una etiqueta de launchd válida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not an absolute path": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es una ruta absoluta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not available on this version of macOS": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No disponible en esta versión de macOS"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not checked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin marcar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not checked yet. Open Cleanup to measure it.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no se revisa. Abre Limpieza para medirlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not connected": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No conectado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not found in this copy of KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró en esta copia de KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not installed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No instalado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not installed on this Mac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No está instalado en esta Mac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not now": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora no"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not opened for": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin abrir desde hace"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not opened for 1 year": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin abrir desde hace 1 año"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not opened for 3 months": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin abrir desde hace 3 meses"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not opened for 6 months": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin abrir desde hace 6 meses"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing matches these filters": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada coincide con estos filtros"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing to clean": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing to clean right now.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay nada que limpiar por ahora."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Notify me when": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avisarme cuando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "OK": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aceptar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Off by default": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado por omisión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Offer cleanup when I move an app to the Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer limpieza cuando mueva una app a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Old iPhone and iPad backups": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldos antiguos de iPhone y iPad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Old logs and crash reports. Listed in Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registros e informes de fallos antiguos. Aparecen en Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Older than 7 days": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De más de 7 días"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Oldest copy": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia más antigua"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "On a schedule": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con horario"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "On battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "On demand": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajo demanda"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "One copy of each file stays where it is. Everything moved is listed in the operation log.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una copia de cada archivo se queda donde está. Todo lo que se mueve aparece en el registro de operaciones."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Only the app bundle was found.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se encontró el paquete de la app."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir"
           }
         }
       },
@@ -551,12 +3895,67 @@
       },
       "extractionState": "manual"
     },
+    "Open KeelMac at login": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir KeelMac al iniciar sesión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open Login Items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Ítems de inicio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open Privacy & Security": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Abrir Privacidad y seguridad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Open storage map": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir mapa de almacenamiento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Opened any time": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abiertos en cualquier momento"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Operation": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operación"
           }
         }
       },
@@ -573,12 +3972,177 @@
       },
       "extractionState": "manual"
     },
+    "Operation not permitted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operación no permitida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Other": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Other files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Out %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salida %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Outside the folders KeelMac may change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera de las carpetas que KeelMac puede cambiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Overview": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Resumen"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Partly checked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcado en parte"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Path": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Paths protect themselves and everything inside. Patterns can use * within a folder name and ** for any depth.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las rutas se protegen a sí mismas y todo lo que contienen. Los patrones pueden usar * dentro de un nombre de carpeta y ** para cualquier profundidad."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Per-app temporary items. macOS clears them on restart.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítems temporales de cada app. macOS los borra al reiniciar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Permission denied": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permiso denegado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Plugged in": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conectada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Prefer this folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preferir esta carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Process": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proceso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Protected location": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ubicación protegida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quick Look": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vista rápida"
           }
         }
       },
@@ -595,12 +4159,518 @@
       },
       "extractionState": "manual"
     },
+    "Quit %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quit %@?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cerrar %@?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quit process": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar proceso"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Quit…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Ran": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecutado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Read-only check of Macintosh HD with First Aid. Nothing is repaired.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisión de solo lectura de Macintosh HD con Primeros auxilios. No se repara nada."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reading launchd…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leyendo launchd…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Reading your apps…": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Leyendo tus apps…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reason": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motivo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuild Launch Services database": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconstruir la base de datos de Launch Services"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuild Spotlight index": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconstruir el índice de Spotlight"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuild index": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconstruir índice"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuild the Spotlight index?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Reconstruir el índice de Spotlight?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuilt by apps as needed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las apps los recrean cuando hace falta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rebuilt by apps as needed. Listed in Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las apps los recrean cuando hace falta. Aparecen en Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reclaimable": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recuperable"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reclaimable space": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espacio recuperable"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reclaimable space is only partly measured.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El espacio recuperable solo se midió en parte."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Refresh": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Refresh every": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar cada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Refused": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechazado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Related files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos relacionados"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Release notes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novedades"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove %@ from the whitelist": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar %@ de la lista de exclusiones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove %@?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Quitar %@?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove helper": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar asistente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Removed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Removes your font cache. Fixes garbled or missing fonts. Restart afterwards.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borra tu caché de fuentes. Corrige fuentes dañadas o faltantes. Reinicia después."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Report an issue": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reportar un problema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rescan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a escanear"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rescan this folder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a escanear esta carpeta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Rescanning…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volviendo a escanear…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Result": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resultado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reveal": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reveal in Finder": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar en el Finder"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Review": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Review cleanup": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Review files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Run": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecutar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Run periodic maintenance scripts": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecutar scripts de mantenimiento periódico"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Runs the daily, weekly and monthly housekeeping scripts macOS used to run overnight.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecuta los scripts de limpieza diarios, semanales y mensuales que macOS solía correr de noche."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Run…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecutar…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scan again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanear de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scan disk": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanear disco"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scan exclusions": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exclusiones del escaneo"
           }
         }
       },
@@ -617,12 +4687,111 @@
       },
       "extractionState": "manual"
     },
-    "Scan to break down System Data": {
+    "Scanned %@, %@ files": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escanea para desglosar los Datos del sistema"
+            "value": "Escaneado %@, %@ archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Scanning Macintosh HD…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escaneando Macintosh HD…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Score": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puntos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search apps": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar apps"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search paths": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar rutas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search results are incomplete for about an hour while macOS indexes Macintosh HD again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los resultados de búsqueda estarán incompletos durante una hora aproximadamente mientras macOS indexa de nuevo Macintosh HD."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Search these folders": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar en estas carpetas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Searching your Library…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando en tu Biblioteca…"
           }
         }
       },
@@ -639,6 +4808,28 @@
       },
       "extractionState": "manual"
     },
+    "Send alerts": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar alertas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Service Recommended": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servicio recomendado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Settings…": {
       "localizations": {
         "es": {
@@ -650,12 +4841,265 @@
       },
       "extractionState": "manual"
     },
+    "Shared caches. Cleaning them needs the helper.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cachés compartidas. Limpiarlas requiere el asistente."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Shared with other apps from the same developer, unchecked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartido con otras apps del mismo desarrollador, sin marcar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Shorter intervals use slightly more energy. Two seconds is a good balance.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los intervalos más cortos usan un poco más de energía. Dos segundos es un buen equilibrio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Show Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Show in the menu bar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar en la barra de menús"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Show processes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver procesos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Show sizes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar tamaños"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Simulator devices and runtimes. Unavailable devices can be removed in Cleanup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispositivos y entornos de los simuladores. Los dispositivos no disponibles se pueden quitar en Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Size": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamaño"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Skip caches of apps that are open": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omitir cachés de apps abiertas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Skipped": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omitido"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Skipped while %@ is open": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omitido mientras %@ está abierta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Snapshots": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Instantáneas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Some app data folders can’t be measured.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas carpetas de datos de apps no se pueden medir."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Some tasks need administrator rights.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas tareas necesitan permisos de administrador."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Sort by": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordenar por"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Sort processes by": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordenar procesos por"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Space change, battery trend, the folders that grew most and what can be cleaned.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambio de espacio, tendencia de la batería, las carpetas que más crecieron y lo que se puede limpiar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Space used": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espacio usado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Start the path with / or ~/.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empieza la ruta con / o ~/."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Startup items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ítems de arranque"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Status": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stop": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detener"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stopped containers and build cache": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contenedores detenidos y caché de compilación"
           }
         }
       },
@@ -683,6 +5127,39 @@
       },
       "extractionState": "manual"
     },
+    "Sunburst": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anillos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Swap and sleep image": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memoria virtual e imagen de reposo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "System": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "System Data": {
       "localizations": {
         "es": {
@@ -694,12 +5171,496 @@
       },
       "extractionState": "manual"
     },
-    "The Health Score appears as soon as the first readings are in.": {
+    "System caches": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "La puntuación de salud aparece en cuanto llegan las primeras lecturas."
+            "value": "Cachés del sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "System daemons": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servicios del sistema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Take snapshot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomar instantánea"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Taking a snapshot of your home folder…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomando una instantánea de tu carpeta de inicio…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Temperature": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temperatura"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Temperature is above": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La temperatura supera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Temporary files": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos temporales"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "That folder doesn’t exist. Check the spelling.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esa carpeta no existe. Revisa cómo está escrita."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The app and the helper are different versions": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app y el asistente son de versiones distintas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The helper didn’t respond": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El asistente no respondió"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The helper runs only the tasks listed in Maintenance and Login items, checks every path again before touching it, and accepts requests only from KeelMac signed by the same developer.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El asistente solo ejecuta las tareas que aparecen en Mantenimiento e Ítems de inicio, revisa cada ruta otra vez antes de tocarla y solo acepta solicitudes de KeelMac firmado por el mismo desarrollador."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The item is stopped and its plist moves to the Trash. The app it belongs to may add it again when it next runs.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El ítem se detiene y su plist va a la Papelera. La app a la que pertenece podría volver a añadirlo la próxima vez que se ejecute."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The load line is 85% full. Keep below it so macOS has room for updates and swap.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La línea de carga está al 85% de ocupación. Mantente por debajo para que macOS tenga espacio para actualizaciones y memoria virtual."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The plist does not belong to that label": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El plist no pertenece a esa etiqueta"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The plist is not in /Library/LaunchAgents or /Library/LaunchDaemons": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El plist no está en /Library/LaunchAgents ni en /Library/LaunchDaemons"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The request could not be read": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer la solicitud"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The scan stopped": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El escaneo se detuvo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The search stopped": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La búsqueda se detuvo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Thin local Time Machine snapshots": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reducir instantáneas locales de Time Machine"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This Mac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta Mac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This Mac has no battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta Mac no tiene batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This Mac has no battery.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta Mac no tiene batería."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This is a preview. Nothing moves until you click the button below, and only the items checked here.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es una vista previa. Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This is the first snapshot. Next week’s will show what grew.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta es la primera instantánea. La de la próxima semana mostrará qué creció."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Time": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hora"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Time left": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiempo restante"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Too many items in one request": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demasiados ítems en una solicitud"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Took too long and was stopped": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tardó demasiado y se detuvo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Top processes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procesos principales"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Trash file": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover archivo a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Treemap": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mapa"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Try again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intentar de nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Turn off to delete permanently. Every delete still asks first.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactívalo para borrar para siempre. Cada borrado sigue preguntando antes."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Turn on KeelMac under Allow in the Background in Login Items.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activa KeelMac en Permitir en segundo plano, en Ítems de inicio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Type a path first.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe una ruta primero."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Unavailable": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No disponible"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Unchecked until you choose them": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin marcar hasta que los elijas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Uninstall %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Uninstall %@?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Desinstalar %@?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Uninstall…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Unknown": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desconocido"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Unsigned apps only, signed apps would break": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo apps sin firma, las firmadas dejarían de funcionar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Up": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encendida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Updated %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizado %@"
           }
         }
       },
@@ -716,6 +5677,149 @@
       },
       "extractionState": "manual"
     },
+    "Updates are signed. The update check is the only network request KeelMac makes.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Uptime": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiempo encendida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "User": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuario"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Value": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Verify startup disk": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar el disco de arranque"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Version": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Version %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "View": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vista"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "View battery": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver batería"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "View in operation log": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver en el registro de operaciones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Waiting for your approval in Login Items": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando tu aprobación en Ítems de inicio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Weekly summary on Monday": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen semanal los lunes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Weekly, every Monday at 09:00": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semanal, cada lunes a las 09:00"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Welcome to KeelMac": {
       "localizations": {
         "es": {
@@ -727,12 +5831,331 @@
       },
       "extractionState": "manual"
     },
+    "What grew": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué creció"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "When cleaning": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Where": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ubicación"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Whitelisted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En la lista de exclusiones"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Why": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "With nothing selected, the menu bar shows the KeelMac mark.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si no eliges nada, la barra de menús muestra el símbolo de KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Xcode data": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de Xcode"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Xcode, simulators, package managers": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xcode, simuladores, gestores de paquetes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "You can put it back from the Trash. KeelMac logs it in the operation log.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes recuperarlo de la Papelera. KeelMac lo anota en el registro de operaciones."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "You can skip this. KeelMac still works, and lists every folder it couldn’t read.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Puedes omitir esto. KeelMac sigue funcionando y enumera cada carpeta que no pudo leer."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "You moved %@ to the Trash. KeelMac can show the files it left in your Library.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moviste %@ a la Papelera. KeelMac puede mostrarte los archivos que dejó en tu Biblioteca."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your Mac could use some room.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tu Mac le vendría bien más espacio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your Mac is in good shape.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu Mac está en buena forma."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your Mac is running hot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu Mac se está calentando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your Mac needs attention.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu Mac necesita atención."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your agents": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus agentes"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Your week on this Mac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu semana en esta Mac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "You’ll see every related file first.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primero verás cada archivo relacionado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "iOS Simulators": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simuladores de iOS"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "iPhone and iPad backups": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldos de iPhone y iPad"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "macOS": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "macOS deletes these when it needs space. You can thin them in Maintenance.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS borra estas cuando necesita espacio. Puedes reducirlas en Mantenimiento."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "macOS needs free space for updates and swap. Cleanup and the storage map show what to remove.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS necesita espacio libre para actualizaciones y memoria virtual. Limpieza y el mapa de almacenamiento muestran qué quitar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "macOS's own launch items are never changed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ítems de inicio propios de macOS nunca se cambian"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "min": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "min"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "since": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "~/Library/Caches/com.example.app or ~/Developer/**/build": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~/Library/Caches/com.example.app o ~/Developer/**/build"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "°C": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "°C"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "–": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "–"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "“System Data” is everything macOS can’t put in another category. These are the folders behind it. Some are safe to clean in Cleanup; others macOS manages and you should leave alone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Datos del sistema” es todo lo que macOS no puede poner en otra categoría. Estas son las carpetas que lo forman. Algunas se pueden limpiar en Limpieza; otras las administra macOS y conviene dejarlas."
           }
         }
       },

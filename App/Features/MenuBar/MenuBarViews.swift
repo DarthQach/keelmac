@@ -229,7 +229,7 @@ struct BatteryLine: View {
         HStack(spacing: 4) {
             if let cap = battery.maxCapacityPercent { Text("Battery \(Format.percent(cap / 100)) capacity") }
             if let cycles = battery.cycleCount { Text(verbatim: ",") ; Text("\(cycles) cycles") }
-            if let c = battery.condition { Text(verbatim: ","); Text(LocalizedStringKey(c.lowercased())) }
+            if let c = battery.condition { Text(verbatim: ","); Text(LocalizedStringKey(c)) }
         }
         .tabular()
     }
