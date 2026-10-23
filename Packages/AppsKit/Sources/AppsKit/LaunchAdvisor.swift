@@ -10,7 +10,7 @@ public enum LaunchAdviceReason: Sendable, Hashable {
     case appGone
     /// The same label is also in another launchd folder; `otherPath` is the copy that stays.
     case duplicate(otherPath: String)
-    /// It only checks for updates; the app updates itself when it's opened.
+    /// It only checks for updates now and then (at login or on a timer); the app updates itself when it's opened.
     case updater
     /// The owning app hasn't been opened since `lastUsed`.
     case appUnused(lastUsed: Date)
@@ -38,7 +38,9 @@ public enum LaunchAdvisor {
 
     /// Advice keyed by `LaunchItem.id`; items without advice are absent. First matching rule wins:
     /// app gone → remove; same label in both agent folders → turn off the copy in `~/Library/LaunchAgents`;
-    /// an update checker that starts on its own → turn off; owner app unused for `unusedDays` → turn off (weak).
+    /// a periodic update checker → turn off; owner app unused for `unusedDays` → turn off (weak).
+    /// Kept-alive jobs never get the updater advice: an always-running "updater" is a service the app depends on
+    /// (Logi Options+ fetches device resources through `com.logi.optionsplus.updater`).
     public static func advise(_ items: [LaunchItem], installed: [InstalledApp], now: Date) -> [String: LaunchAdvice] {
         let globalAgents = Dictionary(items.filter { $0.domain == .globalAgent }.map { ($0.label.lowercased(), $0) },
                                       uniquingKeysWith: { a, _ in a })
@@ -48,7 +50,7 @@ public enum LaunchAdvisor {
                 out[item.id] = LaunchAdvice(action: .remove, reason: .appGone, isStrong: true)
             } else if item.domain == .userAgent, let other = globalAgents[item.label.lowercased()], !other.isDisabled {
                 out[item.id] = LaunchAdvice(action: .turnOff, reason: .duplicate(otherPath: other.plistPath), isStrong: true)
-            } else if item.startsOnItsOwn, isUpdater(item) {
+            } else if isPeriodicCheck(item), isUpdater(item) {
                 out[item.id] = LaunchAdvice(action: .turnOff, reason: .updater, isStrong: true)
             } else if item.startsOnItsOwn, let lastUsed = ownerLastUsed(item, installed: installed),
                       now.timeIntervalSince(lastUsed) > Double(unusedDays) * 86_400 {
@@ -56,6 +58,14 @@ public enum LaunchAdvisor {
             }
         }
         return out
+    }
+
+    /// Runs at login or on a timer and then exits; not on demand and not kept alive.
+    static func isPeriodicCheck(_ item: LaunchItem) -> Bool {
+        switch item.schedule {
+        case .atLoad, .interval, .calendar: true
+        case .keepAlive, .onDemand: false
+        }
     }
 
     static func isUpdater(_ item: LaunchItem) -> Bool {

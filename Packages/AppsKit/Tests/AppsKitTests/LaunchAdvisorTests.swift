@@ -60,6 +60,13 @@ import Testing
         }
     }
 
+    @Test func keptAliveUpdaterIsAServiceNotAdvised() {
+        // Logi Options+ downloads device resources through this daemon; switching it off breaks the app.
+        let logi = item("com.logi.optionsplus.updater", domain: .globalDaemon, schedule: .keepAlive,
+                        program: "/Library/Application Support/Logitech.localized/LogiOptionsPlus/logioptionsplus_agent.app/Contents/Frameworks/logioptionsplus_updater.app/Contents/MacOS/logioptionsplus_updater")
+        #expect(advice([logi]).isEmpty)
+    }
+
     @Test func onDemandUpdaterGetsNoTurnOffAdvice() {
         let xpc = item("com.google.keystone.xpcservice", schedule: .onDemand)
         #expect(advice([xpc]).isEmpty)
