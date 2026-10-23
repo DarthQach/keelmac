@@ -26,8 +26,11 @@ enum Preferences {
         static let temperatureUnit = "temperatureUnit"            // celsius, fahrenheit
         static let automaticUpdates = "automaticUpdates"
         static let assistantEnabled = "assistantEnabled"            // off by default: no local server is contacted until the user opts in
+        static let assistantProvider = "assistantProvider"          // AssistantProvider raw value: ollama, lmStudio
+        static let assistantProviderChosen = "assistantProviderChosen" // set once the user picked a server or first-enable detection ran
         static let assistantHost = "assistantHost"                  // Ollama base URL
-        static let assistantModel = "assistantModel"                // model name from Ollama's list; empty = first tool-capable one
+        static let assistantLMStudioHost = "assistantLMStudioHost"  // LM Studio base URL
+        static let assistantModel = "assistantModel"                // model name from the server's list; empty = first tool-capable one
         static let assistantPanelOpen = "assistantPanelOpen"
     }
 
@@ -53,7 +56,10 @@ enum Preferences {
             Key.temperatureUnit: "celsius",
             Key.automaticUpdates: true,
             Key.assistantEnabled: false,
+            Key.assistantProvider: "ollama",
+            Key.assistantProviderChosen: false,
             Key.assistantHost: "http://localhost:11434",
+            Key.assistantLMStudioHost: "http://localhost:1234",
             Key.assistantModel: "",
             Key.assistantPanelOpen: false,
         ])

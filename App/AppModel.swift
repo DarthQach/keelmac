@@ -39,8 +39,8 @@ final class AppModel {
         apps = AppsModel(log: operationLog, helper: helper, onStartupCounts: { health.recordStartupItems(total: $0, orphans: $1) })
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
-        var fixtureBackend: (@Sendable (URL) -> any ChatBackend)?
-        if isUITesting { fixtureBackend = { _ in FixtureChatBackend() as any ChatBackend } }
+        var fixtureBackend: (@Sendable (AssistantProvider, URL) -> any ChatBackend)?
+        if isUITesting { fixtureBackend = { _, _ in FixtureChatBackend() as any ChatBackend } }
         let tools = AssistantTools.all(self)
         let routeOf: @MainActor () -> Route = { [unowned self] in self.route }
         assistant.configure(tools: tools, backend: fixtureBackend, route: routeOf)
@@ -72,7 +72,7 @@ final class AppModel {
         }
         if !isUITesting { snapshots.startWeeklySchedule() }
         apps.updateTrashWatcher(enabled: UserDefaults.standard.bool(forKey: Preferences.Key.trashWatcher))
-        if assistant.isEnabled, assistant.isPresented { Task { await assistant.refreshStatus() } }
+        if assistant.isEnabled, assistant.isPresented { assistant.refresh() }
         // Measure reclaimable space and startup items in the background so the Health Score is complete.
         Task {
             try? await Task.sleep(for: .seconds(8))

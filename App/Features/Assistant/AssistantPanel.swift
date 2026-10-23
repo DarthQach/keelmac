@@ -96,28 +96,24 @@ struct AssistantPanel: View {
         VStack(spacing: 0) {
             PanelHeader(assistant: a, openSettings: { openSettings() }, close: close)
             Rectangle().fill(Color.kmBorder).frame(height: 1)
+            let provider = a.provider
             switch a.status {
             case .disabled:
                 PanelState(symbol: "sparkles", title: "The Assistant is off.",
-                           message: "Turn it on in Settings to ask about what you see. It only talks to Ollama on this Mac.") {
+                           message: "Turn it on in Settings to ask about what you see. It only talks to Ollama or LM Studio on this Mac.") {
                     Button("Open Settings…") { openSettings() }.buttonStyle(.kmPrimary)
                 }
             case .checking:
-                ProgressView("Checking Ollama…").frame(maxWidth: .infinity, maxHeight: .infinity)
+                ProgressView("Checking \(provider.name)…").frame(maxWidth: .infinity, maxHeight: .infinity)
             case .unreachable(let host):
-                PanelState(symbol: "bolt.horizontal.circle", title: "Ollama isn’t running.",
-                           message: "Open Ollama, then try again. KeelMac looks for it at this address:") {
-                    Text(verbatim: host).font(.system(.callout, design: .monospaced)).foregroundStyle(.kmFgMuted).textSelection(.enabled)
-                    HStack(spacing: 10) {
-                        Button("Open Ollama") { openOllama() }.buttonStyle(.kmPrimary)
-                        Button("Try again") { Task { await a.refreshStatus() } }
-                    }
-                }
+                unreachable(a, provider: provider, host: host)
             case .noModel:
-                PanelState(symbol: "shippingbox", title: "No models in Ollama.",
-                           message: "Download one in Terminal, then try again. A model that supports tools can look things up for you.") {
-                    CommandLabel(command: "ollama pull qwen3")
-                    Button("Try again") { Task { await a.refreshStatus() } }.buttonStyle(.kmPrimary)
+                PanelState(symbol: "shippingbox", title: "No models in \(provider.name).",
+                           message: provider == .lmStudio
+                               ? "Download one in LM Studio › Discover or in Terminal, then try again. A model that supports tools can look things up for you."
+                               : "Download one in Terminal, then try again. A model that supports tools can look things up for you.") {
+                    CommandLabel(command: provider.pullCommand)
+                    Button("Try again") { a.refresh() }.buttonStyle(.kmPrimary)
                 }
             case .idle, .loadingModel, .streaming, .error:
                 if a.turns.isEmpty { welcome(a) } else { transcript(a) }
@@ -139,6 +135,34 @@ struct AssistantPanel: View {
         withAnimation(reduceMotion ? nil : .snappy(duration: 0.28)) { model.assistant.isPresented = false }
     }
 
+    /// The server didn't answer: it isn't installed, or it isn't running. Offers the other server when that one is installed.
+    @ViewBuilder private func unreachable(_ a: AssistantModel, provider: AssistantProvider, host: String) -> some View {
+        let other = provider.other
+        let useOther = other.isInstalled
+        if provider.isInstalled {
+            PanelState(symbol: "bolt.horizontal.circle", title: "\(provider.name) isn’t running.",
+                       message: provider == .lmStudio
+                           ? "Open LM Studio and start its server (Developer › Start Server, or lms server start in Terminal), then try again. KeelMac looks for it at this address:"
+                           : "Open Ollama, then try again. KeelMac looks for it at this address:") {
+                Text(verbatim: host).font(.system(.callout, design: .monospaced)).foregroundStyle(.kmFgMuted).textSelection(.enabled)
+                HStack(spacing: 10) {
+                    Button("Open \(provider.name)") { provider.open() }.buttonStyle(.kmPrimary)
+                    Button("Try again") { a.refresh() }
+                }
+                if useOther { Button("Use \(other.name) instead") { a.switchProvider(to: other) }.buttonStyle(.link) }
+            }
+        } else {
+            PanelState(symbol: "arrow.down.circle", title: "\(provider.name) isn’t installed.",
+                       message: "The Assistant runs on \(provider.name), a free app that keeps the model on this Mac. Download it, open it, then try again.") {
+                HStack(spacing: 10) {
+                    Button("Download \(provider.name)…") { provider.open() }.buttonStyle(.kmPrimary)
+                    Button("Try again") { a.refresh() }
+                }
+                if useOther { Button("Use \(other.name) instead") { a.switchProvider(to: other) }.buttonStyle(.link) }
+            }
+        }
+    }
+
     // MARK: Conversation
 
     private func welcome(_ a: AssistantModel) -> some View {
@@ -147,7 +171,7 @@ struct AssistantPanel: View {
             AssistantMark(size: 44)
             VStack(spacing: 6) {
                 Text("Ask about what you see.").font(.title3.weight(.semibold))
-                Text("Answers come from Ollama on this Mac. KeelMac shares the names, sizes and dates of what is on screen, never file contents.")
+                Text("Answers come from \(a.provider.name) on this Mac. KeelMac shares the names, sizes and dates of what is on screen, never file contents.")
                     .font(.callout).foregroundStyle(.kmFgMuted).multilineTextAlignment(.center)
             }
             if a.canSend {
@@ -257,13 +281,6 @@ struct AssistantPanel: View {
         a.send(text)
     }
 
-    private func openOllama() {
-        if let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: OwnerResolver.ollamaBundleID) {
-            NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration())
-        } else {
-            NSWorkspace.shared.open(URL(string: "https://ollama.com/download")!)
-        }
-    }
 }
 
 // MARK: - Header
@@ -278,7 +295,7 @@ private struct PanelHeader: View {
             AssistantMark(size: 28)
             VStack(alignment: .leading, spacing: 2) {
                 Text("Assistant").font(.headline).accessibilityIdentifier("assistant.title")
-                StatusLine(status: assistant.status, model: assistant.modelName)
+                StatusLine(status: assistant.status, model: assistant.modelName, provider: assistant.provider)
             }
             Spacer(minLength: 8)
             HStack(spacing: 2) {
@@ -313,6 +330,7 @@ private struct AssistantMark: View {
 private struct StatusLine: View {
     let status: AssistantModel.Status
     let model: String
+    let provider: AssistantProvider
 
     var body: some View {
         HStack(spacing: 5) {
@@ -326,9 +344,9 @@ private struct StatusLine: View {
     private var text: String {
         switch status {
         case .disabled: String(localized: "Off")
-        case .checking: String(localized: "Checking Ollama…")
-        case .unreachable: String(localized: "Ollama isn’t running")
-        case .noModel: String(localized: "No models in Ollama")
+        case .checking: String(localized: "Checking \(provider.name)…")
+        case .unreachable: provider.isInstalled ? String(localized: "\(provider.name) isn’t running") : String(localized: "\(provider.name) isn’t installed")
+        case .noModel: String(localized: "No models in \(provider.name)")
         case .loadingModel: String(localized: "Loading \(model)…")
         case .streaming: String(localized: "Answering…")
         case .idle, .error: model.isEmpty ? String(localized: "On this Mac") : String(localized: "On this Mac · \(model)")

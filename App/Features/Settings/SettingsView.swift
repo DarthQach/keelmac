@@ -385,7 +385,7 @@ struct UpdateSettings: View {
                     Link("Release notes", destination: SupportLinks.releaseNotes).foregroundStyle(.kmAccentText)
                 }
             } footer: {
-                Text("Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama if you turn the Assistant on.")
+                Text("Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama or LM Studio if you turn the Assistant on.")
                     .font(.callout).foregroundStyle(.kmFgMuted)
             }
         }

@@ -39,11 +39,12 @@ final class AssistantModel {
     }
     var tools: [any AssistantTool] = []
 
-    private var makeBackend: @Sendable (URL) -> any ChatBackend = { OllamaClient(baseURL: $0) }
+    private var makeBackend: @Sendable (AssistantProvider, URL) -> any ChatBackend = { $0.makeClient(baseURL: $1) }
     private var currentRoute: @MainActor () -> Route = { .dashboard }
     private var backend: (any ChatBackend)?
     private var session: ChatSession?
     private var streamTask: Task<Void, Never>?
+    private var refreshTask: Task<Void, Never>?
     private var toolTurns: [String: UUID] = [:]
 
     init() {
@@ -52,7 +53,7 @@ final class AssistantModel {
     }
 
     /// Called once by AppModel after its services exist.
-    func configure(tools: [any AssistantTool], backend: (@Sendable (URL) -> any ChatBackend)? = nil, route: @escaping @MainActor () -> Route) {
+    func configure(tools: [any AssistantTool], backend: (@Sendable (AssistantProvider, URL) -> any ChatBackend)? = nil, route: @escaping @MainActor () -> Route) {
         self.tools = tools
         if let backend { makeBackend = backend }
         currentRoute = route
@@ -66,14 +67,20 @@ final class AssistantModel {
             : UserDefaults.standard.bool(forKey: Preferences.Key.assistantEnabled)
     }
 
-    var host: String {
-        let h = UserDefaults.standard.string(forKey: Preferences.Key.assistantHost) ?? ""
-        return h.isEmpty ? OllamaClient.defaultBaseURL.absoluteString : h
+    /// Ollama or LM Studio; `-fixture-provider` overrides it in UI tests and screenshots.
+    var provider: AssistantProvider {
+        VisualFixtures.argument("-fixture-provider").flatMap(AssistantProvider.init(rawValue:)) ?? .stored
     }
 
-    var baseURL: URL { URL(string: host) ?? OllamaClient.defaultBaseURL }
+    /// The chosen server's own address; each server keeps one.
+    var host: String {
+        let h = UserDefaults.standard.string(forKey: provider.hostKey) ?? ""
+        return h.isEmpty ? provider.defaultBaseURL.absoluteString : h
+    }
 
-    /// The chosen model when Ollama still has it, else the first tool-capable one.
+    var baseURL: URL { URL(string: host) ?? provider.defaultBaseURL }
+
+    /// The chosen model when the server still has it, else the first tool-capable one.
     var modelName: String {
         let preferred = UserDefaults.standard.string(forKey: Preferences.Key.assistantModel) ?? ""
         if !preferred.isEmpty, models.isEmpty || models.contains(where: { $0.name == preferred }) { return preferred }
@@ -86,46 +93,77 @@ final class AssistantModel {
 
     // MARK: Connection
 
+    /// Rebuilds the connection. A newer call cancels an older refresh still in flight, so quick changes
+    /// (switching the server also clears the model) end with one status.
     func settingsChanged() {
         stop()
         backend = nil
         session = nil
         toolsUnavailable = false
-        Task { await refreshStatus() }
+        refresh()
+    }
+
+    /// The one way a refresh starts outside tests, so a newer one always wins.
+    @discardableResult
+    func refresh() -> Task<Void, Never> {
+        refreshTask?.cancel()
+        let task = Task { await refreshStatus() }
+        refreshTask = task
+        return task
+    }
+
+    /// The panel's "Use … instead": remembers the choice, forgets the other server's model, reconnects.
+    func switchProvider(to provider: AssistantProvider) {
+        let defaults = UserDefaults.standard
+        defaults.set(provider.rawValue, forKey: Preferences.Key.assistantProvider)
+        defaults.set(true, forKey: Preferences.Key.assistantProviderChosen)
+        defaults.set("", forKey: Preferences.Key.assistantModel)
+        models = []
+        settingsChanged()
     }
 
     func refreshStatus() async {
+        guard !Task.isCancelled else { return }   // superseded before it began; don't build a backend for it
         guard isEnabled else { status = .disabled; return }
         status = .checking
         let b = currentBackend()
+        let found: [ModelInfo]
         do {
             try await b.ping()
-            models = try await b.listModels()
+            found = try await b.listModels()
         } catch let error as AssistantError {
-            status = describe(error)
+            if !Task.isCancelled { status = describe(error) }
             return
         } catch {
-            status = .unreachable(host)
+            if !Task.isCancelled { status = .unreachable(host) }
             return
         }
+        guard !Task.isCancelled else { return }
+        models = found
         status = models.isEmpty ? .noModel : .idle
     }
 
+    /// Waits for the newest refresh, so a test started just before a server switch reports the switched server.
     func testConnection() async -> Status {
-        await refreshStatus()
+        var task = refresh()
+        await task.value
+        while let latest = refreshTask, latest != task {
+            task = latest
+            await task.value
+        }
         return status
     }
 
     func togglePanel() {
         isPresented.toggle()
         if isPresented, isEnabled, [.disabled, .noModel].contains(status) || { if case .unreachable = status { true } else { false } }() {
-            Task { await refreshStatus() }
+            refresh()
         }
     }
 
     private func currentBackend() -> any ChatBackend {
         if let backend { return backend }
-        let b = makeBackend(baseURL)
+        let b = makeBackend(provider, baseURL)
         backend = b
         return b
     }
@@ -245,10 +283,10 @@ final class AssistantModel {
         switch error {
         case .unreachable: return .unreachable(host)
         case .cancelled: return .idle
-        case .modelNotFound(let m): return .error(String(localized: "Ollama no longer has the model \(m). Pick another one in Settings."))
+        case .modelNotFound(let m): return .error(String(localized: "\(provider.name) no longer has the model \(m). Pick another one in Settings."))
         case .toolsUnsupported(let m): return .error(String(localized: "The model \(m) can’t use lookups."))
-        case .httpStatus(let code, let message): return .error(String(localized: "Ollama answered \(code): \(message)"))
-        case .decoding: return .error(String(localized: "KeelMac couldn’t read Ollama’s reply."))
+        case .httpStatus(let code, let message): return .error(String(localized: "\(provider.name) answered \(code): \(message)"))
+        case .decoding: return .error(String(localized: "KeelMac couldn’t read \(provider.name)’s reply."))
         case .toolFailed(_, let message): return .error(message)
         case .tooManyToolRounds: return .error(String(localized: "The model kept looking things up without answering. Try asking more specifically."))
         }
@@ -264,7 +302,7 @@ final class AssistantModel {
         case "error":
             models = [ModelInfo(name: "qwen3:8b", capabilities: ["completion", "tools"])]
             seedTranscript()
-            status = .error(String(localized: "Ollama answered \(500): \("model runner has stopped")"))
+            status = .error(String(localized: "\(provider.name) answered \(500): \("model runner has stopped")"))
         case "empty":
             models = [ModelInfo(name: "qwen3:8b", capabilities: ["completion", "tools"])]
             status = .idle

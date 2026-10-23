@@ -1,15 +1,15 @@
 import XCTest
 
-/// The Assistant panel in every state, with the fixture backend (no Ollama, no network).
+/// The Assistant panel in every state, with the fixture backend (no Ollama, no LM Studio, no network).
 final class AssistantUITests: XCTestCase {
     override func setUp() { continueAfterFailure = false }
 
     @MainActor
-    private func launch(theme: String, language: String, state: String, route: String = "largeOld") -> XCUIApplication {
+    private func launch(theme: String, language: String, state: String, route: String = "largeOld", provider: String = "ollama") -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["-uitest", "-visual-fixtures", "-appearance", theme, "-fixture-size", "1180x780",
                                "-AppleLanguages", "(\(language))", "-AppleLocale", language == "es" ? "es_MX" : "en_US",
-                               "-mapHighlight", "none", "-fixture-route", route, "-fixture-assistant", state]
+                               "-mapHighlight", "none", "-fixture-route", route, "-fixture-assistant", state, "-fixture-provider", provider]
         app.launch()
         XCTAssertTrue(app.windows.firstMatch.waitForExistence(timeout: 10))
         return app
@@ -23,15 +23,24 @@ final class AssistantUITests: XCTestCase {
     @MainActor
     private func captureStates(theme: String, language: String) {
         for state in ["ready", "empty", "disabled", "unreachable", "noModel", "error"] {
-            let app = launch(theme: theme, language: language, state: state)
-            let window = app.windows.firstMatch
-            let title = window.descendants(matching: .any)["assistant.title"].firstMatch
-            let present = title.waitForExistence(timeout: 5)
-            Thread.sleep(forTimeInterval: 0.4)
-            attach(window, "assistant-\(state)-\(theme)-\(language)")
-            XCTAssertTrue(present, state)
-            app.terminate()
+            capture(theme: theme, language: language, state: state, provider: "ollama", name: "assistant-\(state)-\(theme)-\(language)")
         }
+        // Only these two read differently for LM Studio.
+        for state in ["unreachable", "noModel"] {
+            capture(theme: theme, language: language, state: state, provider: "lmStudio", name: "assistant-\(state)-lmstudio-\(theme)-\(language)")
+        }
+    }
+
+    @MainActor
+    private func capture(theme: String, language: String, state: String, provider: String, name: String) {
+        let app = launch(theme: theme, language: language, state: state, provider: provider)
+        let window = app.windows.firstMatch
+        let title = window.descendants(matching: .any)["assistant.title"].firstMatch
+        let present = title.waitForExistence(timeout: 5)
+        Thread.sleep(forTimeInterval: 0.4)
+        attach(window, name)
+        XCTAssertTrue(present, name)
+        app.terminate()
     }
 
     @MainActor

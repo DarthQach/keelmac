@@ -1,7 +1,7 @@
 import Sparkle
 import SwiftUI
 
-/// Sparkle 2 updates (C29). The appcast is the only network request KeelMac makes on its own; the opt-in Assistant talks to the user's local Ollama.
+/// Sparkle 2 updates (C29). The appcast is the only network request KeelMac makes on its own; the opt-in Assistant talks to the user's local Ollama or LM Studio.
 @MainActor
 @Observable
 final class Updater {

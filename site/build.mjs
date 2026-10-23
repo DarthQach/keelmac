@@ -43,7 +43,7 @@ const T = {
     ],
     logCaption: "Operation log", path: "Path", size: "Size", result: "Result", trashed: "Moved to Trash", skippedSafari: "Skipped, Safari is open",
     freeH: "Free, with no catch",
-    free1: "No subscription, no account, no telemetry. The only network request KeelMac makes is the update check; the optional Assistant talks only to Ollama on your own Mac. The code is on GitHub under the GPL-3.0 licence, and cleanup rules are a JSON file anyone can improve.",
+    free1: "No subscription, no account, no telemetry. The only network request KeelMac makes is the update check; the optional Assistant talks only to Ollama or LM Studio on your own Mac. The code is on GitHub under the GPL-3.0 licence, and cleanup rules are a JSON file anyone can improve.",
     free2: `If it saved you an afternoon, you can <a href="${COFFEE}">buy me a coffee</a>.`,
     faqH: "Questions",
     faqs: [
@@ -96,7 +96,7 @@ const T = {
     ],
     logCaption: "Registro de operaciones", path: "Ruta", size: "Tamaño", result: "Resultado", trashed: "Movido a la Papelera", skippedSafari: "Omitido, Safari está abierto",
     freeH: "Gratis, sin trampa",
-    free1: "Sin suscripción, sin cuenta, sin telemetría. La única conexión que hace KeelMac es para buscar actualizaciones; el Asistente opcional habla solo con Ollama en tu propia Mac. El código está en GitHub con licencia GPL-3.0, y las reglas de limpieza son un archivo JSON que cualquiera puede mejorar.",
+    free1: "Sin suscripción, sin cuenta, sin telemetría. La única conexión que hace KeelMac es para buscar actualizaciones; el Asistente opcional habla solo con Ollama o LM Studio en tu propia Mac. El código está en GitHub con licencia GPL-3.0, y las reglas de limpieza son un archivo JSON que cualquiera puede mejorar.",
     free2: `Si te ahorró una tarde, puedes <a href="${COFFEE}">invitarme un café</a>.`,
     faqH: "Preguntas",
     faqs: [

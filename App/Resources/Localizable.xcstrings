@@ -45,6 +45,28 @@
       },
       "extractionState": "manual"
     },
+    "%@ address": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dirección de %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ answered %lld: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ respondió %lld: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ below the load line": {
       "localizations": {
         "es": {
@@ -199,6 +221,50 @@
       },
       "extractionState": "manual"
     },
+    "%@ isn’t installed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no está instalado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ isn’t installed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no está instalado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ isn’t running": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no está abierto"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ isn’t running.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no está abierto."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ less": {
       "localizations": {
         "es": {
@@ -260,6 +326,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se liberaron %@ más al vaciar la Papelera y ejecutar comandos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ no longer has the model %@. Pick another one in Settings.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ya no tiene el modelo %@. Elige otro en Ajustes."
           }
         }
       },
@@ -1167,12 +1244,12 @@
       },
       "extractionState": "manual"
     },
-    "Answers come from Ollama on this Mac. KeelMac shares the names, sizes and dates of what is on screen, never file contents.": {
+    "Answers come from %@ on this Mac. KeelMac shares the names, sizes and dates of what is on screen, never file contents.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las respuestas vienen de Ollama en esta Mac. KeelMac comparte los nombres, tamaños y fechas de lo que hay en pantalla, nunca el contenido de los archivos."
+            "value": "Las respuestas vienen de %@ en esta Mac. KeelMac comparte los nombres, tamaños y fechas de lo que hay en pantalla, nunca el contenido de los archivos."
           }
         }
       },
@@ -1607,12 +1684,12 @@
       },
       "extractionState": "manual"
     },
-    "Can’t reach Ollama": {
+    "Can’t reach %@": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No se puede conectar con Ollama"
+            "value": "No se puede conectar con %@"
           }
         }
       },
@@ -1772,12 +1849,12 @@
       },
       "extractionState": "manual"
     },
-    "Checking Ollama…": {
+    "Checking %@…": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Comprobando Ollama…"
+            "value": "Comprobando %@…"
           }
         }
       },
@@ -2443,6 +2520,28 @@
       },
       "extractionState": "manual"
     },
+    "Download %@…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descargar %@…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Download one in LM Studio › Discover or in Terminal, then try again. A model that supports tools can look things up for you.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descarga uno en LM Studio › Discover o en Terminal y vuelve a intentarlo. Un modelo que admite herramientas puede hacer consultas por ti."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Download one in Terminal, then try again. A model that supports tools can look things up for you.": {
       "localizations": {
         "es": {
@@ -2531,12 +2630,12 @@
       },
       "extractionState": "manual"
     },
-    "Enter an address like http://localhost:11434.": {
+    "Enter an address like %@.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escribe una dirección como http://localhost:11434."
+            "value": "Escribe una dirección como %@."
           }
         }
       },
@@ -3411,12 +3510,12 @@
       },
       "extractionState": "manual"
     },
-    "KeelMac couldn’t read Ollama’s reply.": {
+    "KeelMac couldn’t read %@’s reply.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "KeelMac no pudo leer la respuesta de Ollama."
+            "value": "KeelMac no pudo leer la respuesta de %@."
           }
         }
       },
@@ -3521,12 +3620,12 @@
       },
       "extractionState": "manual"
     },
-    "KeelMac talks only to the Ollama at this address. It sends your question, a summary of the current screen and the names, sizes and dates of what you select. It never sends file contents, and nothing else leaves your Mac.": {
+    "KeelMac talks only to the server at this address. It sends your question, a summary of the current screen and the names, sizes and dates of what you select. It never sends file contents, and nothing else leaves your Mac.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "KeelMac habla solo con el Ollama de esta dirección. Envía tu pregunta, un resumen de la pantalla actual y los nombres, tamaños y fechas de lo que seleccionas. Nunca envía el contenido de los archivos, y nada más sale de tu Mac."
+            "value": "KeelMac habla solo con el servidor de esta dirección. Envía tu pregunta, un resumen de la pantalla actual y los nombres, tamaños y fechas de lo que seleccionas. Nunca envía el contenido de los archivos, y nada más sale de tu Mac."
           }
         }
       },
@@ -4610,23 +4709,23 @@
       },
       "extractionState": "manual"
     },
-    "No models in Ollama": {
+    "No models in %@": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No hay modelos en Ollama"
+            "value": "No hay modelos en %@"
           }
         }
       },
       "extractionState": "manual"
     },
-    "No models in Ollama.": {
+    "No models in %@.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No hay modelos en Ollama."
+            "value": "No hay modelos en %@."
           }
         }
       },
@@ -4995,12 +5094,12 @@
       },
       "extractionState": "manual"
     },
-    "Off by default. KeelMac contacts nothing until you turn this on, and then only the Ollama at the address below.": {
+    "Off by default. KeelMac contacts nothing until you turn this on, and then only the server at the address below. It works with Ollama or LM Studio on this Mac.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Apagado por defecto. KeelMac no contacta nada hasta que lo actives, y entonces solo al Ollama de la dirección de abajo."
+            "value": "Apagado por defecto. KeelMac no contacta nada hasta que lo actives, y entonces solo al servidor de la dirección de abajo. Funciona con Ollama o LM Studio en esta Mac."
           }
         }
       },
@@ -5072,67 +5171,12 @@
       },
       "extractionState": "manual"
     },
-    "Ollama address": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dirección de Ollama"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Ollama answered %lld: %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ollama respondió %lld: %@"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Ollama isn’t running": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ollama no está abierto"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Ollama isn’t running.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ollama no está abierto."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Ollama model": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Modelo de Ollama"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Ollama no longer has the model %@. Pick another one in Settings.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ollama ya no tiene el modelo %@. Elige otro en Ajustes."
           }
         }
       },
@@ -5292,23 +5336,23 @@
       },
       "extractionState": "manual"
     },
+    "Open LM Studio and start its server (Developer › Start Server, or lms server start in Terminal), then try again. KeelMac looks for it at this address:": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre LM Studio e inicia su servidor (Developer › Start Server, o lms server start en Terminal) y vuelve a intentarlo. KeelMac lo busca en esta dirección:"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open Login Items": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Abrir Ítems de inicio"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Open Ollama": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abrir Ollama"
           }
         }
       },
@@ -5419,6 +5463,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operación no permitida"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Or download one in LM Studio › Discover.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O descarga uno en LM Studio › Discover."
           }
         }
       },
@@ -6502,6 +6557,17 @@
       },
       "extractionState": "manual"
     },
+    "Server": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servidor"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Service Recommended": {
       "localizations": {
         "es": {
@@ -7140,6 +7206,17 @@
       },
       "extractionState": "manual"
     },
+    "The Assistant runs on %@, a free app that keeps the model on this Mac. Download it, open it, then try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Asistente funciona con %@, una app gratuita que mantiene el modelo en esta Mac. Descárgala, ábrela y vuelve a intentarlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "The app and the helper are different versions": {
       "localizations": {
         "es": {
@@ -7558,12 +7635,12 @@
       },
       "extractionState": "manual"
     },
-    "Turn it on in Settings to ask about what you see. It only talks to Ollama on this Mac.": {
+    "Turn it on in Settings to ask about what you see. It only talks to Ollama or LM Studio on this Mac.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Actívalo en Ajustes para preguntar sobre lo que ves. Solo habla con Ollama en esta Mac."
+            "value": "Actívalo en Ajustes para preguntar sobre lo que ves. Solo habla con Ollama o LM Studio en esta Mac."
           }
         }
       },
@@ -7767,12 +7844,12 @@
       },
       "extractionState": "manual"
     },
-    "Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama if you turn the Assistant on.": {
+    "Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama or LM Studio if you turn the Assistant on.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac, aparte de tu propio Ollama local si activas el Asistente."
+            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac, aparte de tu propio Ollama o LM Studio local si activas el Asistente."
           }
         }
       },
@@ -7800,12 +7877,23 @@
       },
       "extractionState": "manual"
     },
-    "Use a local assistant (Ollama)": {
+    "Use %@ instead": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usar un asistente local (Ollama)"
+            "value": "Usar %@ en su lugar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Use a local assistant": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar un asistente local"
           }
         }
       },

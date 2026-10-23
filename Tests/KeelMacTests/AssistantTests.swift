@@ -89,7 +89,7 @@ struct AssistantTests {
         let call = ToolCall(name: "get_health")
         let backend = ScriptedBackend([[.toolCalls([call])], [.token("Score "), .token("82."), .done(nil)]])
         let model = AssistantModel()
-        model.configure(tools: [StaticTool(name: "get_health", output: "Health Score 82/100")], backend: { _ in backend }) { .dashboard }
+        model.configure(tools: [StaticTool(name: "get_health", output: "Health Score 82/100")], backend: { _, _ in backend }) { .dashboard }
         #expect(model.isEnabled)
         #expect(model.status == .disabled)
         await model.refreshStatus()
@@ -113,7 +113,7 @@ struct AssistantTests {
     @Test func modelRetriesWithoutToolsWhenUnsupported() async throws {
         let backend = ScriptedBackend([[], [.token("Plain answer"), .done(nil)]], failFirst: .toolsUnsupported("m"))
         let model = AssistantModel()
-        model.configure(tools: [StaticTool(name: "get_health", output: "x")], backend: { _ in backend }) { .monitor }
+        model.configure(tools: [StaticTool(name: "get_health", output: "x")], backend: { _, _ in backend }) { .monitor }
         await model.refreshStatus()
         model.send("hi")
         try await waitUntil { model.status == .idle }
@@ -126,12 +126,63 @@ struct AssistantTests {
     @Test func backendFailureBecomesErrorAndDropsEmptyTurn() async throws {
         let backend = ScriptedBackend([[]], failFirst: .httpStatus(500, "boom"))
         let model = AssistantModel()
-        model.configure(tools: [], backend: { _ in backend }) { .monitor }
+        model.configure(tools: [], backend: { _, _ in backend }) { .monitor }
         await model.refreshStatus()
         model.send("hi")
         try await waitUntil { if case .error = model.status { true } else { false } }
         #expect(model.turns.count == 1)
         #expect(model.canSend)
+    }
+
+    @Test func switchingProviderReconnectsAtThatServersAddress() async throws {
+        let defaults = UserDefaults.standard
+        let keys = [Preferences.Key.assistantProvider, Preferences.Key.assistantProviderChosen, Preferences.Key.assistantModel]
+        let saved = keys.map { defaults.object(forKey: $0) }
+        defer { for (key, value) in zip(keys, saved) { defaults.set(value, forKey: key) } }
+        defaults.set("ollama", forKey: Preferences.Key.assistantProvider)
+
+        let made = FactoryLog()
+        let model = AssistantModel()
+        model.configure(tools: [], backend: { provider, url in made.record(provider, url); return ScriptedBackend([]) }) { .dashboard }
+        await model.refreshStatus()
+        #expect(made.calls.last?.provider == .ollama)
+        #expect(made.calls.last?.url.port == 11434)
+
+        defaults.set("someone-elses-model", forKey: Preferences.Key.assistantModel)
+        model.switchProvider(to: .lmStudio)
+        try await waitUntil { made.calls.count == 2 && model.status == .idle }
+        #expect(model.provider == .lmStudio)
+        #expect(made.calls.last?.provider == .lmStudio)
+        #expect(made.calls.last?.url.port == 1234)
+        #expect(defaults.string(forKey: Preferences.Key.assistantModel) == "")
+        #expect(defaults.bool(forKey: Preferences.Key.assistantProviderChosen))
+        #expect(model.modelName == "m")
+    }
+
+    @Test func newerRefreshWinsOverASlowerOlderOne() async throws {
+        let made = FactoryLog()
+        let model = AssistantModel()
+        model.configure(tools: [], backend: { provider, url in
+            made.record(provider, url)
+            return made.calls.count == 1 ? SlowUnreachableBackend() as any ChatBackend : ScriptedBackend([])
+        }) { .dashboard }
+        model.settingsChanged()
+        try await waitUntil { made.calls.count == 1 }   // the first check is now waiting on the slow ping
+        model.settingsChanged()
+        try await waitUntil { model.status == .idle }
+        try await Task.sleep(for: .milliseconds(300))   // longer than the slow backend's ping
+        #expect(model.status == .idle)
+        #expect(made.calls.count == 2)
+    }
+
+    @Test func firstEnableDetectsTheInstalledServer() {
+        #expect(AssistantProvider.detectInitial { _ in true } == .ollama)
+        #expect(AssistantProvider.detectInitial { _ in false } == .ollama)
+        #expect(AssistantProvider.detectInitial { $0 == .lmStudio } == .lmStudio)
+        #expect(AssistantProvider.detectInitial { $0 == .ollama } == .ollama)
+        #expect(AssistantProvider.lmStudio.other == .ollama)
+        #expect(AssistantProvider.ollama.hostKey == Preferences.Key.assistantHost)
+        #expect(AssistantProvider.lmStudio.hostKey == Preferences.Key.assistantLMStudioHost)
     }
 
     private func waitUntil(_ condition: @MainActor () -> Bool) async throws {
@@ -141,6 +192,24 @@ struct AssistantTests {
         }
         Issue.record("timed out")
     }
+}
+
+/// Every (provider, address) the model asked its backend factory for.
+private final class FactoryLog: @unchecked Sendable {
+    private let lock = NSLock()
+    private var _calls: [(provider: AssistantProvider, url: URL)] = []
+    var calls: [(provider: AssistantProvider, url: URL)] { lock.withLock { _calls } }
+    func record(_ provider: AssistantProvider, _ url: URL) { lock.withLock { _calls.append((provider, url)) } }
+}
+
+/// Answers ping late and then fails, like a server that went away mid-check.
+private struct SlowUnreachableBackend: ChatBackend {
+    func ping() async throws {
+        try await Task.sleep(for: .milliseconds(150))
+        throw AssistantError.unreachable("slow")
+    }
+    func listModels() async throws -> [ModelInfo] { [] }
+    func chat(_ request: ChatRequest) -> AsyncThrowingStream<ChatEvent, Error> { AsyncThrowingStream { $0.finish() } }
 }
 
 private struct StaticTool: AssistantTool {
