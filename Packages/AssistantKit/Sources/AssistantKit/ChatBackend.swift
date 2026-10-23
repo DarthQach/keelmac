@@ -68,12 +68,31 @@ public enum ChatEvent: Sendable, Hashable {
     case done(ChatUsage?)
 }
 
-/// Anything that can answer a chat request: Ollama, or a fixture in tests and screenshots.
+/// Anything that can answer a chat request: Ollama, LM Studio, or a fixture in tests and screenshots.
 public protocol ChatBackend: Sendable {
     /// Throws `AssistantError.unreachable` when the server doesn't answer.
     func ping() async throws
     func listModels() async throws -> [ModelInfo]
     func chat(_ request: ChatRequest) -> AsyncThrowingStream<ChatEvent, Error>
+}
+
+/// The local servers KeelMac can talk to. Names, bundle IDs and download links are the app's.
+public enum AssistantProvider: String, CaseIterable, Sendable, Codable {
+    case ollama, lmStudio
+
+    public var defaultBaseURL: URL {
+        switch self {
+        case .ollama: OllamaClient.defaultBaseURL
+        case .lmStudio: LMStudioClient.defaultBaseURL
+        }
+    }
+
+    public func makeClient(baseURL: URL, transport: any HTTPTransport = URLSessionTransport()) -> any ChatBackend {
+        switch self {
+        case .ollama: OllamaClient(baseURL: baseURL, transport: transport)
+        case .lmStudio: LMStudioClient(baseURL: baseURL, transport: transport)
+        }
+    }
 }
 
 public enum AssistantError: Error, Sendable, Hashable {
@@ -85,4 +104,18 @@ public enum AssistantError: Error, Sendable, Hashable {
     case cancelled
     case toolFailed(name: String, String)
     case tooManyToolRounds
+}
+
+extension AssistantError {
+    /// Transport and decoding failures from either client, in AssistantError terms.
+    static func wrapping(_ error: Error) -> AssistantError {
+        if let e = error as? AssistantError { return e }
+        if error is CancellationError { return .cancelled }
+        if let u = error as? URLError {
+            if u.code == .cancelled { return .cancelled }
+            return .unreachable(u.localizedDescription)
+        }
+        if error is DecodingError { return .decoding(String(describing: error)) }
+        return .unreachable(String(describing: error))
+    }
 }

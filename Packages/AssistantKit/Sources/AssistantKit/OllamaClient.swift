@@ -76,16 +76,7 @@ public struct OllamaClient: ChatBackend {
         return body
     }
 
-    static func map(_ error: Error) -> AssistantError {
-        if let e = error as? AssistantError { return e }
-        if error is CancellationError { return .cancelled }
-        if let u = error as? URLError {
-            if u.code == .cancelled { return .cancelled }
-            return .unreachable(u.localizedDescription)
-        }
-        if error is DecodingError { return .decoding(String(describing: error)) }
-        return .unreachable(String(describing: error))
-    }
+    static func map(_ error: Error) -> AssistantError { .wrapping(error) }
 
     static func error(status: Int, body: String, model: String) -> AssistantError {
         let message = (try? JSONDecoder().decode(OllamaWire.ErrorBody.self, from: Data(body.utf8)))?.error

@@ -1,0 +1,6 @@
+data: {"id":"chatcmpl-3","object":"chat.completion.chunk","created":1761240000,"model":"deepseek-r1","choices":[{"index":0,"delta":{"role":"assistant","reasoning_content":"The user wants a greeting."},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-3","object":"chat.completion.chunk","created":1761240000,"model":"deepseek-r1","choices":[{"index":0,"delta":{"content":"Hi."},"finish_reason":"stop"}]}
+
+data: [DONE]
+

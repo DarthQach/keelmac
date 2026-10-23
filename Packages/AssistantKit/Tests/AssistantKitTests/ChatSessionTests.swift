@@ -30,6 +30,7 @@ struct ChatSessionTests {
         #expect(messages[1].content == "[Current screen]\nDashboard\n\nHow healthy?")
         #expect(messages[2].toolCalls == [call])
         #expect(messages[3].toolName == "get_health")
+        #expect(messages[3].toolCallID == call.id)
         #expect(messages[3].content == "Score 82/100")
         #expect(backend.requests.count == 2)
         #expect(backend.requests[0].tools.map(\.name) == ["get_health"])

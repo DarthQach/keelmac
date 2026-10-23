@@ -109,10 +109,4 @@ struct OllamaClientTests {
         #expect(text == "Answer")
         #expect(thinking == "planning")
     }
-
-    private func drain(_ stream: AsyncThrowingStream<ChatEvent, Error>) async -> ([ChatEvent], AssistantError?) {
-        var events: [ChatEvent] = []
-        do { for try await e in stream { events.append(e) } } catch { return (events, error as? AssistantError) }
-        return (events, nil)
-    }
 }

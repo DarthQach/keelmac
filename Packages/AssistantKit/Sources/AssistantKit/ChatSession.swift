@@ -94,7 +94,7 @@ public actor ChatSession {
                     continuation.yield(.toolStarted(call))
                     let result = await execute(call)
                     continuation.yield(.toolFinished(result))
-                    messages.append(.tool(name: call.name, output: result.output))
+                    messages.append(.tool(call: call, output: result.output))
                 }
             }
         } catch is CancellationError {

@@ -1,0 +1,48 @@
+{
+  "models": [
+    {
+      "type": "llm",
+      "publisher": "deepseek",
+      "key": "deepseek-r1",
+      "display_name": "DeepSeek R1",
+      "architecture": "qwen2",
+      "quantization": { "name": "Q4_K_M", "bits_per_weight": 4 },
+      "size_bytes": 4683073888,
+      "params_string": "7B",
+      "loaded_instances": [],
+      "max_context_length": 131072,
+      "format": "gguf",
+      "capabilities": { "vision": false, "trained_for_tool_use": false }
+    },
+    {
+      "type": "embedding",
+      "publisher": "gaianet",
+      "key": "text-embedding-nomic-embed-text-v1.5-embedding",
+      "display_name": "Nomic Embed Text v1.5",
+      "quantization": { "name": "F16", "bits_per_weight": 16 },
+      "size_bytes": 274290560,
+      "params_string": null,
+      "loaded_instances": [],
+      "max_context_length": 2048,
+      "format": "gguf"
+    },
+    {
+      "type": "llm",
+      "publisher": "google",
+      "key": "google/gemma-4-26b-a4b",
+      "display_name": "Gemma 4 26B A4B",
+      "architecture": "gemma4",
+      "quantization": { "name": "Q4_K_M", "bits_per_weight": 4 },
+      "size_bytes": 17000000000,
+      "params_string": "26B",
+      "loaded_instances": [
+        { "id": "google/gemma-4-26b-a4b", "config": { "context_length": 8192, "flash_attention": true } }
+      ],
+      "max_context_length": 262144,
+      "format": "gguf",
+      "capabilities": { "vision": true, "trained_for_tool_use": true, "reasoning": { "allowed_options": ["off", "on"], "default": "off" } },
+      "variants": ["google/gemma-4-26b-a4b@q4_k_m"],
+      "selected_variant": "google/gemma-4-26b-a4b@q4_k_m"
+    }
+  ]
+}

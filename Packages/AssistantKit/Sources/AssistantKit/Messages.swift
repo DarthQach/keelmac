@@ -2,7 +2,7 @@ import Foundation
 
 public enum ChatRole: String, Sendable, Codable { case system, user, assistant, tool }
 
-/// A request from the model to run one tool. Ollama sends no id, so one is minted on parse.
+/// A request from the model to run one tool. Ollama sends no id, so one is minted on parse; LM Studio sends its own.
 public struct ToolCall: Sendable, Codable, Hashable, Identifiable {
     public let id: String
     public let name: String
@@ -34,18 +34,22 @@ public struct ChatMessage: Sendable, Codable, Hashable {
     public var toolCalls: [ToolCall]
     /// Tool messages only: which tool produced `content`.
     public var toolName: String?
+    /// Tool messages only: the call this answers. OpenAI-style servers (LM Studio) require it; Ollama ignores it.
+    public var toolCallID: String?
 
-    public init(role: ChatRole, content: String, toolCalls: [ToolCall] = [], toolName: String? = nil) {
+    public init(role: ChatRole, content: String, toolCalls: [ToolCall] = [], toolName: String? = nil, toolCallID: String? = nil) {
         self.role = role
         self.content = content
         self.toolCalls = toolCalls
         self.toolName = toolName
+        self.toolCallID = toolCallID
     }
 
     public static func system(_ content: String) -> ChatMessage { .init(role: .system, content: content) }
     public static func user(_ content: String) -> ChatMessage { .init(role: .user, content: content) }
     public static func assistant(_ content: String, toolCalls: [ToolCall] = []) -> ChatMessage { .init(role: .assistant, content: content, toolCalls: toolCalls) }
     public static func tool(name: String, output: String) -> ChatMessage { .init(role: .tool, content: output, toolName: name) }
+    public static func tool(call: ToolCall, output: String) -> ChatMessage { .init(role: .tool, content: output, toolName: call.name, toolCallID: call.id) }
 }
 
 /// What the model is told about a tool.

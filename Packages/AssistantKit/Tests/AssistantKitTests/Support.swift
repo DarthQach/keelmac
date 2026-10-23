@@ -75,6 +75,12 @@ final class RecordingTool: AssistantTool, @unchecked Sendable {
     }
 }
 
+func drain(_ stream: AsyncThrowingStream<ChatEvent, Error>) async -> ([ChatEvent], AssistantError?) {
+    var events: [ChatEvent] = []
+    do { for try await e in stream { events.append(e) } } catch { return (events, error as? AssistantError) }
+    return (events, nil)
+}
+
 func collect(_ stream: AsyncThrowingStream<SessionEvent, Error>) async -> (events: [SessionEvent], error: AssistantError?) {
     var events: [SessionEvent] = []
     do {
