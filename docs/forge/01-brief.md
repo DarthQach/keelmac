@@ -16,7 +16,7 @@ A **native macOS app** (Swift 6, SwiftUI, AppKit where needed), free and open so
 - **Safety first:** nothing is deleted without a preview; everything goes to Trash first; every action is logged.
 - **Honest:** no fake warnings, no "RAM boost". macOS manages memory; KeelMac only reports it.
 - **Transparent:** open source; maintenance tasks show the exact command they run.
-- **Private:** zero telemetry, no account, works offline except the update check and, only if the user turns it on, their own local Ollama or LM Studio.
+- **Private:** zero telemetry, no account, works offline except the update check and, only if the user turns them on, their own local Ollama or LM Studio and GitHub (through their own git and gh logins, for Projects).
 - **Native and light:** small binary, near-zero idle CPU.
 
 ## Users and roles
@@ -86,6 +86,9 @@ Numbered; everything downstream traces to these ids. Spec priority in brackets: 
 **Assistant**
 - **C33** [v2] · A user opens the Assistant panel (toolbar sparkles or ⌘⇧A) on any screen and asks about what is on it ("what is this file?", "is it safe to remove?", "why is CPU high?"). A local model served by Ollama or LM Studio answers using read-only lookups (health, live metrics, top processes, large files, one path's metadata, the cleanup plan, leftovers, login items) and points to the KeelMac screen and button to act; it never removes, runs or changes anything itself. Off by default; a localhost Ollama or LM Studio only (Settings › Assistant › Server; Ollama unless only LM Studio is installed); the model sees names, paths, sizes, dates and owning apps, never file contents.
 
+**Projects**
+- **C34** [v2] · A user picks one or more folders where development projects live (default `~/Developer`). KeelMac checks every direct subfolder: whether it is a git repository, whether every branch, tag and change is on GitHub (uncommitted changes, stashes, unpushed commits, branches without a GitHub copy, no remote or a non-GitHub remote), and when it last changed (both the newest commit and the newest file outside generated folders such as `node_modules`). A project on GitHub and untouched for longer than the limit (180 days by default, adjustable) is **Safe to remove** and can be moved to the Trash, always the Trash, whatever the delete setting. Projects without git, or with work only on this Mac, are flagged with the exact reasons and can be backed up: after a preview of the exact commands, KeelMac starts a repository if needed, writes a `.gitignore` when there is none, commits, creates a private GitHub repository through the user's `gh` login when there is no GitHub remote, and pushes every branch and tag. Checks are read-only. Proving a project is on GitHub (`git ls-remote`) is opt-in (Verify with GitHub, off by default) and required before anything goes to the Trash; KeelMac stores no token.
+
 ## Monetization
 Free, open source (GPL-3.0). Optional Buy Me a Coffee. No payments in the app, so no Stripe.
 
@@ -115,7 +118,7 @@ All local, in the user's Library:
 ## Non-functionals
 - Users at launch / in 12 months: 1 (Carlos) / a few thousand downloads; no server load beyond static files.
 - Regions and data residency: none; no data leaves the Mac.
-- Compliance: none regulated. Privacy: zero telemetry, no network calls except the Sparkle feed and, when the user turns the Assistant on, their own local Ollama or LM Studio (localhost by default; file contents are never sent).
+- Compliance: none regulated. Privacy: zero telemetry, no network calls except the Sparkle feed; when the user turns the Assistant on, their own local Ollama or LM Studio (localhost by default; file contents are never sent); and, when the user turns on Verify with GitHub or clicks Back up in Projects, git and gh talking to GitHub with the user's own logins.
 - Languages (UI copy): English and Spanish at v1.0.
 - Accessibility: VoiceOver labels, keyboard navigation, Dynamic Type where macOS supports it; landing page WCAG 2.2 AA.
 - Platform: macOS 14 Sonoma or later, Apple silicon primary, universal binary (Intel best-effort).

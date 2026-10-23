@@ -43,7 +43,7 @@ const T = {
     ],
     logCaption: "Operation log", path: "Path", size: "Size", result: "Result", trashed: "Moved to Trash", skippedSafari: "Skipped, Safari is open",
     freeH: "Free, with no catch",
-    free1: "No subscription, no account, no telemetry. The only network request KeelMac makes is the update check; the optional Assistant talks only to Ollama or LM Studio on your own Mac. The code is on GitHub under the GPL-3.0 licence, and cleanup rules are a JSON file anyone can improve.",
+    free1: "No subscription, no account, no telemetry. The only network request KeelMac makes on its own is the update check; the optional Assistant talks only to Ollama or LM Studio on your own Mac, and Projects reaches GitHub only through your own git and gh logins when you ask it to. The code is on GitHub under the GPL-3.0 licence, and cleanup rules are a JSON file anyone can improve.",
     free2: `If it saved you an afternoon, you can <a href="${COFFEE}">buy me a coffee</a>.`,
     faqH: "Questions",
     faqs: [
@@ -58,6 +58,7 @@ const T = {
 <p>KeelMac runs entirely on your Mac. It has no account, no analytics and no telemetry.</p>
 <h2>What leaves your Mac</h2>
 <p>Only the update check: once a day (if automatic updates are on) KeelMac downloads <code>appcast.xml</code> from this site to see whether a new version exists. Sparkle’s anonymous system profile is turned off. This site’s host, Cloudflare, sees the request like any web request.</p>
+<p>Two features are off until you turn them on. The Assistant sends your question and a summary of the screen (names, sizes, dates, never file contents) to Ollama or LM Studio on your own Mac. Projects, with Verify with GitHub on, runs <code>git ls-remote</code> and asks the <code>gh</code> tool you signed in to for your login; when you click Back up, it runs the git and gh commands it showed you to push the project to GitHub. KeelMac stores no GitHub token.</p>
 <h2>What stays on your Mac</h2>
 <p>Scan results, the operation log, weekly snapshots and settings are stored in <code>~/Library/Application Support/KeelMac</code> and in KeelMac’s preferences. Delete the app and that folder to remove everything.</p>
 <h2>File contents</h2>
@@ -96,7 +97,7 @@ const T = {
     ],
     logCaption: "Registro de operaciones", path: "Ruta", size: "Tamaño", result: "Resultado", trashed: "Movido a la Papelera", skippedSafari: "Omitido, Safari está abierto",
     freeH: "Gratis, sin trampa",
-    free1: "Sin suscripción, sin cuenta, sin telemetría. La única conexión que hace KeelMac es para buscar actualizaciones; el Asistente opcional habla solo con Ollama o LM Studio en tu propia Mac. El código está en GitHub con licencia GPL-3.0, y las reglas de limpieza son un archivo JSON que cualquiera puede mejorar.",
+    free1: "Sin suscripción, sin cuenta, sin telemetría. La única conexión que hace KeelMac por su cuenta es para buscar actualizaciones; el Asistente opcional habla solo con Ollama o LM Studio en tu propia Mac, y Proyectos llega a GitHub solo con tus propias sesiones de git y gh cuando se lo pides. El código está en GitHub con licencia GPL-3.0, y las reglas de limpieza son un archivo JSON que cualquiera puede mejorar.",
     free2: `Si te ahorró una tarde, puedes <a href="${COFFEE}">invitarme un café</a>.`,
     faqH: "Preguntas",
     faqs: [
@@ -111,6 +112,7 @@ const T = {
 <p>KeelMac funciona por completo en tu Mac. No tiene cuenta, ni analíticas, ni telemetría.</p>
 <h2>Qué sale de tu Mac</h2>
 <p>Solo la búsqueda de actualizaciones: una vez al día (si las actualizaciones automáticas están activas) KeelMac descarga <code>appcast.xml</code> de este sitio para ver si hay una versión nueva. El perfil anónimo del sistema de Sparkle está desactivado. El proveedor de este sitio, Cloudflare, ve la solicitud como cualquier visita web.</p>
+<p>Dos funciones están apagadas hasta que las activas. El Asistente envía tu pregunta y un resumen de la pantalla (nombres, tamaños, fechas, nunca el contenido de archivos) a Ollama o LM Studio en tu propia Mac. Proyectos, con Verificar con GitHub activo, ejecuta <code>git ls-remote</code> y pregunta a la herramienta <code>gh</code> donde iniciaste sesión por tu usuario; cuando haces clic en Respaldar, ejecuta los comandos de git y gh que te mostró para subir el proyecto a GitHub. KeelMac no guarda ningún token de GitHub.</p>
 <h2>Qué se queda en tu Mac</h2>
 <p>Los resultados de escaneo, el registro de operaciones, las instantáneas semanales y los ajustes se guardan en <code>~/Library/Application Support/KeelMac</code> y en las preferencias de KeelMac. Borra la app y esa carpeta para eliminarlo todo.</p>
 <h2>Contenido de archivos</h2>

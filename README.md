@@ -2,7 +2,7 @@
 
 Keep your Mac fast and roomy: see what's happening, clean safely, and never pay a subscription.
 
-KeelMac is a free, open-source native macOS app that combines what usually takes five tools: a menu bar monitor (like Stats), a storage map (like DaisyDisk), a safe cleaner (like CleanMyMac), an app uninstaller (like AppCleaner) and classic maintenance tasks (like OnyX). It has no account, no telemetry, and makes no network calls except the update check.
+KeelMac is a free, open-source native macOS app that combines what usually takes five tools: a menu bar monitor (like Stats), a storage map (like DaisyDisk), a safe cleaner (like CleanMyMac), an app uninstaller (like AppCleaner) and classic maintenance tasks (like OnyX). It has no account, no telemetry, and makes no network calls on its own except the update check. The Assistant talks to your local Ollama or LM Studio, and Projects talks to GitHub through your own git and gh logins, only when you turn them on.
 
 **Website:** https://keelmac.flowrunnerapp.workers.dev · **Español:** https://keelmac.flowrunnerapp.workers.dev/es/
 
@@ -15,6 +15,7 @@ KeelMac is a free, open-source native macOS app that combines what usually takes
 - **Cleanup.** User caches, logs, crash reports, browser caches (never history or passwords), Trash, developer junk (Xcode DerivedData, Archives, old DeviceSupport, unavailable simulators, SwiftPM, npm, Yarn, pnpm, Homebrew, CocoaPods, Gradle, Docker opt-in), old iPhone backups, installers in Downloads, and language files of unsigned apps.
 - **Apps.** Complete uninstall with related files, drag-and-drop, leftovers from deleted apps, an optional watcher when you trash an app, login items and background agents.
 - **Maintenance.** Rebuild Spotlight, flush DNS, run periodic scripts, verify the startup disk, rebuild Launch Services, clear font caches, thin local Time Machine snapshots. Each task shows the exact command it runs.
+- **Projects.** Point it at `~/Developer` (or any folders) and see, for each project, whether every branch, tag and change is on GitHub and when you last touched it. Projects proved to be on GitHub and untouched for 6 months (adjustable) can go to the Trash; the rest can be backed up to a private repository with your `gh` login, after a preview of every command.
 - **Duplicates, snapshots and a weekly report** you can export as Markdown.
 - English and Spanish, light and dark mode, VoiceOver labels and keyboard navigation.
 
@@ -23,7 +24,7 @@ KeelMac is a free, open-source native macOS app that combines what usually takes
 KeelMac deletes files, so it is built around five rules:
 
 1. **Preview first.** Every cleanup, uninstall and duplicate removal starts as a list of every path and size. Only items in that list, and only the ones you leave checked, are touched.
-2. **Trash first.** Items go to the Trash. Permanent delete is a setting you turn on yourself, and it still asks.
+2. **Trash first.** Items go to the Trash. Permanent delete is a setting you turn on yourself, and it still asks. Projects always go to the Trash.
 3. **Protected in code.** `/System`, `/usr` (except `/usr/local`), `/bin`, `/sbin`, other users' homes, iCloud Drive, the Photos library, Mail, Messages, Safari history, Keychains and KeelMac's own data are refused by `PathGuard` (in [SafetyKit](Packages/SafetyKit/Sources/SafetyKit/PathGuard.swift)), in the app and again in the privileged helper. Symlinks and `..` can't escape it.
 4. **Your whitelist wins.** Paths and patterns you add in Settings are checked immediately before every removal.
 5. **Everything is logged.** Each action (path, size, date, result) goes to the operation log, which you can search and export as CSV, JSON or Markdown.
@@ -70,6 +71,8 @@ To sign with your own team, create `Config/Local.xcconfig` with `DEVELOPMENT_TEA
 | `Packages/AppsKit` | App inventory, related files, leftovers, launch items |
 | `Packages/MaintenanceKit` | Maintenance tasks, helper protocol and client |
 | `Packages/InsightsKit` | Duplicates, Health Score, alerts, snapshots, weekly report |
+| `Packages/AssistantKit` | Ollama and LM Studio clients and the Assistant's tool loop |
+| `Packages/ProjectsKit` | Project checks with git and gh, backup planner and executor |
 | `site/` | The landing page and Sparkle appcast (Cloudflare Workers static assets) |
 | `docs/forge/` | Brief, stack, design and plan documents |
 

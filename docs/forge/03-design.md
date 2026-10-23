@@ -55,6 +55,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S17 | Snapshots | sidebar › Snapshots | Owner | C24, C25 | Take snapshot / Export report… |
 | S18 | Settings | ⌘, | Owner | C7, C14, C22, C26, C29 | (immediate apply) |
 | S21 | Assistant panel | toolbar sparkles / ⌘⇧A, resizable trailing panel on every route | Owner | C33 | Send |
+| S22 | Projects | sidebar › Projects (Clean, after Maintenance; no ⌘ shortcut) | Owner | C34 | Move N projects to Trash; Back up… (per project) |
 | S19 | About | KeelMac › About | Owner | C28, C29, C31 | Buy me a coffee |
 | S20 | Notifications | macOS Notification Center | Owner | C7, C18, C25 | Open (notification action) |
 | L1 | Landing (EN, ES) | / , /es/ | Visitor | C32, C28 | Download for macOS |
@@ -97,6 +98,7 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | C31 | repo (no screen), L1 links |
 | C32 | L1, L3 |
 | C33 | S21, S18 |
+| C34 | S22, S18 |
 
 ## State matrix
 "No permission" means missing Full Disk Access or an unapproved helper. There are no plans, so "over limit" doesn't apply (n/a).
@@ -121,11 +123,13 @@ Use isolated presentation fixtures and an in-memory store for screenshot automat
 | S17 Snapshots | "No snapshots yet. KeelMac takes one every week." + Take snapshot | Taking snapshot… | Inline load/save error with Try again | Snapshot list + "What grew" comparison | — | n/a |
 | S18 Settings | — | — | Inline validation (e.g. whitelist path doesn't exist) | Applied instantly | Helper status row | n/a |
 | S1 Welcome | — | Checking access… (probe) | — | "Full Disk Access is on" check | Steps + Open Privacy & Security | n/a |
+| S22 Projects | No folders: "Choose a folder where your projects live" + Choose folders…; empty folder: "No projects here" | "Checking 12 of 40 projects…" with a progress bar; rows fill in as each project finishes | "Couldn’t check your projects" + the unreadable folder + Try again; a single unreadable root is listed under the header | Folder path, GitHub status line, segmented filter (All · Safe to remove · Not backed up · No git · Keep, with counts), table (name with GitHub repo, status badge, last change, size), 240 pt inspector (reasons, branch, last commit, newest file, size, files not in git, Back up… / Open on GitHub / Reveal in Finder), action bar ("2 of 3 safe projects selected, 2.3 GB. Projects always go to the Trash." + Select all safe + **Move 2 projects to Trash**); trash sheet lists each project, its size and files not in git; backup sheet lists every command with Copy, commit message and repository name fields, then a per-step status | gh missing / not signed in: warning badge + "Branches are still compared through git…" + `gh auth login`; verification off: neutral badge, safe rows read "Safe, unverified" and the action bar says to turn on Verify with GitHub | n/a |
 | S21 Assistant | "Ask about what you see." + up to three full-width suggested questions; a "Looking at …" line under the composer opens the exact context sent | "Checking Ollama…" / "Checking LM Studio…" in the header status line; first reply shows "Loading the model… the first answer takes a few seconds." inline | Inline error under the transcript with Try again; the transcript is kept | Streaming transcript: accent user bubbles, unboxed assistant text, lookups as capsules ("Looked up the Health Score") that open to the raw result; follow-up chips wrap above the composer | Off: "The Assistant is off." + Open Settings…; server down: "Ollama isn’t running." / "LM Studio isn’t running." (LM Studio adds "start its server") + Open … / Try again; app missing: "… isn’t installed." + Download …… / Try again; either one offers "Use LM Studio instead" / "Use Ollama instead" when the other app is installed; no models: `ollama pull qwen3` / `lms get qwen/qwen3-8b` (or LM Studio › Discover) | Context capped at 12 items / 1.5 KB; tool output 4 KB; 24 messages of history |
 
 ## Microcopy
 Voice: calm, specific, numbers first, second person, sentence case, no exclamation marks except the one coffee prompt the spec writes. Never "danger", "threat", "infected", "boost", "junk is slowing you down".
 - Assistant: it never claims to have changed anything; it names the screen and button ("Review large files › Move to Trash") and links it; unknown vendor folders get "I can’t be sure"; tool rows read "Looked up the Health Score"; Settings › Assistant has a segmented Server picker (Ollama | LM Studio); each server keeps its own address, and switching clears the model; the Settings footer states exactly what is sent (question, screen summary, names/sizes/dates) and what never is (file contents).
+- Projects: statuses "Safe to remove", "Safe, unverified", "Not backed up", "No git", "Keep"; reasons are specific and countable ("Uncommitted changes: 4", "Branch physics isn’t on GitHub", "GitHub has newer commits on main. Pull them, then check again."); "Projects always go to the Trash." on every removal surface; the backup sheet ends with "These commands run in this order on your Mac, with your git and gh logins. KeelMac stores no token."
 - Score sentence: "Your Mac is in good shape." (≥ 80) · "Your Mac could use some room." (60–79) · "Your Mac needs attention." (< 60), then "82 of 100".
 - Load line: "38 GB above the load line" / "6 GB below the load line. macOS needs free space for updates and swap."
 - Cleanup primary: **Move 12.4 GB to Trash** (permanent mode: **Delete 12.4 GB permanently**, danger solid, confirmation names the size and count).

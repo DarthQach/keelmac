@@ -30,6 +30,7 @@
 <p>KeelMac runs entirely on your Mac. It has no account, no analytics and no telemetry.</p>
 <h2>What leaves your Mac</h2>
 <p>Only the update check: once a day (if automatic updates are on) KeelMac downloads <code>appcast.xml</code> from this site to see whether a new version exists. Sparkle’s anonymous system profile is turned off. This site’s host, Cloudflare, sees the request like any web request.</p>
+<p>Two features are off until you turn them on. The Assistant sends your question and a summary of the screen (names, sizes, dates, never file contents) to Ollama or LM Studio on your own Mac. Projects, with Verify with GitHub on, runs <code>git ls-remote</code> and asks the <code>gh</code> tool you signed in to for your login; when you click Back up, it runs the git and gh commands it showed you to push the project to GitHub. KeelMac stores no GitHub token.</p>
 <h2>What stays on your Mac</h2>
 <p>Scan results, the operation log, weekly snapshots and settings are stored in <code>~/Library/Application Support/KeelMac</code> and in KeelMac’s preferences. Delete the app and that folder to remove everything.</p>
 <h2>File contents</h2>

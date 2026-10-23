@@ -46,6 +46,7 @@ KeelMac/
 | M8 | Distribution: Sparkle, About, landing page and appcast, release workflow, DMG, cask, repo docs | C28 (About), C29, C31, C32 | [x] |
 | M9 | Polish: fidelity vs artboards, Spanish complete, accessibility, performance, docs final | C30, all | [x] |
 | M10 | Assistant: AssistantKit (Ollama and LM Studio clients, tool loop), panel on every route, read-only tools, Settings tab, docs | C33 | [x] |
+| M11 | Projects: ProjectsKit (git and gh checks, classifier, backup planner and executor), Projects screen, Trash and Back up sheets, Settings section, docs | C34 | [x] |
 
 ### M0 · Foundation
 **Goal:** `bash scripts/mac.sh run` opens KeelMac with the full sidebar, every destination showing its designed empty state, and the landing page skeleton is live on workers.dev.
@@ -264,6 +265,17 @@ KeelMac/
 | 5 | `.assistantContext` on Review large files, Monitor, Dashboard, Cleanup, Apps, Storage map, Leftovers, Login items; chips; 960 × 640 check; live run with `qwen3.8:27b-mlx` recorded in 00-status |
 | 6 | LM Studio as a second server (2026-10-23): `AssistantProvider`, `LMStudioClient` (OpenAI-style SSE, tool calls by index, `tool_call_id` via `ChatMessage.tool(call:output:)`, v1→v0 model list fallback), Settings › Assistant Server picker with one address per server and first-enable detection by installed app (no network), panel copy by server plus "isn’t installed" / Download / "Use … instead", coalesced refreshes, `-fixture-provider`, LM Studio screenshots, `KEELMAC_LIVE_LMSTUDIO=1` smoke |
 
+### M11 · Projects
+**Goal:** Point KeelMac at the folders where projects live and see, for each one, whether it is safely on GitHub and when it last changed; move the old, proved ones to the Trash and back up the rest, with every command shown first. Read-only until the user acts; GitHub only when the user opts in or clicks Back up.
+
+| # | Task |
+|---|---|
+| 1 | `Packages/ProjectsKit`: models, `FolderWalker` (fts, size of everything, newest file outside generated folders), `GitParsers` / `GitHubParsers`, `ProjectClassifier`, `ProjectScanner` (listing, git reads, `ls-remote` + `rev-list` verification so merged branches that were never pushed pass, gh login), `BackupPlanner` / `BackupExecutor`, `RepoSlug`; 63 Swift Testing tests on real git repositories in a temp dir with local bare "GitHub" remotes; opt-in `KEELMAC_LIVE_GH=1` login check and `KEELMAC_LIVE=1` read-only check of `~/Developer` |
+| 2 | SafetyKit `OperationKind.projects`; `project.yml` and `scripts/mac.sh` list the package |
+| 3 | App: `Preferences` keys (`projectRoots` = `~/Developer`, `projectStaleDays` = 180, `projectsVerifyGitHub` = off), `ProjectsModel`, `ProjectsView` (filter, table, inspector, action bar), `ProjectTrashSheet`, `ProjectBackupSheet`, `ProjectStrings`; route `.projects` (Clean, no shortcut), `keelmac://open/projects` |
+| 4 | Settings › Cleanup and safety › Projects (folders, stale days, Verify with GitHub with the privacy footer); Updates footer and `Updater` privacy copy; `.assistantContext(.projects)`, read-only `list_projects` tool that never starts a check; visual fixtures for every status and state; Spanish strings |
+| 5 | Docs (brief C34, stack, contracts, design S22, this plan, AGENTS, README, site privacy); `KeelMacTests/ProjectsTests`, `ProjectsUITests`, Projects in `NavigationUITests` and `RevampUITests` |
+
 ## Build results (2026-10-22)
 | Check | Result |
 |---|---|
@@ -342,7 +354,8 @@ Cleanup rules (`Packages/KeelKit/Sources/CleanKit/Resources/cleanup-rules.json`,
 | Boundary | Name | Caller | Purpose |
 |---|---|---|---|
 | XPC Mach service | `mx.cvillegas.keelmac.helper` | KeelMac.app (code-signing requirement checked by helper) | admin-only operations |
-| URL scheme | `keelmac://open/<route>` | notifications, menu bar | open a screen (dashboard, cleanup, apps, leftovers?bundle=, storage) |
+| URL scheme | `keelmac://open/<route>` | notifications, menu bar, Assistant | open a screen (dashboard, cleanup, apps, leftovers?bundle=, storage, projects) |
+| git / gh | `/usr/bin/git -C <project>`, `/opt/homebrew/bin/gh` or `/usr/local/bin/gh` | Projects | read-only checks; `ls-remote` and `gh api user` only with Verify with GitHub; Back up runs the previewed commands |
 | Sparkle feed | `https://keelmac.<account>.workers.dev/appcast.xml` | Sparkle | update check (only network call) |
 | Site | `/`, `/es/`, `/releases/`, `/privacy/`, `/es/privacy/` | visitors | landing |
 
@@ -395,6 +408,8 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 - **Assistant hallucinating actions or safety.** Mitigation: no action buttons in the panel, only `keelmac://` route links; the prompt forbids claiming changes; every tool is read-only (the only loaders triggered are the dry-run cleanup check, leftovers and login items); file contents never leave the Mac.
 - **LM Studio models without tool training.** LM Studio never refuses tools; it falls back to a prompt and a weak model may print pseudo tool JSON. Mitigation: `trained_for_tool_use` → "· no tools" in the picker and Automatic skips them.
 - **Ollama latency and models without tools.** Mitigation: `loadingModel` state with honest copy, `keep_alive 10m`, 300 s chunk timeout, Stop always available; a 400 "does not support tools" retries once without tools and says so.
+- **Trashing work that isn't on GitHub.** Mitigation: only projects proved with `ls-remote` in the same check can be selected; Trash only, never permanent; changed-since-check skip; files ignored by git listed in the preview; a GitHub repository that was deleted fails verification instead of passing.
+- **Back up pushing secrets or huge folders.** Mitigation: a `.gitignore` for generated folders and `.env` is written when none exists, shown in the preview; GitHub rejections (files over 100 MB) surface with the tool's own output.
 - **Swift 6 strict concurrency with C APIs.** Mitigation: readers are `Sendable` structs returning value types; one `@MainActor` monitor.
 
 ## Coverage
@@ -433,6 +448,7 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 | C31 | M0, M8 |
 | C32 | M0, M8 |
 | C33 | M10 |
+| C34 | M11 |
 
 ## Access checklist
 - [x] Xcode 27.1, Swift 6.4, macOS 27 SDK (`xcodebuild -version`).

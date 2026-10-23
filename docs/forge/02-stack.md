@@ -28,6 +28,7 @@ KeelMac is a **native macOS app with no backend** (variant E · Native macOS). T
 | Apps | `NSWorkspace`, Spotlight metadata (`kMDItemLastUsedDate` via `NSMetadataQuery`/`MDItem`), `FSEvents` watcher on `~/.Trash` | C16–C20 |
 | Login items | Enumerate `~/Library/LaunchAgents`, `/Library/LaunchAgents`, `/Library/LaunchDaemons`; `launchctl` for enable/disable (user domain directly, system domain through the helper); `SMAppService.statusForLegacyPlist` where available | C19 |
 | Duplicates | Size buckets → first/last 64 KB hash → full SHA-256 (CryptoKit) | C23 |
+| Projects | `ProjectsKit`: `/usr/bin/git -C <folder>` (`--no-optional-locks` reads, `ls-remote` to verify, never `fetch`), the user's `gh` CLI (`/opt/homebrew/bin/gh`, then `/usr/local/bin/gh`) for the login and `gh repo create`, one fts walk per project for size and newest file | C34; no token stored, every command shown before Back up runs it |
 | Notifications | `UserNotifications`, local only | C7, C25 |
 | Launch at login | `SMAppService.mainApp` | C26 |
 | Updates | Sparkle 2.10.0 via SPM, EdDSA-signed appcast at `https://keelmac.<account>.workers.dev/appcast.xml`, `SUPublicEDKey` in Info.plist | Spec FR-12 |
@@ -72,6 +73,7 @@ KeelMac is a **native macOS app with no backend** (variant E · Native macOS). T
 | C28 Coffee | `CoffeePrompt` policy (≥ 2 GB, ≥ 30 days, dismiss forever), link constant | |
 | C29 Updates | Sparkle `SPUStandardUpdaterController` | Feed is the only network call KeelMac makes on its own |
 | C30 EN/ES, a11y | String Catalog, accessibility labels | |
+| C34 Projects | `ProjectsKit.ProjectScanner` (listing, git reads, `ls-remote` + `rev-list --count … --not <GitHub commits>` verification, classifier), `BackupPlanner` / `BackupExecutor`, app-side `ProjectsModel`, `ProjectsView`, trash and backup sheets; removals through `FileActions.remove(context: .userFile, kind: .projects, mode: .trash)` | Verification opt-in and read-only; Trash only; only projects proved against GitHub can be moved |
 | C33 Assistant | AssistantKit `OllamaClient` (streaming `/api/chat` with tools over `URLSession`) or `LMStudioClient` (streaming OpenAI-style `/v1/chat/completions`), chosen by `AssistantProvider` + `ChatSession` tool loop; app-side `AssistantModel`, `ScreenContext`, eight read-only tools; resizable trailing panel below the toolbar (`AssistantSplit`, not `.inspector`, so screen toolbars stay over their content) | Local Ollama or LM Studio only, off by default; loopback over http, anything else https; tools never remove, run or change anything; metadata only |
 | C31 Repo + CI | GitHub, Actions, cask | Repo private until Carlos flips it |
 | C32 Landing | Cloudflare Worker static assets | |
@@ -136,7 +138,9 @@ Workers Paid is not needed: the site has no Worker script, only static assets, s
 | Process quitting | Only processes owned by the current user; system processes refused; confirmation for non-app processes |
 | Updates | Sparkle EdDSA signatures; HTTPS feed; private key only in Carlos's keychain / GitHub Actions secrets |
 | Secrets in a public repo | No secrets in the repo; signing cert, notary credentials and Sparkle key only as Actions secrets; `.gitignore` covers key files |
-| Privacy | No network calls except the appcast and, when the Assistant is enabled, the user's local Ollama (`http://localhost:11434` by default) or LM Studio (`http://localhost:1234`); no analytics SDKs; Sparkle system profiling disabled |
+| Privacy | No network calls except the appcast; when the Assistant is enabled, the user's local Ollama (`http://localhost:11434` by default) or LM Studio (`http://localhost:1234`); and, when Verify with GitHub is on or Back up is clicked, git and gh reaching GitHub with the user's own logins; no analytics SDKs; Sparkle system profiling disabled |
+| GitHub access (Projects) | Only the user's git credentials and `gh` login; KeelMac stores no token. Verification is opt-in, off by default and read-only (`git ls-remote`, `gh api user`). Back up runs the previewed commands in order after the user clicks it and logs each one. UI tests with `-uitest` never verify |
+| Moving projects | Trash only, never permanent; only projects proved on GitHub in the same check; `PathContext.userFile` (`~/Developer` itself is a container folder); `expectedModificationDate` skips a project that changed after the check; files ignored by git (`.env`…) are listed in the preview |
 
 ## Beta / watch list
 - IOHID temperature sensors are undocumented and may change between macOS releases; the reader degrades to "Unavailable".
