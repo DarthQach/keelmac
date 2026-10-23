@@ -5,7 +5,7 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 ## Layout
 - `App/` SwiftUI app. `KeelMacApp.swift` (scenes: main `Window`, `Settings`, `MenuBarExtra`), `AppModel.swift` (root @Observable state), `Route.swift` (sidebar destinations), `Features/<Screen>/` (incl. `Features/Assistant/`: panel, model, read-only tools, screen context), `DesignSystem/` (Theme colours from the asset catalog, components), `Services/`, `Persistence/` (SwiftData models).
 - `Helper/` the privileged helper daemon target (`KeelMacHelper`), embedded in `Contents/MacOS`, launchd plist in `Contents/Library/LaunchDaemons`.
-- `Packages/<Kit>/` one Swift package per module group; public APIs listed in `docs/forge/contracts.md`. `AssistantKit` is the Ollama client and tool loop (no KeelMac knowledge).
+- `Packages/<Kit>/` one Swift package per module group; public APIs listed in `docs/forge/contracts.md`. `AssistantKit` is the Ollama and LM Studio clients and the tool loop (no KeelMac knowledge).
 - `design/` tokens (`tokens.css` is the only colour source), contrast pairs, Claude Design artboards in `design/canvas/`.
 - `site/` landing page generator (`build.mjs`), static output in `site/public`, Sparkle `appcast.xml`.
 - `scripts/` `mac.sh` (lint/test/build/e2e/run/release-build), `tokens.mjs`, `strings.mjs`, `make_icon.swift`, `shots.sh`, release scripts.
@@ -37,4 +37,4 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 - `URL.resolvingSymlinksInPath()` strips `/private` from `/private/var/...`; compare paths through `PathGuard.canonical`.
 - Window screenshots need Screen Recording permission for the shell; use `scripts/shots.sh` (UI test attachments) instead.
 - The helper only works in a signed build after the user approves it in System Settings › General › Login Items.
-- The Assistant is the only feature that talks to a local server (Ollama, opt-in, off by default). Its tools are read-only by contract; never add one that removes, runs or changes anything. `-uitest` swaps in `FixtureChatBackend`; `KEELMAC_LIVE_OLLAMA=1 swift test` in `Packages/AssistantKit` runs one live check.
+- The Assistant is the only feature that talks to a local server (Ollama or LM Studio, opt-in, off by default; one address per server in Settings). Its tools are read-only by contract; never add one that removes, runs or changes anything. `-uitest` swaps in `FixtureChatBackend`; `KEELMAC_LIVE_OLLAMA=1` / `KEELMAC_LIVE_LMSTUDIO=1 swift test` in `Packages/AssistantKit` run one live check each (start LM Studio's server first); `-fixture-provider lmStudio` switches the panel copy in UI tests.

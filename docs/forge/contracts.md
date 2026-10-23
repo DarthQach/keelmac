@@ -165,9 +165,9 @@ Pure Foundation, no dependencies. Everything public is a `Sendable` value type e
 ```swift
 public enum JSONValue: Sendable, Hashable, Codable { null, bool, number, string, array, object; subscript(key:)/subscript(index:); stringValue/intValue/doubleValue/boolValue/arrayValue/objectValue; static func schema(properties:required:); static func property(_ type:_ description:enum:) }  // literal-expressible
 public enum ChatRole: String { system, user, assistant, tool }
-public struct ToolCall: Sendable, Codable, Hashable, Identifiable { id: String /*minted on parse*/; name: String; arguments: JSONValue }
+public struct ToolCall: Sendable, Codable, Hashable, Identifiable { id: String /*the server's, or minted on parse*/; name: String; arguments: JSONValue }
 public struct ToolResult: Sendable, Hashable { call: ToolCall; output: String; isError: Bool }
-public struct ChatMessage: Sendable, Codable, Hashable { role; content; toolCalls: [ToolCall]; toolName: String?; static func system/user/assistant(_:toolCalls:)/tool(name:output:) }
+public struct ChatMessage: Sendable, Codable, Hashable { role; content; toolCalls: [ToolCall]; toolName: String?; toolCallID: String? /*OpenAI-style servers need it*/; static func system/user/assistant(_:toolCalls:)/tool(name:output:)/tool(call:output:) }
 public struct ToolSpec: Sendable, Codable, Hashable { name, description: String; parameters: JSONValue }
 public protocol AssistantTool: Sendable { name, description: String; parameters: JSONValue; func call(_ arguments: JSONValue) async throws -> String }   // + `spec`
 public struct ModelInfo: Sendable, Codable, Hashable, Identifiable { name; sizeBytes: Int64?; parameterSize: String?; family: String?; capabilities: [String]; supportsTools: Bool? }
@@ -176,11 +176,13 @@ public struct ChatRequest: Sendable, Hashable { model; messages; tools: [ToolSpe
 public struct ChatUsage: Sendable, Hashable { promptTokens, completionTokens: Int?; totalDuration: TimeInterval? }
 public enum ChatEvent: Sendable, Hashable { token(String), thinking(String), toolCalls([ToolCall]), done(ChatUsage?) }
 public protocol ChatBackend: Sendable { func ping() async throws; func listModels() async throws -> [ModelInfo]; func chat(_: ChatRequest) -> AsyncThrowingStream<ChatEvent, Error> }
+public enum AssistantProvider: String, CaseIterable, Sendable, Codable { ollama, lmStudio; var defaultBaseURL: URL; func makeClient(baseURL:transport:) -> any ChatBackend }   // names, bundle IDs, download links are the app's
 public enum AssistantError: Error, Sendable, Hashable { unreachable(String), httpStatus(Int, String), modelNotFound(String), toolsUnsupported(String), decoding(String), cancelled, toolFailed(name: String, String), tooManyToolRounds }
 public protocol HTTPTransport: Sendable { func data(for: URLRequest) async throws -> (status: Int, body: Data); func lines(for: URLRequest) async throws -> (status: Int, lines: AsyncThrowingStream<String, Error>) }
 public struct URLSessionTransport: HTTPTransport { init(session: URLSession = .shared) }
 public final class StubTransport: HTTPTransport { init(handler: @Sendable (URLRequest) throws -> (Int, Data)); var requests: [URLRequest] }
 public struct OllamaClient: ChatBackend { static let defaultBaseURL /*http://localhost:11434*/; init(baseURL:transport:) }   // GET api/version, GET api/tags, POST api/chat stream:true; 404 "not found" → modelNotFound, 400 "does not support tools" → toolsUnsupported, URLError → unreachable; `<think>…</think>` in content becomes `.thinking`
+public struct LMStudioClient: ChatBackend { static let defaultBaseURL /*http://localhost:1234*/; init(baseURL:transport:) }   // GET v1/models (ping, must decode), GET api/v1/models else api/v0/models (LM Studio answers unknown routes 200 + {"error"}, so the fallback keys on the body), POST v1/chat/completions stream:true (SSE, one JSON per `data:` line, tool calls accumulated by index, arguments as a JSON string, tool results carry tool_call_id); trained_for_tool_use / "tool_use" → capabilities "tools"; loaded models listed first; keepAlive → ttl seconds; numCtx and think are not sent
 public enum SessionEvent: Sendable, Hashable { token(String), thinking(String), toolStarted(ToolCall), toolFinished(ToolResult), finished(ChatMessage) }
 public actor ChatSession { init(backend:model:tools:systemPrompt:maxToolRounds: 4, maxHistory: 24, options:); var messages: [ChatMessage]; var useTools: Bool; func send(_ text: String, context: String?) -> AsyncThrowingStream<SessionEvent, Error>; func cancel(); func reset(systemPrompt:); func setSystemPrompt(_:); func setUseTools(_:) }
 ```
@@ -195,6 +197,7 @@ The packages kept every name above and added these (see each package's sources f
 - **ReportKit (login item advice):** `HealthScore.startupPoints(total:orphans:) -> Int` so the app can project the factor after recommended changes.
 - **AppsKit:** `RelatedFile.needsHelper/modified/reason`; `RelatedLocation` gains `applicationScripts`, `launchDaemons`, `privilegedHelperTools`; `LaunchItemStore.apply(_:enabled:) -> LaunchToggleOutcome` and `unload(_:)`. Cookies files are matched but refused by PathGuard (`Library/Cookies` is protected) by design.
 - **MaintenanceKit:** `HelperOperation.dumpBackgroundItems`; `HelperResponse.rejection/timedOut`; `MaintenanceEvent.failed(_:)`; launchd lsregister flags are `-gc -f -all local,system,user` on macOS 27; `runPeriodic` is unavailable on macOS 27 (`/usr/sbin/periodic` removed). The helper moves removed system items to the caller's `~/.Trash/KeelMac`; if TCC refuses that, the item is reported failed and nothing is deleted.
+- **AssistantKit (LM Studio, 2026-10-23):** `AssistantError.wrapping(_:)` is the shared transport/decoding mapper for both clients; `OpenAIStream.swift` holds the internal `SSEParser`, `OpenAIWire`, `OpenAIToolCallAccumulator` and `OpenAIStreamParser`. A model LM Studio wasn't trained for tools still gets a prompt-based fallback instead of a 400, so `toolsUnsupported` only ever comes from Ollama; the app relies on `supportsTools == false` instead.
 - **ScanKit (M10):** `ReviewFinder.relative(_:to:)` and `ReviewFinder.owner(ofRelative:)` are public so the app's `inspect_path` tool can name the owning app without re-implementing the container rules.
 - **InsightsKit:** `HealthFactor.details` carries raw values for the "why" sentence; `DuplicateFinder.search` returns unreadable paths; `WeeklyReport.markdown` is English by design.
 - **SafetyKit (after review):** cache roots (DerivedData, Archives, DeviceSupport, `.npm/_cacache`, Homebrew/CocoaPods/Yarn/SwiftPM caches, pnpm store) are container folders: their contents may be cleaned, the roots never. `SafeRemover.with(mode:)` added.

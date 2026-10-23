@@ -45,7 +45,7 @@ KeelMac/
 | M7 | Duplicates, snapshots, weekly report | C23, C24, C25 | [x] |
 | M8 | Distribution: Sparkle, About, landing page and appcast, release workflow, DMG, cask, repo docs | C28 (About), C29, C31, C32 | [x] |
 | M9 | Polish: fidelity vs artboards, Spanish complete, accessibility, performance, docs final | C30, all | [x] |
-| M10 | Assistant: AssistantKit (Ollama client, tool loop), panel on every route, read-only tools, Settings tab, docs | C33 | [x] |
+| M10 | Assistant: AssistantKit (Ollama and LM Studio clients, tool loop), panel on every route, read-only tools, Settings tab, docs | C33 | [x] |
 
 ### M0 · Foundation
 **Goal:** `bash scripts/mac.sh run` opens KeelMac with the full sidebar, every destination showing its designed empty state, and the landing page skeleton is live on workers.dev.
@@ -253,7 +253,7 @@ KeelMac/
 | 6 | Remove one accessory; final slop audit |
 
 ### M10 · Assistant
-**Goal:** On any screen, ask a local Ollama model about what is on it and get a calm, specific answer that points to the KeelMac action. Off by default; nothing leaves the Mac; the model never acts.
+**Goal:** On any screen, ask a local model (Ollama or LM Studio) about what is on it and get a calm, specific answer that points to the KeelMac action. Off by default; nothing leaves the Mac; the model never acts.
 
 | # | Task |
 |---|---|
@@ -262,6 +262,7 @@ KeelMac/
 | 3 | `AssistantPanel` in a resizable trailing `AssistantSplit` in `RootView` (below the toolbar), toolbar toggle, ⌘⇧A, every state (off, checking, unreachable, no models, empty, loading, streaming, error), Spanish strings, `AssistantUITests` screenshots |
 | 4 | Settings › Assistant (toggle, address with loopback/https rule, model picker, Test connection, privacy footer); privacy copy in Settings, `Updater`, site; docs (brief C33, stack, contracts, design S21, this plan, AGENTS) |
 | 5 | `.assistantContext` on Review large files, Monitor, Dashboard, Cleanup, Apps, Storage map, Leftovers, Login items; chips; 960 × 640 check; live run with `qwen3.8:27b-mlx` recorded in 00-status |
+| 6 | LM Studio as a second server (2026-10-23): `AssistantProvider`, `LMStudioClient` (OpenAI-style SSE, tool calls by index, `tool_call_id` via `ChatMessage.tool(call:output:)`, v1→v0 model list fallback), Settings › Assistant Server picker with one address per server and first-enable detection by installed app (no network), panel copy by server plus "isn’t installed" / Download / "Use … instead", coalesced refreshes, `-fixture-provider`, LM Studio screenshots, `KEELMAC_LIVE_LMSTUDIO=1` smoke |
 
 ## Build results (2026-10-22)
 | Check | Result |
@@ -392,6 +393,7 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 - **Undocumented IOHID temperature API.** Mitigation: dlsym with graceful "Unavailable", battery temperature fallback.
 - **Scan speed on 500 GB.** Mitigation: `getattrlistbulk` + parallel subtrees; measured at M2.
 - **Assistant hallucinating actions or safety.** Mitigation: no action buttons in the panel, only `keelmac://` route links; the prompt forbids claiming changes; every tool is read-only (the only loaders triggered are the dry-run cleanup check, leftovers and login items); file contents never leave the Mac.
+- **LM Studio models without tool training.** LM Studio never refuses tools; it falls back to a prompt and a weak model may print pseudo tool JSON. Mitigation: `trained_for_tool_use` → "· no tools" in the picker and Automatic skips them.
 - **Ollama latency and models without tools.** Mitigation: `loadingModel` state with honest copy, `keep_alive 10m`, 300 s chunk timeout, Stop always available; a 400 "does not support tools" retries once without tools and says so.
 - **Swift 6 strict concurrency with C APIs.** Mitigation: readers are `Sendable` structs returning value types; one `@MainActor` monitor.
 
