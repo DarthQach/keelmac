@@ -58,7 +58,7 @@ struct AssistantTests {
 
     @Test func toolSpecsAreWellFormed() {
         let tools = AssistantTools.all(AppModel())
-        #expect(tools.map(\.name) == ["get_health", "get_metrics", "list_top_processes", "list_large_files", "inspect_path", "get_cleanup_summary", "list_leftovers", "list_login_items"])
+        #expect(tools.map(\.name) == ["get_health", "get_metrics", "list_top_processes", "list_large_files", "inspect_path", "get_cleanup_summary", "list_leftovers", "list_login_items", "list_projects"])
         for t in tools {
             #expect(t.spec.parameters["type"]?.stringValue == "object")
             #expect(!t.description.isEmpty)

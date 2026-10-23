@@ -3,6 +3,7 @@ import AppsKit
 import CleanKit
 import DuplicatesKit
 import MetricsKit
+import ProjectsKit
 import ReportKit
 import ScanKit
 import SafetyKit
@@ -67,6 +68,42 @@ enum VisualFixtures {
             item("com.example.app6.helper", user, .atLoad, owner: "Things", disabled: true),
             item("com.example.app5.agent", global, .onDemand, owner: "Transmit"),
             item("com.example.previous-editor.helper", global, .keepAlive, owner: "Previous editor", installed: false),
+        ]
+    }
+    static var projectsGitHub: GitHubAvailability {
+        state == "unavailable" ? .notSignedIn : .available(login: "demo", gh: "/opt/homebrew/bin/gh")
+    }
+    /// One project per status the Projects screen explains.
+    static var projects: [ProjectScan] {
+        let dev = root + "/Developer/"
+        let old = Date().addingTimeInterval(-260 * 86_400), recent = Date().addingTimeInterval(-3 * 86_400)
+        func remote(_ repo: String) -> [RemoteInfo] { [RemoteInfo(name: "origin", url: "https://github.com/\(repo).git", ownerRepo: repo)] }
+        func main(ahead: Int = 0) -> [BranchInfo] { [BranchInfo(name: "main", sha: "a1", upstream: "origin/main", ahead: ahead)] }
+        func scan(_ name: String, git: GitState?, github: GitHubCheck, bytes: Int64, changed: Date, verdict: ProjectVerdict) -> ProjectScan {
+            ProjectScan(path: dev + name, name: name, root: dev, git: git, github: github,
+                        measure: FolderMeasure(bytes: bytes, fileCount: 1_200, newestModified: changed, ownModified: changed, unreadable: 0),
+                        lastChange: changed, isStale: changed == old, verdict: verdict, removalRefusal: nil, scannedAt: date)
+        }
+        let verified: GitHubCheck = state == "unavailable" ? .off : .checked
+        return [
+            scan("weather-widget", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: main(), remotes: remote("demo/weather-widget"),
+                                                lastCommitDate: old, ignoredPaths: [".env"], ignoredCount: 1),
+                 github: verified, bytes: 1_840_000_000, changed: old, verdict: .safeToRemove),
+            scan("recipe-api", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: main(), remotes: remote("demo/recipe-api"), lastCommitDate: old),
+                 github: verified, bytes: 412_000_000, changed: old, verdict: .safeToRemove),
+            scan("portfolio-2023", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: main(), remotes: remote("demo/portfolio-2023"), lastCommitDate: old),
+                 github: .off, bytes: 96_000_000, changed: old, verdict: .safeToRemove),
+            scan("game-prototype", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, uncommittedCount: 4, stashCount: 1,
+                                                branches: main(ahead: 2) + [BranchInfo(name: "physics", sha: "b2", upstream: nil)],
+                                                remotes: remote("demo/game-prototype"), lastCommitDate: old),
+                 github: verified, bytes: 2_310_000_000, changed: old,
+                 verdict: .notBackedUp([.uncommittedChanges(4), .stashes(1), .unpushedCommits(branch: "main", ahead: 2), .branchNotPushed("physics")])),
+            scan("invoice-scripts", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: [BranchInfo(name: "main", sha: "a1", upstream: nil)], lastCommitDate: old),
+                 github: .notApplicable, bytes: 3_400_000, changed: old, verdict: .notBackedUp([.noRemote])),
+            scan("sketches", git: nil, github: .notApplicable, bytes: 58_000_000, changed: old, verdict: .noGit),
+            scan("keelmac", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: main(), remotes: remote("demo/keelmac"), lastCommitDate: recent),
+                 github: verified, bytes: 980_000_000, changed: recent, verdict: .keep),
+            scan("A project with a very long folder name for layout checks", git: nil, github: .notApplicable, bytes: 12_000, changed: recent, verdict: .noGit),
         ]
     }
     static var relatedFiles: [RelatedFile] {

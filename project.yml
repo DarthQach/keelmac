@@ -42,6 +42,8 @@ packages:
     path: Packages/AppsKit
   AssistantKit:
     path: Packages/AssistantKit
+  ProjectsKit:
+    path: Packages/ProjectsKit
 targets:
   KeelMac:
     type: application
@@ -70,6 +72,7 @@ targets:
       - package: CleanKit
       - package: AppsKit
       - package: AssistantKit
+      - package: ProjectsKit
       - package: InsightsKit
         product: DuplicatesKit
       - package: InsightsKit

@@ -4,6 +4,7 @@ import AssistantKit
 import CleanKit
 import Foundation
 import MetricsKit
+import ProjectsKit
 import ReportKit
 import SafetyKit
 import ScanKit
@@ -14,7 +15,8 @@ enum AssistantTools {
 
     @MainActor static func all(_ app: AppModel) -> [any AssistantTool] {
         [GetHealthTool(app: app), GetMetricsTool(app: app), ListTopProcessesTool(app: app), ListLargeFilesTool(app: app),
-         InspectPathTool(app: app), GetCleanupSummaryTool(app: app), ListLeftoversTool(app: app), ListLoginItemsTool(app: app)]
+         InspectPathTool(app: app), GetCleanupSummaryTool(app: app), ListLeftoversTool(app: app), ListLoginItemsTool(app: app),
+         ListProjectsTool(app: app)]
     }
 
     static func cap(_ text: String) -> String {
@@ -287,5 +289,36 @@ struct ListLoginItemsTool: AssistantTool {
                 return AssistantTools.cap((["Login items (keelmac://open/loginItems):"] + lines).joined(separator: "\n"))
             }
         }.value
+    }
+}
+
+/// Reads the last Projects check. Never starts one: a check may reach GitHub when verification is on.
+struct ListProjectsTool: AssistantTool {
+    let app: AppModel
+    let name = "list_projects"
+    let description = "Development projects from the last Projects check: status (safe to remove, not backed up, no git, keep), why, last change, size and GitHub repository."
+    let parameters: JSONValue = .schema(properties: [
+        "status": .property("string", "Only this status", enum: ["safeToRemove", "notBackedUp", "noGit", "keep"]),
+        "limit": .property("integer", "How many, 1-40 (default 20)"),
+    ])
+
+    func call(_ arguments: JSONValue) async throws -> String {
+        let limit = min(max(arguments["limit"]?.intValue ?? 20, 1), 40)
+        let filter = arguments["status"]?.stringValue.flatMap(ProjectsModel.Filter.init(rawValue:)) ?? .all
+        return await MainActor.run { Self.render(app.projects, filter: filter, limit: limit) }
+    }
+
+    @MainActor static func render(_ projects: ProjectsModel, filter: ProjectsModel.Filter, limit: Int, now: Date = .now) -> String {
+        guard !projects.scans.isEmpty else { return "Projects haven't been checked yet. Open Projects (keelmac://open/projects)." }
+        let chosen = projects.scans.filter(filter.matches)
+        guard !chosen.isEmpty else { return "No projects with that status." }
+        var lines = ["Projects (keelmac://open/projects), stale after \(projects.staleDays) days, GitHub: \(projects.github?.title ?? "not asked"):"]
+        for p in chosen.prefix(limit) {
+            var line = "\(p.name) · \(p.statusTitle) · last change \(p.lastChange.map { Format.relative($0, now: now) } ?? "unknown") · \(p.measure.map { Format.bytes($0.bytes) } ?? "size unknown") · \(p.githubText)"
+            if !p.verdict.reasons.isEmpty { line += " · " + p.verdict.reasons.map(\.text).joined(separator: "; ") }
+            lines.append(line)
+        }
+        if chosen.count > limit { lines.append("and \(chosen.count - limit) more") }
+        return AssistantTools.cap(lines.joined(separator: "\n"))
     }
 }

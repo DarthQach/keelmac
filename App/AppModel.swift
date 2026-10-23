@@ -26,6 +26,7 @@ final class AppModel {
     let health = HealthService()
     let cleanup: CleanupModel
     let apps: AppsModel
+    let projects: ProjectsModel
     let updater: Updater
     let assistant = AssistantModel()
 
@@ -37,6 +38,7 @@ final class AppModel {
         let health = self.health
         cleanup = CleanupModel(log: operationLog, onReclaimable: { health.recordReclaimable($0) })
         apps = AppsModel(log: operationLog, helper: helper, onStartupCounts: { health.recordStartupItems(total: $0, orphans: $1) })
+        projects = ProjectsModel(log: operationLog)
         let log = operationLog
         Task.detached(priority: .background) { await log.prune(olderThan: Date().addingTimeInterval(-365 * 86_400)) }
         var fixtureBackend: (@Sendable (AssistantProvider, URL) -> any ChatBackend)?

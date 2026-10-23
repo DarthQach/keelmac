@@ -117,6 +117,15 @@ struct SafeRemoverTests {
         await log.record([OperationEntry(batchID: UUID(), kind: .cleanup, title: "t", path: "/p", bytes: 1, result: .trashed)])
         #expect(await log.entries.count == 1)
     }
+
+    @Test func projectsKindRoundTrips() throws {
+        let entry = OperationEntry(batchID: UUID(), kind: .projects, title: "Back up demo", path: "/usr/bin/git -C /p push --all origin",
+                                   bytes: 0, result: .ran)
+        let json = try OperationLogExporter.export([entry], as: .json)
+        let back = try { let d = JSONDecoder(); d.dateDecodingStrategy = .iso8601; return try d.decode([OperationEntry].self, from: json) }()
+        #expect(back.first?.kind == .projects)
+        #expect(OperationLogExporter.csv([entry]).contains(",projects,"))
+    }
 }
 
 @Suite("CommandRunner")

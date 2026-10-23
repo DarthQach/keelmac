@@ -4,7 +4,7 @@ import SwiftUI
 enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
     case dashboard, monitor
     case storageMap, largeOld, systemData, duplicates, snapshots
-    case cleanup, apps, leftovers, loginItems, maintenance
+    case cleanup, apps, leftovers, loginItems, maintenance, projects
     case operationLog
 
     var id: String { rawValue }
@@ -29,7 +29,7 @@ enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
         switch self {
         case .dashboard, .monitor: .overview
         case .storageMap, .largeOld, .systemData, .duplicates, .snapshots: .storage
-        case .cleanup, .apps, .leftovers, .loginItems, .maintenance: .clean
+        case .cleanup, .apps, .leftovers, .loginItems, .maintenance, .projects: .clean
         case .operationLog: .history
         }
     }
@@ -48,6 +48,7 @@ enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
         case .leftovers: "Leftovers"
         case .loginItems: "Login items"
         case .maintenance: "Maintenance"
+        case .projects: "Projects"
         case .operationLog: "Operation log"
         }
     }
@@ -67,6 +68,7 @@ enum Route: String, CaseIterable, Identifiable, Hashable, Codable {
         case .leftovers: "shippingbox"
         case .loginItems: "power"
         case .maintenance: "wrench.and.screwdriver"
+        case .projects: "folder.badge.gearshape"
         case .operationLog: "list.bullet.rectangle"
         }
     }
@@ -101,6 +103,7 @@ extension Route {
         case .leftovers: "Review files left behind by removed apps."
         case .loginItems: "Know what starts with your Mac."
         case .maintenance: "Purposeful tools. Transparent commands."
+        case .projects: "Keep what you work on. Let go of what GitHub already has."
         case .operationLog: "A record of every change."
         }
     }

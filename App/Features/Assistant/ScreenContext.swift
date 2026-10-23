@@ -2,6 +2,7 @@ import AppsKit
 import CleanKit
 import Foundation
 import MetricsKit
+import ProjectsKit
 import ReportKit
 import ScanKit
 import SwiftUI
@@ -14,7 +15,7 @@ struct ContextFact: Hashable, Sendable {
 
 /// One selected thing on screen, described by metadata only (never contents).
 struct ContextItem: Identifiable, Hashable, Sendable {
-    enum Kind: String, Sendable { case file, folder, app, process, cleanupGroup, leftoverGroup, launchItem }
+    enum Kind: String, Sendable { case file, folder, app, process, cleanupGroup, leftoverGroup, launchItem, project }
     let id: String
     let kind: Kind
     let name: String
@@ -32,7 +33,7 @@ struct ScreenContext: Hashable, Sendable {
 
     /// True when `selection` is what the user picked (rather than the screen's own list).
     var hasUserSelection: Bool {
-        !selection.isEmpty && [.largeOld, .storageMap, .apps, .cleanup].contains(route)
+        !selection.isEmpty && [.largeOld, .storageMap, .apps, .cleanup, .projects].contains(route)
     }
 
     /// Plain text for the model, capped so a big selection can’t crowd out the conversation.
@@ -81,6 +82,10 @@ struct ScreenContext: Hashable, Sendable {
             return [String(localized: "Which copy should I keep?")]
         case .maintenance:
             return [String(localized: "Which task helps with a slow Mac?")]
+        case .projects:
+            return selection.isEmpty
+                ? [String(localized: "Which projects are safe to remove?"), String(localized: "Which projects aren’t backed up?")]
+                : [String(localized: "Why isn’t this project backed up?"), String(localized: "Is it safe to remove?")]
         case .snapshots:
             return [String(localized: "What grew the most?")]
         case .operationLog:
@@ -217,6 +222,34 @@ extension ScreenContext {
         return c
     }
 
+    @MainActor static func projects(_ model: ProjectsModel, selected: [ProjectScan], now: Date = .now) -> ScreenContext {
+        var c = ScreenContext(route: .projects)
+        c.facts.append(ContextFact(label: String(localized: "Folders"), value: model.roots.joined(separator: ", ")))
+        guard model.phase != .idle || !model.scans.isEmpty else {
+            c.facts.append(ContextFact(label: String(localized: "Status"), value: String(localized: "not checked yet")))
+            return c
+        }
+        c.facts.append(ContextFact(label: String(localized: "Projects"), value: ProjectsModel.Filter.allCases.dropFirst()
+            .map { "\($0.title): \(model.count($0))" }.joined(separator: ", ")))
+        c.facts.append(ContextFact(label: String(localized: "Stale after"), value: String(localized: "\(model.staleDays) days without a commit or a file change")))
+        c.facts.append(ContextFact(label: "GitHub", value: model.github?.title ?? String(localized: "not asked")))
+        if model.unverifiedCount > 0 {
+            c.facts.append(ContextFact(label: String(localized: "Unverified"), value: String(localized: "\(model.unverifiedCount) look safe but need Verify with GitHub before they can go to the Trash")))
+        }
+        c.selection = selected.prefix(12).map { p in
+            var fields = [
+                ContextFact(label: String(localized: "Status"), value: p.statusTitle),
+                ContextFact(label: String(localized: "Last change"), value: p.lastChange.map { Format.relative($0, now: now) } ?? String(localized: "Unknown")),
+                ContextFact(label: String(localized: "Size"), value: p.measure.map { Format.bytes($0.bytes) } ?? String(localized: "Unknown")),
+                ContextFact(label: "GitHub", value: p.githubText),
+            ]
+            if !p.verdict.reasons.isEmpty { fields.append(ContextFact(label: String(localized: "Reasons"), value: p.verdict.reasons.map(\.text).joined(separator: "; "))) }
+            if let git = p.git, git.ignoredCount > 0 { fields.append(ContextFact(label: String(localized: "Not in git"), value: git.ignoredPaths.prefix(5).joined(separator: ", "))) }
+            return ContextItem(id: p.id, kind: .project, name: p.name, path: p.path, fields: fields)
+        }
+        return c
+    }
+
     static func loginItems(_ items: [LaunchItem], advice: [String: LaunchAdvice]) -> ScreenContext {
         var c = ScreenContext(route: .loginItems)
         c.facts.append(ContextFact(label: String(localized: "Found"), value: String(localized: "\(items.count) items, \(items.filter { !$0.ownerInstalled }.count) without an installed app")))
@@ -252,6 +285,7 @@ extension Route {
         case .leftovers: String(localized: "Leftovers")
         case .loginItems: String(localized: "Login items")
         case .maintenance: String(localized: "Maintenance")
+        case .projects: String(localized: "Projects")
         case .operationLog: String(localized: "Operation log")
         }
     }
@@ -270,6 +304,7 @@ extension Route {
         case .leftovers: String(localized: "Review files left behind by removed apps.")
         case .loginItems: String(localized: "Know what starts with your Mac.")
         case .maintenance: String(localized: "Purposeful tools. Transparent commands.")
+        case .projects: String(localized: "Keep what you work on. Let go of what GitHub already has.")
         case .operationLog: String(localized: "A record of every change.")
         }
     }

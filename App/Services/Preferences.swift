@@ -32,6 +32,9 @@ enum Preferences {
         static let assistantLMStudioHost = "assistantLMStudioHost"  // LM Studio base URL
         static let assistantModel = "assistantModel"                // model name from the server's list; empty = first tool-capable one
         static let assistantPanelOpen = "assistantPanelOpen"
+        static let projectRoots = "projectRoots"                    // [String], folders whose subfolders are projects
+        static let projectStaleDays = "projectStaleDays"            // a project is stale when untouched this long
+        static let projectsVerifyGitHub = "projectsVerifyGitHub"    // off by default: nothing reaches GitHub until the user opts in
     }
 
     static func registerDefaults() {
@@ -62,6 +65,9 @@ enum Preferences {
             Key.assistantLMStudioHost: "http://localhost:1234",
             Key.assistantModel: "",
             Key.assistantPanelOpen: false,
+            Key.projectRoots: ["~/Developer"],
+            Key.projectStaleDays: 180,
+            Key.projectsVerifyGitHub: false,
         ])
     }
 }

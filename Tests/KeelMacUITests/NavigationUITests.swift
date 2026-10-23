@@ -11,7 +11,7 @@ final class NavigationUITests: XCTestCase {
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10))
         for id in ["dashboard", "monitor", "storageMap", "largeOld", "systemData", "duplicates", "snapshots",
-                   "cleanup", "apps", "leftovers", "loginItems", "maintenance", "operationLog"] {
+                   "cleanup", "apps", "leftovers", "loginItems", "maintenance", "projects", "operationLog"] {
             let item = window.outlines.cells.containing(.any, identifier: "sidebar.\(id)").firstMatch
             XCTAssertTrue(item.waitForExistence(timeout: 5), "sidebar item \(id)")
             item.click()

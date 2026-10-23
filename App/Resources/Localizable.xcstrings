@@ -56,6 +56,17 @@
       },
       "extractionState": "manual"
     },
+    "%@ already exists on GitHub. Choose another name.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ya existe en GitHub. Elige otro nombre."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%@ answered %lld: %@": {
       "localizations": {
         "es": {
@@ -150,6 +161,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ libres, %@ por debajo de la línea de carga"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ has commits that aren’t on GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tiene commits que no están en GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%@ has no folders inside. Choose another folder with Choose folders….": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ no tiene carpetas dentro. Elige otra carpeta con Elegir carpetas…."
           }
         }
       },
@@ -650,6 +683,17 @@
       },
       "extractionState": "manual"
     },
+    "%lld days without a commit or a file change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld días sin un commit ni un cambio de archivo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld files compared. Try other folders with Choose folders….": {
       "localizations": {
         "es": {
@@ -793,6 +837,17 @@
       },
       "extractionState": "manual"
     },
+    "%lld look safe but need Verify with GitHub before they can go to the Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld parecen seguros, pero necesitan Verificar con GitHub antes de ir a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld more are marked in the list below.": {
       "localizations": {
         "es": {
@@ -815,6 +870,17 @@
       },
       "extractionState": "manual"
     },
+    "%lld of %lld safe projects selected, %@. Projects always go to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de %lld proyectos seguros seleccionados, %@. Los proyectos siempre van a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld of 100": {
       "localizations": {
         "es": {
@@ -832,6 +898,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld operaciones. Guardadas en ~/Library/Application Support/KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld projects selected": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld proyectos seleccionados"
           }
         }
       },
@@ -1041,6 +1118,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un escaneo completo tarda alrededor de un minuto y nunca lee el contenido de los archivos. Después, los nuevos escaneos solo revisan las carpetas que cambiaron."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A git worktree: its history lives in the main repository. Check that one instead.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un worktree de git: su historial vive en el repositorio principal. Revisa ese."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A link to a folder elsewhere. Projects never moves links to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un enlace a una carpeta en otro lugar. Proyectos nunca mueve enlaces a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "A project is stale after %lld days without a commit or a file change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un proyecto está inactivo tras %lld días sin un commit ni un cambio de archivo"
           }
         }
       },
@@ -1398,6 +1508,17 @@
       },
       "extractionState": "manual"
     },
+    "Asking gh who is signed in…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntando a gh quién inició sesión…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Asks macOS to free up to 20 GB held by local snapshots. Your backups on the backup disk aren’t affected.": {
       "localizations": {
         "es": {
@@ -1481,6 +1602,61 @@
           "stringUnit": {
             "state": "translated",
             "value": "Espacio disponible"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Back up": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Back up %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldar %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Back up…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldar…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Backed up to %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldado en %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Backup from KeelMac": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldo desde KeelMac"
           }
         }
       },
@@ -1602,6 +1778,61 @@
           "stringUnit": {
             "state": "translated",
             "value": "Binario (1 GiB = 1024 MiB)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Branch": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rama"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Branch %@ isn’t on GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La rama %@ no está en GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Branches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ramas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Branches are still compared through git. Sign in so Back up can create repositories:": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las ramas se siguen comparando con git. Inicia sesión para que Respaldar pueda crear repositorios:"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Branches are still compared with GitHub through git. Back up needs gh to create repositories: brew install gh.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las ramas se siguen comparando con GitHub mediante git. Respaldar necesita gh para crear repositorios: brew install gh."
           }
         }
       },
@@ -1816,12 +2047,45 @@
       },
       "extractionState": "manual"
     },
+    "Check that the name is free on GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprobar que el nombre está libre en GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check these folders": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar estas carpetas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Check what can be cleaned": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Revisa qué se puede limpiar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Check your projects": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisa tus proyectos"
           }
         }
       },
@@ -1860,6 +2124,17 @@
       },
       "extractionState": "manual"
     },
+    "Checking %lld of %lld projects…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisando %lld de %lld proyectos…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Checking when each file was last opened…": {
       "localizations": {
         "es": {
@@ -1888,6 +2163,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chip"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Choose a folder where your projects live": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige la carpeta donde viven tus proyectos"
           }
         }
       },
@@ -2080,12 +2366,56 @@
       },
       "extractionState": "manual"
     },
+    "Commit": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commit"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Commit message": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje del commit"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Commits on %@ not on GitHub: %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commits en %@ que no están en GitHub: %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Compare copies before removing them.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Compara las copias antes de eliminarlas."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Compare every branch and tag with GitHub through git and your gh login. Off by default.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compara cada rama y etiqueta con GitHub mediante git y tu sesión de gh. Desactivado por omisión."
           }
         }
       },
@@ -2223,6 +2553,28 @@
       },
       "extractionState": "manual"
     },
+    "Couldn’t check GitHub: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo comprobar GitHub: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t check your projects": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron revisar tus proyectos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Couldn’t export the log": {
       "localizations": {
         "es": {
@@ -2256,12 +2608,122 @@
       },
       "extractionState": "manual"
     },
+    "Couldn’t reach GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo conectar con GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read %@. Check that the folder exists, or choose another.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer %@. Comprueba que la carpeta exista o elige otra."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Couldn’t read the cleanup rules": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "No se pudieron leer las reglas de limpieza"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read this folder.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer esta carpeta."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read this folder: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer esta carpeta: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read ~/Developer. Check that the folder exists, or choose another in Settings › Cleanup and safety.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer ~/Developer. Comprueba que la carpeta exista o elige otra en Ajustes › Limpieza y seguridad."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Couldn’t read: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Create a .gitignore for generated folders and .env": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear un .gitignore para carpetas generadas y .env"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Create the private repository": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear el repositorio privado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Creating a repository needs gh, signed in to GitHub.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear un repositorio necesita gh con sesión iniciada en GitHub."
           }
         }
       },
@@ -2383,6 +2845,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Design system.fig es un archivo de Figma de 11 GB en Documentos, abierto por última vez hace seis meses. Sketch está abierto y lo retiene, así que la fila está bloqueada. Cierra Sketch primero y luego Revisar archivos grandes › Mover a la Papelera. El archivo va a la Papelera, de donde puedes recuperarlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Detached HEAD: the checked-out commit isn’t on a branch": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HEAD separado: el commit actual no está en ninguna rama"
           }
         }
       },
@@ -2575,6 +3048,17 @@
       },
       "extractionState": "manual"
     },
+    "Each one is on GitHub, checked against it just now, and unchanged for %lld days. You can put them back from the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada uno está en GitHub, comprobado ahora mismo, y sin cambios desde hace %lld días. Puedes recuperarlos de la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Elevated": {
       "localizations": {
         "es": {
@@ -2674,6 +3158,17 @@
       },
       "extractionState": "manual"
     },
+    "Every branch and tag was compared with GitHub just now.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada rama y etiqueta se comparó con GitHub ahora mismo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Everything KeelMac moves or deletes is listed here.": {
       "localizations": {
         "es": {
@@ -2707,12 +3202,45 @@
       },
       "extractionState": "manual"
     },
+    "Everything is on GitHub and nothing changed for longer than your limit.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo está en GitHub y nada cambió en más tiempo que tu límite."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Everything is on GitHub, and you changed it recently.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo está en GitHub y lo cambiaste hace poco."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Exit code %d": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Código de salida %d"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Exit code %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de salida %lld"
           }
         }
       },
@@ -2960,6 +3488,17 @@
       },
       "extractionState": "manual"
     },
+    "Folders": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpetas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Found": {
       "localizations": {
         "es": {
@@ -3092,12 +3631,78 @@
       },
       "extractionState": "manual"
     },
+    "Generated folders like node_modules and build count toward size, not toward the last change.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las carpetas generadas como node_modules y build cuentan para el tamaño, no para el último cambio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "GitHub": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub couldn’t be reached. Check the connection.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo conectar con GitHub. Revisa la conexión."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub doesn’t have this repository, or this account can’t see it.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub no tiene este repositorio, o esta cuenta no puede verlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub has newer commits on %@. Pull them, then check again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub tiene commits más nuevos en %@. Tráelos con pull y revisa de nuevo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub rejected the push. Pull first, or look for files over 100 MB.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub rechazó el push. Haz pull primero o busca archivos de más de 100 MB."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "GitHub verification is off": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La verificación con GitHub está desactivada"
           }
         }
       },
@@ -3131,6 +3736,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Agrupando por tamaño…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "HEAD is detached. Check out a branch first, so the backup includes your current commit.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HEAD está separado. Cambia primero a una rama para que el respaldo incluya tu commit actual."
           }
         }
       },
@@ -3230,6 +3846,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "El historial y las contraseñas nunca se tocan"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "How Projects decides": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cómo decide Proyectos"
           }
         }
       },
@@ -3373,6 +4000,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "No es una app con ventana, así que podrías perder trabajo sin guardar."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It looks safe from this Mac’s last fetch. Turn on Verify with GitHub to prove it before moving it to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parece seguro según el último fetch de esta Mac. Activa Verificar con GitHub para comprobarlo antes de moverlo a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It took too long and was stopped.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tardó demasiado y se detuvo."
           }
         }
       },
@@ -3532,6 +4181,17 @@
       },
       "extractionState": "manual"
     },
+    "KeelMac creates the private repository %@ and pushes every branch and tag to it.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac crea el repositorio privado %@ y sube cada rama y etiqueta."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "KeelMac didn’t change that item": {
       "localizations": {
         "es": {
@@ -3560,6 +4220,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "KeelMac es gratis y seguirá siéndolo. Esto aparece como mucho una vez al mes."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac looks at each folder inside it: whether it uses git, what is on GitHub and when you last changed it. Nothing changes until you choose.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac revisa cada carpeta que contiene: si usa git, qué está en GitHub y cuándo la cambiaste por última vez. Nada cambia hasta que tú lo elijas."
           }
         }
       },
@@ -3609,6 +4280,17 @@
       },
       "extractionState": "manual"
     },
+    "KeelMac pushes every branch and tag to %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac sube cada rama y etiqueta a %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "KeelMac takes one every week, so you can see what grew.": {
       "localizations": {
         "es": {
@@ -3626,6 +4308,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "KeelMac habla solo con el servidor de esta dirección. Envía tu pregunta, un resumen de la pantalla actual y los nombres, tamaños y fechas de lo que seleccionas. Nunca envía el contenido de los archivos, y nada más sale de tu Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac won’t move it: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac no lo moverá: %@"
           }
         }
       },
@@ -3659,6 +4352,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Seguir usando la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Keep what you work on. Let go of what GitHub already has.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserva aquello en lo que trabajas. Suelta lo que GitHub ya tiene."
           }
         }
       },
@@ -3785,6 +4489,17 @@
       },
       "extractionState": "manual"
     },
+    "Last change": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último cambio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Last checked": {
       "localizations": {
         "es": {
@@ -3802,6 +4517,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Última revisión %@. KeelMac vuelve a revisar cada vez que abres Limpieza."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Last commit": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último commit"
           }
         }
       },
@@ -3879,6 +4605,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Como el Finder (1 GB = 1000 MB)"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Link": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlace"
           }
         }
       },
@@ -4379,6 +5116,28 @@
       },
       "extractionState": "manual"
     },
+    "Move %lld projects to Trash": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover %lld proyectos a la Papelera"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Move %lld projects to the Trash?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover %lld proyectos a la Papelera?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Move items to the Trash": {
       "localizations": {
         "es": {
@@ -4489,6 +5248,17 @@
       },
       "extractionState": "manual"
     },
+    "Needed before a project can go to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesario para que un proyecto pueda ir a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Needs Full Disk Access": {
       "localizations": {
         "es": {
@@ -4588,6 +5358,17 @@
       },
       "extractionState": "manual"
     },
+    "Newest file": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo más reciente"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "No apps found": {
       "localizations": {
         "es": {
@@ -4621,6 +5402,17 @@
       },
       "extractionState": "manual"
     },
+    "No commits yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay commits"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "No data yet": {
       "localizations": {
         "es": {
@@ -4649,6 +5441,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay archivos de más de %@ que no hayas abierto en %lld meses."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No git": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin git"
           }
         }
       },
@@ -4742,12 +5545,56 @@
       },
       "extractionState": "manual"
     },
+    "No projects here": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay proyectos aquí"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No remote": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin remoto"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "No remote: nothing has been pushed anywhere": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin remoto: nada se ha subido a ningún lado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "No snapshots yet": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Aún no hay instantáneas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "None": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguno"
           }
         }
       },
@@ -4781,6 +5628,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "No es una ruta absoluta limpia"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not a repository": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es un repositorio"
           }
         }
       },
@@ -4841,6 +5699,28 @@
       },
       "extractionState": "manual"
     },
+    "Not backed up": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin respaldo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not backed up: some work exists only here. Back up commits it and pushes it to a private repository.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin respaldo: parte del trabajo solo existe aquí. Respaldar hace commit y lo sube a un repositorio privado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Not checked": {
       "localizations": {
         "es": {
@@ -4880,6 +5760,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se encontró en esta copia de KeelMac"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not in git": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera de git"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not in git, and would go to the Trash with the project: %@%@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera de git, iría a la Papelera con el proyecto: %@%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Not in git, goes to the Trash too: %@%@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera de git, también va a la Papelera: %@%@"
           }
         }
       },
@@ -4979,6 +5892,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se encontró nada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing is safe to remove yet. Projects always go to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay nada seguro de quitar. Los proyectos siempre van a la Papelera."
           }
         }
       },
@@ -5100,6 +6024,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apagado por defecto. KeelMac no contacta nada hasta que lo actives, y entonces solo al servidor de la dirección de abajo. Funciona con Ollama o LM Studio en esta Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Off by default. When on, KeelMac runs git ls-remote and asks the gh tool you signed in to who you are, to prove every branch is on GitHub. Back up uses git and gh only when you click it. KeelMac stores no token and sends nothing else. Projects always go to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado por omisión. Al activarlo, KeelMac ejecuta git ls-remote y pregunta a gh, donde iniciaste sesión, quién eres, para comprobar que cada rama está en GitHub. Respaldar usa git y gh solo cuando haces clic. KeelMac no guarda ningún token ni envía nada más. Los proyectos siempre van a la Papelera."
           }
         }
       },
@@ -5270,6 +6205,17 @@
       },
       "extractionState": "manual"
     },
+    "Only real folders can be backed up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se pueden respaldar carpetas reales."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Only the app bundle was found.": {
       "localizations": {
         "es": {
@@ -5287,6 +6233,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solo esta Mac puede usarse por http. Usa https para otra máquina."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Only this Mac’s last fetch is used. Turn on Verify with GitHub to prove a project is there before moving it to the Trash.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se usa el último fetch de esta Mac. Activa Verificar con GitHub para comprobar que un proyecto está ahí antes de moverlo a la Papelera."
           }
         }
       },
@@ -5413,6 +6370,17 @@
       },
       "extractionState": "manual"
     },
+    "Open on GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir en GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Open storage map": {
       "localizations": {
         "es": {
@@ -5507,6 +6475,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otros elementos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Other remote": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otro remoto"
           }
         }
       },
@@ -5666,6 +6645,28 @@
       },
       "extractionState": "manual"
     },
+    "Projects": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proyectos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Projects always go to the Trash and are logged.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los proyectos siempre van a la Papelera y quedan registrados."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Protected location": {
       "localizations": {
         "es": {
@@ -5683,6 +6684,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Herramientas útiles. Comandos transparentes."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Push all branches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir todas las ramas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Push new branches": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir las ramas nuevas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Push tags": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir las etiquetas"
           }
         }
       },
@@ -5826,6 +6860,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Motivo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Reasons": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motivos"
           }
         }
       },
@@ -6018,12 +7063,34 @@
       },
       "extractionState": "manual"
     },
+    "Remote %@ isn’t on GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El remoto %@ no está en GitHub"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Remove": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Quitar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Remove %@ from project folders": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar %@ de las carpetas de proyectos"
           }
         }
       },
@@ -6123,6 +7190,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reportar un problema"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Repository name": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre del repositorio"
           }
         }
       },
@@ -6326,6 +7404,39 @@
       },
       "extractionState": "manual"
     },
+    "Safe to remove": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguro de quitar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Safe to remove: every branch, tag and change is on GitHub, and neither a commit nor a file changed in %lld days.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguro de quitar: cada rama, etiqueta y cambio está en GitHub, y ni un commit ni un archivo cambiaron en %lld días."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Safe, unverified": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguro, sin verificar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Scan again": {
       "localizations": {
         "es": {
@@ -6524,6 +7635,28 @@
       },
       "extractionState": "manual"
     },
+    "See which projects are safely on GitHub and which exist only on this Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mira qué proyectos están a salvo en GitHub y cuáles solo existen en esta Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Select all safe": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seleccionar todos los seguros"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Select an item · double-click a folder to open": {
       "localizations": {
         "es": {
@@ -6618,6 +7751,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los intervalos más cortos usan un poco más de energía. Dos segundos es un buen equilibrio."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Show": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar"
           }
         }
       },
@@ -6832,6 +7976,17 @@
       },
       "extractionState": "manual"
     },
+    "Some work exists only on this Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del trabajo solo existe en esta Mac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Sort by": {
       "localizations": {
         "es": {
@@ -6871,6 +8026,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Espacio usado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stage every file": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparar todos los archivos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stale after": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inactivo tras"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Start a git repository": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar un repositorio git"
           }
         }
       },
@@ -6970,6 +8158,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Puntuación de ítems de inicio"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stashes stay on this Mac: %lld. Apply or drop them to finish the backup.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los stashes se quedan en esta Mac: %lld. Aplícalos o descártalos para completar el respaldo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stashes: %lld. Stashes are never pushed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stashes: %lld. Los stashes nunca se suben."
           }
         }
       },
@@ -7118,6 +8328,17 @@
       },
       "extractionState": "manual"
     },
+    "Tags not on GitHub: %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas que no están en GitHub: %lld"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Take snapshot": {
       "localizations": {
         "es": {
@@ -7234,6 +8455,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "La app a la que pertenece ya no está instalada, así que este ítem ya no tiene nada que hacer."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "The command-line tool isn’t installed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La herramienta de línea de comandos no está instalada."
           }
         }
       },
@@ -7393,6 +8625,28 @@
       },
       "extractionState": "manual"
     },
+    "There is nothing a commit or a push can add. Anything left, like stashes, has to be handled in git.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay nada que un commit o un push puedan añadir. Lo que queda, como los stashes, se resuelve en git."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "These commands run in this order on your Mac, with your git and gh logins. KeelMac stores no token.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estos comandos se ejecutan en este orden en tu Mac, con tus sesiones de git y gh. KeelMac no guarda ningún token."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "These named items are too small to label on the map. They are highlighted in the contents list; select a row to inspect an individual item.": {
       "localizations": {
         "es": {
@@ -7481,6 +8735,17 @@
       },
       "extractionState": "manual"
     },
+    "This folder isn’t a git repository, so nothing of it is on GitHub.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta no es un repositorio git, así que nada de ella está en GitHub."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "This folder needs access to be measured.": {
       "localizations": {
         "es": {
@@ -7498,6 +8763,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esto es una vista previa. Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado aquí."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This is a worktree. Back up its main repository instead.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es un worktree. Respalda su repositorio principal."
           }
         }
       },
@@ -7679,6 +8955,17 @@
       },
       "extractionState": "manual"
     },
+    "Turn on Verify with GitHub to move projects to the Trash. %lld look safe but aren’t proved yet.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activa Verificar con GitHub para mover proyectos a la Papelera. %lld parecen seguros, pero aún no está comprobado."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Two folder levels": {
       "localizations": {
         "es": {
@@ -7718,6 +9005,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin marcar hasta que los elijas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Uncommitted changes: %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambios sin commit: %lld"
           }
         }
       },
@@ -7789,6 +9087,17 @@
       },
       "extractionState": "manual"
     },
+    "Unverified": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin verificar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Up": {
       "localizations": {
         "es": {
@@ -7844,12 +9153,12 @@
       },
       "extractionState": "manual"
     },
-    "Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama or LM Studio if you turn the Assistant on.": {
+    "Updates are signed. The update check is the only network request KeelMac makes on its own. Your local Ollama or LM Studio is used only if you turn the Assistant on, and GitHub only if you turn on Verify with GitHub in Projects or click Back up.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac, aparte de tu propio Ollama o LM Studio local si activas el Asistente."
+            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única petición de red que KeelMac hace por su cuenta. Tu Ollama o LM Studio local solo se usa si activas el Asistente, y GitHub solo si activas Verificar con GitHub en Proyectos o haces clic en Respaldar."
           }
         }
       },
@@ -7899,6 +9208,17 @@
       },
       "extractionState": "manual"
     },
+    "Use only letters, numbers, dots, hyphens and underscores.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa solo letras, números, puntos, guiones y guiones bajos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Use the contents list to browse every item.": {
       "localizations": {
         "es": {
@@ -7943,12 +9263,34 @@
       },
       "extractionState": "manual"
     },
+    "Verified with GitHub as %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificado con GitHub como %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Verify startup disk": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Verificar el disco de arranque"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Verify with GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar con GitHub"
           }
         }
       },
@@ -8207,6 +9549,17 @@
       },
       "extractionState": "manual"
     },
+    "What it contains": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué contiene"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "What should I do first?": {
       "localizations": {
         "es": {
@@ -8295,6 +9648,28 @@
       },
       "extractionState": "manual"
     },
+    "Which projects are safe to remove?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué proyectos es seguro quitar?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Which projects aren’t backed up?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué proyectos no tienen respaldo?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Which task helps with a slow Mac?": {
       "localizations": {
         "es": {
@@ -8350,12 +9725,34 @@
       },
       "extractionState": "manual"
     },
+    "Why isn’t this project backed up?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Por qué este proyecto no tiene respaldo?"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "With nothing selected, the menu bar shows the KeelMac mark.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Si no eliges nada, la barra de menús muestra el símbolo de KeelMac."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Worktree": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worktree"
           }
         }
       },
@@ -8378,6 +9775,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Datos de Xcode"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Xcode is open. Close any of these projects there first.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xcode está abierto. Cierra ahí primero cualquiera de estos proyectos."
           }
         }
       },
@@ -8581,6 +9989,50 @@
       },
       "extractionState": "manual"
     },
+    "gh isn’t installed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gh no está instalado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "gh isn’t signed in": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gh no tiene sesión iniciada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "git couldn’t sign in to GitHub. Run gh auth setup-git so git uses your gh login, then try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "git no pudo iniciar sesión en GitHub. Ejecuta gh auth setup-git para que git use tu sesión de gh y vuelve a intentarlo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "git doesn’t know your name and email yet. Set them with git config --global user.name and user.email.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "git todavía no conoce tu nombre y correo. Configúralos con git config --global user.name y user.email."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "iOS Simulators": {
       "localizations": {
         "es": {
@@ -8730,6 +10182,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "sin herramientas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "not asked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin consultar"
           }
         }
       },

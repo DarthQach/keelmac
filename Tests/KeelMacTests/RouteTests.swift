@@ -12,6 +12,9 @@ struct RouteTests {
 
     @Test func urlScheme() {
         #expect(Route(url: URL(string: "keelmac://open/cleanup")!) == .cleanup)
+        #expect(Route(url: URL(string: "keelmac://open/projects")!) == .projects)
+        #expect(Route.projects.section == .clean)
+        #expect(Route.projects.shortcut == nil)
         #expect(Route(url: URL(string: "keelmac://open/nope")!) == nil)
         #expect(Route(url: URL(string: "https://open/cleanup")!) == nil)
     }

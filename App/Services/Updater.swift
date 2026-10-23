@@ -1,7 +1,7 @@
 import Sparkle
 import SwiftUI
 
-/// Sparkle 2 updates (C29). The appcast is the only network request KeelMac makes on its own; the opt-in Assistant talks to the user's local Ollama or LM Studio.
+/// Sparkle 2 updates (C29). The appcast is the only network request KeelMac makes on its own; the opt-in Assistant talks to the user's local Ollama or LM Studio, and Projects reaches GitHub (through git and gh) only when Verify with GitHub is on or Back up is clicked.
 @MainActor
 @Observable
 final class Updater {

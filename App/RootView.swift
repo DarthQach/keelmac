@@ -109,6 +109,8 @@ struct RouteView: View {
             LeftoversView()
         case .loginItems:
             LoginItemsView()
+        case .projects:
+            ProjectsView()
         }
     }
 }

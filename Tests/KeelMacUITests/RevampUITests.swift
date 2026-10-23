@@ -28,7 +28,7 @@ final class RevampUITests: XCTestCase {
     private func captureRoutes(theme: String, language: String) {
         let app = launch(theme: theme, language: language)
         let window = app.windows.firstMatch
-        for route in ["dashboard", "monitor", "cleanup", "apps", "storageMap", "largeOld", "systemData", "duplicates", "snapshots", "leftovers", "loginItems", "maintenance", "operationLog"] {
+        for route in ["dashboard", "monitor", "cleanup", "apps", "storageMap", "largeOld", "systemData", "duplicates", "snapshots", "leftovers", "loginItems", "maintenance", "projects", "operationLog"] {
             let item = window.outlines.cells.containing(.any, identifier: "sidebar.\(route)").firstMatch
             XCTAssertTrue(item.waitForExistence(timeout: 5), route)
             item.click()
@@ -84,7 +84,7 @@ final class RevampUITests: XCTestCase {
 
     @MainActor
     func testPresentationStates() {
-        for (route, state) in [("storageMap", "empty"), ("cleanup", "empty"), ("cleanup", "loading"), ("cleanup", "error"), ("dashboard", "permission"), ("monitor", "unavailable"), ("apps", "empty"), ("apps", "loading"), ("snapshots", "empty"), ("snapshots", "error"), ("duplicates", "empty"), ("leftovers", "empty"), ("loginItems", "empty")] {
+        for (route, state) in [("storageMap", "empty"), ("cleanup", "empty"), ("cleanup", "loading"), ("cleanup", "error"), ("dashboard", "permission"), ("monitor", "unavailable"), ("apps", "empty"), ("apps", "loading"), ("snapshots", "empty"), ("snapshots", "error"), ("duplicates", "empty"), ("leftovers", "empty"), ("loginItems", "empty"), ("projects", "empty"), ("projects", "loading"), ("projects", "error"), ("projects", "unavailable")] {
             let app = launch(extra: ["-fixture-route", route, "-fixture-state", state])
             Thread.sleep(forTimeInterval: 0.3)
             attach(app.windows.firstMatch, "revamp-\(route)-\(state)")

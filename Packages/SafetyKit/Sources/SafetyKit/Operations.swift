@@ -1,7 +1,7 @@
 import Foundation
 
 public enum OperationKind: String, Sendable, Codable, CaseIterable {
-    case cleanup, uninstall, trashFile, duplicates, leftovers, maintenance, loginItem
+    case cleanup, uninstall, trashFile, duplicates, leftovers, maintenance, loginItem, projects
 }
 
 public enum OperationResult: String, Sendable, Codable, CaseIterable {

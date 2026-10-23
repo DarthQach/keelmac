@@ -214,6 +214,9 @@ struct CleanupSettings: View {
     @State private var newEntry = ""
     @State private var newEntryProblem: WhitelistProblem?
     @State private var confirmPermanent = false
+    @State private var projectRoots: [String] = UserDefaults.standard.stringArray(forKey: Preferences.Key.projectRoots) ?? []
+    @AppStorage(Preferences.Key.projectStaleDays) private var projectStaleDays = 180
+    @AppStorage(Preferences.Key.projectsVerifyGitHub) private var verifyGitHub = false
 
     var body: some View {
         Form {
@@ -268,6 +271,35 @@ struct CleanupSettings: View {
                     if let path = pickFolder() { exclusions.append(path); save() }
                 }
             }
+            Section {
+                ForEach(projectRoots, id: \.self) { entry in
+                    HStack {
+                        Text(verbatim: entry).font(.system(.body, design: .monospaced))
+                        Spacer()
+                        Button("Remove") { projectRoots.removeAll { $0 == entry }; save() }
+                            .accessibilityLabel(Text("Remove \(entry) from project folders"))
+                    }
+                }
+                Button("Add folder…") {
+                    if let path = pickFolder() {
+                        let display = (path as NSString).abbreviatingWithTildeInPath
+                        if !projectRoots.contains(display) { projectRoots.append(display) }
+                        save()
+                    }
+                }
+                Stepper(value: $projectStaleDays, in: 30...1095, step: 30) {
+                    Text("A project is stale after \(projectStaleDays) days without a commit or a file change").tabular()
+                }
+                Toggle(isOn: $verifyGitHub) {
+                    Text("Verify with GitHub")
+                    Text("Needed before a project can go to the Trash.")
+                }
+            } header: {
+                Text("Projects")
+            } footer: {
+                Text("Off by default. When on, KeelMac runs git ls-remote and asks the gh tool you signed in to who you are, to prove every branch is on GitHub. Back up uses git and gh only when you click it. KeelMac stores no token and sends nothing else. Projects always go to the Trash.")
+                    .font(.callout).foregroundStyle(.kmFgMuted)
+            }
         }
         .formStyle(.grouped)
         .scrollContentBackground(.hidden)
@@ -311,6 +343,7 @@ struct CleanupSettings: View {
     private func save() {
         UserDefaults.standard.set(whitelist, forKey: Preferences.Key.whitelist)
         UserDefaults.standard.set(exclusions, forKey: Preferences.Key.scanExclusions)
+        UserDefaults.standard.set(projectRoots, forKey: Preferences.Key.projectRoots)
     }
 }
 
@@ -385,7 +418,7 @@ struct UpdateSettings: View {
                     Link("Release notes", destination: SupportLinks.releaseNotes).foregroundStyle(.kmAccentText)
                 }
             } footer: {
-                Text("Updates are signed. The update check is the only network request KeelMac makes, apart from your own local Ollama or LM Studio if you turn the Assistant on.")
+                Text("Updates are signed. The update check is the only network request KeelMac makes on its own. Your local Ollama or LM Studio is used only if you turn the Assistant on, and GitHub only if you turn on Verify with GitHub in Projects or click Back up.")
                     .font(.callout).foregroundStyle(.kmFgMuted)
             }
         }
