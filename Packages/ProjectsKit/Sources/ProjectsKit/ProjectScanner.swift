@@ -17,8 +17,13 @@ public struct ProjectScanner: Sendable {
 
     // MARK: - Listing
 
+    /// How deep `listProjects` looks for repositories inside a folder that isn't one.
+    public static let nestedDepth = 4
+
     /// Direct subfolders of each root, hidden ones left out, sorted by name. Roots are resolved, so a root reached
-    /// through a symlink lists its real children once.
+    /// through a symlink lists its real children once. A subfolder that isn't a repository is followed by the
+    /// repositories inside it (outermost only, up to `nestedDepth` levels down, outside hidden folders and the
+    /// folders a backup ignores), so a folder like `cashflowpro/cashflowpro` is checked as a project of its own.
     public func listProjects(in roots: [String]) -> ProjectListing {
         var entries: [ProjectEntry] = []
         var unreadable: [String] = []
@@ -44,9 +49,34 @@ public struct ProjectScanner: Sendable {
                 }
                 guard seen.insert(path).inserted, !roots.contains(where: { pathGuard.expandTilde($0) == path }) else { continue }
                 entries.append(ProjectEntry(root: root, path: path, kind: kind))
+                guard kind == .directory, !Self.hasDotGit(path) else { continue }
+                for nested in Self.repositories(inside: path, depth: Self.nestedDepth, skipping: ProjectSkipList.ignoredByBackup)
+                where seen.insert(nested).inserted {
+                    entries.append(ProjectEntry(root: root, path: nested, kind: .directory))
+                }
             }
         }
         return ProjectListing(entries: entries, unreadableRoots: unreadable)
+    }
+
+    static func hasDotGit(_ folder: String) -> Bool {
+        var info = stat()
+        return lstat(folder + "/.git", &info) == 0
+    }
+
+    /// Repositories inside a folder that isn't one: readable real folders (no symlinks, nothing hidden or generated)
+    /// holding a `.git` folder or file. The search doesn't go into a repository it found.
+    static func repositories(inside folder: String, depth: Int, skipping: Set<String>) -> [String] {
+        guard depth > 0, let names = try? FileManager.default.contentsOfDirectory(atPath: folder) else { return [] }
+        var found: [String] = []
+        for name in names.sorted(by: { $0.localizedStandardCompare($1) == .orderedAscending })
+        where !name.hasPrefix(".") && !skipping.contains(name) {
+            let path = folder + "/" + name
+            var info = stat()
+            guard lstat(path, &info) == 0, (info.st_mode & S_IFMT) == S_IFDIR, access(path, R_OK | X_OK) == 0 else { continue }
+            if hasDotGit(path) { found.append(path) } else { found += repositories(inside: path, depth: depth - 1, skipping: skipping) }
+        }
+        return found
     }
 
     // MARK: - GitHub login
@@ -129,7 +159,7 @@ public struct ProjectScanner: Sendable {
         }
 
         let state: GitState
-        switch await readGit(entry.path, isWorktree: isWorktree, skip: options.skipDirectories) {
+        switch await readGit(entry.path, isWorktree: isWorktree, skip: options.skipDirectories, nested: folder.nestedRepositories) {
         case .success(let s): state = s
         case .failure(let failure):
             let message: String? = if case .other(_, let m) = failure { m } else { nil }
@@ -164,7 +194,7 @@ public struct ProjectScanner: Sendable {
 
     // MARK: - git
 
-    func readGit(_ path: String, isWorktree: Bool, skip: Set<String>) async -> Result<GitState, CommandFailure> {
+    func readGit(_ path: String, isWorktree: Bool, skip: Set<String>, nested: [String] = []) async -> Result<GitState, CommandFailure> {
         let status = await runner.run(git, ["--no-optional-locks", "-C", path, "status", "--porcelain=v2", "--branch",
                                             "--show-stash", "--ignored"], timeout: 60)
         guard status.succeeded else { return .failure(CommandFailure.classify(status)) }
@@ -184,11 +214,15 @@ public struct ProjectScanner: Sendable {
             let parts = entry.split(separator: "/").map(String.init)
             return !parts.contains(where: { skip.contains($0) }) && !ProjectSkipList.files.contains(parts.last ?? "")
         }
+        // An untracked folder that is (or holds) a repository: `git add -A` would add it as a bare pointer. A tracked
+        // one (a submodule) or an ignored one isn't touched by a backup.
+        let embedded = nested.filter { repo in summary.untrackedDirectories.contains { (repo + "/").hasPrefix($0) } }
         return .success(GitState(isWorktree: isWorktree, headBranch: summary.headBranch, headSHA: summary.headSHA,
                                  hasCommits: summary.headSHA != nil || !refs.branches.isEmpty,
                                  uncommittedCount: summary.uncommittedCount, stashCount: summary.stashCount,
                                  branches: refs.branches, tags: refs.tags, remotes: remotes, lastCommitDate: lastCommit,
-                                 ignoredPaths: Array(ignored.prefix(20)), ignoredCount: ignored.count))
+                                 ignoredPaths: Array(ignored.prefix(20)), ignoredCount: ignored.count,
+                                 embeddedRepositories: embedded))
     }
 
     /// Branches without an upstream (or with a deleted one) whose commits are all on remote-tracking branches from

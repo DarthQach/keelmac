@@ -77,6 +77,9 @@ public enum BackupPlanProblem: Error, Sendable, Hashable {
     case nothingToBackUp
     case notAFolder
     case invalidRepositoryName
+    /// The folder holds other git repositories (relative paths). `git add -A` would save each one as a bare pointer
+    /// to a commit, without its files, and the backup would look complete when it isn't.
+    case containsRepositories([String])
 }
 
 public enum BackupPlanner {
@@ -93,6 +96,7 @@ public enum BackupPlanner {
         let p = scan.path
         let state = scan.git
         if state?.isWorktree == true { return .failure(.linkedWorktree) }
+        if !scan.embeddedRepositories.isEmpty { return .failure(.containsRepositories(scan.embeddedRepositories)) }
         if state?.isDetached == true { return .failure(.detachedHead) }
 
         var steps: [BackupStep] = []

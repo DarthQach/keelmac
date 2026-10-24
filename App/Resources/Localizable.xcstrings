@@ -3895,6 +3895,39 @@
       },
       "extractionState": "manual"
     },
+    "Holds %lld git repositories, listed on their own": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene %lld repositorios git, listados por separado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Holds 1 git repository, listed on its own": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene 1 repositorio git, listado por separado"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Holds repositories": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene repositorios"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "How Projects decides": {
       "localizations": {
         "es": {
@@ -4033,6 +4066,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lleva %lld minutos alta. Abre Monitor para ver qué app usa más."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It holds git repositories that aren’t part of it: %@. A backup would save them as empty pointers, without their files. Move them out of this folder or add them to .gitignore, then back it up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene repositorios git que no forman parte de él: %@. Un respaldo los guardaría como punteros vacíos, sin sus archivos. Sácalos de esta carpeta o agrégalos a .gitignore y luego respáldalo."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "It holds other git repositories: %@. A backup would save them as empty pointers, without their files.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene otros repositorios git: %@. Un respaldo los guardaría como punteros vacíos, sin sus archivos."
           }
         }
       },
@@ -7283,6 +7338,17 @@
       },
       "extractionState": "manual"
     },
+    "Repositories inside": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repositorios dentro"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Repository name": {
       "localizations": {
         "es": {
@@ -8840,6 +8906,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esta carpeta no tiene un tamaño medido."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "This folder holds git repositories: %@. Each one is checked and backed up on its own row. Back up skips this folder, because git would save those repositories as empty pointers, without their files.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta contiene repositorios git: %@. Cada uno se revisa y se respalda en su propia fila. Respaldar omite esta carpeta, porque git guardaría esos repositorios como punteros vacíos, sin sus archivos."
           }
         }
       },

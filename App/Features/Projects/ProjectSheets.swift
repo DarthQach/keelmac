@@ -33,7 +33,7 @@ struct ProjectTrashSheet: View {
                 List(chosen) { p in
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            FileIdentity(name: p.name, path: p.path, symbol: "folder.badge.gearshape")
+                            FileIdentity(name: p.relativePath, path: p.path, symbol: "folder.badge.gearshape")
                             Spacer()
                             Text(p.measure.map { Format.bytes($0.bytes) } ?? "–").tabular().foregroundStyle(.kmFgMuted)
                         }
@@ -105,7 +105,7 @@ struct ProjectBackupSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("Back up \(project.name)").font(.title3.weight(.semibold))
+            Text("Back up \(project.relativePath)").font(.title3.weight(.semibold))
             switch plan {
             case nil:
                 ProgressView("Asking gh who is signed in…").frame(maxWidth: .infinity, minHeight: 160)
@@ -357,7 +357,7 @@ struct ProjectBulkBackupSheet: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 10) {
                 status(row).frame(width: 18)
-                Text(verbatim: row.scan.name).fontWeight(.medium).lineLimit(1).truncationMode(.middle)
+                Text(verbatim: row.scan.relativePath).fontWeight(.medium).lineLimit(1).truncationMode(.middle)
                 Spacer()
                 Text(row.scan.measure.map { Format.bytes($0.bytes) } ?? "–").tabular().foregroundStyle(.kmFgMuted)
             }
@@ -474,7 +474,7 @@ struct ProjectBulkBackupSheet: View {
                 VStack(alignment: .leading, spacing: 6) {
                     ForEach(skipped) { s in
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(verbatim: s.scan.name).fontWeight(.medium)
+                            Text(verbatim: s.scan.relativePath).fontWeight(.medium)
                             Text(verbatim: s.problem.text).font(.callout).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)

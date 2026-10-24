@@ -22,8 +22,8 @@ struct ProjectsTests {
     @Test func filtersSplitTheList() {
         let model = ProjectsModel(log: InMemoryOperationLog())
         #expect(model.count(.all) == model.scans.count)
-        #expect(model.count(.notBackedUp) == 2)
-        #expect(model.count(.noGit) == 2)
+        #expect(model.count(.notBackedUp) == 3)
+        #expect(model.count(.noGit) == 3)
         #expect(model.count(.keep) == 1)
         model.filter = .noGit
         #expect(model.visible.allSatisfy { $0.verdict == .noGit })
@@ -58,7 +58,8 @@ struct ProjectsTests {
         #expect(all.contains("Safe, unverified"))
         let notBacked = ListProjectsTool.render(model, filter: .notBackedUp, limit: 1)
         #expect(notBacked.contains("game-prototype"))
-        #expect(notBacked.contains("and 1 more"))
+        #expect(notBacked.contains("and 2 more"))
+        #expect(ListProjectsTool.render(model, filter: .notBackedUp, limit: 5).contains("course-notes/react-basics · Not backed up"))
     }
 
     @Test func everyStatusAndReasonHasWords() {
@@ -90,7 +91,8 @@ struct ProjectsTests {
     @Test func oneProjectOpensTheSingleSheetSeveralOpenTheBatch() {
         let model = ProjectsModel(log: InMemoryOperationLog())
         let backable = model.scans.filter(\.canBackUp)
-        #expect(backable.map(\.name) == ["game-prototype", "invoice-scripts", "sketches", "A project with a very long folder name for layout checks"])
+        #expect(backable.map(\.relativePath) == ["game-prototype", "invoice-scripts", "sketches",
+                                                  "A project with a very long folder name for layout checks", "course-notes/react-basics"])
         model.openBackup([backable[1]])
         #expect(model.backupTarget == backable[1])
         #expect(!model.showBulkBackupSheet)
@@ -104,15 +106,15 @@ struct ProjectsTests {
     @Test func backupSelectionFollowsTheFilter() {
         let model = ProjectsModel(log: InMemoryOperationLog())
         model.filter = .notBackedUp
-        #expect(model.backUpCandidates.map(\.name) == ["game-prototype", "invoice-scripts"])
+        #expect(model.backUpCandidates.map(\.name) == ["game-prototype", "invoice-scripts", "react-basics"])
         #expect(model.selectedBackableInFilter.isEmpty)
         model.selectAllBackable()
-        #expect(model.selectedBackableInFilter.count == 2)
-        #expect(model.selectedBackableBytes == 2_310_000_000 + 3_400_000)
+        #expect(model.selectedBackableInFilter.count == 3)
+        #expect(model.selectedBackableBytes == 2_310_000_000 + 3_400_000 + 638_000_000)
         model.filter = .all
-        #expect(model.backUpCandidates.count == 4)
+        #expect(model.backUpCandidates.count == 5)   // course-notes holds a repository, so it isn't one
         model.selection = Set(model.scans.map(\.id))
-        #expect(model.selectedBackableInFilter.count == 4)
+        #expect(model.selectedBackableInFilter.count == 5)
         model.filter = .keep   // nothing to back up in view, so no Back up button on the Trash bar
         #expect(model.selectedBackableInFilter.isEmpty)
     }
@@ -122,9 +124,25 @@ struct ProjectsTests {
         let plans = try model.scans.filter(\.canBackUp).map {
             try BackupPlanner.plan(for: $0, github: VisualFixtures.projectsGitHub, commitMessage: "Backup from KeelMac", fileExists: { _ in false }).get()
         }
-        #expect(plans.filter(\.createsRepository).count == 3)
+        #expect(plans.filter(\.createsRepository).count == 4)
         #expect(BackupPlanner.projectsWithDuplicateRepository(in: plans).isEmpty)
         let result = await model.backUp(plans, shouldStop: { false }, onEvent: { _ in })
         #expect(result == nil)
+    }
+
+    @Test func aFolderHoldingRepositoriesIsNeverBackedUp() {
+        let model = ProjectsModel(log: InMemoryOperationLog())
+        let notes = model.scans.first { $0.name == "course-notes" }!
+        #expect(notes.holdsRepositories && !notes.canBackUp)
+        #expect(notes.statusTitle == "Holds repositories")
+        #expect(notes.githubText == "Holds 1 git repository, listed on its own")
+        #expect(notes.embeddedExplanation?.contains("react-basics") == true)
+        #expect(BackupPlanner.plan(for: notes, github: VisualFixtures.projectsGitHub, commitMessage: "m")
+                == .failure(.containsRepositories(["react-basics"])))
+        model.openBackup([notes])
+        #expect(model.backupTarget == nil && !model.showBulkBackupSheet)
+        let basics = model.scans.first { $0.name == "react-basics" }!
+        #expect(basics.relativePath == "course-notes/react-basics" && basics.isNested && basics.canBackUp)
+        #expect(!BackupPlanProblem.containsRepositories(["a", "b"]).text.isEmpty)
     }
 }

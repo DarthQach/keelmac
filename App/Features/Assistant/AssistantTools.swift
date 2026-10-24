@@ -314,7 +314,7 @@ struct ListProjectsTool: AssistantTool {
         guard !chosen.isEmpty else { return "No projects with that status." }
         var lines = ["Projects (keelmac://open/projects), stale after \(projects.staleDays) days, GitHub: \(projects.github?.title ?? "not asked"):"]
         for p in chosen.prefix(limit) {
-            var line = "\(p.name) · \(p.statusTitle) · last change \(p.lastChange.map { Format.relative($0, now: now) } ?? "unknown") · \(p.measure.map { Format.bytes($0.bytes) } ?? "size unknown") · \(p.githubText)"
+            var line = "\(p.relativePath) · \(p.statusTitle) · last change \(p.lastChange.map { Format.relative($0, now: now) } ?? "unknown") · \(p.measure.map { Format.bytes($0.bytes) } ?? "size unknown") · \(p.githubText)"
             if !p.verdict.reasons.isEmpty { line += " · " + p.verdict.reasons.map(\.text).joined(separator: "; ") }
             lines.append(line)
         }

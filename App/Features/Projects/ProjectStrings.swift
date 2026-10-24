@@ -42,13 +42,32 @@ extension ProjectVerdict {
 
 extension ProjectScan {
     /// The status word, marking a safe-looking project that hasn't been proved against GitHub.
-    var statusTitle: String { needsVerification ? String(localized: "Safe, unverified") : verdict.title }
-    var statusTone: StatusBadge.Tone { needsVerification ? .neutral : verdict.tone }
+    var statusTitle: String {
+        if holdsRepositories { return String(localized: "Holds repositories") }
+        return needsVerification ? String(localized: "Safe, unverified") : verdict.title
+    }
+    var statusTone: StatusBadge.Tone { holdsRepositories || needsVerification ? .neutral : verdict.tone }
+
+    /// Why Back up isn't offered when the folder holds repositories git would save as empty pointers.
+    var embeddedExplanation: String? {
+        let repos = embeddedRepositories
+        guard !repos.isEmpty else { return nil }
+        let list = repos.prefix(5).joined(separator: ", ") + (repos.count > 5 ? "…" : "")
+        if git == nil {
+            return String(localized: "This folder holds git repositories: \(list). Each one is checked and backed up on its own row. Back up skips this folder, because git would save those repositories as empty pointers, without their files.")
+        }
+        return String(localized: "It holds git repositories that aren’t part of it: \(list). A backup would save them as empty pointers, without their files. Move them out of this folder or add them to .gitignore, then back it up.")
+    }
     var reasonSummary: String { verdict.reasons.map(\.text).joined(separator: "\n") }
 
     /// What the GitHub column shows.
     var githubText: String {
         if let repo = git?.githubRemote?.ownerRepo { return repo }
+        if holdsRepositories {
+            let count = embeddedRepositories.count
+            return count == 1 ? String(localized: "Holds 1 git repository, listed on its own")
+                : String(localized: "Holds \(count) git repositories, listed on their own")
+        }
         switch verdict {
         case .noGit: return String(localized: "Not a repository")
         default: return git?.remotes.isEmpty == false ? String(localized: "Other remote") : String(localized: "No remote")
@@ -138,6 +157,8 @@ extension BackupStep.Kind {
 }
 
 extension BackupPlanProblem {
+    static func shortList(_ items: [String]) -> String { items.prefix(5).joined(separator: ", ") + (items.count > 5 ? "…" : "") }
+
     var text: String {
         switch self {
         case .githubUnavailable(let availability):
@@ -147,6 +168,8 @@ extension BackupPlanProblem {
         case .nothingToBackUp: String(localized: "There is nothing a commit or a push can add. Anything left, like stashes, has to be handled in git.")
         case .notAFolder: String(localized: "Only real folders can be backed up.")
         case .invalidRepositoryName: String(localized: "Use only letters, numbers, dots, hyphens and underscores.")
+        case .containsRepositories(let repos):
+            String(localized: "It holds other git repositories: \(Self.shortList(repos)). A backup would save them as empty pointers, without their files.")
         }
     }
 }

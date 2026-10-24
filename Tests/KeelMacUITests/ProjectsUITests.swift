@@ -71,10 +71,10 @@ final class ProjectsUITests: XCTestCase {
             let run = sheet.buttons["projects.backup.bulk.run"]
             XCTAssertTrue(run.waitForExistence(timeout: 5))
             XCTAssertTrue(run.isEnabled)
-            if language == "en" { XCTAssertEqual(run.label, "Back up 4 projects") }
+            if language == "en" { XCTAssertEqual(run.label, "Back up 5 projects") }
             XCTAssertTrue(sheet.staticTexts["invoice-scripts"].exists)
             let commands = sheet.buttons.matching(identifier: "projects.backup.bulk.commands")
-            XCTAssertEqual(commands.count, 4)   // one Commands toggle per project
+            XCTAssertEqual(commands.count, 5)   // one Commands toggle per project
             attach(app.windows.firstMatch, "projects-bulk-backup-sheet-\(theme)-\(language)")
             // The first row (game-prototype) pushes to its existing repository; its commands are one click away.
             commands.firstMatch.click()
@@ -97,7 +97,7 @@ final class ProjectsUITests: XCTestCase {
         XCTAssertFalse(backUp.isEnabled)
         window.buttons["Select all"].click()
         XCTAssertTrue(backUp.isEnabled)
-        XCTAssertEqual(backUp.label, "Back up 2 projects…")
+        XCTAssertEqual(backUp.label, "Back up 3 projects…")
         attach(window, "projects-not-backed-up-selected")
         backUp.click()
         XCTAssertTrue(app.sheets.firstMatch.buttons["projects.backup.bulk.run"].waitForExistence(timeout: 5))

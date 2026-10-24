@@ -140,7 +140,7 @@ struct ProjectsView: View {
                 HStack(spacing: 12) {
                     Image(systemName: p.verdict == .noGit ? "folder" : "folder.badge.gearshape").foregroundStyle(.kmFgMuted).frame(width: 20)
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(verbatim: p.name).fontWeight(.medium).lineLimit(1).truncationMode(.middle)
+                        Text(verbatim: p.relativePath).fontWeight(.medium).lineLimit(1).truncationMode(.middle)
                         Text(verbatim: p.githubText).font(.callout).foregroundStyle(.kmFgMuted).lineLimit(1).truncationMode(.middle)
                     }
                 }
@@ -314,11 +314,13 @@ private struct ProjectInspector: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(verbatim: project.name).font(.title3.weight(.semibold))
+                Text(verbatim: project.relativePath).font(.title3.weight(.semibold))
                 StatusBadge(text: LocalizedStringKey(project.statusTitle), tone: project.statusTone)
             }
             let reasons = project.verdict.reasons
-            if reasons.isEmpty {
+            if project.holdsRepositories, let explanation = project.embeddedExplanation {
+                Text(verbatim: explanation).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
+            } else if reasons.isEmpty {
                 Text(verbatim: project.needsVerification
                      ? String(localized: "It looks safe from this Mac’s last fetch. Turn on Verify with GitHub to prove it before moving it to the Trash.")
                      : project.verdict.explanation)
@@ -332,6 +334,9 @@ private struct ProjectInspector: View {
                     }
                 }
                 .font(.callout)
+            }
+            if !project.holdsRepositories, let explanation = project.embeddedExplanation {
+                Text(verbatim: explanation).font(.callout).foregroundStyle(.kmWarning).fixedSize(horizontal: false, vertical: true)
             }
             Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 6) {
                 if let git = project.git {

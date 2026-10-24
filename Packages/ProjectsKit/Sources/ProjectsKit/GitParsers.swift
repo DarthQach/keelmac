@@ -12,6 +12,8 @@ public struct StatusSummary: Sendable, Equatable {
     /// Changed (1), renamed (2) and conflicted (u) entries.
     public var changedCount = 0
     public var untrackedCount = 0
+    /// Untracked entries that are folders (git shows a folder with nothing tracked in it as `dir/`).
+    public var untrackedDirectories: [String] = []
     public var ignored: [String] = []
 
     public var uncommittedCount: Int { changedCount + untrackedCount }
@@ -48,6 +50,7 @@ public enum GitParsers {
                 s.changedCount += 1
             } else if line.hasPrefix("? ") {
                 s.untrackedCount += 1
+                if line.hasSuffix("/") { s.untrackedDirectories.append(String(line.dropFirst(2))) }
             } else if line.hasPrefix("! ") {
                 s.ignored.append(String(line.dropFirst(2)))
             }

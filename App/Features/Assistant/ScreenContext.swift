@@ -245,7 +245,8 @@ extension ScreenContext {
             ]
             if !p.verdict.reasons.isEmpty { fields.append(ContextFact(label: String(localized: "Reasons"), value: p.verdict.reasons.map(\.text).joined(separator: "; "))) }
             if let git = p.git, git.ignoredCount > 0 { fields.append(ContextFact(label: String(localized: "Not in git"), value: git.ignoredPaths.prefix(5).joined(separator: ", "))) }
-            return ContextItem(id: p.id, kind: .project, name: p.name, path: p.path, fields: fields)
+            if let explanation = p.embeddedExplanation { fields.append(ContextFact(label: String(localized: "Repositories inside"), value: explanation)) }
+            return ContextItem(id: p.id, kind: .project, name: p.relativePath, path: p.path, fields: fields)
         }
         return c
     }

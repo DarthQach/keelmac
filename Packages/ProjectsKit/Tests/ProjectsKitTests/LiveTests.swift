@@ -32,7 +32,7 @@ struct LiveProjectsTests {
         print("LIVE \(all.count) projects in \(Int(Date().timeIntervalSince(started))) s, github \(String(describing: github)), by rank \(byVerdict.sorted { $0.key < $1.key })")
         for p in all {
             let reasons = p.verdict.reasons.map { "\($0)" }.joined(separator: "; ")
-            print("LIVE \(p.name) | \(p.verdict.rank) | trash=\(p.isTrashCandidate) | \(p.github) | \(p.lastChange.map { "\(Int(Date().timeIntervalSince($0) / 86_400))d" } ?? "-") | \(ByteCountFormatter.string(fromByteCount: p.measure?.bytes ?? 0, countStyle: .file)) | \(p.git?.githubRemote?.ownerRepo ?? "-") | \(reasons)")
+            print("LIVE \(p.relativePath) | backup=\(p.canBackUp) | inside=\(p.embeddedRepositories.joined(separator: ",")) | \(p.verdict.rank) | trash=\(p.isTrashCandidate) | \(p.github) | \(p.lastChange.map { "\(Int(Date().timeIntervalSince($0) / 86_400))d" } ?? "-") | \(ByteCountFormatter.string(fromByteCount: p.measure?.bytes ?? 0, countStyle: .file)) | \(p.git?.githubRemote?.ownerRepo ?? "-") | \(reasons)")
         }
         #expect(!all.isEmpty)
     }

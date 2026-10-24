@@ -79,9 +79,11 @@ enum VisualFixtures {
         let old = Date().addingTimeInterval(-260 * 86_400), recent = Date().addingTimeInterval(-3 * 86_400)
         func remote(_ repo: String) -> [RemoteInfo] { [RemoteInfo(name: "origin", url: "https://github.com/\(repo).git", ownerRepo: repo)] }
         func main(ahead: Int = 0) -> [BranchInfo] { [BranchInfo(name: "main", sha: "a1", upstream: "origin/main", ahead: ahead)] }
-        func scan(_ name: String, git: GitState?, github: GitHubCheck, bytes: Int64, changed: Date, verdict: ProjectVerdict) -> ProjectScan {
-            ProjectScan(path: dev + name, name: name, root: dev, git: git, github: github,
-                        measure: FolderMeasure(bytes: bytes, fileCount: 1_200, newestModified: changed, ownModified: changed, unreadable: 0),
+        func scan(_ name: String, in folder: String = "", git: GitState?, github: GitHubCheck, bytes: Int64, changed: Date,
+                  verdict: ProjectVerdict, nested: [String] = []) -> ProjectScan {
+            ProjectScan(path: dev + folder + name, name: name, root: dev, git: git, github: github,
+                        measure: FolderMeasure(bytes: bytes, fileCount: 1_200, newestModified: changed, ownModified: changed, unreadable: 0,
+                                               nestedRepositories: nested),
                         lastChange: changed, isStale: changed == old, verdict: verdict, removalRefusal: nil, scannedAt: date)
         }
         let verified: GitHubCheck = state == "unavailable" ? .off : .checked
@@ -104,6 +106,11 @@ enum VisualFixtures {
             scan("keelmac", git: GitState(headBranch: "main", headSHA: "a1", hasCommits: true, branches: main(), remotes: remote("demo/keelmac"), lastCommitDate: recent),
                  github: verified, bytes: 980_000_000, changed: recent, verdict: .keep),
             scan("A project with a very long folder name for layout checks", git: nil, github: .notApplicable, bytes: 12_000, changed: recent, verdict: .noGit),
+            // A plain folder holding a repository: the folder can't be backed up, the repository is listed on its own.
+            scan("course-notes", git: nil, github: .notApplicable, bytes: 640_000_000, changed: old, verdict: .noGit, nested: ["react-basics"]),
+            scan("react-basics", in: "course-notes/", git: GitState(headBranch: "main", headSHA: "c3", hasCommits: true, uncommittedCount: 3,
+                                                                     branches: [BranchInfo(name: "main", sha: "c3", upstream: nil)], lastCommitDate: old),
+                 github: .notApplicable, bytes: 638_000_000, changed: old, verdict: .notBackedUp([.uncommittedChanges(3), .noRemote])),
         ]
     }
     static var relatedFiles: [RelatedFile] {

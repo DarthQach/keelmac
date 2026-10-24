@@ -10,6 +10,11 @@ public enum ProjectSkipList {
     ]
     /// Files the system writes on its own (Finder writes `.DS_Store` when a folder is merely opened).
     public static let files: Set<String> = [".DS_Store"]
+    /// Folders the `.gitignore` a backup writes leaves out (see `BackupStep.gitignore`). A repository inside one of
+    /// these can't become a bare pointer, so only these (and `.git`) are left out when looking for repositories.
+    public static let ignoredByBackup: Set<String> = [
+        ".git", "node_modules", ".build", "build", "DerivedData", "Pods", "dist", "target", ".venv", "venv", "__pycache__", ".next",
+    ]
 }
 
 /// Size and dates of a project folder, from one walk.
@@ -23,10 +28,13 @@ public struct FolderMeasure: Sendable, Hashable {
     public var ownModified: Date?
     /// Entries the walk couldn't read.
     public var unreadable: Int
+    /// Folders inside this one that are git repositories themselves (they hold a `.git` folder or file), relative to
+    /// this folder, outermost only, outside `ProjectSkipList.ignoredByBackup` folders. The folder itself isn't listed.
+    public var nestedRepositories: [String]
 
-    public init(bytes: Int64, fileCount: Int, newestModified: Date?, ownModified: Date?, unreadable: Int) {
+    public init(bytes: Int64, fileCount: Int, newestModified: Date?, ownModified: Date?, unreadable: Int, nestedRepositories: [String] = []) {
         self.bytes = bytes; self.fileCount = fileCount; self.newestModified = newestModified
-        self.ownModified = ownModified; self.unreadable = unreadable
+        self.ownModified = ownModified; self.unreadable = unreadable; self.nestedRepositories = nestedRepositories
     }
 }
 
@@ -89,14 +97,17 @@ public struct GitState: Sendable, Hashable {
     /// and would go to the Trash with the project.
     public var ignoredPaths: [String]
     public var ignoredCount: Int
+    /// Untracked folders inside the work tree that are git repositories themselves. `git add -A` would record each
+    /// one as a bare pointer to a commit, without its files.
+    public var embeddedRepositories: [String]
 
     public init(isWorktree: Bool = false, headBranch: String?, headSHA: String?, hasCommits: Bool, uncommittedCount: Int = 0,
                 stashCount: Int = 0, branches: [BranchInfo] = [], tags: [TagInfo] = [], remotes: [RemoteInfo] = [],
-                lastCommitDate: Date?, ignoredPaths: [String] = [], ignoredCount: Int = 0) {
+                lastCommitDate: Date?, ignoredPaths: [String] = [], ignoredCount: Int = 0, embeddedRepositories: [String] = []) {
         self.isWorktree = isWorktree; self.headBranch = headBranch; self.headSHA = headSHA; self.hasCommits = hasCommits
         self.uncommittedCount = uncommittedCount; self.stashCount = stashCount; self.branches = branches; self.tags = tags
         self.remotes = remotes; self.lastCommitDate = lastCommitDate; self.ignoredPaths = ignoredPaths
-        self.ignoredCount = ignoredCount
+        self.ignoredCount = ignoredCount; self.embeddedRepositories = embeddedRepositories
     }
 
     /// `origin` when it is on GitHub, else the first GitHub remote.
@@ -252,11 +263,31 @@ public struct ProjectScan: Sendable, Identifiable, Hashable {
 
     public var githubURL: URL? { git?.githubRemote?.webURL }
 
-    /// Whether Back up has something to offer.
+    /// The folder's path under its root, such as `cashflowpro/cashflowpro` for a repository inside a plain folder.
+    public var relativePath: String {
+        let base = root.hasSuffix("/") ? root : root + "/"
+        return path.hasPrefix(base) && path.count > base.count ? String(path.dropFirst(base.count)) : name
+    }
+
+    /// A repository found inside a plain folder rather than directly under a root.
+    public var isNested: Bool { relativePath.contains("/") }
+
+    /// Git repositories inside this folder that a backup would record as bare pointers, without their files: every
+    /// repository inside a plain folder, or the untracked ones inside a repository.
+    public var embeddedRepositories: [String] {
+        if let git { return git.embeddedRepositories }
+        return measure?.nestedRepositories ?? []
+    }
+
+    /// A plain folder that only holds other repositories (they are listed on their own).
+    public var holdsRepositories: Bool { git == nil && !embeddedRepositories.isEmpty }
+
+    /// Whether Back up has something to offer. Never for a folder holding repositories git would save as pointers.
     public var canBackUp: Bool {
+        guard embeddedRepositories.isEmpty else { return false }
         switch verdict {
-        case .noGit, .notBackedUp: true
-        default: false
+        case .noGit, .notBackedUp: return true
+        default: return false
         }
     }
 }
@@ -275,7 +306,7 @@ public struct ProjectScanOptions: Sendable, Equatable {
     }
 }
 
-/// A direct subfolder of a projects root.
+/// A direct subfolder of a projects root, or a repository inside one that isn't a repository itself.
 public struct ProjectEntry: Sendable, Hashable {
     public enum Kind: Sendable, Hashable { case directory, symlink, unreadable }
     public let root: String
