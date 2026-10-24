@@ -2146,6 +2146,17 @@
       },
       "extractionState": "manual"
     },
+    "Checking your projects…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisando tus proyectos…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Checking…": {
       "localizations": {
         "es": {

@@ -26,13 +26,13 @@ struct ProjectsView: View {
         .toolbar {
             ToolbarItem { Button("Choose folders…", action: chooseFolders) }
             ToolbarItem {
-                Toggle("Verify with GitHub", isOn: $verify)
-                    .toggleStyle(.checkbox)
-                    .help("Compare every branch and tag with GitHub through git and your gh login. Off by default.")
-            }
-            ToolbarItem {
-                Button("Check again") { Task { await projects.check() } }
-                    .disabled(projects.phase == .checking || projects.roots.isEmpty)
+                if projects.phase == .checking {
+                    ProgressView().controlSize(.small).padding(.horizontal, 8)
+                        .help("Checking your projects…")
+                } else {
+                    Button("Check again") { Task { await projects.check() } }
+                        .disabled(projects.roots.isEmpty)
+                }
             }
         }
         .onChange(of: verify) { _, _ in Task { await projects.check() } }
@@ -47,7 +47,16 @@ struct ProjectsView: View {
     private var header: some View {
         @Bindable var projects = model.projects
         return VStack(alignment: .leading, spacing: 10) {
-            PathText(path: projects.roots.joined(separator: ", "))
+            HStack(spacing: 12) {
+                PathText(path: projects.roots.joined(separator: ", "))
+                Spacer(minLength: 12)
+                Toggle("Verify with GitHub", isOn: $verify)
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .fixedSize()
+                    .help("Compare every branch and tag with GitHub through git and your gh login. Off by default.")
+                    .accessibilityIdentifier("projects.verify")
+            }
             if let github = projects.github {
                 HStack(alignment: .firstTextBaseline, spacing: 10) {
                     StatusBadge(text: LocalizedStringKey(github.title), tone: github.tone)
