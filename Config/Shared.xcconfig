@@ -3,4 +3,7 @@
 DEVELOPMENT_TEAM = 735MC85596
 KM_BUNDLE_ID = mx.cvillegas.keelmac
 KM_HELPER_ID = mx.cvillegas.keelmac.helper
+// Hardened Runtime is required for notarized releases. A build signed to run locally (CODE_SIGN_IDENTITY = -)
+// turns it off in Local.xcconfig, because library validation rejects the bundled Sparkle framework otherwise.
+ENABLE_HARDENED_RUNTIME = YES
 #include? "Local.xcconfig"

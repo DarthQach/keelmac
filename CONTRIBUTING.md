@@ -6,6 +6,7 @@ Thanks for helping. KeelMac deletes files, so the bar for anything that removes 
 
 ```bash
 brew install xcodegen
+cp Config/Local.xcconfig.example Config/Local.xcconfig   # sign to run locally, or set your own team
 bash scripts/mac.sh run      # generate the project, build, launch
 bash scripts/mac.sh test     # all package tests + app unit tests
 bash scripts/mac.sh lint     # token drift + swift format

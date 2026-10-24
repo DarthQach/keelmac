@@ -1,0 +1,11 @@
+// Copy this file to Config/Local.xcconfig (gitignored) to build KeelMac on your own Mac.
+// Pick ONE of the two options.
+
+// Option A: no Apple account needed. The app is signed to run on this Mac only.
+// The admin maintenance tasks (the KeelMac helper) need a real signature, so they stay unavailable.
+DEVELOPMENT_TEAM =
+CODE_SIGN_IDENTITY = -
+ENABLE_HARDENED_RUNTIME = NO
+
+// Option B: sign with your own Apple developer team instead. Delete the three lines above and use:
+// DEVELOPMENT_TEAM = YOURTEAMID

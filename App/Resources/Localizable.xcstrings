@@ -507,17 +507,6 @@
       },
       "extractionState": "manual"
     },
-    "%@ used of %@, %@ free": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ en uso de %@, %@ libres"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%@ was used %@.": {
       "localizations": {
         "es": {
@@ -815,28 +804,6 @@
       },
       "extractionState": "manual"
     },
-    "%lld login items and agents, %lld from apps that are gone": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld ítems de inicio y agentes, %lld de apps que ya no están"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "%lld login items and agents, all from installed apps": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld ítems de inicio y agentes, todos de apps instaladas"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%lld look safe but need Verify with GitHub before they can go to the Trash": {
       "localizations": {
         "es": {
@@ -881,17 +848,6 @@
       },
       "extractionState": "manual"
     },
-    "%lld of 100": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld de 100"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "%lld operations. Stored in ~/Library/Application Support/KeelMac.": {
       "localizations": {
         "es": {
@@ -920,17 +876,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld s"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "%lld selected, %@. Last opened comes from Spotlight, or the last access date when Spotlight doesn’t know.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld seleccionados, %@. La última apertura viene de Spotlight, o de la fecha del último acceso cuando Spotlight no la sabe."
           }
         }
       },
@@ -2311,17 +2256,6 @@
       },
       "extractionState": "manual"
     },
-    "Click a block to select it, double-click to open it. Arrow keys move the selection, Return opens, Escape goes up.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haz clic en un bloque para seleccionarlo y doble clic para abrirlo. Las flechas mueven la selección, Retorno abre y Escape sube un nivel."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Close": {
       "localizations": {
         "es": {
@@ -3312,17 +3246,6 @@
       },
       "extractionState": "manual"
     },
-    "Factor": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Factor"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Fahrenheit": {
       "localizations": {
         "es": {
@@ -4060,17 +3983,6 @@
       },
       "extractionState": "manual"
     },
-    "Items are deleted permanently.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los ítems se borran para siempre."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Items go to the Trash.": {
       "localizations": {
         "es": {
@@ -4407,28 +4319,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conoce lo que se inicia con tu Mac."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Large and old files": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Archivos grandes y antiguos"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Large and old files come from the storage scan.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los archivos grandes y antiguos salen del escaneo de almacenamiento."
           }
         }
       },
@@ -5089,17 +4979,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mover %lld copias a la Papelera"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Move %lld files (%@) to the Trash?": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Mover %lld archivos (%@) a la Papelera?"
           }
         }
       },
@@ -6469,17 +6348,6 @@
       },
       "extractionState": "manual"
     },
-    "Other files": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Otros archivos"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Other items": {
       "localizations": {
         "es": {
@@ -7294,17 +7162,6 @@
       },
       "extractionState": "manual"
     },
-    "Review": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Revisar"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Review cleanup": {
       "localizations": {
         "es": {
@@ -7509,17 +7366,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escaneando Macintosh HD…"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Score": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Puntos"
           }
         }
       },
@@ -8768,17 +8614,6 @@
       },
       "extractionState": "manual"
     },
-    "This is a preview. Nothing moves until you click the button below, and only the items checked here.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esto es una vista previa. Nada se mueve hasta que hagas clic en el botón de abajo, y solo lo que esté marcado aquí."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "This is a worktree. Back up its main repository instead.": {
       "localizations": {
         "es": {
@@ -9170,17 +9005,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única petición de red que KeelMac hace por su cuenta. Tu Ollama o LM Studio local solo se usa si activas el Asistente, y GitHub solo si activas Verificar con GitHub en Proyectos o haces clic en Respaldar."
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Updates are signed. The update check is the only network request KeelMac makes.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Las actualizaciones están firmadas. La búsqueda de actualizaciones es la única conexión que hace KeelMac."
           }
         }
       },
@@ -9615,17 +9439,6 @@
       },
       "extractionState": "manual"
     },
-    "Where": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ubicación"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
     "Which apps haven’t I used in months?": {
       "localizations": {
         "es": {
@@ -9698,17 +9511,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "En la lista de exclusiones"
-          }
-        }
-      },
-      "extractionState": "manual"
-    },
-    "Why": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Por qué"
           }
         }
       },

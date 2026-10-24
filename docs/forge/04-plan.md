@@ -379,7 +379,7 @@ None (no server).
 |---|---|---|---|
 | Free | none | everything | — |
 
-App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec); `com.apple.security.cs.disable-library-validation` off. Helper: Hardened Runtime.
+App entitlements: Hardened Runtime on (set in `Config/Shared.xcconfig`; a build signed to run locally turns it off in `Config/Local.xcconfig`, see `Config/Local.xcconfig.example`); no App Sandbox (deep cleaning, per spec); `com.apple.security.cs.disable-library-validation` off. Helper: Hardened Runtime.
 
 ## Test plan
 - `swift test` in `Packages/KeelKit`: SafetyKit matrix, rules fixtures, planner/executor, metrics math, scanner fixtures, layouts, matchers, duplicates, health, alerts, reports. Fixtures are built in temp directories; no test touches the real home folder.
@@ -455,7 +455,7 @@ App entitlements: Hardened Runtime on; no App Sandbox (deep cleaning, per spec);
 - [x] XcodeGen installed (`/opt/homebrew/bin/xcodegen`).
 - [x] Signing: "Apple Development: CARLOS VILLEGAS FROLA", team 735MC85596 (keychain).
 - [ ] Developer ID Application certificate + notary credentials: not present. Not needed for the build; needed for the first public notarized release (Carlos's step).
-- [x] `npx wrangler whoami` → Cvillegasfrola@gmail.com's Account (036c0bdf…). Static assets only, Workers Free is enough.
+- [x] `npx wrangler whoami` → the maintainer's Cloudflare account. Static assets only, Workers Free is enough.
 - [x] `gh auth status` → DarthQach; repo name `keelmac` is free. Visibility: private until Carlos flips it.
 - [ ] Buy Me a Coffee handle `keelmac`: Carlos claims it (or changes the constant).
 - [ ] Clerk / Stripe / AWS: not used.

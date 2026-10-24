@@ -4,8 +4,6 @@ Keep your Mac fast and roomy: see what's happening, clean safely, and never pay 
 
 KeelMac is a free, open-source native macOS app that combines what usually takes five tools: a menu bar monitor (like Stats), a storage map (like DaisyDisk), a safe cleaner (like CleanMyMac), an app uninstaller (like AppCleaner) and classic maintenance tasks (like OnyX). It has no account, no telemetry, and makes no network calls on its own except the update check. The Assistant talks to your local Ollama or LM Studio, and Projects talks to GitHub through your own git and gh logins, only when you turn them on.
 
-**Website:** https://keelmac.flowrunnerapp.workers.dev · **Español:** https://keelmac.flowrunnerapp.workers.dev/es/
-
 ## Features
 
 - **Dashboard and Health Score.** One score from 0 to 100 with the reasons behind it (disk free, memory pressure, battery health, reclaimable space, startup items) and a fix for each. Disk usage is shown against a *load line* at 85% full, the point below which macOS has room for updates, swap and snapshots.
@@ -33,10 +31,55 @@ If something can't be proved safe (it changed since the preview, an app is using
 
 ## Install
 
-- **Download:** the latest DMG from [Releases](https://github.com/DarthQach/keelmac/releases/latest), open it and drag KeelMac to Applications.
-- **Homebrew:** `brew install --cask keelmac` (once the cask is published).
+KeelMac is installed by building it from this repository. The first time takes about ten minutes, most of it Xcode's download.
 
-Requires macOS 14 Sonoma or later. Apple silicon is the primary target; Intel works on a best-effort basis (universal binary).
+You need:
+
+- A Mac with macOS 14 Sonoma or later. Apple silicon is the main target; Intel works on a best-effort basis.
+- Xcode, free from the Mac App Store. KeelMac is built and tested with Xcode 27.1; older versions may not compile it. Open Xcode once after installing it so it can finish setting up.
+- [Homebrew](https://brew.sh), then XcodeGen, which creates the Xcode project:
+
+```bash
+brew install xcodegen
+```
+
+Then:
+
+1. **Get the code.**
+
+   ```bash
+   git clone https://github.com/DarthQach/keelmac.git && cd keelmac
+   ```
+
+2. **Choose how the app is signed.** This copies a ready-made setting that needs no Apple account; the app is signed to run on your Mac only. The file explains how to use your own Apple developer team instead.
+
+   ```bash
+   cp Config/Local.xcconfig.example Config/Local.xcconfig
+   ```
+
+3. **Build it.** This creates `dist/KeelMac.app`.
+
+   ```bash
+   bash scripts/mac.sh release-build
+   ```
+
+4. **Move it to Applications.** Open the `dist` folder and drag KeelMac into Applications, then open it from there.
+
+   ```bash
+   open dist
+   ```
+
+## Update
+
+New versions arrive as commits to this repository. From the `keelmac` folder you cloned:
+
+```bash
+git pull && bash scripts/mac.sh release-build
+```
+
+Quit KeelMac, then drag the new `dist/KeelMac.app` into Applications and choose **Replace**. Your settings and the operation log are kept: they live in `~/Library/Application Support/KeelMac` and KeelMac's preferences, not in the app.
+
+Builds from source update this way only. **Check for Updates…** in the app looks for published releases, so it will say you're up to date.
 
 ## Permissions
 
@@ -44,19 +87,16 @@ Requires macOS 14 Sonoma or later. Apple silicon is the primary target; Intel wo
 |---|---|---|
 | Full Disk Access | Many caches, logs, Mail downloads, Safari's cache and the Trash live in folders macOS protects. | KeelMac works, skips those folders and tells you which ones. |
 | Notifications | Disk, memory, temperature and battery alerts, the weekly summary, the trashed-app offer. | No alerts; everything else works. |
-| Background item "KeelMac" (helper) | Admin-only maintenance tasks and system login items, approved once in System Settings › General › Login Items. | Admin tasks show "Needs the KeelMac helper"; user-level tasks still run. |
+| Background item "KeelMac" (helper) | Admin-only maintenance tasks and system login items, approved once in System Settings › General › Login Items. Needs an app signed with an Apple developer team (option B in `Config/Local.xcconfig.example`). | Admin tasks show "Needs the KeelMac helper"; user-level tasks still run. |
 
-## Build from source
+## Development
 
-Requirements: Xcode 16 or later (built with Xcode 27.1), [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`), Node 20+ for the asset and site scripts.
+Node 20 or later is needed for the asset and string scripts.
 
 ```bash
-git clone https://github.com/DarthQach/keelmac.git && cd keelmac
-bash scripts/mac.sh run          # generates KeelMac.xcodeproj, builds, launches
+bash scripts/mac.sh run          # generates KeelMac.xcodeproj, builds a debug app, launches it
 bash scripts/mac.sh test         # package tests + app unit tests
 ```
-
-To sign with your own team, create `Config/Local.xcconfig` with `DEVELOPMENT_TEAM = <your team id>`.
 
 ## Project layout
 
