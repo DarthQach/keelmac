@@ -10,7 +10,8 @@ struct ActionBar<Leading: View, Trailing: View>: View {
             Divider()
             ActionBarLayout {
                 leading.tabular()
-                HStack(spacing: 8) { trailing }
+                // Fixed at its ideal size: placed at exactly its measured width, rounding could truncate the last button.
+                HStack(spacing: 8) { trailing }.fixedSize()
             }
             .padding(.horizontal, Metrics.pagePadding)
             .padding(.vertical, 16)
