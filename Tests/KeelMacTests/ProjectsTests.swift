@@ -86,4 +86,45 @@ struct ProjectsTests {
         #expect(plan.steps.first?.kind == .gitInit)
         #expect(plan.steps.contains { $0.kind == .createRepo })
     }
+
+    @Test func oneProjectOpensTheSingleSheetSeveralOpenTheBatch() {
+        let model = ProjectsModel(log: InMemoryOperationLog())
+        let backable = model.scans.filter(\.canBackUp)
+        #expect(backable.map(\.name) == ["game-prototype", "invoice-scripts", "sketches", "A project with a very long folder name for layout checks"])
+        model.openBackup([backable[1]])
+        #expect(model.backupTarget == backable[1])
+        #expect(!model.showBulkBackupSheet)
+        model.backupTarget = nil
+        model.openBackup(model.scans)   // projects already on GitHub are left out
+        #expect(model.backupTarget == nil)
+        #expect(model.showBulkBackupSheet)
+        #expect(model.bulkBackupChoice == backable)
+    }
+
+    @Test func backupSelectionFollowsTheFilter() {
+        let model = ProjectsModel(log: InMemoryOperationLog())
+        model.filter = .notBackedUp
+        #expect(model.backUpCandidates.map(\.name) == ["game-prototype", "invoice-scripts"])
+        #expect(model.selectedBackableInFilter.isEmpty)
+        model.selectAllBackable()
+        #expect(model.selectedBackableInFilter.count == 2)
+        #expect(model.selectedBackableBytes == 2_310_000_000 + 3_400_000)
+        model.filter = .all
+        #expect(model.backUpCandidates.count == 4)
+        model.selection = Set(model.scans.map(\.id))
+        #expect(model.selectedBackableInFilter.count == 4)
+        model.filter = .keep   // nothing to back up in view, so no Back up button on the Trash bar
+        #expect(model.selectedBackableInFilter.isEmpty)
+    }
+
+    @Test func fixtureBatchPlansEveryProjectAndRunsNothing() async throws {
+        let model = ProjectsModel(log: InMemoryOperationLog())
+        let plans = try model.scans.filter(\.canBackUp).map {
+            try BackupPlanner.plan(for: $0, github: VisualFixtures.projectsGitHub, commitMessage: "Backup from KeelMac", fileExists: { _ in false }).get()
+        }
+        #expect(plans.filter(\.createsRepository).count == 3)
+        #expect(BackupPlanner.projectsWithDuplicateRepository(in: plans).isEmpty)
+        let result = await model.backUp(plans, shouldStop: { false }, onEvent: { _ in })
+        #expect(result == nil)
+    }
 }

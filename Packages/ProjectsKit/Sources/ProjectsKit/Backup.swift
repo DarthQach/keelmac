@@ -148,6 +148,14 @@ public enum BackupPlanner {
                                    remoteName: remoteName, createsRepository: creates, commits: needsCommit,
                                    stashesLeft: state?.stashCount ?? 0))
     }
+
+    /// Paths of the projects in a batch that would create a repository another plan in the same batch also creates
+    /// or pushes to. GitHub names ignore case. The second one would fail at `gh repo view`, so the batch shouldn't start.
+    public static func projectsWithDuplicateRepository(in plans: [BackupPlan]) -> Set<String> {
+        var count: [String: Int] = [:]
+        for plan in plans { count[plan.repository.lowercased(), default: 0] += 1 }
+        return Set(plans.filter { $0.createsRepository && count[$0.repository.lowercased(), default: 0] > 1 }.map(\.projectPath))
+    }
 }
 
 public struct BackupStepOutcome: Sendable, Equatable {
@@ -166,6 +174,31 @@ public struct BackupResult: Sendable, Equatable {
     public init(batchID: UUID, outcomes: [BackupStepOutcome]) { self.batchID = batchID; self.outcomes = outcomes }
     public var succeeded: Bool { outcomes.allSatisfy { $0.status == .ran } }
     public var failure: BackupStepOutcome? { outcomes.first { if case .failed = $0.status { true } else { false } } }
+}
+
+/// What a batch reports while it runs, one project at a time.
+public enum BackupBatchEvent: Sendable, Equatable {
+    case started(projectPath: String)
+    case step(projectPath: String, BackupStepOutcome)
+    case finished(projectPath: String, BackupResult)
+    /// The person stopped the batch before this project.
+    case notStarted(projectPath: String)
+}
+
+/// Every plan of a batch, in order, with its result; `nil` when the batch stopped before it.
+public struct BackupBatchResult: Sendable, Equatable {
+    public struct Item: Sendable, Equatable {
+        public let plan: BackupPlan
+        public let result: BackupResult?
+        public init(plan: BackupPlan, result: BackupResult?) { self.plan = plan; self.result = result }
+    }
+
+    public let items: [Item]
+    public init(items: [Item]) { self.items = items }
+
+    public var succeeded: [Item] { items.filter { $0.result?.succeeded == true } }
+    public var failed: [Item] { items.filter { $0.result?.failure != nil } }
+    public var notStarted: [Item] { items.filter { $0.result == nil } }
 }
 
 /// Runs a plan's steps in order and stops at the first failure. Every step that runs is written to the operation log.
@@ -202,6 +235,30 @@ public struct BackupExecutor: Sendable {
             if case .failed = outcome.status { stopped = true }
         }
         return BackupResult(batchID: batch, outcomes: outcomes)
+    }
+
+    /// Runs several previewed plans one after the other. A failed project doesn't stop the others; each project keeps
+    /// its own operation-log batch. `shouldStop` is asked between projects, never during one, so a push is never cut
+    /// short; once it says yes, the rest are reported as `.notStarted`.
+    public func execute(_ plans: [BackupPlan], title: @Sendable (BackupPlan) -> String,
+                        shouldStop: @Sendable () async -> Bool = { false },
+                        onEvent: (@Sendable (BackupBatchEvent) -> Void)? = nil) async -> BackupBatchResult {
+        var items: [BackupBatchResult.Item] = []
+        var stopped = false
+        for plan in plans {
+            if !stopped, await shouldStop() { stopped = true }
+            if stopped {
+                items.append(.init(plan: plan, result: nil))
+                onEvent?(.notStarted(projectPath: plan.projectPath))
+                continue
+            }
+            let path = plan.projectPath
+            onEvent?(.started(projectPath: path))
+            let result = await execute(plan, title: title(plan)) { onEvent?(.step(projectPath: path, $0)) }
+            items.append(.init(plan: plan, result: result))
+            onEvent?(.finished(projectPath: path, result))
+        }
+        return BackupBatchResult(items: items)
     }
 
     func run(_ step: BackupStep) async -> BackupStepOutcome {

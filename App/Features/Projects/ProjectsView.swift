@@ -39,6 +39,7 @@ struct ProjectsView: View {
         .task { if projects.phase == .idle { await projects.check() } }
         .sheet(isPresented: $projects.showTrashSheet) { ProjectTrashSheet() }
         .sheet(item: $projects.backupTarget) { ProjectBackupSheet(project: $0) }
+        .sheet(isPresented: $projects.showBulkBackupSheet) { ProjectBulkBackupSheet() }
         .assistantContext(.projects(projects, selected: projects.selectedScans))
     }
 
@@ -165,9 +166,18 @@ struct ProjectsView: View {
         .kmTableSurface()
         .accessibilityIdentifier("projects.table")
         .contextMenu(forSelectionType: ProjectScan.ID.self) { ids in
-            if let p = model.projects.scans.first(where: { ids.contains($0.id) }) {
+            let chosen = model.projects.scans.filter { ids.contains($0.id) }
+            if chosen.count == 1, let p = chosen.first {
                 if p.canBackUp { Button("Back up…") { model.projects.backupTarget = p } }
                 if let url = p.githubURL { Button("Open on GitHub") { NSWorkspace.shared.open(url) } }
+                Button("Reveal in Finder") { FileActions.reveal(Array(ids)) }
+            } else if chosen.count > 1 {
+                let backable = chosen.filter(\.canBackUp)
+                if backable.count > 1 {
+                    Button("Back up \(backable.count) projects…") { model.projects.openBackup(backable) }
+                } else if backable.count == 1 {
+                    Button("Back up…") { model.projects.openBackup(backable) }
+                }
                 Button("Reveal in Finder") { FileActions.reveal(Array(ids)) }
             }
         }
@@ -180,9 +190,21 @@ struct ProjectsView: View {
         if selected.count == 1, let p = selected.first {
             ProjectInspector(project: p, staleDays: staleDays) { model.projects.backupTarget = p }
         } else if selected.count > 1 {
+            let backable = selected.filter(\.canBackUp)
             VStack(alignment: .leading, spacing: 8) {
                 Text("\(selected.count) projects selected").font(.headline)
                 Text(Format.bytes(selected.reduce(0) { $0 + ($1.measure?.bytes ?? 0) })).tabular().foregroundStyle(.kmFgMuted)
+                if !backable.isEmpty {
+                    backUpButton(backable).padding(.top, 6)
+                    let others = selected.count - backable.count
+                    if others > 0 {
+                        Group {
+                            others == 1 ? Text("One of them is already on GitHub or can’t be backed up.")
+                                : Text("\(others) of them are already on GitHub or can’t be backed up.")
+                        }
+                        .font(.callout).foregroundStyle(.kmFgMuted).fixedSize(horizontal: false, vertical: true)
+                    }
+                }
             }
         } else {
             VStack(alignment: .leading, spacing: 10) {
@@ -199,7 +221,38 @@ struct ProjectsView: View {
 
     // MARK: Action bar
 
-    private var actionBar: some View {
+    /// Not backed up and No git are where backups happen; every other filter keeps the Trash bar.
+    @ViewBuilder private var actionBar: some View {
+        if projects.filter == .notBackedUp || projects.filter == .noGit { backupBar } else { trashBar }
+    }
+
+    private var backupBar: some View {
+        let candidates = projects.backUpCandidates
+        let chosen = projects.selectedBackableInFilter
+        return ActionBar {
+            if candidates.isEmpty {
+                Text("Nothing here can be backed up.")
+            } else {
+                Text("\(chosen.count) of \(candidates.count) projects selected, \(Format.bytes(projects.selectedBackableBytes)). You see every command before anything runs.")
+            }
+        } trailing: {
+            if !candidates.isEmpty, chosen.count < candidates.count {
+                Button("Select all") { projects.selectAllBackable() }
+            }
+            backUpButton(chosen)
+                .buttonStyle(.kmPrimary)
+                .disabled(chosen.isEmpty)
+                .accessibilityIdentifier("projects.backup")
+        }
+    }
+
+    private func backUpButton(_ chosen: [ProjectScan]) -> Button<Text> {
+        Button { model.projects.openBackup(chosen) } label: {
+            chosen.count > 1 ? Text("Back up \(chosen.count) projects…") : Text("Back up…")
+        }
+    }
+
+    private var trashBar: some View {
         ActionBar {
             if projects.trashCandidates.isEmpty {
                 if projects.unverifiedCount > 0 {
@@ -211,6 +264,7 @@ struct ProjectsView: View {
                 Text("\(projects.selectedTrashable.count) of \(projects.trashCandidates.count) safe projects selected, \(Format.bytes(projects.selectedBytes)). Projects always go to the Trash.")
             }
         } trailing: {
+            if !projects.selectedBackableInFilter.isEmpty { backUpButton(projects.selectedBackableInFilter) }
             if !projects.trashCandidates.isEmpty, projects.selectedTrashable.count < projects.trashCandidates.count {
                 Button("Select all safe") { projects.selectAllTrashable() }
             }

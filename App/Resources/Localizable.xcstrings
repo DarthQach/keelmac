@@ -837,12 +837,34 @@
       },
       "extractionState": "manual"
     },
+    "%lld of %lld projects selected, %@. You see every command before anything runs.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de %lld proyectos seleccionados, %@. Ves cada comando antes de que se ejecute nada."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "%lld of %lld safe projects selected, %@. Projects always go to the Trash.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld de %lld proyectos seguros seleccionados, %@. Los proyectos siempre van a la Papelera."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "%lld of them are already on GitHub or can’t be backed up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ya están en GitHub o no se pueden respaldar."
           }
         }
       },
@@ -1288,6 +1310,17 @@
       },
       "extractionState": "manual"
     },
+    "Another project here would create %@ too. Give one of them another name.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otro proyecto de esta lista también crearía %@. Ponle otro nombre a uno de ellos."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Answering…": {
       "localizations": {
         "es": {
@@ -1574,6 +1607,28 @@
       },
       "extractionState": "manual"
     },
+    "Back up %lld projects": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldar %lld proyectos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Back up %lld projects…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldar %lld proyectos…"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Back up…": {
       "localizations": {
         "es": {
@@ -1585,12 +1640,34 @@
       },
       "extractionState": "manual"
     },
+    "Backed up %lld of %lld.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldados %lld de %lld."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Backed up to %@.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Respaldado en %@."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Backing up %lld of %lld…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respaldando %lld de %lld…"
           }
         }
       },
@@ -1855,6 +1932,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancelar escaneo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Can’t be backed up from here: %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pueden respaldar desde aquí: %lld"
           }
         }
       },
@@ -2306,6 +2394,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Comando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Commands": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comandos"
           }
         }
       },
@@ -3719,6 +3818,17 @@
       },
       "extractionState": "manual"
     },
+    "Hidden": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Hide Assistant": {
       "localizations": {
         "es": {
@@ -4104,6 +4214,28 @@
       },
       "extractionState": "manual"
     },
+    "KeelMac creates a private repository for %lld of them and pushes the rest to the repositories they already have on GitHub, one project at a time.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac crea un repositorio privado para %lld de ellos y sube el resto a los repositorios que ya tienen en GitHub, un proyecto a la vez."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac creates a private repository for each one and pushes every branch and tag to it, one project at a time.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac crea un repositorio privado para cada uno y sube cada rama y etiqueta, un proyecto a la vez."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "KeelMac creates the private repository %@ and pushes every branch and tag to it.": {
       "localizations": {
         "es": {
@@ -4198,6 +4330,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "KeelMac necesita acceso total al disco para ver cachés, registros y otras carpetas que macOS protege. Nunca lee el contenido de los archivos, salvo para compararlos cuando buscas duplicados."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "KeelMac pushes every branch and tag of each one to the repository it already has on GitHub, one project at a time.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KeelMac sube cada rama y etiqueta de cada uno al repositorio que ya tiene en GitHub, un proyecto a la vez."
           }
         }
       },
@@ -5226,6 +5369,28 @@
       },
       "extractionState": "manual"
     },
+    "New private repository": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repositorio privado nuevo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "New private repository %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repositorio privado nuevo %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "New, %@": {
       "localizations": {
         "es": {
@@ -5776,12 +5941,34 @@
       },
       "extractionState": "manual"
     },
+    "Not started": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin iniciar"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Nothing found": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "No se encontró nada"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Nothing here can be backed up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada de aquí se puede respaldar."
           }
         }
       },
@@ -6068,6 +6255,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una copia de cada archivo se queda donde está. Todo lo que se mueve aparece en el registro de operaciones."
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "One of them is already on GitHub or can’t be backed up.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uno de ellos ya está en GitHub o no se puede respaldar."
           }
         }
       },
@@ -6596,6 +6794,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Subir las etiquetas"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Pushes to %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sube a %@"
           }
         }
       },
@@ -7503,6 +7712,17 @@
       },
       "extractionState": "manual"
     },
+    "Select all": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seleccionar todos"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Select all safe": {
       "localizations": {
         "es": {
@@ -7718,6 +7938,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrando"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Shown": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visibles"
           }
         }
       },
@@ -8053,6 +8284,17 @@
       },
       "extractionState": "manual"
     },
+    "Step %lld of %lld: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paso %lld de %lld: %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Stop": {
       "localizations": {
         "es": {
@@ -8064,12 +8306,34 @@
       },
       "extractionState": "manual"
     },
+    "Stop after this project": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detener después de este proyecto"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
     "Stopped containers and build cache": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Contenedores detenidos y caché de compilación"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Stopping after this project…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deteniendo después de este proyecto…"
           }
         }
       },
@@ -8697,6 +8961,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tardó demasiado y se detuvo"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "Tool output": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salida de la herramienta"
           }
         }
       },

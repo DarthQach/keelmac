@@ -64,6 +64,48 @@ final class ProjectsUITests: XCTestCase {
     }
 
     @MainActor
+    func testBulkBackupSheetListsProjects() {
+        for (theme, language) in [("light", "en"), ("dark", "es")] {
+            let app = launch(theme: theme, language: language, extra: ["-fixture-projects-sheet", "bulkBackup"])
+            let sheet = app.sheets.firstMatch
+            let run = sheet.buttons["projects.backup.bulk.run"]
+            XCTAssertTrue(run.waitForExistence(timeout: 5))
+            XCTAssertTrue(run.isEnabled)
+            if language == "en" { XCTAssertEqual(run.label, "Back up 4 projects") }
+            XCTAssertTrue(sheet.staticTexts["invoice-scripts"].exists)
+            let commands = sheet.buttons.matching(identifier: "projects.backup.bulk.commands")
+            XCTAssertEqual(commands.count, 4)   // one Commands toggle per project
+            attach(app.windows.firstMatch, "projects-bulk-backup-sheet-\(theme)-\(language)")
+            // The first row (game-prototype) pushes to its existing repository; its commands are one click away.
+            commands.firstMatch.click()
+            XCTAssertTrue(sheet.staticTexts.matching(NSPredicate(format: "value CONTAINS 'push --all'")).firstMatch.waitForExistence(timeout: 3))
+            attach(app.windows.firstMatch, "projects-bulk-backup-commands-\(theme)-\(language)")
+            app.typeKey(XCUIKeyboardKey.escape.rawValue, modifierFlags: [])
+            app.terminate()
+        }
+    }
+
+    @MainActor
+    func testNotBackedUpFilterBacksUpTheSelection() {
+        let app = launch()
+        let window = app.windows.firstMatch
+        let segment = window.radioButtons.matching(NSPredicate(format: "label BEGINSWITH 'Not backed up'")).firstMatch
+        XCTAssertTrue(segment.waitForExistence(timeout: 5))
+        segment.click()
+        let backUp = window.buttons["projects.backup"]
+        XCTAssertTrue(backUp.waitForExistence(timeout: 5))
+        XCTAssertFalse(backUp.isEnabled)
+        window.buttons["Select all"].click()
+        XCTAssertTrue(backUp.isEnabled)
+        XCTAssertEqual(backUp.label, "Back up 2 projects…")
+        attach(window, "projects-not-backed-up-selected")
+        backUp.click()
+        XCTAssertTrue(app.sheets.firstMatch.buttons["projects.backup.bulk.run"].waitForExistence(timeout: 5))
+        app.typeKey(XCUIKeyboardKey.escape.rawValue, modifierFlags: [])
+        app.terminate()
+    }
+
+    @MainActor
     func testStates() {
         for state in ["empty", "loading", "error", "unavailable"] {
             let app = launch(extra: ["-fixture-state", state])

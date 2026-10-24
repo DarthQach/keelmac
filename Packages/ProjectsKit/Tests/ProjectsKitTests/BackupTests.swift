@@ -210,6 +210,126 @@ struct BackupExecutorTests {
     }
 }
 
+@Suite("Backup batch")
+struct BackupBatchTests {
+    let gh = "/opt/homebrew/bin/gh"
+
+    func plan(_ name: String) -> BackupPlan {
+        let scan = ProjectScan(path: "/tmp/\(name)", name: name, root: "/tmp", git: nil, github: .notApplicable,
+                               measure: FolderMeasure(bytes: 1, fileCount: 1, newestModified: nil, ownModified: nil, unreadable: 0),
+                               lastChange: nil, isStale: false, verdict: .noGit, removalRefusal: nil, scannedAt: Date())
+        return try! BackupPlanner.plan(for: scan, github: .available(login: "demo", gh: gh), commitMessage: "m",
+                                       fileExists: { _ in true }).get()
+    }
+
+    /// Succeeds everywhere except a push from a folder listed in `failPushIn`.
+    func runner(failPushIn: Set<String> = []) -> RecordingCommandRunner {
+        RecordingCommandRunner { _, args in
+            if args.starts(with: ["repo", "view"]) { return CommandResult(exitCode: 1, stdout: "", stderr: "Could not resolve to a Repository") }
+            if args.contains("push"), args.count > 1, failPushIn.contains(args[1]) {
+                return CommandResult(exitCode: 1, stdout: "", stderr: "fatal: unable to access: Could not resolve host: github.com")
+            }
+            return CommandResult(exitCode: 0, stdout: "", stderr: "")
+        }
+    }
+
+    @Test func runsEachProjectInOrderWithItsOwnLogBatch() async {
+        let a = plan("a"), b = plan("b")
+        let runner = runner()
+        let log = InMemoryOperationLog()
+        let events = EventCollector()
+        let result = await BackupExecutor(runner: runner, log: log)
+            .execute([a, b], title: { "Back up \($0.projectName)" }, onEvent: { events.add($0) })
+        #expect(result.succeeded.map(\.plan) == [a, b])
+        #expect(result.failed.isEmpty && result.notStarted.isEmpty)
+        // Every command of a runs before any command of b.
+        let folders = runner.calls.compactMap { call in ["/tmp/a", "/tmp/b"].first { call.1.contains($0) } }
+        #expect(folders == folders.sorted() && Set(folders) == ["/tmp/a", "/tmp/b"])
+        let entries = await log.entries
+        #expect(Set(entries.map(\.batchID)).count == 2)
+        #expect(Set(entries.filter { $0.title == "Back up a" }.map(\.batchID)).count == 1)
+        let all = events.all
+        #expect(all.first == .started(projectPath: "/tmp/a"))
+        #expect(all.filter { if case .step = $0 { true } else { false } }.count == a.steps.count + b.steps.count)
+        if case .finished(let path, let r)? = all.last { #expect(path == "/tmp/b" && r.succeeded) } else { Issue.record("no finish") }
+    }
+
+    @Test func aFailedProjectDoesNotStopTheNext() async {
+        let a = plan("a"), b = plan("b")
+        let result = await BackupExecutor(runner: runner(failPushIn: ["/tmp/a"]), log: InMemoryOperationLog())
+            .execute([a, b], title: { $0.projectName })
+        #expect(result.failed.map(\.plan) == [a])
+        #expect(result.failed.first?.result?.failure?.status == .failed(.offline))
+        #expect(result.succeeded.map(\.plan) == [b])
+    }
+
+    @Test func stopsBetweenProjectsNeverDuringOne() async {
+        let a = plan("a"), b = plan("b"), c = plan("c")
+        let runner = runner()
+        let events = EventCollector()
+        let result = await BackupExecutor(runner: runner, log: InMemoryOperationLog())
+            .execute([a, b, c], title: { $0.projectName },
+                     shouldStop: { events.all.contains { if case .finished = $0 { true } else { false } } },
+                     onEvent: { events.add($0) })
+        #expect(result.succeeded.map(\.plan) == [a])
+        #expect(result.notStarted.map(\.plan) == [b, c])
+        #expect(runner.calls.count == a.steps.count)
+        #expect(events.all.suffix(2) == [.notStarted(projectPath: "/tmp/b"), .notStarted(projectPath: "/tmp/c")])
+    }
+
+    @Test func flagsProjectsThatWouldCreateTheSameRepository() {
+        let first = plan("My App"), second = plan("my-app"), other = plan("other")
+        #expect(first.repository == "demo/My-App" && second.repository == "demo/my-app")
+        #expect(BackupPlanner.projectsWithDuplicateRepository(in: [first, second, other]) == ["/tmp/My App", "/tmp/my-app"])
+        // Pushing to an existing repository isn't the problem; creating one with its name is.
+        let existing = BackupPlan(projectPath: "/tmp/old", projectName: "old", steps: [], repository: "demo/other", remoteName: "origin",
+                                  createsRepository: false, commits: false, stashesLeft: 0)
+        #expect(BackupPlanner.projectsWithDuplicateRepository(in: [existing, other]) == ["/tmp/other"])
+        #expect(BackupPlanner.projectsWithDuplicateRepository(in: [first, other]).isEmpty)
+    }
+
+    /// Two real folders in one batch: one without git, one whose only remote isn't GitHub (so it gets a `github`
+    /// remote). Each ends up in its own bare "GitHub" repository.
+    @Test func backsUpTwoFoldersWithRealGit() async throws {
+        let fx = Fixture()
+        let runner = FixtureRunner(fx)
+        let sketchBare = fx.bare("remotes/sketch.git"), notesBare = fx.bare("remotes/notes.git")
+        let sketch = fx.dir("home/Developer/sketch")
+        fx.file("home/Developer/sketch/index.html", bytes: 200)
+        let notes = fx.repo("home/Developer/notes")
+        fx.git(["remote", "add", "origin", fx.dir("elsewhere/notes.git")], in: notes)
+        runner.remotes = ["origin": sketchBare, "github": notesBare]
+        runner.gh = { args in
+            if args.starts(with: ["repo", "view"]) { return CommandResult(exitCode: 1, stdout: "", stderr: "Could not resolve to a Repository") }
+            if args.starts(with: ["repo", "create"]), let source = args.firstIndex(of: "--source"), let remote = args.firstIndex(of: "--remote") {
+                return fx.git(["remote", "add", args[remote + 1], "https://github.com/demo/\(args[2]).git"], in: args[source + 1])
+            }
+            return CommandResult(exitCode: 1, stdout: "", stderr: "unexpected")
+        }
+        let scanner = ProjectScanner(runner: runner, pathGuard: fx.pathGuard, gh: gh)
+        let github = GitHubAvailability.available(login: "demo", gh: gh)
+        var plans: [BackupPlan] = []
+        for folder in [sketch, notes] {
+            let scan = await scanner.scan(ProjectEntry(root: fx.developer, path: folder, kind: .directory), options: ProjectScanOptions())
+            plans.append(try BackupPlanner.plan(for: scan, github: github, commitMessage: "Backup").get())
+        }
+        #expect(plans.map(\.remoteName) == ["origin", "github"])
+        #expect(BackupPlanner.projectsWithDuplicateRepository(in: plans).isEmpty)
+
+        let result = await BackupExecutor(runner: runner, log: InMemoryOperationLog()).execute(plans, title: { $0.projectName })
+        #expect(result.succeeded.count == 2, "\(result.failed.map { String(describing: $0.result?.failure) })")
+        #expect(fx.git(["ls-tree", "-r", "--name-only", "main"], in: sketchBare).stdout.contains("index.html"))
+        #expect(fx.git(["ls-tree", "-r", "--name-only", "main"], in: notesBare).stdout.contains("README.md"))
+    }
+}
+
+final class EventCollector: @unchecked Sendable {
+    private let lock = NSLock()
+    private var items: [BackupBatchEvent] = []
+    func add(_ e: BackupBatchEvent) { lock.withLock { items.append(e) } }
+    var all: [BackupBatchEvent] { lock.withLock { items } }
+}
+
 final class Collector: @unchecked Sendable {
     private let lock = NSLock()
     private var items: [BackupStepOutcome.Status] = []

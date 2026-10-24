@@ -275,6 +275,7 @@ KeelMac/
 | 3 | App: `Preferences` keys (`projectRoots` = `~/Developer`, `projectStaleDays` = 180, `projectsVerifyGitHub` = off), `ProjectsModel`, `ProjectsView` (filter, table, inspector, action bar), `ProjectTrashSheet`, `ProjectBackupSheet`, `ProjectStrings`; route `.projects` (Clean, no shortcut), `keelmac://open/projects` |
 | 4 | Settings › Cleanup and safety › Projects (folders, stale days, Verify with GitHub with the privacy footer); Updates footer and `Updater` privacy copy; `.assistantContext(.projects)`, read-only `list_projects` tool that never starts a check; visual fixtures for every status and state; Spanish strings |
 | 5 | Docs (brief C34, stack, contracts, design S22, this plan, AGENTS, README, site privacy); `KeelMacTests/ProjectsTests`, `ProjectsUITests`, Projects in `NavigationUITests` and `RevampUITests` |
+| 6 | Bulk backup (2026-10-23): `BackupExecutor.execute(_ plans:…)` runs a batch one project at a time, continues past failures, stops between projects; `BackupPlanner.projectsWithDuplicateRepository`; `ProjectBulkBackupSheet` (one preview of every repository and command, per-project status, Stop, results); Back up N projects… from the action bar (Not backed up / No git filters), the context menu and the inspector; `-fixture-projects-sheet bulkBackup`; batch tests on real git |
 
 ## Build results (2026-10-22)
 | Check | Result |
