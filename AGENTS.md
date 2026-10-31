@@ -20,6 +20,7 @@ Read this before changing code. Source-of-truth documents live in `docs/forge/` 
 | Regenerate colours | `node scripts/tokens.mjs --write` |
 | Update the string catalog | build, then `node scripts/strings.mjs --write` |
 | Deploy the site | `cd site && node build.mjs && node check.mjs && npx wrangler deploy` |
+| CI / release | started by hand only: Actions › CI › Run workflow; for a release push the `v*` tag, then Actions › Release › Run workflow with it. macOS runners, so nothing runs on push or PR; run `bash scripts/mac.sh test` before pushing. |
 
 ## Conventions
 - Every removal goes through `SafetyKit.SafeRemover` with the right `PathContext`; every external command through `CommandRunning` (absolute executable + argument array, never a shell string).

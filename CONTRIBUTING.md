@@ -35,4 +35,4 @@ Rules can never reach protected locations: `PathGuard` refuses them regardless o
 
 ## Pull requests
 
-Keep them focused, describe what a user can now do, and include screenshots for UI changes (light and dark). CI must pass.
+Keep them focused, describe what a user can now do, and include screenshots for UI changes (light and dark). Run `bash scripts/mac.sh test` before opening one: CI runs on macOS runners, so it doesn't start on its own, and a maintainer starts it for your PR.

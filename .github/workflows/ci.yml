@@ -1,8 +1,7 @@
 name: CI
+# macOS runner, so manual runs only (Actions › CI › Run workflow); run `bash scripts/mac.sh test` locally before pushing.
 on:
-  push:
-    branches: [main]
-  pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}

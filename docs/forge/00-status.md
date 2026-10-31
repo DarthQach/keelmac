@@ -11,7 +11,7 @@ created: 2026-10-22
 
 **One-liner:** Keep your Mac fast and roomy: see what's happening, clean safely, and never pay a subscription.
 **Live:** https://keelmac.flowrunnerapp.workers.dev (landing + appcast)
-**Next step:** Carlos installs `dist/KeelMac-1.0.0.dmg`, grants Full Disk Access, approves the helper, then adds Developer ID + notary secrets and tags v1.0.0.
+**Next step:** Carlos installs `dist/KeelMac-1.0.0.dmg`, grants Full Disk Access, approves the helper, then adds Developer ID + notary secrets, pushes the v1.0.0 tag and runs Actions › Release with it.
 
 ## Documents
 - [01 · Brief](01-brief.md)
